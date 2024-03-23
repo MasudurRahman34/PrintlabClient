@@ -3,8 +3,8 @@ import ClientHeader from "../Header/ClientHeader";
 
 const ClientLayout = ({ children }) => {
   return (
-    <section className="flex flex-col w-full min-h-screen bg-quaternary">
-      <header className="h-32 ">
+    <section className="flex flex-col w-full min-h-screen bg-gray-50">
+      <header className="h-auto ">
         <ClientHeader />
       </header>
       <main className="flex-1 ">{children}</main>
