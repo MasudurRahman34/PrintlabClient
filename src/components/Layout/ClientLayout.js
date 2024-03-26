@@ -1,5 +1,6 @@
 import React from "react";
 import ClientHeader from "../Header/ClientHeader";
+import ClientFooter from "../Footer/ClientFooter";
 
 const ClientLayout = ({ children }) => {
   return (
@@ -8,7 +9,9 @@ const ClientLayout = ({ children }) => {
         <ClientHeader />
       </header>
       <main className="flex-1 ">{children}</main>
-      <footer className="bg-red-700 min-h-40"></footer>
+      <footer className="bg-ternary-100 min-h-40">
+        <ClientFooter />
+      </footer>
     </section>
   );
 };
