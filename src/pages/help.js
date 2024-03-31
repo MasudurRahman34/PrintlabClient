@@ -140,15 +140,16 @@ const help = () => {
         <div>
           <div className="grid-cols-3 gap-4 space-y-6 text-sm text-center text-white rounded-sm sm:grid sm:space-y-0 ">
             {helpLinking.map((helpLink) => (
-              <div
+              <Link
                 key={helpLink.id}
+                href={helpLink.href}
                 className="flex items-center justify-center w-full h-40 p-4 hover:bg-primary-light bg-primary-dark"
               >
-                <Link href={helpLink.href}>
+                <div>
                   <h2 className="text-xl font-semibold">{helpLink.title}</h2>
                   <p className="mt-2">{helpLink.desc}</p>
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
