@@ -5,11 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import pen1 from "../../public/assets/pen1.jpg"
-import pen2 from "../../public/assets/pen2.jpg"
+import pen1 from "../../../../public/assets/pen1.jpg"
+import pen2 from "../../../../public/assets/pen2.jpg"
 const bestsell = () => {
   return (
-    <ClientLayout>
+    <>
   <div className="bg-[#F0F2F2]">
   <div className="container mx-auto py-5 ">
         <div className="col-span-12 md:col-span-6 xxl:!col-span-4">
@@ -154,7 +154,7 @@ const bestsell = () => {
         </div>
       </div>
   </div>
-    </ClientLayout>
+    </>
   );
 };
 
