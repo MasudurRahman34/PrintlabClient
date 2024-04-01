@@ -1,6 +1,6 @@
 import Image from "next/image";
-import busness1 from "../../public/assets/bisness.png"
-import busness2 from "../../public/assets/busness2.png"
+import busness1 from "../../../../public/assets/bisness.png"
+import busness2 from "../../../../public/assets/busness2.png"
 
 const business = () => {
     return (
