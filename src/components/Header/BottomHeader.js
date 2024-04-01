@@ -62,7 +62,7 @@ const menuCategories = [
 const BottomHeader = () => {
   return (
     <section class="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300 header">
-      <div class="container">
+      <div className="w-full">
         <div class="row v-center">
           {/* <!-- menu start here --> */}
           <div class="header-item item-center">
