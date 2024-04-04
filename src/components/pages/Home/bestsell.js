@@ -86,68 +86,7 @@ const bestsell = () => {
 
                 <div className="mt-3">
                   <div className="mt-5">
-                    {/* <Swiper
-                    slidesPerView={3}
-                    spaceBetween={50}
-                    navigation={true}
-                    mousewheel={true}
-                    keyboard={true}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    breakpoints={{
-                      640: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                      },
-                      768: {
-                        slidesPerView: 2,
-                        spaceBetween: 40,
-                      },
-                      1024: {
-                        slidesPerView: 3.5,
-                        spaceBetween: 50,
-                      },
-                    }}
-                    modules={[Pagination]}
-                    className="mySwiper"
-                  >
-                    <SwiperSlide className=" md:mr-0">
-                      <div class="overflow-hidden border-md border-b-2 border-solid border-[#D3D5D5] bg-[#FAFFFF]  !shadow-lg h-[310px]  w-[264px] max-w-[264px] min-w-[264px]">
-                        <div className=" w-full h-[260px]">
-                          <Image
-                            className=" object-cover w-full h-full bg-[#D5CAC6] "
-                            src={pen1}
-                            class="card-img-top"
-                            alt="img"
-                            height={260}
-                            width={254}
-                          />
-                        </div>
-                        <p className="text-center py-4 text-base overflow-hidden text-[#4D5662] hover:underline">
-                          Pens
-                        </p>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide className=" md:mr-0">
-                      <div class="overflow-hidden border-md border-b-2 border-solid border-[#D3D5D5] bg-[#FAFFFF]  !shadow-lg h-[310px]  w-[264px] max-w-[264px] min-w-[264px]">
-                        <div className=" w-full h-[260px]">
-                          <Image
-                            className=" object-cover w-full h-full bg-[#D5CAC6] "
-                            src={pen2}
-                            class="card-img-top"
-                            alt="img"
-                            height={260}
-                            width={254}
-                          />
-                        </div>
-                        <p className="text-center py-4 text-base overflow-hidden text-[#4D5662] hover:underline">
-                          Pens
-                        </p>
-                      </div>
-                    </SwiperSlide>
-                
-                  </Swiper> */}
+                 
                     <Swiper
                       watchSlidesProgress={true}
                       navigation={true}
