@@ -2,7 +2,7 @@
 const packs_banner = () => {
   return (
     <div
-      className="w-full h-[350px] md:h-[440px] bg-cover bg-no-repeat static"
+      className="w-full h-[350px] md:h-[440px] bg-cover bg-center bg-no-repeat static"
       style={{backgroundImage: 'url(https://i.ibb.co/WFLWMZL/Background3.png)'}}
     >
       <div className="container flex mx-auto">

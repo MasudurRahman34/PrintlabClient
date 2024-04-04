@@ -1,7 +1,7 @@
 const designeBannar = () => {
     return (
       <div
-        className="w-full h-[400px] md:h-[500px] bg-cover bg-no-repeat static"
+        className="w-full h-[400px] md:h-[500px] bg-cover bg-center  bg-no-repeat static"
         style={{backgroundImage: 'url(https://i.ibb.co/rw33pJ9/Background2.png)'}}
       >
         <div className="container flex mx-auto">

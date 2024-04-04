@@ -2,7 +2,7 @@ import React from "react";
 
 const tradeprints = () => {
   return (
-    <div  className="w-full h-full bg-cover bg-no-repeat static"
+    <div  className="w-full h-full bg-cover bg-no-repeat bg-center static"
     style={{backgroundImage: 'url(https://i.ibb.co/WFLWMZL/Background3.png)'}}>
       <div className="container  mx-auto py-10">
         <div className=" grid grid-cols-1 md:grid-cols-2  text-start  ">
@@ -21,7 +21,7 @@ const tradeprints = () => {
               To find out more, click the Sign Up button below & start saving today. 
               </p>
               <button className="text-center w-full md:w-[50%] text-base text-white font-bold bg-[#8BBA72] hover:bg-[#C5DDB9] py-3  px-16 md:px-1 md:py-4 border-none rounded-md">
-                Order Yours Now
+                Sign up Now
               </button>
             </div>
           </div>
