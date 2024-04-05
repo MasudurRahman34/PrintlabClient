@@ -9,7 +9,7 @@ const ClientLayout = ({ children }) => {
         <ClientHeader />
       </header>
       <main className="flex-1 ">{children}</main>
-      <footer className="bg-secondary min-h-40">
+      <footer className="bg-secondgraphy min-h-40">
         <ClientFooter />
       </footer>
     </section>

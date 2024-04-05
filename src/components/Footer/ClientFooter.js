@@ -52,7 +52,7 @@ const navItems = [
 const ClientFooter = () => {
   return (
     <>
-      <section className="container py-5 mx-auto text-secondary-text">
+      <section className="container py-5 mx-auto text-white">
         <div className="flex items-center justify-between max-w-5xl py-5 mx-auto space-x-3 text-primary-text ">
           <div className="flex-1">
             <p className="text-sm">
@@ -91,7 +91,10 @@ const ClientFooter = () => {
                 <ul className="space-y-2">
                   {navItem.links.map((link, index) => (
                     <li key={index}>
-                      <a href={link.href} className="text-sm text-secondgraphy">
+                      <a
+                        href={link.href}
+                        className="text-sm hover:text-primary"
+                      >
                         {link.name}
                       </a>
                     </li>
@@ -175,8 +178,8 @@ const ClientFooter = () => {
           </div>
         </div>
       </section>
-      <section className="bg-ternary-200">
-        <div className="container py-5 mx-auto text-secondgraphy">
+      <section className="text-white bg-typography">
+        <div className="container py-5 mx-auto ">
           <div className="flex py-5 item">
             <div className="flex items-center flex-1 gap-4">
               <div className="flex items-center space-x-2 text-xl">

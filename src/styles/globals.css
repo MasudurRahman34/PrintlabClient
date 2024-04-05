@@ -5,6 +5,7 @@
 @layer base {
   html {
     --color-primary: #ffd333;
+    --color-primary-dark: #cfa239;
     --color-primary-light: #fce07d;
     --color-secondary: #f9f9f9;
     --color-buttons: #ffd333;
