@@ -2,20 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-
-  font-style: normal;
-} */
-
-/* Header style */
+@layer base {
+  html {
+    --color-primary: #ffd333;
+    --color-secondary: #f9f9f9;
+    --color-buttons: #ffd333;
+    --color-typography: #3d464d;
+    --color-secondgraphy: #1c4454;
+  }
+}
 
 body {
   line-height: 1.5;
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   overflow-x: hidden;
+  color: var(--color-primary-text);
 }
 * {
   margin: 0;

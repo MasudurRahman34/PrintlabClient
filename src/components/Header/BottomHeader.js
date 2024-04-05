@@ -61,7 +61,7 @@ const menuCategories = [
 
 const BottomHeader = () => {
   return (
-    <section class="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300 header">
+    <section class="flex items-center justify-between h-20 gap-10 px-5 border-b bg-primary border-gray-300 header">
       <div className="w-full">
         <div class="row v-center">
           {/* <!-- menu start here --> */}
