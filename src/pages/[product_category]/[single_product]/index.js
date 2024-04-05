@@ -5,8 +5,13 @@ import prodct1 from "../../../../public/assets/mug1.webp";
 import prodct2 from "../../../../public/assets/mug2.webp";
 import prodct3 from "../../../../public/assets/detailspolosy.png";
 import Image from "next/image";
+import ColorRadio from "@/components/pages/SingleProduct/ColorRadio";
+import Quantity from "@/components/pages/SingleProduct/Quantity";
+import Meterials from "@/components/pages/SingleProduct/Meterials";
+import Lamination from "@/components/pages/SingleProduct/Lamination";
 
-const color = ["#252351", "#9AC285", "#CFE0CC", "#99CE81"];
+import DeliveryChoose from "@/components/pages/SingleProduct/DeliveryChoose";
+import PrintType from "@/components/pages/SingleProduct/PrintType";
 
 const product = {
   id: 1,
@@ -75,41 +80,45 @@ const index = () => {
                 Bamboo Ballpoint Pen
               </h1>
             </div>
-            <div>
+            <div className="py-5">
+              <ColorRadio />
+              <Quantity />
+              <Meterials />
+              <Lamination />
               <div>
-                <p>
-                  <strong>Colour</strong> Natural/Green
+                <p className="text-secondgraphy">
+                  Prices shown are exclusive of VAT
                 </p>
-                <div className="flex gap-2">
-                  <div className="bg-[#252351] h-10 w-10 border rounded-md"></div>
-                  {color.map((item, index) => (
-                    <div
-                      className={`bg-[${item}] h-10 w-10 border rounded-md`}
-                      key={index}
-                    ></div>
-                  ))}
-                </div>
               </div>
             </div>
-            <div></div>
+            <div className="py-5">
+              <DeliveryChoose />
+              <PrintType />
+            </div>
             <div className="p-2">
-              <div>
+              <div className="flex items-center justify-between w-full gap-5">
                 <div>
-                  <strong>Estimated TOTAL</strong>
-                  <p>Price shown are exlusive of VAT</p>
+                  <h1>
+                    <strong className="text-2xl">Estimated TOTAL</strong>
+                    <p>Price shown are exclusive of VAT</p>
+                  </h1>
                 </div>
-                <div>
-                  <p>
-                    <strong>£0.00</strong> Ex VAT
+                <div className="text-right">
+                  <p className="text-sm">
+                    <strong className="text-xl font-bold"> 17.17 </strong> Ex
+                    VAT
                   </p>
-                  <p>
-                    <strong>£0.00</strong> Inc VAT
+                  <p className="text-xs">
+                    <strong>17.17</strong> Inc VAT
                   </p>
-
-                  <p>Use the toggle at the top to change VAT preferences</p>
+                  <p className="text-xs">
+                    use the toggle at the top to change VAT preferences
+                  </p>
                 </div>
-                <button className="w-full py-3 font-bold text-white rounded-md bg-primary-dark">
-                  <span>Add to basket</span>
+              </div>
+              <div className="py-5">
+                <button className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150">
+                  Add to basket
                 </button>
               </div>
             </div>
@@ -118,14 +127,14 @@ const index = () => {
         <div className="">
           <div className="mt-10">
             <div class="box-body">
-              <div className="bg-[#CFE0CC]">
+              <div className="bg-primary-light">
                 <nav
-                  className="container mx-auto  flex space-x-2 rtl:space-x-reverse bg-[#CFE0CC]  text-[#2B2B2B] leading-5 text-base "
+                  className="container mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base "
                   aria-label="Tabs"
                 >
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-[#99CE81] font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
                     id="pills-on-gray-color-item-1"
                     data-hs-tab="#pills-on-gray-color-1"
                     aria-controls="pills-on-gray-color-1"
@@ -134,7 +143,7 @@ const index = () => {
                   </button>
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-[#99CE81] font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
                     id="pills-on-gray-color-item-2"
                     data-hs-tab="#pills-on-gray-color-2"
                     aria-controls="pills-on-gray-color-2"
@@ -143,7 +152,7 @@ const index = () => {
                   </button>
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-[#99CE81] font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
                     id="pills-on-gray-color-item-3"
                     data-hs-tab="#pills-on-gray-color-3"
                     aria-controls="pills-on-gray-color-3"

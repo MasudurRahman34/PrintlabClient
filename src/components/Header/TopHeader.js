@@ -1,12 +1,20 @@
 import Link from "next/link";
 import React from "react";
 import Switcher1 from "./Switcher";
+import Image from "next/image";
 
 const TopHeader = () => {
   return (
     <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
       <div className="text-black">
-        <h1>TRADEPRINT</h1>
+        <Link href="/">
+          <Image
+            src="/assets/logo/printlab-logo.jpg"
+            width={100}
+            height={100}
+            alt="logo"
+          />
+        </Link>
       </div>
       <div className="flex-1">
         <div className="bg-white border-2 border-black rounded-full cursor-pointer">

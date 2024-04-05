@@ -21,6 +21,7 @@ module.exports = {
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",
         secondgraphy: "var(--color-secondgraphy)",
+        "primary-light": "var(--color-primary-light)",
         buttons: "var(--color-buttons)",
         typography: "var(--color-typography)",
       },
