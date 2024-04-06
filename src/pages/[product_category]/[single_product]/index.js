@@ -12,6 +12,9 @@ import Lamination from "@/components/pages/SingleProduct/Lamination";
 
 import DeliveryChoose from "@/components/pages/SingleProduct/DeliveryChoose";
 import PrintType from "@/components/pages/SingleProduct/PrintType";
+import SinglePageAccordion from "@/components/pages/SingleProduct/Accordion";
+import Commitment from "@/components/Commitment";
+import TotalCounter from "@/components/pages/SingleProduct/TotalCounter";
 
 const product = {
   id: 1,
@@ -48,7 +51,7 @@ const SLIDES = Array.from(Array(product.images.length).keys());
 const index = () => {
   return (
     <ClientLayout>
-      <section className="container w-full py-10 mx-auto">
+      <section className="w-full py-10 custom_container ">
         <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
           <div className="max-w-xl p-4 lg:border-r-2 border-secondgraphy">
             <div>
@@ -72,6 +75,9 @@ const index = () => {
                 magni eius nam corrupti alias exercitationem deleniti magnam
                 eos. Ipsam, eaque aliquid!
               </p>
+            </div>
+            <div>
+              <SinglePageAccordion />
             </div>
           </div>
           <div className="flex-1">
@@ -124,12 +130,15 @@ const index = () => {
             </div>
           </div>
         </div>
+        <div>
+          <Commitment />
+        </div>
         <div className="">
           <div className="mt-10">
             <div class="box-body">
               <div className="bg-primary-light">
                 <nav
-                  className="container mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base "
+                  className="mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base "
                   aria-label="Tabs"
                 >
                   <button
@@ -161,7 +170,7 @@ const index = () => {
                   </button>
                 </nav>
               </div>
-              <div class="mt-3 container mx-auto">
+              <div class="mt-3 ">
                 <div
                   id="pills-on-gray-color-1"
                   role="tabpanel"
@@ -297,6 +306,7 @@ const index = () => {
           </div>
         </div>
       </section>
+      <TotalCounter />
     </ClientLayout>
   );
 };

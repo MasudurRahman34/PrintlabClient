@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const showcaseData = [
   {
@@ -35,32 +36,37 @@ const showcaseData = [
   },
 ];
 
-const ShowCase = ({ title, subTitle, list }) => {
+const ShowCase = ({ title, subTitle, list, bg }) => {
   return (
-    <section className="container mx-auto">
-      <div className="max-w-4xl py-3 mx-auto text-center">
-        <h1 className="text-xl font-semibold">{title}</h1>
-        <p>{subTitle}</p>
-      </div>
-      <div className="grid grid-cols-4 gap-4 py-5">
-        {showcaseData.map((item) => (
-          <div
-            key={item.id}
-            className="flex flex-col transition-all duration-300 bg-white hover:shadow-md"
-          >
-            <div className="w-full h-full">
-              <img
-                src={item.img}
-                alt={item.title}
-                className="object-cover w-full h-56"
-              />
-            </div>
-            <div className="w-full p-3 text-center rounded-md">
-              <h2 className="text-xl font-semibold">{item.title}</h2>
-              <p className="mt-2">{item.desc}</p>
-            </div>
-          </div>
-        ))}
+    <section className={`${bg ? "bg-secondary" : ""}`}>
+      <div className="custom_container text-secondgraphy">
+        <div className="max-w-4xl py-3 mx-auto text-center">
+          <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
+            {title}
+          </h1>
+          <p className="mt-2 text-sm">{subTitle}</p>
+        </div>
+        <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {showcaseData.map((item) => (
+            <Link
+              href={item.link}
+              key={item.id}
+              className="flex flex-col transition-all duration-300 bg-white hover:shadow-primary hover:shadow-md"
+            >
+              <div className="w-full h-full">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="object-cover w-full h-56"
+                />
+              </div>
+              <div className="w-full p-3 text-center rounded-md">
+                <h2 className="text-xl font-semibold">{item.title}</h2>
+                <p className="mt-2">{item.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -17,6 +17,7 @@ const index = () => {
       <ShowCase
         title="Printed Travel Mugs"
         subTitle="Check out our range of Personalised Printed Ceramic Mugs. With a range of colours of colours to choose from you wont struggle find one to boost your brand or create stunning gifts."
+        bg
       />
       <ShowCase
         title="Sports Bottle Printing"

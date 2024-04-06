@@ -18,12 +18,6 @@ const DeliveryChoose = () => {
     <>
       <div className="flex items-center justify-between w-full pb-3">
         <h1 className="font-bold text-typography">Choose Delivery</h1>
-        <div>
-          <div className="flex items-center space-x-2">
-            <Label htmlFor="airplane-mode">Pricing Grid View</Label>
-            <Switch id="airplane-mode" />
-          </div>
-        </div>
       </div>
       <div className="flex items-stretch justify-between gap-3 pb-8">
         {deliveryOptions.map((option) => (
