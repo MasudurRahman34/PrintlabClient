@@ -12,32 +12,32 @@ const Checkout = () => {
       <div className="container mx-auto">
         <div className="flex justify-center gap-[50px] overflow-auto mt-5 ">
           <div>
-            <div className="text-center mx-auto flex justify-center items-center  mb-2 group hover:bg-[#1B4353] p-5 rounded-full  ">
-              <FaShoppingBasket className="text-xl md:text-2xl lg:text-3xl font-bold  text-[#1B4353] group-hover:text-white text-center" />
+            <div className="flex items-center justify-center p-5 mx-auto mb-2 text-center rounded-full group hover:bg-secondgraphy ">
+              <FaShoppingBasket className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secondgraphy group-hover:text-white" />
             </div>
             <h6 className="text-sm md:text-base font-medium text-center ml-1 text-[#2b2b2b] mt-0 ">
               Basket
             </h6>
           </div>
           <div>
-            <div className="text-center mx-auto flex justify-center items-center mb-2 group hover:bg-[#1B4353] p-5 rounded-full  ">
-              <IoCloudUploadOutline className="text-xl md:text-2xl lg:text-3xl  font-bold  text-[#1B4353] group-hover:text-white text-center" />
+            <div className="flex items-center justify-center p-5 mx-auto mb-2 text-center rounded-full group hover:bg-secondgraphy ">
+              <IoCloudUploadOutline className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
             </div>
             <h6 className=" text-sm md:text-base font-medium text-center ml-1 text-[#2b2b2b] mt-0 ">
               Upload Artwork
             </h6>
           </div>
           <div>
-            <div className="text-center mx-auto flex justify-center  mb-2 group hover:bg-[#1B4353] p-5 rounded-full  ">
-              <TbTruckDelivery className="text-xl md:text-2xl lg:text-3xl  font-bold  text-[#1B4353] group-hover:text-white text-center" />
+            <div className="flex justify-center p-5 mx-auto mb-2 text-center rounded-full group hover:bg-secondgraphy ">
+              <TbTruckDelivery className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
             </div>
             <h6 className="text-sm md:text-base font-medium text-center ml-1 text-[#2b2b2b] mt-0 ">
               Delivery & Payment
             </h6>
           </div>
           <div>
-            <div className="text-center mx-auto flex justify-center mb-2 group hover:bg-[#1B4353] p-5 rounded-full  ">
-              <MdOutlineAutoDelete className="text-xl md:text-2xl lg:text-3xl   font-bold  text-[#1B4353] group-hover:text-white text-center" />
+            <div className="flex justify-center p-5 mx-auto mb-2 text-center rounded-full group hover:bg-secondgraphy ">
+              <MdOutlineAutoDelete className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
             </div>
             <h6 className="text-sm md:text-base font-medium text-center ml-1 text-[#2b2b2b] mt-0 ">
               Order seccess
@@ -45,13 +45,13 @@ const Checkout = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#1B4353] mb-5">
+          <h2 className="mb-5 text-xl font-bold md:text-2xl lg:text-3xl xl:text-4xl text-secbg-secondgraphy">
             Basket (1)
           </h2>
           <hr className="mb-5" />
         </div>
         <div className="lg:flex ">
-          <div className="order-table w-full lg:w-8/12">
+          <div className="w-full order-table lg:w-8/12">
             <div className="flex justify-between">
               <div className="flex ">
                 <h5 className="text-base font-normal text-[#8F9391]">
@@ -68,12 +68,12 @@ const Checkout = () => {
                 </h5>
               </div>
             </div>
-            <div className="checkout-title flex justify-between">
-              <div className="flex gap-5 bg-[#1B4353] px-10 py-2 rounded-md">
-                <p className="text-white text-base font-medium text-center mt-3 ">
+            <div className="flex justify-between checkout-title">
+              <div className="flex gap-5 px-10 py-2 rounded-md bg-secondgraphy">
+                <p className="mt-3 text-base font-medium text-center text-white ">
                   Get 1 more copies for only £6.00
                 </p>
-                <button className="px-8 py-3 rounded-md bg-[#99CE81] text-center font-bold text-white text-base">
+                <button className="px-8 py-3 text-base font-bold text-center text-white rounded-md bg-primary">
                   Upgrate
                 </button>
               </div>
@@ -81,7 +81,7 @@ const Checkout = () => {
                 <AiOutlineDelete className="text-2xl  text-[#AAAAAA] hover:text-[black]" />
               </button>
             </div>
-            <div className="checkout-details  ps-12 pr-16 mt-5">
+            <div className="pr-16 mt-5 checkout-details ps-12">
               <div className="flex justify-between text-center bg-[#F0F2F2] px-2 py-4 rounded-md">
                 <h4 className="text-base font-bold text-[#333]">Job Details</h4>
                 <button className="text-2xl">
@@ -216,11 +216,11 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-          <div className="order-info w-full lg:w-4/12 px-10">
-            <div className="text-base font-bold px-4 py-2 bg-gray-300">
+          <div className="w-full px-10 order-info lg:w-4/12">
+            <div className="px-4 py-2 text-base font-bold bg-gray-300">
               <h4>Order Summry</h4>
             </div>
-            <div className=" px-5 mb-5">
+            <div className="px-5 mb-5 ">
               <div className="flex justify-between">
                 <div className="order-card">
                   <p className="mt-4 mb-1 text-sm font-bold text-[#2B2B2B] ">
@@ -243,20 +243,22 @@ const Checkout = () => {
                   </p>
                 </div>
               </div>
-              <button className="w-full mt-5 text-base font-bold rounded-md text-center py-2 bg-[#8BBA72]">
+              <button className="w-full py-2 mt-5 text-base font-bold text-center rounded-md bg-primary">
                 Checkout
               </button>
             </div>
-            <div className="mb-5 px-5">
-              <div className="px-4 flex justify-between gap-2 py-2 bg-[#eaf7e6] ">
-                <h4  className="text-sm font-bold text-[#333]" >Redeem Tradeprint Credits</h4>
+            <div className="px-5 mb-5">
+              <div className="flex justify-between gap-2 px-4 py-2 bg-primary-light ">
+                <h4 className="text-sm font-bold text-[#333]">
+                  Redeem Tradeprint Credits
+                </h4>
                 <button>
                   <VscDiffAdded className="text-2xl" />
                 </button>
               </div>
             </div>
             <div className="px-5 mb-5 ">
-              <div className="flex justify-between gap-2 py-2 px-4 bg-[#eaf7e6]">
+              <div className="flex justify-between gap-2 px-4 py-2 bg-primary-light">
                 <h4 className="text-sm font-bold text-[#333]">
                   Add Discount Code
                 </h4>
@@ -266,11 +268,21 @@ const Checkout = () => {
               </div>
               <div className="mt-5 mb-5">
                 <form className="border rounded-md">
-                  <input className=" border-none px-1 rounded-s-md w-[70%] py-1 " type="text" placeholder="Enter code" />
-                  <input className="px-2 w-[30%] text-white bg-[#99CE81] rounded-r-md py-2 text-sm font-bold" type="submit" value="Apploy" />
+                  <input
+                    className=" border-none px-1 rounded-s-md w-[70%] py-1 "
+                    type="text"
+                    placeholder="Enter code"
+                  />
+                  <input
+                    className="px-2 w-[30%] text-white bg-primary rounded-r-md py-2 text-sm font-bold"
+                    type="submit"
+                    value="Apploy"
+                  />
                 </form>
               </div>
-              <button className="w-full text-center py-1 rounded-md text-base font-bold text-[#B2B2B2B] border">Countinus Shopping </button>
+              <button className="w-full py-1 text-base font-bold text-center border rounded-md text-secondgraphy bg-primary-light border-primary hover:bg-primary">
+                Countinus Shopping{" "}
+              </button>
             </div>
           </div>
         </div>
