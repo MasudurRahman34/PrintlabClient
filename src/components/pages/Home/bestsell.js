@@ -190,7 +190,7 @@ const bestsell = () => {
                     {bestSells.map((bestSell, index) => (
                       <SwiperSlide key={index} virtualIndex={index}>
                         <Link href={bestSell.href}>
-                          <div className="transition-all duration-150 border w-72 h-80 hover:shadow-md">
+                          <div className="transition-all duration-150 border shadow-primary w-72 h-80 hover:shadow-md">
                             <div className="w-full h-[80%]">
                               <Image
                                 className="object-cover w-full h-full"
@@ -202,7 +202,7 @@ const bestsell = () => {
                               />
                             </div>
                             <div className="flex h-[20%] items-center justify-center">
-                              <p className="text-base font-medium text-center text-secondgraphy hover:underline">
+                              <p className="text-base font-medium text-center text-secondgraphy hover:underline hover:text-primary">
                                 Pens
                               </p>
                             </div>

@@ -9,32 +9,38 @@ const commitment = [
   {
     id: 1,
     name: "Fast, Reliable Delivery",
-    icon: <TbTruckDelivery className="text-secondgraphy w-7 h-7 " />,
+    icon: (
+      <TbTruckDelivery className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />
+    ),
   },
   {
     id: 2,
     name: "Highly Competitive Prices",
-    icon: <TbCurrencyTaka className="text-secondgraphy w-7 h-7 " />,
+    icon: (
+      <TbCurrencyTaka className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />
+    ),
   },
   {
     id: 3,
     name: "Commitment to High Quality",
-    icon: <GoTrophy className="text-secondgraphy w-7 h-7 " />,
+    icon: <GoTrophy className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />,
   },
   {
     id: 4,
     name: "Tradeprint PRO for Trade Professionals",
-    icon: <GiTrophyCup className="text-secondgraphy w-7 h-7 " />,
+    icon: <GiTrophyCup className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />,
   },
   {
     id: 5,
     name: "White Label Shipping",
-    icon: <BsBoxSeamFill className="text-secondgraphy w-7 h-7 " />,
+    icon: (
+      <BsBoxSeamFill className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />
+    ),
   },
   {
     id: 6,
     name: "A Focus on Sustainability",
-    icon: <GiTreeGrowth className="text-secondgraphy w-7 h-7 " />,
+    icon: <GiTreeGrowth className="w-4 h-4 text-secondgraphy md:w-7 md:h-7 " />,
   },
 ];
 
@@ -43,11 +49,11 @@ const Commitment = () => {
     <div className="py-5">
       <div className="flex items-center justify-between overflow-x-auto ">
         {commitment.map((item, index) => (
-          <div className="flex items-center space-x-2" key={index}>
+          <div className="flex items-center space-x-3" key={index}>
             <span className="flex items-center justify-center w-12 h-12 rounded-full bg-primary">
               {item.icon}
             </span>
-            <p className="max-w-[140px] text-sm">{item.name}</p>
+            <p className="max-w-[140px] min-w-[120px] text-sm">{item.name}</p>
           </div>
         ))}
       </div>

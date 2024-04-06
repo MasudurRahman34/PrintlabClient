@@ -18,7 +18,7 @@ export default function Home() {
       <Achievement />
       <Bestsell />
       <Tradeprint />
-      <Design />
+
       <Business />
       <Packs_banner />
     </ClientLayout>

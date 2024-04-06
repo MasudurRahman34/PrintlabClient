@@ -9,18 +9,18 @@ const HeroSlider = () => {
       <Swiper navigation={true} modules={[Navigation]} className=" mySwiper">
         <SwiperSlide>
           <img
+            src="assets/images/Large Format Banner - desktop V2.webp"
+            alt=""
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
             src="assets/images/Brand Refresh - HOME Banner - Editable - Carole APPROVED copy.webp"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <img src="assets/images/BC homepage.webp" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="assets/images/Large Format Banner - desktop V2.webp"
-            alt=""
-          />
         </SwiperSlide>
       </Swiper>
     </div>
