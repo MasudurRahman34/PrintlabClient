@@ -2,12 +2,12 @@ import React from "react";
 
 const TotalCounter = () => {
   return (
-    <section className="fixed bottom-0 left-0 w-full border-2 h-28 bg-secondary border-primary">
-      <div className="custom_container">
-        <div className="flex items-center justify-center gap-5">
-          <div className="flex-1 text-end">
+    <section className="fixed bottom-0 left-0 w-full border-2 bg-secondgraphy border-primary">
+      <div className="container py-3">
+        <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
+          <div className="flex-1 text-white text-end ">
             <p>
-              <strong>Fri. 12th Apr £10.89</strong> Ex Vat
+              <strong className="text-2xl">Fri. 12th Apr £10.89</strong> Ex Vat
             </p>
             <p>
               <strong>£13.07</strong> Inc Vat
