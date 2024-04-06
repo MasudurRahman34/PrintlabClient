@@ -21,7 +21,7 @@ const Banner = ({
       <div className="container flex mx-auto">
         <div className="hidden lg:block md:w-1/2"></div>
         <div className="px-10 md:w-1/2 ">
-          <div className=" w-[360px]  md:w-[528px]  h-[260px] md:h-[380px] bg-white p-5 md:p-[45px] mt-8 rounded-md  ">
+          <div className=" w-[300px]  md:w-[528px]  h-[260px] md:h-[380px] bg-white p-5 md:p-[45px] mt-8 rounded-md  ">
             <div className="cards-content">
               <h6 className=" text-[18px] md:text-[22px] font-bold text-[#1B4353] mt-5 mb-2">
                 {title}

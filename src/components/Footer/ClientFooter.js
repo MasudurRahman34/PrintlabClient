@@ -53,7 +53,7 @@ const ClientFooter = () => {
   return (
     <>
       <section className="container py-5 mx-auto text-white">
-        <div className="flex items-center justify-between max-w-5xl py-5 mx-auto space-x-3 text-primary-text ">
+        <div className="flex flex-col items-center justify-between max-w-5xl gap-3 py-5 mx-auto md:flex-row text-primary-text ">
           <div className="flex-1">
             <p className="text-sm">
               Sign me up for exclusive offers and print inspiration by email
@@ -83,7 +83,7 @@ const ClientFooter = () => {
           </div>
         </div>
         <hr className="w-full text-typography" />
-        <div className="flex gap-4 py-5">
+        <div className="flex flex-col gap-4 py-5 md:flex-row">
           <div className="flex flex-col items-start justify-between flex-1 w-full gap-5 md:flex-row md:gap-10">
             {navItems.map((navItem, index) => (
               <div key={index}>
@@ -155,22 +155,20 @@ const ClientFooter = () => {
                 <FaLinkedinIn />
               </Link>
             </div>
-            <h4 className="text-lg font-semibold text-secondgraphy">
-              Follow Us
-            </h4>
+            <h4 className="text-lg font-semibold text-white">Follow Us</h4>
             <ul className="flex gap-5">
               <li>
-                <a href="#" className="text-secondgraphy hover:text-primary">
+                <a href="#" className="text-white hover:text-primary">
                   Facebook
                 </a>
               </li>
               <li>
-                <a href="#" className="text-secondgraphy hover:text-primary">
+                <a href="#" className="text-white hover:text-primary">
                   Twitter
                 </a>
               </li>
               <li>
-                <a href="#" className="text-secondgraphy hover:text-primary">
+                <a href="#" className="text-white hover:text-primary">
                   Instagram
                 </a>
               </li>
@@ -180,9 +178,9 @@ const ClientFooter = () => {
       </section>
       <section className="text-white bg-typography">
         <div className="container py-5 mx-auto ">
-          <div className="flex py-5 item">
-            <div className="flex items-center flex-1 gap-4">
-              <div className="flex items-center space-x-2 text-xl">
+          <div className="flex flex-col gap-4 py-5 md:flex-row item">
+            <div className="flex flex-col items-center flex-1 gap-4 md:flex-row">
+              <div className="flex items-center space-x-2 text-sm sm:text-base md:text-lg lg:text-xl">
                 <span>
                   <FaLock />
                 </span>
@@ -228,8 +226,8 @@ const ClientFooter = () => {
               </div>
             </div>
 
-            <div className="flex items-center flex-1 gap-4">
-              <div className="flex items-center space-x-2 text-xl">
+            <div className="flex flex-col items-center flex-1 gap-4 md:flex-row">
+              <div className="flex items-center space-x-2 text-sm sm:text-base md:text-lg lg:text-xl">
                 <span>PARTNERSHIPS & ACCREDITATIONS</span>
               </div>
               <div className="flex items-center flex-1 gap-3">
@@ -279,11 +277,14 @@ const ClientFooter = () => {
             </div>
           </div>
           <hr className="w-full text-white" />
-          <div className="flex items-center justify-between w-full py-5 text-lg">
+          <div className="flex items-center justify-between w-full py-5 text-sm sm:text-base md:text-lg lg:text-xl">
             <p>
               2024 © Tradeprint. All Rights Reserved. Tradeprint is a trading
             </p>
-            <Link href="#" className="text-white underline hover:text-primary">
+            <Link
+              href="#"
+              className="hidden text-white underline hover:text-primary md:block"
+            >
               Home
             </Link>
           </div>

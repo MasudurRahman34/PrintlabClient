@@ -43,7 +43,7 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-1 mt-5 text-center bg-red-50">
+        <div className="flex flex-wrap items-center justify-between gap-1 mt-5 text-center bg-red-50">
           <div className="flex flex-col items-center justify-center w-full p-4 bg-white min-h-56">
             <div>
               <p className="text-xl font-semibold">CHAT</p>
