@@ -429,14 +429,11 @@ const BottomHeader = () => {
                           {manuCategory.name}{" "}
                           <i className="fa fa-angle-down"></i>
                         </a>
-                        {manuCategory.children.length > 0 &&
-                          manuCategory.children.map((child, index) => {
-                            return (
-                              <div
-                                className="sub-menu mega-menu mega-menu-column-4"
-                                key={index}
-                              >
-                                <div className="list-item">
+                        <div className="sub-menu mega-menu mega-menu-column-4">
+                          {manuCategory.children.length > 0 &&
+                            manuCategory.children.map((child, index) => {
+                              return (
+                                <div className="list-item" key={index}>
                                   <h4 className="title">{child.name}</h4>
                                   <ul>
                                     {child.children.length > 0 &&
@@ -451,9 +448,9 @@ const BottomHeader = () => {
                                       })}
                                   </ul>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                        </div>
                       </li>
                     </>
                   );
