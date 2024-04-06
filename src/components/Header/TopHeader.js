@@ -30,7 +30,7 @@ const links = [
   {
     id: 2,
     name: "Help Center",
-    url: "/help-center",
+    url: "/help",
     Icon: () => (
       <span>
         <svg

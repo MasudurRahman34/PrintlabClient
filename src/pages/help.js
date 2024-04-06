@@ -115,7 +115,7 @@ const help = () => {
           <h1 className="text-4xl font-medium">Need help?</h1>
           <p className="text-lg ">What can we help you with?</p>
         </div>
-        <div className="max-w-2xl mx-auto my-5">
+        <div className="w-full max-w-2xl mx-auto my-5">
           <label for="hs-trailing-button-add-on" class="sr-only">
             Label
           </label>
@@ -124,7 +124,7 @@ const help = () => {
               type="text"
               id="hs-trailing-button-add-on"
               name="hs-trailing-button-add-on"
-              class="rounded-none ti-form-input rounded-s-sm focus:z-10"
+              className="w-full px-3 rounded-none ti-form-input rounded-s-sm focus:z-10"
               placeholder="Ask a question"
             />
             <button
@@ -138,12 +138,12 @@ const help = () => {
       </div>
       <div className="container py-10 mx-auto">
         <div>
-          <div className="grid-cols-3 gap-4 space-y-6 text-sm text-center text-white rounded-sm sm:grid sm:space-y-0 ">
+          <div className="grid-cols-3 gap-4 space-y-6 text-sm text-center rounded-sm text-secondgraphy sm:grid sm:space-y-0 ">
             {helpLinking.map((helpLink) => (
               <Link
                 key={helpLink.id}
                 href={helpLink.href}
-                className="flex items-center justify-center w-full h-40 p-4 hover:bg-primary-light bg-primary-dark"
+                className="flex items-center justify-center w-full h-40 p-4 border-2 bg-primary-light hover:bg-primary border-primary bg-primary-dark"
               >
                 <div>
                   <h2 className="text-xl font-semibold">{helpLink.title}</h2>
