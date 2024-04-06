@@ -18,18 +18,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: {
-          dark: "#8bba72",
-          light: "#8aad77",
-        },
-        secondary: {
-          100: "#E2E2D5",
-          200: "#888883",
-        },
-        ternary: {
-          100: "#1c4454",
-          200: "#2a6f7f",
-        },
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        secondgraphy: "var(--color-secondgraphy)",
+        "primary-light": "var(--color-primary-light)",
+        buttons: "var(--color-buttons)",
+        typography: "var(--color-typography)",
       },
       keyframes: {
         "accordion-down": {

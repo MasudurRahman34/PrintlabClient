@@ -53,7 +53,7 @@ const ClientFooter = () => {
   return (
     <>
       <section className="container py-5 mx-auto text-white">
-        <div className="flex items-center justify-between max-w-5xl py-5 mx-auto space-x-3 ">
+        <div className="flex items-center justify-between max-w-5xl py-5 mx-auto space-x-3 text-primary-text ">
           <div className="flex-1">
             <p className="text-sm">
               Sign me up for exclusive offers and print inspiration by email
@@ -82,20 +82,18 @@ const ClientFooter = () => {
             </div>
           </div>
         </div>
-        <hr className="w-full text-white" />
+        <hr className="w-full text-typography" />
         <div className="flex gap-4 py-5">
           <div className="flex flex-col items-start justify-between flex-1 w-full gap-5 md:flex-row md:gap-10">
             {navItems.map((navItem, index) => (
               <div key={index}>
-                <h4 className="text-lg font-semibold text-white">
-                  {navItem.title}
-                </h4>
+                <h4 className="text-lg font-semibold ">{navItem.title}</h4>
                 <ul className="space-y-2">
                   {navItem.links.map((link, index) => (
                     <li key={index}>
                       <a
                         href={link.href}
-                        className="text-sm text-white hover:text-primary"
+                        className="text-sm hover:text-primary"
                       >
                         {link.name}
                       </a>
@@ -110,67 +108,69 @@ const ClientFooter = () => {
             <div className="flex items-center w-full max-w-xl gap-2">
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaLinkedinIn />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaFacebookF />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaInstagram />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaYoutube />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaTiktok />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaXTwitter />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaLinkedinIn />
               </Link>{" "}
               <Link
                 href="#"
-                className="flex items-center justify-center bg-white rounded-full w-7 h-7 text-ternary-100"
+                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaLinkedinIn />
               </Link>
             </div>
-            <h4 className="text-lg font-semibold text-white">Follow Us</h4>
+            <h4 className="text-lg font-semibold text-secondgraphy">
+              Follow Us
+            </h4>
             <ul className="flex gap-5">
               <li>
-                <a href="#" className="text-white hover:text-primary">
+                <a href="#" className="text-secondgraphy hover:text-primary">
                   Facebook
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white hover:text-primary">
+                <a href="#" className="text-secondgraphy hover:text-primary">
                   Twitter
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white hover:text-primary">
+                <a href="#" className="text-secondgraphy hover:text-primary">
                   Instagram
                 </a>
               </li>
@@ -178,8 +178,8 @@ const ClientFooter = () => {
           </div>
         </div>
       </section>
-      <section className="bg-ternary-200">
-        <div className="container py-5 mx-auto text-white">
+      <section className="text-white bg-typography">
+        <div className="container py-5 mx-auto ">
           <div className="flex py-5 item">
             <div className="flex items-center flex-1 gap-4">
               <div className="flex items-center space-x-2 text-xl">

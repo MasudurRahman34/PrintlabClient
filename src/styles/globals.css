@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-
-  font-style: normal;
-} */
-
-/* Header style */
+@layer base {
+  html {
+    --color-primary: #ffd333;
+    --color-primary-dark: #cfa239;
+    --color-primary-light: #fce07d;
+    --color-secondary: #f9f9f9;
+    --color-buttons: #ffd333;
+    --color-typography: #3d464d;
+    --color-secondgraphy: #1c4454;
+  }
+}
 
 body {
   line-height: 1.5;
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   overflow-x: hidden;
+  color: var(--color-primary-text);
 }
 * {
   margin: 0;
@@ -416,3 +420,26 @@ a {
 }
 
 /* END: Header Style */
+
+/* Square after effect style */
+
+.square_after_effect {
+  position: relative;
+
+  border-color: var(--color-primary);
+}
+
+.square_after_effect::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 80%;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 1.2rem 1.2rem 1.2rem;
+  border-color: transparent transparent var(--color-primary) transparent;
+  transform: rotate(0deg);
+  z-index: 0;
+}
