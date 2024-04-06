@@ -97,7 +97,7 @@ const bestsell = () => {
                         <div class="overflow-hidden border-md border-b-2 border-solid border-[#D3D5D5] bg-[#FAFFFF]  !shadow-lg h-[250px] md:h-[300px]  lg:h-[335px]  w-full">
                           <div className=" w-full">
                             <Image
-                              className=" object-cover w-full max-h-[200px] md:max-h-[250px] lg:h-[290px] bg-[#D5CAC6] border "
+                              className=" object-cover w-full h-[200px] md:h-[250px] lg:h-[290px] bg-[#D5CAC6] border "
                               src={pen2}
                               class="card-img-top"
                               alt="img"
