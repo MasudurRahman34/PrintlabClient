@@ -14,6 +14,7 @@ import DeliveryChoose from "@/components/pages/SingleProduct/DeliveryChoose";
 import PrintType from "@/components/pages/SingleProduct/PrintType";
 import SinglePageAccordion from "@/components/pages/SingleProduct/Accordion";
 import Commitment from "@/components/Commitment";
+import TotalCounter from "@/components/pages/SingleProduct/TotalCounter";
 
 const product = {
   id: 1,
@@ -305,6 +306,7 @@ const index = () => {
           </div>
         </div>
       </section>
+      <TotalCounter />
     </ClientLayout>
   );
 };
