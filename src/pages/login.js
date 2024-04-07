@@ -2,48 +2,76 @@ import ClientLayout from "@/components/Layout/ClientLayout";
 import Link from "next/link";
 
 const login = () => {
-    return (
-        <ClientLayout>
-            <>
-            <div className=" flex justify-center items-center px-5 md:px-0">
-                <div className="login-section grid mt-4  md:w-[50%] ">
-                    <h4 className="text-black -ml-4 mb-2 text-center">Log in</h4>
-               <form>
-               <div className="w-full">
-                        <div className="">
-                            <label for="input-noradius" className="form-label text-[#CCCCCC]">Email</label>
-                            <input  type="text" className="form-control flex w-full" placeholder="Enter email"/>
-                        </div>
-                        <div className="xl:col-span-12 mb-4 mt-2 col-span-12">
-                            <label for="input-rounded" className="form-label text-[#CCCCCC]">Password</label>
-                            <input type="text" className="form-control" id="input-rounded" placeholder="Enter Password"/>
-                            <p className="text-red-500 mt-1">error</p>
-                        </div>
-                        <div className="xl:col-span-12 col-span-12 mt-2 mb-2">
-                           <div className="flex justify-between">
-                                <div className="mb-3 form-check !ps-0">
-                                    <input type="checkbox" className="form-check-input bg-[#8BBA72]  " id="exampleCheck1"/>
-                                    <label className="form-check-label ps-2 "  for="exampleCheck1">Stay signed in</label>
-                                </div>
-                                <a href="#" className="underline text-[#6199D5]">Forgot Password?</a>
-                            </div>
-                        </div>
-                        <div className="xl:col-span-12 col-span-12">
-                        <input type="button" className="form-control ti-btn !text-white !bg-[#8BBA72] hover:!bg-[#C6DDBB] " id="input-button"  value="Sign in"/>
-                        </div>
-                        <div className="xl:col-span-12  col-span-12 text-center mb-4 mt-4 ">
-                            <p href="#" className="text-gray-500 ">New customer? <Link href="/signup" ><span  className=" text-[#6199D5]" >Register here</span></Link></p>
-                        </div>
-                     
-                        
+  return (
+    <ClientLayout>
+      <>
+        <div className="container mx-auto mb-2 md:mb-5 mt-10 ">
+          <div className="flex justify-center ">
+            <div>
+              <h4 className=" font-semibold md:font-bold py-5px-5 mt-5 mb-5 text-lg md:text-xl lg:text-2xl xl:text-3xl ">
+                Log In
+              </h4>
+              <form>
+                <div className=" input-from w-full">
+                  <div className="w-full mb-2 md:mb-5 ">
+                    <label className=" text-[12px] md:text-base text-typography font-medium">
+                      Email
+                    </label>
+                    <input className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full" placeholder="Enter Email" type="email" />
+                  </div>
+                  <div className="w-full mb-2 md:mb-5">
+                    <label className=" text-[12px] md:text-base text-typography font-medium">
+                      Password
+                    </label>
+                    <input className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full" placeholder="Enter Password" type="password" />
+                  </div>
+                  <div className=" flex justify-around mb-4 ">
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="login"
+                        name="vehicle1"
+                        value="checkout"
+                      />
+                      <label
+                        for="vehicle1"
+                        className="text-[12px] md:text-base   text-typography"
+                      >
+                        {" "}
+                        Stay signed in
+                      </label>
                     </div>
-               </form>
-
+                    <Link href="#">
+                      {" "}
+                      <span className="text-[12px] md:text-[14px] underline  text-[#4DA0D7]">
+                        Forgot Password
+                      </span>
+                    </Link>
+                  </div>
+                  <div className="mb-2">
+                    <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary">
+                      Sig In
+                    </button>
+                  </div>
+                  <div className="w-full mb-5">
+                    <p className="text-[12px] md:text-[14px] font-normal text-center text-typography">
+                      New coustmar?{" "}
+                      <Link href="/signup">
+                        {" "}
+                        <span className="underline text-[#4DA0D7]">
+                          Register here{" "}
+                        </span>
+                      </Link>
+                    </p>
+                  </div>
                 </div>
+              </form>
             </div>
-            </>
-        </ClientLayout>
-    );
+          </div>
+        </div>
+      </>
+    </ClientLayout>
+  );
 };
 
 export default login;
