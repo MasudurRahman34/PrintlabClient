@@ -87,7 +87,7 @@ const signup = () => {
           
                   <div className="mb-2">
                     <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary">
-                      Sig Up
+                      Sign Up
                     </button>
                   </div>
                   <div className="w-full mb-5">
