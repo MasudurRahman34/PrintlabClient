@@ -45,7 +45,7 @@ const Dashboard = () => {
   );
   return (
     <div>
-      <div className="container position-relative z-10  ">
+      <div className="container relative z-10  ">
         <div className="mt-5 md:mt-[50px]  md:flex position-relative  z-10 ">
         <div>
           <button onClick={() => setopernav(!opernav)}>
@@ -53,8 +53,8 @@ const Dashboard = () => {
           </button>
           <div
             className={` ${
-              opernav ? " block   mt-5 " : "hidden"
-            } position-absolute z-30  `}
+              opernav ? " block  left-5  " : "hidden -left-96 transition-transform delay-500 "
+            } absolute z-30 bg-primary p-5 rounded-lg  `}
           >
             <ul>{navitem}</ul>
             <div className="border border-[#b7b7b7] mt-5 mb-5 w-[30%] "></div>
