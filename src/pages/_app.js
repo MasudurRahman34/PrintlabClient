@@ -8,6 +8,8 @@ import "@/styles/product_slide.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
