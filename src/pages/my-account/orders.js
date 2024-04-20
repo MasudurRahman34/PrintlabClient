@@ -1,6 +1,6 @@
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import {

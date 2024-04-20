@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -29,15 +30,11 @@ const navLinks = [
   },
   {
     name: "Quotes",
-    link: " /my-account/quotes",
+    link: " /my-account/quote-request",
   },
   {
-    name: "Communication",
-    link: "/my-account/communication",
-  },
-  {
-    name: "Preferences",
-    link: "/my-account/preferences",
+    name: "Communication Preferences",
+    link: "/my-account/communication-preferences",
   },
   {
     name: "Payment Settings",
