@@ -4,7 +4,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const index = () => {
   return (
@@ -78,7 +78,7 @@ const index = () => {
                 </div>
 
                 <div>
-                  <Button text="Save Changes" />
+                  <Button>Save</Button>
                 </div>
               </form>
             </div>
