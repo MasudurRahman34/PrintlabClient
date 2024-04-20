@@ -10,7 +10,7 @@ const Deliverypayment = () => {
       <div className="md:flex gap-5">
         <div className="md:w-2/3">
           <div className="border rounded-md ">
-            <h5 className="text-lg bg-secondgraphy font-medium text-white w-full rounded-md  px-5 py-2 ">
+            <h5 className="text-lg text-secondgraphy bg-primary font-semibold w-full rounded-md  px-5 py-2 ">
               Delivery
             </h5>
             <div className="px-3 py-2 md:py-3">
@@ -54,16 +54,16 @@ const Deliverypayment = () => {
               </div>
             </div>
           </div>
-          <h4 className="text-base md:text-lg bg-secondgraphy font-medium text-white w-full rounded-md  px-5 py-2 mt-5 ">
+          <h4 className="text-base md:text-lg text-secondgraphy bg-primary font-semibold w-full rounded-md  px-5 py-2 mt-5 ">
             Billing Address
           </h4>
-          <h4 className="mt-5 mb-5 text-lg bg-[#F0F2F1] font-medium text-typography w-full rounded-md  px-5 py-2 ">
+          <h4 className="mt-5 mb-5 text-lg bg-[#faefc9] font-medium text-typography w-full rounded-md  px-5 py-2 ">
             Payment
           </h4>
         </div>
         <div className="md:w-1/3">
           <div className="w-full border rounded-md ">
-            <h5 className="text-lg bg-[#F0F2F1] font-semibold text-typography  rounded-md  px-5 py-2 w-full">
+            <h5 className="text-lg bg-[#faefc9] font-semibold text-typography  rounded-md  px-5 py-2 w-full">
               Orders Summry
             </h5>
             <div className="px-5 py-5">
@@ -84,8 +84,8 @@ const Deliverypayment = () => {
               </div>
             </div>
           </div>
-          <div className="border mt-5 rounded-r-md mb-2 md:mb-5">
-            <h4 className="text-lg bg-[#F0F2F1] font-semibold text-typography  rounded-md  px-5 py-2 w-full ">
+          <div className="border mt-5 rounded-md mb-2 md:mb-5">
+            <h4 className="text-lg bg-[#faefc9] font-semibold text-typography  rounded-md  px-5 py-2 w-full ">
               Basket(1)
             </h4>
             <div className="text-sm md:text-base font-medium flex justify-between px-5 py-6 ">
