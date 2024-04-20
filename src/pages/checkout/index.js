@@ -6,10 +6,16 @@ import { TbBrandMailgun } from "react-icons/tb";
 import { AiOutlineDelete } from "react-icons/ai";
 import { VscDiffAdded } from "react-icons/vsc";
 import ClientLayout from "@/components/Layout/ClientLayout";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 const Checkout = () => {
   return (
     <ClientLayout>
-      <div className="container mx-auto">
+      <div className=" custom_container">
         <div className="flex justify-center gap-[50px] overflow-auto mt-5 ">
           <div>
             <div className="flex items-center justify-center p-5 mx-auto mb-2 text-center rounded-full group hover:bg-secondgraphy ">
@@ -52,167 +58,101 @@ const Checkout = () => {
         </div>
         <div className="lg:flex ">
           <div className="w-full order-table lg:w-8/12">
-            <div className="flex justify-between">
-              <div className="flex ">
-                <h5 className="text-base font-normal text-[#8F9391]">
-                  Item 01.
-                </h5>
-                <h4 className="text-base font-bold text-[#2B2B2B]">
-                  Custom Printed NCR Pads
-                </h4>
+            <div className="overflow-hidden border rounded">
+              <div className="flex justify-between p-4">
+                <div className="flex ">
+                  <h5 className="text-base font-normal text-[#8F9391]">
+                    Item 01.
+                  </h5>
+                  <h4 className="text-base font-bold text-[#2B2B2B]">
+                    Custom Printed NCR Pads
+                  </h4>
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-[#2B2B2B]">£45.62</h4>
+                  <h5 className="text-base font-bold text-[#8F9391]">
+                    Ex VAT: £38.02
+                  </h5>
+                </div>
               </div>
-              <div>
-                <h4 className="text-base font-bold text-[#2B2B2B]">£45.62</h4>
-                <h5 className="text-base font-bold text-[#8F9391]">
-                  Ex VAT: £38.02
-                </h5>
-              </div>
-            </div>
-            <div className="flex justify-between checkout-title">
-              <div className="flex gap-5 px-10 py-2 rounded-md bg-secondgraphy">
-                <p className="mt-3 text-base font-medium text-center text-white ">
-                  Get 1 more copies for only £6.00
-                </p>
-                <button className="px-8 py-3 text-base font-bold text-center text-white rounded-md bg-primary">
-                  Upgrate
-                </button>
-              </div>
-              <button>
-                <AiOutlineDelete className="text-2xl  text-[#AAAAAA] hover:text-[black]" />
-              </button>
-            </div>
-            <div className="pr-16 mt-5 checkout-details ps-12">
-              <div className="flex justify-between text-center bg-[#F0F2F2] px-2 py-4 rounded-md">
-                <h4 className="text-base font-bold text-[#333]">Job Details</h4>
-                <button className="text-2xl">
-                  <VscDiffAdded />
-                </button>
-              </div>
-              <div class="table-responsive">
-                <table class="table whitespace-nowrap table-bordered table-bordered-primary border-primary/10 min-w-full">
-                  <thead>
-                    <tr class="border-b border-primary/10">
-                      <th scope="col" class="text-start">
-                        Qty:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Paper Type:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Size:
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-primary/10">
-                      <th scope="row" class="text-start">
-                        #0007
-                      </th>
-                      <td>
-                        <span class="badge bg-light text-dark">26-04-2022</span>
-                      </td>
-                      <td>
-                        <span class="badge bg-primary/10 text-primary">
-                          Booked
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <thead className="">
-                    <tr class="border-b border-primary/10">
-                      <th scope="col" class="text-start">
-                        Qty:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Paper Type:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Size:
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-primary/10">
-                      <th scope="row" class="text-start">
-                        #0007
-                      </th>
-                      <td>
-                        <span class="badge bg-light text-dark">26-04-2022</span>
-                      </td>
-                      <td>
-                        <span class="badge bg-primary/10 text-primary">
-                          Booked
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <thead>
-                    <tr class="border-b border-primary/10">
-                      <th scope="col" class="text-start">
-                        Qty:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Paper Type:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Size:
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-primary/10">
-                      <th scope="row" class="text-start">
-                        #0007
-                      </th>
-                      <td>
-                        <span class="badge bg-light text-dark">26-04-2022</span>
-                      </td>
-                      <td>
-                        <span class="badge bg-primary/10 text-primary">
-                          Booked
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <thead>
-                    <tr class="border-b border-primary/10">
-                      <th scope="col" class="text-start">
-                        Qty:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Paper Type:
-                      </th>
-                      <th scope="col" class="text-start">
-                        Size:
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-primary/10">
-                      <th scope="row" class="text-start">
-                        #0007
-                      </th>
-                      <td>
-                        <span class="badge bg-light text-dark">26-04-2022</span>
-                      </td>
-                      <td>
-                        <span class="badge bg-primary/10 text-primary">
-                          Booked
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="Artwork-Service-info">
-                <div className="Artwork Service"></div>
-                <div className="Estimated-Delivery"></div>
-              </div>
-              <div>
-                <h6>PO Number</h6>
+              <div className="flex justify-between pr-4 checkout-title">
+                <div className="flex gap-5 px-10 py-2 rounded-r-md bg-secondgraphy">
+                  <p className="mt-3 text-base font-medium text-center text-white ">
+                    Get 1 more copies for only £6.00
+                  </p>
+                  <button className="px-8 py-3 text-base font-bold text-center text-white rounded-md bg-primary">
+                    Upgrate
+                  </button>
+                </div>
                 <button>
-                  <TbBrandMailgun className="text-2xl" />
+                  <AiOutlineDelete className="text-2xl  text-[#AAAAAA] hover:text-[black]" />
                 </button>
+              </div>
+              <div className="p-5 mt-5 checkout-details">
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger className="flex justify-between text-center bg-[#F0F2F2] px-2 py-4 rounded-md">
+                      <h4 className="text-base font-bold text-[#333]">
+                        Job Details
+                      </h4>
+                    </AccordionTrigger>
+
+                    <AccordionContent className="px-5 py-2">
+                      <div class=" flex flex-wrap gap-5">
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">Qty:</h1>
+                          <p>100</p>
+                        </div>
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">
+                            Paper Type
+                          </h1>
+                          <p>130 gsm Gloss Finish Paper</p>
+                        </div>
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">Size</h1>
+                          <p>A4</p>
+                        </div>
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">
+                            Printed Sides
+                          </h1>
+                          <p>Single Sided</p>
+                        </div>
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">
+                            Finishing
+                          </h1>
+                          <p>None</p>
+                        </div>
+
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">
+                            Artwork Service
+                          </h1>
+                          <p>None</p>
+                        </div>
+
+                        <div className="min-w-[150px]">
+                          <h1 className="font-bold text-secondgraphy">
+                            Estimated Delivery
+                          </h1>
+                          <p>Thursday 25th November</p>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <div className="Artwork-Service-info">
+                  <div className="Artwork Service"></div>
+                  <div className="Estimated-Delivery"></div>
+                </div>
+                <div>
+                  <h6>PO Number</h6>
+                  <button>
+                    <TbBrandMailgun className="text-2xl" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
