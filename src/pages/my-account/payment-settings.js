@@ -3,9 +3,11 @@ import ClientLayout from "@/components/Layout/ClientLayout";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useRouter } from "next/router";
 import React from "react";
 
 const PaymentSettings = () => {
+  const router = useRouter();
   return (
     <ClientLayout>
       <AccountLayout breadcrumb="Account Settings">
@@ -69,7 +71,13 @@ const PaymentSettings = () => {
               </div>
               <div className="text-center">
                 <p className="font-semibold">It only takes 5 minutes!</p>
-                <Button>Apply Now</Button>
+                <Button
+                  onClick={() => {
+                    router.push("/my-account/credit-application");
+                  }}
+                >
+                  Apply Now
+                </Button>
               </div>
             </div>
           </div>
