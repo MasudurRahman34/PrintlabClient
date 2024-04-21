@@ -1,10 +1,12 @@
 import Box from "@/components/ui/Box";
 import LabAccordion from "@/components/ui/LabAccordion";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/router";
 import React from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 
 const OrderSummary = () => {
+  const router = useRouter();
   return (
     <Box boxTitle="Order Summary">
       <div className="px-5 mb-5 ">
@@ -22,7 +24,14 @@ const OrderSummary = () => {
             <p className="py-1 text-base font-bold text-[#2B2B2B]">40.00</p>
           </div>
         </div>
-        <Button className="w-full font-bold">Proceed to Checkout</Button>
+        <Button
+          className="w-full font-bold"
+          onClick={() => {
+            router.push("/artwork");
+          }}
+        >
+          Proceed to Checkout
+        </Button>
       </div>
     </Box>
   );
