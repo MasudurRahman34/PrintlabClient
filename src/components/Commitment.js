@@ -46,14 +46,19 @@ const commitment = [
 
 const Commitment = () => {
   return (
-    <div className="py-5">
-      <div className="flex items-center justify-between overflow-x-auto ">
+    <div className="py-2">
+      <div className="flex items-center justify-between gap-2 py-3 overflow-x-auto">
         {commitment.map((item, index) => (
-          <div className="flex items-center space-x-3" key={index}>
-            <span className="flex items-center justify-center w-12 h-12 rounded-full bg-primary">
+          <div
+            className="flex items-center space-x-3 max-w-[200px] w-full"
+            key={index}
+          >
+            <span className="flex items-center justify-center w-8 h-8 rounded-full md:w-10 md:h-10 lg:w-12 lg:h-12 bg-primary">
               {item.icon}
             </span>
-            <p className="max-w-[140px] min-w-[120px] text-sm">{item.name}</p>
+            <p className="flex-1 text-xs md:text-sm min-w-[120px]">
+              {item.name}
+            </p>
           </div>
         ))}
       </div>

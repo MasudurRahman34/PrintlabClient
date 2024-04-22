@@ -35,12 +35,12 @@ const EmblaCarousel = (props) => {
   }, [emblaMainApi, onSelect]);
 
   return (
-    <div className="embla">
-      <div className="embla__viewport" ref={emblaMainRef}>
-        <div className="embla__container">
+    <div className="embla_single_product">
+      <div className="embla_single_product__viewport" ref={emblaMainRef}>
+        <div className="embla_single_product__container">
           {slides.map((index) => (
-            <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">
+            <div className="embla_single_product__slide" key={index}>
+              <div className="embla_single_product__slide__number">
                 <img src={images[index].src} alt="" />
               </div>
             </div>
@@ -48,9 +48,12 @@ const EmblaCarousel = (props) => {
         </div>
       </div>
 
-      <div className="embla-thumbs">
-        <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-          <div className="embla-thumbs__container">
+      <div className="embla_single_product-thumbs">
+        <div
+          className="embla_single_product-thumbs__viewport"
+          ref={emblaThumbsRef}
+        >
+          <div className="embla_single_product-thumbs__container">
             {slides.map((index) => (
               <Thumb
                 key={index}

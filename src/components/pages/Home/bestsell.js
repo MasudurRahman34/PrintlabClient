@@ -9,8 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import "./css/styles.css"
 
-import pen1 from "../../../../public/assets/pen1.jpg";
-import pen2 from "../../../../public/assets/pen2.jpg";
+import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
 
 const bestSells = [
   {
@@ -140,6 +139,10 @@ const bestsell = () => {
     },
   ];
 
+  const OPTIONS = { align: "start" };
+  const SLIDE_COUNT = 6;
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
   return (
     <>
       <div className="bg-[#F0F2F2]">
@@ -177,7 +180,7 @@ const bestsell = () => {
                 </div>
 
                 <div className="mt-3">
-                  <Swiper
+                  {/* <Swiper
                     modules={[Virtual, Navigation]}
                     onSwiper={setSwiperRef}
                     slidesPerView={4}
@@ -210,7 +213,8 @@ const bestsell = () => {
                         </Link>
                       </SwiperSlide>
                     ))}
-                  </Swiper>
+                  </Swiper> */}
+                  <EmblaCarousel slides={bestSells} options={OPTIONS} />
                 </div>
               </div>
             </div>
