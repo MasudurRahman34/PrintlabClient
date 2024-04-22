@@ -10,11 +10,11 @@ const index = () => {
   return (
     <ClientLayout>
       <AccountLayout breadcrumb="PrintLab Pro">
-        <div className="flex items-center justify-center w-full py-5">
+        <div className="flex items-center justify-start w-full py-5">
           <div className="max-w-lg ">
             <div className="text-secondgraphy">
-              <h1 className="text-2xl font-bold text-center ">My Account</h1>
-              <p className="text-sm text-center">
+              <h1 className="text-2xl font-bold ">My Account</h1>
+              <p className="text-sm ">
                 Welcome to your PrintLab Pro account. Here you can manage your
                 account settings, preferences, payment settings, and more.
               </p>

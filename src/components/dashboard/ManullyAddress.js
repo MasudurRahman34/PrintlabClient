@@ -1,6 +1,7 @@
 "use Client";
 
 import ClientLayout from "../Layout/ClientLayout";
+import Box from "../ui/Box";
 
 const ManullyAddress = () => {
   return (
@@ -10,13 +11,10 @@ const ManullyAddress = () => {
       </h1>
       <div className="gap-5 md:flex">
         <div className="mt-5 mb-2 md:w-2/3 md:mb-5">
-          <div className="border rounded-md">
-            <h5 className="w-full px-5 py-2 text-lg font-semibold rounded-md text-secondgraphy bg-primary ">
-              Delivery
-            </h5>
+          <Box boxTitle="Delivery Address" fullWidth>
             <div className="px-3 py-2 md:py-3">
               <div className="flex items-center justify-between mb-2 md:mb-3 ">
-                <h6 className="px-2 py-5 text-base font-semibold text-black md:text-lg ">
+                <h6 className="px-2 py-5 text-base font-semibold text-black ">
                   Add new Delivery Addresses
                 </h6>
                 <div>
@@ -32,7 +30,7 @@ const ManullyAddress = () => {
                 </div>
               </div>
               <div className="flex ">
-                <p className="text-base md:text-lg font-medium text-secondgraphy px-2 w-[65%]">
+                <p className="text-base  font-medium text-secondgraphy px-2 w-[65%]">
                   PostCode*
                 </p>
                 <div className="w-full">
@@ -58,7 +56,7 @@ const ManullyAddress = () => {
             <div className="px-2 mb-2 md:px-5 md:mb-5">
               <form>
                 <div className="flex mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Frist Name*
                   </label>
                   <input
@@ -70,7 +68,7 @@ const ManullyAddress = () => {
                   />
                 </div>
                 <div className="flex mt-2 md:mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Last Name*
                   </label>
                   <input
@@ -82,7 +80,7 @@ const ManullyAddress = () => {
                   />
                 </div>
                 <div className="flex mt-2 md:mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Compony Name*
                   </label>
                   <input
@@ -94,7 +92,7 @@ const ManullyAddress = () => {
                   />
                 </div>
                 <div className="flex mt-2 md:mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Address*
                   </label>
                   <div className="w-[60%]">
@@ -103,19 +101,19 @@ const ManullyAddress = () => {
                       id="input"
                       name="code"
                       required
-                      className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md shadow-md outline-none  border-primary"
+                      className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md shadow-md outline-none border-primary"
                     />
                     <input
                       type="text"
                       id="input"
                       name="code"
                       required
-                      className="block w-full px-2 py-2 mt-5 mb-2 border rounded-md shadow-md outline-none  border-primary"
+                      className="block w-full px-2 py-2 mt-5 mb-2 border rounded-md shadow-md outline-none border-primary"
                     />
                   </div>
                 </div>
                 <div className="flex mt-2 md:mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Town*
                   </label>
                   <input
@@ -127,7 +125,7 @@ const ManullyAddress = () => {
                   />
                 </div>
                 <div className="flex mt-2 md:mt-5">
-                  <label className="w-[40%] font-medium text-typography text-base md:text-lg">
+                  <label className="w-[40%] font-medium text-typography text-base ">
                     Country*
                   </label>
                   <input
@@ -143,7 +141,7 @@ const ManullyAddress = () => {
             </div>
             <div className="bg-[#faefc9] p-2 md:p-5">
               <div>
-                <h5 className="mb-2 text-base font-semibold text-typography md:text-lg">
+                <h5 className="mb-2 text-base font-semibold text-typography ">
                   How would like to be update on your Delivery
                 </h5>
                 <p className="mb-5 text-sm font-normal md:text-base text-typography">
@@ -202,12 +200,12 @@ const ManullyAddress = () => {
               </div>
             </div>
             <div className="px-2 mb-5 md:px-5 ">
-              <button className="w-full py-1 text-base font-bold border rounded-md md:py-2 bg-primary md:text-lg text-secondgraphy">
+              <button className="w-full py-1 text-base font-bold border rounded-md md:py-2 bg-primary text-secondgraphy">
                 Add Address
               </button>
             </div>
-          </div>
-          <h4 className="w-full px-5 py-2 mt-5 text-base font-semibold rounded-md md:text-lg text-secondgraphy bg-primary ">
+          </Box>
+          <h4 className="w-full px-5 py-2 mt-5 text-base font-semibold rounded-md text-secondgraphy bg-primary ">
             Billing Address
           </h4>
           <h4 className="mt-5 mb-5 text-lg bg-[#faefc9] font-medium text-typography w-full rounded-md  px-5 py-2 ">
@@ -215,13 +213,10 @@ const ManullyAddress = () => {
           </h4>
         </div>
         <div className="mt-5 md:w-1/3">
-          <div className="w-full border rounded-md ">
-            <h5 className="text-lg bg-[#faefc9] font-semibold text-typography  rounded-md  px-5 py-2 w-full">
-              Orders Summry
-            </h5>
+          <Box boxTitle="Order Summary">
             <div className="px-5 py-5">
               <div className="flex justify-between">
-                <div className="font-semibold text-black  text-bae md:text-lg">
+                <div className="font-semibold text-black text-bae md:text-lg">
                   <p className="py-2">Sub Total</p>
                   <p className="py-2">Vat</p>
                 </div>
@@ -236,11 +231,9 @@ const ManullyAddress = () => {
                 <h4>$25.20</h4>
               </div>
             </div>
-          </div>
-          <div className="mt-5 mb-2 border rounded-md md:mb-5">
-            <h4 className="text-lg bg-[#faefc9] font-semibold text-typography  rounded-md  px-5 py-2 w-full ">
-              Basket(1)
-            </h4>
+          </Box>
+
+          <Box boxTitle="Basket(1)">
             <div className="flex justify-between px-5 py-6 text-sm font-medium md:text-base ">
               <div className="flex">
                 <p className="text-[12px] md:text-base font-normal text-gray-400">
@@ -253,8 +246,8 @@ const ManullyAddress = () => {
               <h6 className="text-[12px] md:text-base font-semibold text-black ">
                 $23.20
               </h6>
-            </div>
-          </div>
+            </div>{" "}
+          </Box>
         </div>
       </div>
     </div>
