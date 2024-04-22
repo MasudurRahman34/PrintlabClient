@@ -18,7 +18,7 @@ const CommunicationPreferences = () => {
         <div className="w-full py-5 ">
           <div className="max-w-lg ">
             <div className="text-secondgraphy">
-              <h1 className="text-2xl font-bold ">
+              <h1 className="text-2xl font-bold mb-2 ">
                 Email Marketing Preference
               </h1>
               <p className="text-sm ">
@@ -31,7 +31,7 @@ const CommunicationPreferences = () => {
                 <div className="mt-5">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-secondgraphy"
+                    className="block text-sm font-medium text-secondgraphy mb-2"  
                   >
                     Confirm your email address
                   </label>
@@ -45,7 +45,7 @@ const CommunicationPreferences = () => {
                 <div className="mt-5">
                   <label
                     htmlFor="subscribe"
-                    className="block text-sm font-medium text-secondgraphy"
+                    className="block text-sm font-medium text-secondgraphy mb-2"
                   >
                     Subscribe or unsubscribe from receiving marketing emails
                     from us*
@@ -66,7 +66,7 @@ const CommunicationPreferences = () => {
                   </Select>
                 </div>
 
-                <div className="my-2">
+                <div className="my-2 mt-5 ">
                   <Button>Save</Button>
                 </div>
               </form>

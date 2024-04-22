@@ -143,7 +143,7 @@ const index = () => {
                 >
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
                     id="pills-on-gray-color-item-1"
                     data-hs-tab="#pills-on-gray-color-1"
                     aria-controls="pills-on-gray-color-1"
@@ -152,7 +152,7 @@ const index = () => {
                   </button>
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
                     id="pills-on-gray-color-item-2"
                     data-hs-tab="#pills-on-gray-color-2"
                     aria-controls="pills-on-gray-color-2"
@@ -161,7 +161,7 @@ const index = () => {
                   </button>
                   <button
                     type="button"
-                    class=" text-sm md:text-base hover:bg-primary font-medium hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active"
+                    class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
                     id="pills-on-gray-color-item-3"
                     data-hs-tab="#pills-on-gray-color-3"
                     aria-controls="pills-on-gray-color-3"
@@ -184,7 +184,7 @@ const index = () => {
                     </div>
                     <div className="w-full md:w-9/12">
                       <div className="p-5">
-                        <h4 className=" font-normal text-lg md:text-xl pb-2 text-[#2B2B2B] ">
+                        <h4 className=" font-normal text-lg md:text-xl pb-2  text-secondgraphy ">
                           Bullet™ Mojave Insulating Tumbler
                         </h4>
                         <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
@@ -225,7 +225,7 @@ const index = () => {
                     </div>
                     <div className="w-full md:w-9/12">
                       <div className="p-5">
-                        <h4 className=" font-normal text-lg md:text-xl pb-2 text-[#2B2B2B] ">
+                        <h4 className=" font-normal text-lg md:text-xl pb-2 text-secondgraphy ">
                           Bullet™ Mojave Insulating Tumbler
                         </h4>
                         <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
@@ -266,7 +266,7 @@ const index = () => {
                     </div>
                     <div className="w-full py-5 md:w-9/12">
                       <div className="p-5">
-                        <h4 className=" font-normal text-lg md:text-xl pb-2 text-[#2B2B2B] ">
+                        <h4 className=" font-normal text-lg md:text-xl pb-2 text-secondgraphy ">
                           High Quality Printing with Sustainability in mind.
                         </h4>
                         <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">

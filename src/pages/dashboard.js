@@ -5,9 +5,9 @@ import { useState } from "react";
 const dashboard = () => {
   return (
     <ClientLayout>
-      <div className="">
+      <>
         <Dashboard></Dashboard>
-      </div>
+      </>
     </ClientLayout>
   );
 };

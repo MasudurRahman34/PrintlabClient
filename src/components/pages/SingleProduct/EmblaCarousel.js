@@ -50,7 +50,7 @@ const EmblaCarousel = (props) => {
 
       <div className="embla_single_product-thumbs">
         <div
-          className="embla_single_product-thumbs__viewport"
+          className="embla_single_product-thumbs__viewport md:mt-[14px] "
           ref={emblaThumbsRef}
         >
           <div className="embla_single_product-thumbs__container">
