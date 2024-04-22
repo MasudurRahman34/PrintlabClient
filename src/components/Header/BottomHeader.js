@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { FaAngleLeft } from "react-icons/fa";
 
 const menuCategories = [
   {
@@ -74,7 +75,7 @@ const menuCategories = [
         deleted_at: null,
         children: [
           {
-            id: 3,
+            id: 6,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -96,7 +97,7 @@ const menuCategories = [
     ],
   },
   {
-    id: 1,
+    id: 7,
     name: "Large format Printing",
     slug: "Large-format-Printing",
     description: "lorem",
@@ -113,7 +114,7 @@ const menuCategories = [
     deleted_at: null,
     children: [
       {
-        id: 2,
+        id: 8,
         name: "a-board",
         slug: "a-board",
         description: "lorem Lorem Lorem ",
@@ -130,7 +131,7 @@ const menuCategories = [
         deleted_at: null,
         children: [
           {
-            id: 3,
+            id: 9,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -150,7 +151,7 @@ const menuCategories = [
         ],
       },
       {
-        id: 5,
+        id: 10,
         name: "a-board",
         slug: "a-board",
         description: "lorem Lorem Lorem ",
@@ -167,7 +168,7 @@ const menuCategories = [
         deleted_at: null,
         children: [
           {
-            id: 3,
+            id: 11,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -189,7 +190,7 @@ const menuCategories = [
     ],
   },
   {
-    id: 1,
+    id: 12,
     name: "Large format Printing",
     slug: "Large-format-Printing",
     description: "lorem",
@@ -206,7 +207,7 @@ const menuCategories = [
     deleted_at: null,
     children: [
       {
-        id: 2,
+        id: 13,
         name: "a-board",
         slug: "a-board",
         description: "lorem Lorem Lorem ",
@@ -223,7 +224,7 @@ const menuCategories = [
         deleted_at: null,
         children: [
           {
-            id: 3,
+            id: 14,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -241,7 +242,7 @@ const menuCategories = [
             children: [],
           },
           {
-            id: 3,
+            id: 14,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -259,7 +260,7 @@ const menuCategories = [
             children: [],
           },
           {
-            id: 3,
+            id: 16,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -279,7 +280,7 @@ const menuCategories = [
         ],
       },
       {
-        id: 5,
+        id: 17,
         name: "a-board",
         slug: "a-board",
         description: "lorem Lorem Lorem ",
@@ -296,7 +297,7 @@ const menuCategories = [
         deleted_at: null,
         children: [
           {
-            id: 3,
+            id: 18,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -314,7 +315,7 @@ const menuCategories = [
             children: [],
           },
           {
-            id: 3,
+            id: 19,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -332,7 +333,7 @@ const menuCategories = [
             children: [],
           },
           {
-            id: 3,
+            id: 20,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -350,7 +351,7 @@ const menuCategories = [
             children: [],
           },
           {
-            id: 3,
+            id: 21,
             name: "A-frames",
             slug: "a-frames",
             description: "lorem",
@@ -375,35 +376,33 @@ const menuCategories = [
 
 const BottomHeader = () => {
   const [isActive, setIsActive] = useState(false);
-  const [subMenu, setSubMenu] = useState(null);
+
+  const [activeMenu, setActiveMenu] = useState({
+    id: null,
+    menu: null,
+  });
 
   const toggleMenu = () => {
     setIsActive(!isActive);
   };
-  console.log(isActive);
 
-  const showSubMenu = (hasChildren) => {
-    const subMenuElement = hasChildren.querySelector(".sub-menu");
-    setSubMenu(subMenuElement);
-    subMenuElement.classList.add("active");
-    subMenuElement.style.animation = "slideLeft 0.5s ease forwards";
-    const menuTitle =
-      hasChildren.querySelector("i").parentNode.childNodes[0].textContent;
-    menu.querySelector(".current-menu-title").innerHTML = menuTitle;
-    menu.querySelector(".mobile-menu-head").classList.add("active");
+  const showSubMenu = ({ manuCategory }) => {
+    console.log(manuCategory);
+    setActiveMenu({
+      id: manuCategory.id,
+      menu: manuCategory,
+    });
   };
 
-  const hideSubMenu = () => {
-    subMenu.style.animation = "slideRight 0.5s ease forwards";
-    setTimeout(() => {
-      subMenu.classList.remove("active");
-    }, 300);
-    menu.querySelector(".current-menu-title").innerHTML = "";
-    menu.querySelector(".mobile-menu-head").classList.remove("active");
+  const goBackMenu = () => {
+    setActiveMenu({
+      id: null,
+      menu: null,
+    });
   };
 
   return (
-    <section className="flex items-center justify-between gap-10 px-5 border-b border-gray-300 max-h-20 bg-primary header">
+    <section className="flex items-center justify-between gap-10 px-5 border-b border-gray-300 bg-primary header">
       <div classNameName="w-full">
         <div className="row v-center">
           {/* <!-- menu start here --> */}
@@ -413,23 +412,40 @@ const BottomHeader = () => {
               onClick={toggleMenu}
             ></div>
             <nav className={`menu ${isActive ? "active" : ""}`}>
-              <div className="mobile-menu-head">
-                <div className="go-back">
-                  <i className="fa fa-angle-left"></i>
+              <div
+                className={`mobile-menu-head ${activeMenu.id ? "active" : ""}`}
+              >
+                <div className="go-back" onClick={goBackMenu}>
+                  {"<"}
                 </div>
-                <div className="current-menu-title"></div>
-                <div className="mobile-menu-close">&times;</div>
+                <div className="current-menu-title">
+                  {activeMenu.menu ? activeMenu.menu.name : ""}
+                </div>
+                <div className="mobile-menu-close" onClick={toggleMenu}>
+                  &times;
+                </div>
               </div>
               <ul className="menu-main">
                 {menuCategories.map((manuCategory) => {
                   return (
                     <>
                       <li className="menu-item-has-children">
-                        <Link href="/product">
+                        <Link
+                          href="#"
+                          onClick={() => {
+                            showSubMenu({ manuCategory });
+                          }}
+                        >
                           {manuCategory.name}{" "}
                           <i className="fa fa-angle-down"></i>
                         </Link>
-                        <div className="sub-menu mega-menu mega-menu-column-4">
+                        <div
+                          className={`sub-menu mega-menu mega-menu-column-4 ${
+                            activeMenu.id && activeMenu.id === manuCategory.id
+                              ? "active"
+                              : ""
+                          }`}
+                        >
                           {manuCategory.children.length > 0 &&
                             manuCategory.children.map((child, index) => {
                               return (

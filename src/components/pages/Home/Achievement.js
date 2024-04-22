@@ -23,7 +23,7 @@ const categories = [
 const Achievement = () => {
   return (
     <section className=" custom_container">
-      <div className="py-10">
+      <div className="py-2 md:py-5 lg:py-7">
         <Commitment />
         <div>
           <div className="grid grid-cols-1 gap-5 mt-10 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">

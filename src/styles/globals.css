@@ -93,7 +93,7 @@ a {
   text-decoration: none;
 }
 .header .item-center {
-  flex: 0 0 66%;
+  flex: 0 0 100%;
 }
 .header .item-right {
   width: 100%;
@@ -111,7 +111,7 @@ a {
 }
 .header .menu > ul > li {
   display: inline-block;
-  line-height: 50px;
+
   margin-left: 25px;
 }
 .header .menu > ul > li > a {
@@ -133,11 +133,18 @@ a {
   opacity: 0;
   visibility: hidden;
 }
+
 @media (min-width: 992px) {
   .header .menu > ul > li.menu-item-has-children:hover .sub-menu {
     margin-top: 0;
     visibility: visible;
     opacity: 1;
+  }
+  .header .menu > ul > li.menu-item-has-children {
+    max-width: 150px;
+  }
+  .header .item-center {
+    text-align: center;
   }
 }
 
@@ -327,6 +334,7 @@ a {
     width: 50px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
+
     line-height: 50px;
     text-align: center;
     color: #000000;

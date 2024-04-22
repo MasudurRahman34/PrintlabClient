@@ -10,6 +10,7 @@ import {
   FaLock,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import LabAccordion from "../ui/LabAccordion";
 
 const navItems = [
   {
@@ -86,25 +87,117 @@ const ClientFooter = () => {
         <div className="flex flex-col gap-4 py-5 md:flex-row">
           <div className="flex flex-col items-start justify-between flex-1 w-full gap-5 md:flex-row md:gap-10">
             {navItems.map((navItem, index) => (
-              <div key={index}>
-                <h4 className="text-lg font-semibold ">{navItem.title}</h4>
-                <ul className="space-y-2">
-                  {navItem.links.map((link, index) => (
-                    <li key={index}>
-                      <a
-                        href={link.href}
-                        className="text-sm hover:text-primary"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+              <div key={index} className="w-full">
+                <div className="hidden md:block">
+                  <h4 className="text-lg font-semibold ">{navItem.title}</h4>
+                  <ul className="space-y-2">
+                    {navItem.links.map((link, index) => (
+                      <li key={index}>
+                        <a
+                          href={link.href}
+                          className="text-sm hover:text-primary"
+                        >
+                          {link.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="block md:hidden">
+                  <LabAccordion title={navItem.title}>
+                    <ul className="space-y-2">
+                      {navItem.links.map((link, index) => (
+                        <li key={index}>
+                          <a
+                            href={link.href}
+                            className="text-sm hover:text-primary"
+                          >
+                            {link.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </LabAccordion>
+                </div>
               </div>
             ))}
           </div>
 
-          <div>
+          <div className="block md:hidden">
+            <LabAccordion title="Social Links" triggerStyle="bg-primary">
+              <div>
+                <div className="flex items-center w-full max-w-xl gap-2">
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaLinkedinIn />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaFacebookF />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaInstagram />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaYoutube />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaTiktok />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaXTwitter />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaLinkedinIn />
+                  </Link>{" "}
+                  <Link
+                    href="#"
+                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
+                  >
+                    <FaLinkedinIn />
+                  </Link>
+                </div>
+                <h4 className="text-lg font-semibold text-white">Follow Us</h4>
+                <ul className="flex gap-5">
+                  <li>
+                    <a href="#" className="text-white hover:text-primary">
+                      Facebook
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-white hover:text-primary">
+                      Twitter
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-white hover:text-primary">
+                      Instagram
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </LabAccordion>
+          </div>
+          <div className="hidden md:block">
             <div className="flex items-center w-full max-w-xl gap-2">
               <Link
                 href="#"

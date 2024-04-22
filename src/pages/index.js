@@ -8,8 +8,6 @@ import Packs_banner from "@/components/pages/Home/packs_banner";
 import Tradeprint from "@/components/pages/Home/tradeprints";
 import HeroSliderComponent from "@/components/pages/Home/HeroSlider";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   return (
     <ClientLayout>
