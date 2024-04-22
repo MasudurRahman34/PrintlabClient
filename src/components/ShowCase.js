@@ -44,7 +44,7 @@ const ShowCase = ({ title, subTitle, list, bg }) => {
           <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
             {title}
           </h1>
-          <p className="mt-2 text-sm">{subTitle}</p>
+          <p className="mt-2 text-sm md:text-base font-normal text-typography mb-2 md:mb-5">{subTitle}</p>
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {showcaseData.map((item) => (
@@ -61,8 +61,8 @@ const ShowCase = ({ title, subTitle, list, bg }) => {
                 />
               </div>
               <div className="w-full p-3 text-center rounded-md">
-                <h2 className="text-xl font-semibold">{item.title}</h2>
-                <p className="mt-2">{item.desc}</p>
+                <h2 className="text-xl font-semibold text-secondgraphy">{item.title}</h2>
+                <p className="mt-2 text-[14px] md:text-base font-normal text-typography ">{item.desc}</p>
               </div>
             </Link>
           ))}
