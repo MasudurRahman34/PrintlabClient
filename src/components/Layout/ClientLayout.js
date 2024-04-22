@@ -1,6 +1,7 @@
 import React from "react";
 import ClientHeader from "../Header/ClientHeader";
 import ClientFooter from "../Footer/ClientFooter";
+import MobileNav from "../Footer/MobileNav";
 
 const ClientLayout = ({ children }) => {
   return (
@@ -12,6 +13,7 @@ const ClientLayout = ({ children }) => {
       <footer className="bg-secondgraphy min-h-40">
         <ClientFooter />
       </footer>
+      <MobileNav />
     </section>
   );
 };
