@@ -104,7 +104,7 @@ const bestSells = [
   },
 ];
 
-const bestsell = () => {
+const BestSell = () => {
   const [swiperRef, setSwiperRef] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -225,4 +225,4 @@ const bestsell = () => {
   );
 };
 
-export default bestsell;
+export default BestSell;
