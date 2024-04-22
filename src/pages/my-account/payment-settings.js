@@ -62,7 +62,7 @@ const PaymentSettings = () => {
                   alt=""
                 />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 ml-2 ">
                 <h1 className="font-semibold">Credit Account</h1>
                 <p className="text-sm">
                   Speed up your order process with the credit account, and pay

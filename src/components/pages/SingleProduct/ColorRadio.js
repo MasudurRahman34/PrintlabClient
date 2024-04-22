@@ -8,7 +8,7 @@ const ColorRadio = ({}) => {
       <p>
         <strong>Colour</strong> Natural/Green
       </p>
-      <div className="flex gap-2">
+      <div className="flex gap-2 mt-3 ">
         <div className="bg-[#252351] h-10 w-10 border rounded-md"></div>
         {color.map((item, index) => (
           <div
