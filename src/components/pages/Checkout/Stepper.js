@@ -36,10 +36,10 @@ const stepperData = [
   },
 ];
 
-const CheckoutStepper = () => {
+const CheckoutStepper = ({ activeStep = 0 }) => {
   return (
     <Stepper
-      activeStep={0}
+      activeStep={activeStep}
       connectorStateColors={true}
       connectorStyleConfig={{
         activeColor: "#1c4454",
@@ -59,7 +59,6 @@ const CheckoutStepper = () => {
             size: "3rem",
             circleFontSize: "1.5rem",
             inactiveBgColor: "#d1d1d1",
-            labelFontSize: "1rem",
           }}
         >
           <div key={item.id}>{item.icon}</div>

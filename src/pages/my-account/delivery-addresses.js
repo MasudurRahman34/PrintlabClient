@@ -8,7 +8,7 @@ const DeliveryAddresses = () => {
       <AccountLayout breadcrumb="Delivery Addresses">
         <section className="py-4 ">
           <div className="w-full px-3 py-5 text-sm text-center border-2 rounded-md border-primary bg-primary-light text-secondgraphy">
-            <p>You don't have any address saved in your account.</p>
+            <p>You dont have any address saved in your account.</p>
           </div>
         </section>
       </AccountLayout>

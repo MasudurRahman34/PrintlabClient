@@ -57,7 +57,7 @@ const ShowCase = ({ title, subTitle, list, bg }) => {
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="object-cover w-full h-56"
+                  className="object-cover w-full h-70"
                 />
               </div>
               <div className="w-full p-3 text-center rounded-md">

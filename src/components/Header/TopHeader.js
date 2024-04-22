@@ -119,7 +119,7 @@ const TopHeader = () => {
 
         <div>
           <Link
-            href="/signup"
+            href="/my-account"
             className="flex flex-col items-center space-y-1 group"
           >
             <span>
@@ -143,7 +143,7 @@ const TopHeader = () => {
         </div>
         <div>
           <Link
-            href="/checkout"
+            href="/basket"
             className="flex flex-col items-center space-y-1 group"
           >
             <span>

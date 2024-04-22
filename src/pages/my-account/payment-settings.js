@@ -66,7 +66,7 @@ const PaymentSettings = () => {
                 <h1 className="font-semibold">Credit Account</h1>
                 <p className="text-sm">
                   Speed up your order process with the credit account, and pay
-                  for your full month's print spend in just one transaction.
+                  for your full months print spend in just one transaction.
                 </p>
               </div>
               <div className="text-center">

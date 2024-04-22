@@ -425,10 +425,10 @@ const BottomHeader = () => {
                   return (
                     <>
                       <li className="menu-item-has-children">
-                        <a href="/product">
+                        <Link href="/product">
                           {manuCategory.name}{" "}
                           <i className="fa fa-angle-down"></i>
-                        </a>
+                        </Link>
                         <div className="sub-menu mega-menu mega-menu-column-4">
                           {manuCategory.children.length > 0 &&
                             manuCategory.children.map((child, index) => {
@@ -440,9 +440,9 @@ const BottomHeader = () => {
                                       child.children.map((subChild, index) => {
                                         return (
                                           <li key={index}>
-                                            <a href="/product/leaflet">
+                                            <Link href="/product/leaflet">
                                               {subChild.name}
-                                            </a>
+                                            </Link>
                                           </li>
                                         );
                                       })}
