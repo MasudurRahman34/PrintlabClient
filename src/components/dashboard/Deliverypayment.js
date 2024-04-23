@@ -1,7 +1,13 @@
 "use client";
+import Link from "next/link";
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const Deliverypayment = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  
   return (
     <div className="container mx-auto">
       <h1 className="text-lg  md:text-2xl lg:text-3xl text-secondgraphy font-bold px-3 mt-5 py-2 md:py-5">
@@ -22,12 +28,12 @@ const Deliverypayment = () => {
                   <p className="text-[12px] md:text-base font-normal text-red-500">
                     Required*
                   </p>
-                  <a
-                    href="#"
+                 <Link href="/my-account/menually-address" > <p
+                    
                     className="text-sm md:text-base font-normal text-primary underline"
                   >
                     Select existing address
-                  </a>
+                  </p></Link>
                 </div>
               </div>
               <div className="flex ">
@@ -35,14 +41,14 @@ const Deliverypayment = () => {
                   PostCode*
                 </p>
                 <div className="w-full">
-                  <form>
-                    <input
+                  <form onSubmit={handleSubmit(onSubmit)} >
+                      <input
                       type="text"
-                      id="input"
-                      name="code"
-                      className="block w-full border-primary border rounded-md shadow-md py-2 px-2 outline-none -mt-2 mb-2"
+                      placeholder="Enter Post code"
+                      className="block w-full border-primary border rounded-md shadow-md py-2 px-2 outline-none -mt-2 mb-2 "
+                      {...register("postcode", { required: true })}
                     />
-                    <input type="checkbox" id="" name="address" for="address" />
+                    <input type="checkbox" id="" name="address" for="address" required />
                     <label
                       for="address"
                       className="text-sm ml-3 md:text-base font-medium text-secondgraphy "
