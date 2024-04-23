@@ -2,7 +2,7 @@ import React from "react";
 
 const ArtworkService = () => {
   return (
-    <div className="flex w-full py-5 px-7">
+    <div className="flex flex-col w-full py-5 md:flex-row px-7">
       <div className="flex-1">
         <h1 className="text-base font-bold text-secondgraphy">
           Artwork Service

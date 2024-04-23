@@ -80,9 +80,9 @@ const index = () => {
               <SinglePageAccordion />
             </div>
           </div>
-          <div className="flex-1">
+          <div className="md:flex-1">
             <div>
-              <h1 className="text-4xl font-bold text-secondgraphy">
+              <h1 className="text-xl font-bold md:text-2xl lg:text-4xl text-secondgraphy">
                 Bamboo Ballpoint Pen
               </h1>
             </div>
@@ -138,7 +138,7 @@ const index = () => {
             <div class="box-body">
               <div className="bg-primary-light">
                 <nav
-                  className="mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base "
+                  className="mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base overflow-x-auto "
                   aria-label="Tabs"
                 >
                   <button
