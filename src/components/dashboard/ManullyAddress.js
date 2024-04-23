@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 const ManullyAddress = () => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => console.log(data);
-
   
   return (
     <div className="custom_container ">

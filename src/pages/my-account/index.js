@@ -1,4 +1,4 @@
-"use Client"
+"use Client";
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import React from "react";
@@ -43,17 +43,16 @@ const index = () => {
                 </div>
                 <div className="mt-5">
                   <label
-                
+                    htmlFor="company"
                     className="block text-sm font-medium text-secondgraphy"
                   >
                     Company
                   </label>
                   <Input
-                    type="text"
-                    {...register("compony", { required: true })}
+                    {...register("company", { required: true })}
                     placeHolder="Enter your name"
-                    name="name"
-                    id="name"
+                    name="company"
+                    id="company"
                   />
                 </div>
                 <div className="mt-5">
@@ -73,7 +72,7 @@ const index = () => {
                 </div>
                 <div className="mt-5">
                   <label
-                    htmlFor="phone"
+                    htmlFor="phon"
                     className="block text-sm font-medium text-secondgraphy"
                   >
                     Phone
@@ -82,9 +81,9 @@ const index = () => {
                   <Input
                     type="text"
                     placeHolder="Enter your phone number"
-                    {...register("phonenumber", { required: true })}
-                    name="phone"
-                    id="phone"
+                    {...register("phon", { required: true })}
+                    name="phon"
+                    id="phon"
                   />
                 </div>
                 <div className="flex items-center my-3 space-x-2">
