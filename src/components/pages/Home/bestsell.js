@@ -8,9 +8,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import "./css/styles.css"
-
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
-import BestSellers from "./BestSellers";
+
 
 const bestSells = [
   {
@@ -165,7 +164,7 @@ const BestSell = () => {
                       <button onClick={()=>setActiveTab(filter.id)}
                         type="button"
                         key={index}
-                        className={`  border-b-2   py-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
+                        className={`  border-b-2   pb-1 pt-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
                           activeTab===filter.id
                             ? "text-primary border-primary"
                             : " "
