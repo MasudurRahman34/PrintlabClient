@@ -1,3 +1,6 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import "@/styles/globals.css";
 //import "@/styles/style.css";
 import "swiper/css/bundle";
@@ -13,6 +16,13 @@ import "@/styles/embla_product_carousel.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 
+const queryClient = new QueryClient();
+
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} position="right" />
+    </QueryClientProvider>
+  );
 }
