@@ -8,13 +8,12 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 import Image from "next/image";
-import pen1 from "../../../../public/assets/pen1.jpg";
+
 import pen2 from "../../../../public/assets/pen2.jpg";
 
 const EmblaCarousel = (props) => {
   const { slides, options } = props;
 
-  console.log(slides);
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCategoriesQuery } from "@/resolvers/query";
+import { createCategoryMutation } from "@/resolvers/mutation";
 
 const menuCategories = [
   {
@@ -401,6 +404,13 @@ const BottomHeader = () => {
     });
   };
 
+  const [id, setId] = useState(null);
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["categories-get", id],
+    queryFn: () => getCategoriesQuery({ id: id }),
+    enabled: !id,
+  });
+
   return (
     <section className="flex items-center justify-between gap-10 px-5 border-b border-gray-300 bg-primary header">
       <div classNameName="w-full">
@@ -412,19 +422,27 @@ const BottomHeader = () => {
               onClick={toggleMenu}
             ></div>
             <nav className={`menu ${isActive ? "active" : ""}`}>
-              <div
-                className={`mobile-menu-head ${activeMenu.id ? "active" : ""}`}
-              >
-                <div className="go-back" onClick={goBackMenu}>
-                  {"<"}
+              {isPending ? (
+                <div>Loading..</div>
+              ) : isError ? (
+                "Error"
+              ) : (
+                <div
+                  className={`mobile-menu-head ${
+                    activeMenu.id ? "active" : ""
+                  }`}
+                >
+                  <div className="go-back" onClick={goBackMenu}>
+                    {"<"}
+                  </div>
+                  <div className="current-menu-title">
+                    {activeMenu.menu ? activeMenu.menu.name : ""}
+                  </div>
+                  <div className="mobile-menu-close" onClick={toggleMenu}>
+                    &times;
+                  </div>
                 </div>
-                <div className="current-menu-title">
-                  {activeMenu.menu ? activeMenu.menu.name : ""}
-                </div>
-                <div className="mobile-menu-close" onClick={toggleMenu}>
-                  &times;
-                </div>
-              </div>
+              )}
               <ul className="menu-main">
                 {menuCategories.map((manuCategory) => {
                   return (
