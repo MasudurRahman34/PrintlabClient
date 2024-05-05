@@ -27,12 +27,14 @@ const tradeprints = () => {
                 To find out more, click the Sign Up button below & start saving
                 today.
               </p>
+              '
               <Link
                 href="/signup"
                 className="px-8 py-3 text-base font-bold text-center text-white border border-none rounded-md bg-primary hover:bg-primary-light border-primary-light"
               >
                 Sign up Now
               </Link>
+              '
             </div>
           </div>
         </div>
