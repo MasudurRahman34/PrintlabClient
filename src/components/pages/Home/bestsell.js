@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 // import "./css/styles.css"
 
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
+import BestSellers from "./BestSellers";
 
 const bestSells = [
   {
@@ -161,13 +162,13 @@ const BestSell = () => {
                     aria-label="Tabs"
                   >
                     {filterBy.map((filter, index) => (
-                      <button
+                      <button onClick={()=>setActiveTab(filter.id)}
                         type="button"
                         key={index}
-                        className={` hover:text-primary  font-semibold text-base hover:underline border-b-2   py-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
-                          activeTab === filter.id
-                            ? "underline text-primary border-primary"
-                            : ""
+                        className={`  border-b-2   py-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
+                          activeTab===filter.id
+                            ? "text-primary border-primary"
+                            : " "
                         }`}
                         id="horizontal-alignment-item-1"
                         data-hs-tab="#horizontal-alignment-1"
