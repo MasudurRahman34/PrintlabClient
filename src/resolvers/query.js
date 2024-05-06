@@ -9,7 +9,14 @@ export const getCategoriesQuery = async ({ id = null }) =>
 export const getAllProductsQuery = async () =>
   await axios.get(`${backendUrl}/products`).then((res) => res.data);
 
-export const getSingleProductQuery = async ({ slug = null, id = null }) =>
+export const getSingleProductQuery = async ({
+  slug = null,
+  id = null,
+  category_slug,
+}) =>
   await axios
-    .get(`${backendUrl}/products/${slug || id}`)
+    .get(`${backendUrl}/${category_slug || category_id}/${slug || id}`)
     .then((res) => res.data);
+
+export const getProductsByCategoryQuery = async ({ category_slug }) =>
+  await axios.get(`${backendUrl}/${category_slug}`).then((res) => res.data);

@@ -99,14 +99,18 @@ const BottomHeader = () => {
                               manuCategory.children.map((child, index) => {
                                 return (
                                   <div className="list-item" key={index}>
-                                    <h4 className="title">{child.title}</h4>
+                                    <h4 className="title">
+                                      <Link href={`/${child.slug}`}>
+                                        {child.title}
+                                      </Link>
+                                    </h4>
                                     <ul>
                                       {child.products.length > 0 &&
                                         child.products.map((product, index) => {
                                           return (
                                             <li key={index}>
                                               <Link
-                                                href={`/product/${product.id}`}
+                                                href={`/${child.slug}/${product.slug}`}
                                               >
                                                 {product.title}
                                               </Link>

@@ -32,7 +32,7 @@ const EmblaCarousel = (props) => {
         <div className="embla__container">
           {slides?.map((bestSell, index) => (
             <div className="embla__slide" key={index}>
-              <Link href={`/product/${bestSell.id}`}>
+              <Link href={`/${bestSell?.categories[0].slug}/${bestSell?.slug}`}>
                 <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
                   <div className="w-full h-[85%]">
                     <Image

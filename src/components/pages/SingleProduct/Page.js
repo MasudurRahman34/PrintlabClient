@@ -51,11 +51,15 @@ const OPTIONS = {
 const SLIDES = Array.from(Array(product.images.length).keys());
 const SingleProductPageComponent = () => {
   const router = useRouter();
-  const { single_product } = router.query;
+  const { single_product, product_category } = router.query;
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
-    queryFn: () => getSingleProductQuery({ slug: single_product }),
+    queryFn: () =>
+      getSingleProductQuery({
+        slug: single_product,
+        category_slug: product_category,
+      }),
     enabled: !!single_product,
   });
 
