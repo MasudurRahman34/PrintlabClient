@@ -81,6 +81,7 @@ a {
   width: 100%;
   position: relative;
   z-index: 99;
+  min-height: 70px;
   padding: 15px;
 }
 .header .item-left {
@@ -115,8 +116,8 @@ a {
   margin-left: 25px;
 }
 .header .menu > ul > li > a {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 700;
   color: #000000;
   position: relative;
   text-transform: capitalize;
@@ -135,6 +136,12 @@ a {
 }
 
 @media (min-width: 992px) {
+  .header .menu .menu-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .header .menu > ul > li.menu-item-has-children:hover .sub-menu {
     margin-top: 0;
     visibility: visible;
@@ -361,6 +368,7 @@ a {
   }
   .header .menu .menu-main {
     height: 100%;
+
     overflow-x: hidden;
     overflow-y: auto;
   }
