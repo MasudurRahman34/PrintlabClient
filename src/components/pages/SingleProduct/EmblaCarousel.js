@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "./EmblaCarouselThumbsButton";
+import Zoom from "react-medium-image-zoom";
 
 const EmblaCarousel = (props) => {
   const { slides, options, images } = props;
@@ -41,7 +42,9 @@ const EmblaCarousel = (props) => {
           {slides.map((index) => (
             <div className="embla_single_product__slide" key={index}>
               <div className="embla_single_product__slide__number">
-                <img src={images[index].src} alt="" />
+                <Zoom>
+                  <img src={`${"/assets/products/Hoodie-Mockup.jpg"}`} alt="" />
+                </Zoom>
               </div>
             </div>
           ))}
@@ -60,7 +63,7 @@ const EmblaCarousel = (props) => {
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
                 index={index}
-                src={images[index].src}
+                src="/assets/products/Hoodie-Mockup.jpg"
               />
             ))}
           </div>

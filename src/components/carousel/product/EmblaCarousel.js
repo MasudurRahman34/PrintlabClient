@@ -30,23 +30,25 @@ const EmblaCarousel = (props) => {
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((bestSell, index) => (
+          {slides?.map((bestSell, index) => (
             <div className="embla__slide" key={index}>
-              <Link href={bestSell.href}>
+              <Link href={`/product/${bestSell.id}`}>
                 <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
-                  <div className="w-full h-[80%]">
+                  <div className="w-full h-[85%]">
                     <Image
                       className="object-cover w-full h-full"
-                      src={pen2}
+                      src={`${
+                        bestSell.imgUrl || "/assets/products/Hoodie-Mockup.jpg"
+                      }`}
                       class="card-img-top"
                       alt="img"
                       height={500}
                       width={500}
                     />
                   </div>
-                  <div className="flex h-[20%] items-center justify-center">
+                  <div className="flex h-[15%] items-center justify-center">
                     <p className="text-base font-medium text-center text-secondgraphy hover:underline hover:text-primary">
-                      Pens
+                      {bestSell.title}
                     </p>
                   </div>
                 </div>

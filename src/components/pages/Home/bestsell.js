@@ -10,6 +10,8 @@ import "swiper/css/navigation";
 // import "./css/styles.css"
 
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProductsQuery } from "@/resolvers/query";
 
 const bestSells = [
   {
@@ -105,12 +107,7 @@ const bestSells = [
 ];
 
 const BestSell = () => {
-  const [swiperRef, setSwiperRef] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
-
-  const [slides, setSlides] = useState(
-    Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
-  );
 
   const filterBy = [
     {
@@ -140,8 +137,11 @@ const BestSell = () => {
   ];
 
   const OPTIONS = { align: "start" };
-  const SLIDE_COUNT = 6;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+  const { isPending, data, isError, error } = useQuery({
+    queryKey: ["best-sell"],
+    queryFn: getAllProductsQuery,
+  });
 
   return (
     <>
@@ -180,41 +180,20 @@ const BestSell = () => {
                 </div>
 
                 <div className="mt-3">
-                  {/* <Swiper
-                    modules={[Virtual, Navigation]}
-                    onSwiper={setSwiperRef}
-                    slidesPerView={4}
-                    centeredSlides={true}
-                    spaceBetween={30}
-                    loop={true}
-                    navigation={true}
-                    virtual
-                  >
-                    {bestSells.map((bestSell, index) => (
-                      <SwiperSlide key={index} virtualIndex={index}>
-                        <Link href={bestSell.href}>
-                          <div className="transition-all duration-150 border shadow-primary w-72 h-80 hover:shadow-md">
-                            <div className="w-full h-[80%]">
-                              <Image
-                                className="object-cover w-full h-full"
-                                src={pen2}
-                                class="card-img-top"
-                                alt="img"
-                                height={500}
-                                width={500}
-                              />
-                            </div>
-                            <div className="flex h-[20%] items-center justify-center">
-                              <p className="text-base font-medium text-center text-secondgraphy hover:underline hover:text-primary">
-                                Pens
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper> */}
-                  <EmblaCarousel slides={bestSells} options={OPTIONS} />
+                  {isPending || isError ? (
+                    <div>
+                      <div className="flex items-center justify-center">
+                        <div className="w-20 h-20 border-t-2 border-b-2 rounded-full border-primary animate-spin"></div>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm text-defaulttextcolor">
+                          {isPending ? "Loading Best Sell Products" : "error"}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <EmblaCarousel slides={data?.data} options={OPTIONS} />
+                  )}
                 </div>
               </div>
             </div>
