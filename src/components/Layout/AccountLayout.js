@@ -95,7 +95,7 @@ const AccountLayout = ({ children, breadcrumb }) => {
             </div>
             <div className="border border-[#b7b7b7] mt-5 mb-5 w-[70%] "></div>
             <ul className="">{navitem}</ul>
-            <div className="border border-[#b7b7b7] mt-5 mb-5 w-[70%] "></div>
+            <div className="border border-[#b7b7b7]  mb-5 w-[70%] mt-[100px] "></div>
             <button className="mt-5 mb-5">Log Out</button>
           </div>
           <div className="z-10 w-full md:w-9/12 pos">

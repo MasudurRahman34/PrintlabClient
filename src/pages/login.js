@@ -1,7 +1,13 @@
+"use Client"
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Link from "next/link";
+import { useForm } from "react-hook-form"
 
-const login = () => {
+const Userlogin = () => {
+  const { register, handleSubmit ,reset } = useForm();
+  const onSubmit = (data) =>(
+    console.log(data)
+  )
   return (
     <ClientLayout>
       <>
@@ -11,20 +17,20 @@ const login = () => {
               <h4 className=" font-semibold md:font-bold py-5px-5 mt-5 mb-5 text-lg md:text-xl lg:text-2xl xl:text-3xl ">
                 Log In
               </h4>
-             <div className="">
-             <form>
+             <div>
+             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className=" input-from w-full">
                   <div className="w-full mb-2 md:mb-5 ">
                     <label className=" text-[12px] md:text-base text-typography font-medium">
                       Email
                     </label>
-                    <input className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full" placeholder="Enter Email" type="email" />
+                    <input type="email" placeholder="Enter Email" className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none" {...register("email", { required: true})} />
                   </div>
                   <div className="w-full mb-2 md:mb-5">
                     <label className=" text-[12px] md:text-base text-typography font-medium">
                       Password
                     </label>
-                    <input className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full" placeholder="Enter Password" type="password" />
+                    <input type="password" placeholder="Enter Password" className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none " {...register("password", { required: true,minLength:8})} />
                   </div>
                   <div className=" flex justify-between mb-4 ">
                     <div className="flex items-center gap-1 ">
@@ -33,13 +39,12 @@ const login = () => {
                         id="login"
                         name="vehicle1"
                         value="checkout"
-                        
+                        required             
                       />
                       <label
                         for="login"
                         className="text-[12px] md:text-base ml-2  text-typography"
                       >
-                        
                         Stay signed in                         
                       </label>
                     </div>
@@ -50,9 +55,7 @@ const login = () => {
                     </Link>
                   </div>
                   <div className="mb-2">
-                    <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary">
-                      Sign In
-                    </button>
+                    <input type="submit" value="Sign In" className="text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary" />
                   </div>
                   <div className="w-full mb-5">
                     <p className="text-[12px] md:text-[14px] font-normal text-center text-typography">
@@ -76,4 +79,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Userlogin;

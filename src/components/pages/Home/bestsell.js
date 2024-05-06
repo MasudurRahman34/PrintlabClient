@@ -1,110 +1,8 @@
-import ClientLayout from "@/components/Layout/ClientLayout";
-import React, { useRef, useState } from "react";
-import Image from "next/image";
-import { Virtual, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Link from "next/link";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-// import "./css/styles.css"
+import React, { useState } from "react";
 
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProductsQuery } from "@/resolvers/query";
-
-const bestSells = [
-  {
-    id: 1,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 2,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 3,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 4,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 5,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 6,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 7,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 8,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 9,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 10,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 11,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 12,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 13,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-  {
-    id: 14,
-    name: "Pens",
-    image: "assets/images/pen2.jpg",
-    href: "/pens",
-  },
-  {
-    id: 15,
-    name: "Pens",
-    image: "assets/images/pen1.jpg",
-    href: "/pens",
-  },
-];
 
 const BestSell = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -162,12 +60,13 @@ const BestSell = () => {
                   >
                     {filterBy.map((filter, index) => (
                       <button
+                        onClick={() => setActiveTab(filter.id)}
                         type="button"
                         key={index}
-                        className={` hover:text-primary  font-semibold text-base hover:underline border-b-2   py-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
+                        className={`  border-b-2   pb-1 pt-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
                           activeTab === filter.id
-                            ? "underline text-primary border-primary"
-                            : ""
+                            ? "text-primary border-primary"
+                            : " "
                         }`}
                         id="horizontal-alignment-item-1"
                         data-hs-tab="#horizontal-alignment-1"

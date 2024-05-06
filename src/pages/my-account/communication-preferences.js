@@ -10,8 +10,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useForm } from "react-hook-form";
 
 const CommunicationPreferences = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+
   return (
     <ClientLayout>
       <AccountLayout breadcrumb="Communication Preferences">
@@ -27,7 +32,7 @@ const CommunicationPreferences = () => {
               </p>
             </div>
             <div>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)} >
                 <div className="mt-5">
                   <label
                     htmlFor="email"
@@ -35,11 +40,11 @@ const CommunicationPreferences = () => {
                   >
                     Confirm your email address
                   </label>
-                  <Input
-                    placeHolder="Enter your email address"
-                    name="email"
-                    id="email"
-                  />
+                    <Input
+                      type="email"
+                      placeholder="Enter Email"
+                      {...register("email", { required: true })}
+                    />
                 </div>
 
                 <div className="mt-5">
@@ -51,9 +56,9 @@ const CommunicationPreferences = () => {
                     from us*
                   </label>
 
-                  <Select>
+                  <Select {...register("subscribeation")} >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Please select one" />
+                      <SelectValue  placeholder="Please select one" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="subscribe">
@@ -65,7 +70,6 @@ const CommunicationPreferences = () => {
                     </SelectContent>
                   </Select>
                 </div>
-
                 <div className="my-2 mt-5 ">
                   <Button>Save</Button>
                 </div>

@@ -106,7 +106,7 @@ const BottomHeader = () => {
                                           return (
                                             <li key={index}>
                                               <Link
-                                                href={`/product/${product.slug}`}
+                                                href={`/product/${product.id}`}
                                               >
                                                 {product.title}
                                               </Link>
