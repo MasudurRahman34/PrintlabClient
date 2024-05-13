@@ -43,7 +43,7 @@ const EmblaCarousel = (props) => {
             <div className="embla_single_product__slide" key={index}>
               <div className="embla_single_product__slide__number">
                 <Zoom>
-                  <img src={`${"/assets/products/Hoodie-Mockup.jpg"}`} alt="" />
+                  {/* <img src={`${"/assets/products/Hoodie-Mockup.jpg"}`} alt="" /> */}
                 </Zoom>
               </div>
             </div>

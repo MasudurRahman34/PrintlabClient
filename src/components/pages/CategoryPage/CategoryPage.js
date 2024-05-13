@@ -14,9 +14,15 @@ const CategoryPage = () => {
   });
 
   console.log(data, isPending, isError, error);
+if(isPending){
+  return <h1>Loading...</h1>
+}
+  console.log(data)
   return (
     <div>
       <ShowCase
+      data={data}
+      isPending={isPending}
         title="Printed Mugs"
         subTitle="Come and check out our range of Travel Drinkware. A variety of choice awaits, create your own design fast with our online designer. Order yours now and boost your promotional products or create fabulous gifts! "
       />

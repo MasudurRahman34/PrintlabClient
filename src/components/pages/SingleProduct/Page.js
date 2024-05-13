@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import EmblaCarousel from "@/components/pages/SingleProduct/EmblaCarousel";
 import prodct1 from "../../../../public/assets/mug1.webp";
 import prodct2 from "../../../../public/assets/mug2.webp";
@@ -25,16 +25,20 @@ const product = {
   photo:
     "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
   price: 10,
-  desc: " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et luctus enim justo non justo. Ut luctus sagittis nulla. Donec nec dui sit amet dolor gravida ornare. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus.",
+  desc:
+    " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et luctus enim justo non justo. Ut luctus sagittis nulla. Donec nec dui sit amet dolor gravida ornare. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus.",
   images: [
     {
-      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src:
+        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
     {
-      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src:
+        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
     {
-      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src:
+        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
   ],
   colors: ["red", "blue", "green"],
@@ -62,9 +66,45 @@ const SingleProductPageComponent = () => {
       }),
     enabled: !!single_product,
   });
+  const [active, setactive] = useState(1);
 
-  console.log(data, isPending, isError, error);
-
+  const producttabs = [
+    {
+      title: "Product Details",
+      id: 1,
+    },
+    {
+      title: "Product Details",
+      id: 2,
+    },
+    {
+      title: "Sustainability & Environmental Policy",
+      id: 3,
+    },
+  ];
+  const productdetails = [
+    {
+      "title": "Bullet™ Mojave Insulating Tumbler 1",
+      id: 1,
+      img: `${prodct1}`,
+      des:
+        "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+    },
+    {
+      title: "Bullet™ Mojave Insulating Tumbler 2",
+      id: 2,
+      img: `${prodct2}`,
+      des:
+        "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+    },
+    {
+      title: "Bullet™ Mojave Insulating Tumbler 3",
+      id: 3,
+      img: `${prodct3}`,
+      des:
+        "Looking zor a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+    },
+  ];
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
@@ -140,169 +180,66 @@ const SingleProductPageComponent = () => {
           <div class="box-body">
             <div className="bg-primary-light">
               <nav
-                className="mx-auto  flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base overflow-x-auto "
+                className="mx-auto flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base overflow-x-auto "
                 aria-label="Tabs"
               >
-                <button
-                  type="button"
-                  class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
-                  id="pills-on-gray-color-item-1"
-                  data-hs-tab="#pills-on-gray-color-1"
-                  aria-controls="pills-on-gray-color-1"
-                >
-                  Product Details
-                </button>
-                <button
-                  type="button"
-                  class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
-                  id="pills-on-gray-color-item-2"
-                  data-hs-tab="#pills-on-gray-color-2"
-                  aria-controls="pills-on-gray-color-2"
-                >
-                  Technical Specifications
-                </button>
-                <button
-                  type="button"
-                  class=" text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold"
-                  id="pills-on-gray-color-item-3"
-                  data-hs-tab="#pills-on-gray-color-3"
-                  aria-controls="pills-on-gray-color-3"
-                >
-                  Sustainability & Environmental Policy
-                </button>
+                {producttabs.map((item) => (
+                  <button
+                    onClick={() => setactive(item.id)}
+                    key={item.id}
+                    type="button"
+                    className={` ${
+                      active === item.id ? "!bg-primary" : ""
+                    } text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold`}
+                    id="pills-on-gray-color-item-1"
+                    data-hs-tab="#pills-on-gray-color-1"
+                    aria-controls={`pills-on-gray-color-${item.id}`}
+                  >
+                    Product Details
+                  </button>
+                ))}
               </nav>
             </div>
             <div class="mt-3 ">
-              <div
-                id="pills-on-gray-color-1"
-                role="tabpanel"
-                aria-labelledby="pills-on-gray-color-item-1"
-              >
-                <div className="md:flex">
-                  <div className="hidden md:block md:w-3/12">
-                    <div className="w-full h-full p-5">
-                      <Image src={prodct1} />
+             
+              {
+                productdetails.map((item)=>(<div key={item.id}
+                  id="pills-on-gray-color-1"
+                  className={`${active === item.id ? 'block' : 'hidden'}`}
+                  role="tabpanel"
+                  aria-labelledby={`pills-on-gray-color-item-${item.id}`}
+                >
+                  <div className="md:flex">
+                    <div className=" hidden md:block md:w-3/12">
+                      <div className="w-full h-full p-5">
+                      <img src={prodct1}/>
+                      </div>
+                    </div>
+                    <div className="w-full md:w-9/12">
+                      <div className="p-5">
+                        <h4 className="pb-2 text-lg font-normal md:text-xl text-secondgraphy">
+                          {item.title}
+                        </h4>
+                        <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
+                        {item.des}
+                        </p>
+                        <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
+                          Looking for a travel mug that can keep your drinks hot
+                          or cold for longer while youre on the go? Look no
+                          further than our Travel Mug! The advanced insulation
+                          technology can keep your hot drinks warm for up to 2
+                          hours and your cold drinks cool for up to 4 hours. The
+                          mug is made of a combination of PP plastic and stainless
+                          steel, making it a durable and corrosion-resistant
+                          tumbler that is easy to clean.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="w-full md:w-9/12">
-                    <div className="p-5">
-                      <h4 className="pb-2 text-lg font-normal md:text-xl text-secondgraphy">
-                        Bullet™ Mojave Insulating Tumbler
-                      </h4>
-                      <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        Looking for a travel mug that can keep your drinks hot
-                        or cold for longer while youre on the go? Look no
-                        further than our Travel Mug! The advanced insulation
-                        technology can keep your hot drinks warm for up to 2
-                        hours and your cold drinks cool for up to 4 hours. The
-                        mug is made of a combination of PP plastic and stainless
-                        steel, making it a durable and corrosion-resistant
-                        tumbler that is easy to clean.
-                      </p>
-                      <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        Looking for a travel mug that can keep your drinks hot
-                        or cold for longer while youre on the go? Look no
-                        further than our Travel Mug! The advanced insulation
-                        technology can keep your hot drinks warm for up to 2
-                        hours and your cold drinks cool for up to 4 hours. The
-                        mug is made of a combination of PP plastic and stainless
-                        steel, making it a durable and corrosion-resistant
-                        tumbler that is easy to clean.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                id="pills-on-gray-color-2"
-                class="hidden"
-                role="tabpanel"
-                aria-labelledby="pills-on-gray-color-item-2"
-              >
-                <div className="md:flex">
-                  <div className="hidden md:block md:w-3/12">
-                    <div className="w-full h-full p-5">
-                      <Image src={prodct2} />
-                    </div>
-                  </div>
-                  <div className="w-full md:w-9/12">
-                    <div className="p-5">
-                      <h4 className="pb-2 text-lg font-normal md:text-xl text-secondgraphy">
-                        Bullet™ Mojave Insulating Tumbler
-                      </h4>
-                      <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        Looking for a travel mug that can keep your drinks hot
-                        or cold for longer while youre on the go? Look no
-                        further than our Travel Mug! The advanced insulation
-                        technology can keep your hot drinks warm for up to 2
-                        hours and your cold drinks cool for up to 4 hours. The
-                        mug is made of a combination of PP plastic and stainless
-                        steel, making it a durable and corrosion-resistant
-                        tumbler that is easy to clean.
-                      </p>
-                      <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        Looking for a travel mug that can keep your drinks hot
-                        or cold for longer while youre on the go? Look no
-                        further than our Travel Mug! The advanced insulation
-                        technology can keep your hot drinks warm for up to 2
-                        hours and your cold drinks cool for up to 4 hours. The
-                        mug is made of a combination of PP plastic and stainless
-                        steel, making it a durable and corrosion-resistant
-                        tumbler that is easy to clean.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                id="pills-on-gray-color-3"
-                class="hidden"
-                role="tabpanel"
-                aria-labelledby="pills-on-gray-color-item-3"
-              >
-                <div className="md:flex">
-                  <div className="hidden md:block md:w-3/12">
-                    <div className="w-full h-full p-5">
-                      <Image src={prodct3} />
-                    </div>
-                  </div>
-                  <div className="w-full py-5 md:w-9/12">
-                    <div className="p-5">
-                      <h4 className="pb-2 text-lg font-normal md:text-xl text-secondgraphy">
-                        High Quality Printing with Sustainability in mind.
-                      </h4>
-                      <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        We are working hard to mitigate our environmental impact
-                        and are following an emissions reduction program to
-                        lower our direct and indirect emissions which will lead
-                        us to Net Zero by 2040.
-                      </p>
-                      <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        We are working hard to introduce more environmentally
-                        credible products in our range and we encourage you to
-                        consider using more of those products.
-                      </p>
-                      <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        Tradeprint supports Two Sides, the print and paper
-                        advocacy group that aims to dispel myths around
-                        greenwashing and promote paper as a truly sustainable
-                        product.
-                      </p>
-                      <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        We are committed to reducing waste and in particular
-                        aiming to eliminate problematic plastics from our
-                        printing and fulfilment operation..
-                      </p>
-                      <a
-                        href="#"
-                        className="underline text-[#9AC285] text-sm md:text-base "
-                      >
-                        Read full Environmental policy here.
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </div>))
+              }
+
+
             </div>
           </div>
         </div>

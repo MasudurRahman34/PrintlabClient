@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import mug from "../../public/assets/mug1.webp"
 
 const showcaseData = [
   {
@@ -36,7 +37,12 @@ const showcaseData = [
   },
 ];
 
-const ShowCase = ({ title, subTitle, list, bg }) => {
+const ShowCase = ({ title, subTitle,data, bg,isPending }) => {
+  if(isPending){
+    return <h1>Loading...</h1>
+  }
+  
+  console.log(data?.data)
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
       <div className="custom_container text-secondgraphy">
@@ -47,24 +53,24 @@ const ShowCase = ({ title, subTitle, list, bg }) => {
           <p className="mt-2 text-sm md:text-base font-normal text-typography mb-2 md:mb-5">{subTitle}</p>
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {showcaseData.map((item) => (
-            <Link
-              href={item.link}
-              key={item.id}
+          {data?.data?.map((item) => (
+            <div
+              // href={item?.link}
+              key={item?.id}
               className="flex flex-col transition-all duration-300 bg-white hover:shadow-primary hover:shadow-md"
             >
-              <div className="w-full h-full">
+              <div className="w-full  mb-1">
                 <img
-                  src={item.img}
-                  alt={item.title}
-                  className="object-cover w-full h-70"
+                  src="https://i.ibb.co/YhCxD9N/mug1.webp"
+                  alt={item?.title}
+                  className="object-cover w-full h-72"
                 />
               </div>
-              <div className="w-full p-3 text-center rounded-md">
-                <h2 className="text-xl font-semibold text-secondgraphy">{item.title}</h2>
-                <p className="mt-2 text-[14px] md:text-base font-normal text-typography ">{item.desc}</p>
+              <div className="w-full p-3 text-center rounded-md h-auto overflow-hidden">
+                <h2 className="text-xl font-semibold text-secondgraphy">{item?.title}</h2>
+                <p className="mt-2 text-[14px] md:text-base font-normal text-typography ">{item?.description}</p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
