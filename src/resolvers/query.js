@@ -15,13 +15,10 @@ export const getSingleProductQuery = async ({
   category_slug,
 }) =>
   await axios
-    .get(`${backendUrl}/${category_slug || category_id}/${slug || id}`)
+    .get(`${backendUrl}/product/${category_slug || category_id}/${slug || id}`)
     .then((res) => res.data);
 
-
-
 export const getProductsByCategoryQuery = async ({ category_slug }) =>
-  await axios.get(`${backendUrl}/categories/${category_slug}`).then((res) => res.data);
-
-
-
+  await axios
+    .get(`${backendUrl}/categories/${category_slug}`)
+    .then((res) => res.data);

@@ -25,20 +25,16 @@ const product = {
   photo:
     "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
   price: 10,
-  desc:
-    " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et luctus enim justo non justo. Ut luctus sagittis nulla. Donec nec dui sit amet dolor gravida ornare. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus.",
+  desc: " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et luctus enim justo non justo. Ut luctus sagittis nulla. Donec nec dui sit amet dolor gravida ornare. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus.",
   images: [
     {
-      src:
-        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
     {
-      src:
-        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
     {
-      src:
-        "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
+      src: "https://www.tradeprint.co.uk/dam/jcr:ab9385a4-f764-4c37-a6e3-fb0ed4ee0f0c/Heat%20changing%20Mug%20Game.webp",
     },
   ],
   colors: ["red", "blue", "green"],
@@ -84,25 +80,22 @@ const SingleProductPageComponent = () => {
   ];
   const productdetails = [
     {
-      "title": "Bullet™ Mojave Insulating Tumbler 1",
+      title: "Bullet™ Mojave Insulating Tumbler 1",
       id: 1,
       img: `${prodct1}`,
-      des:
-        "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+      des: "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
     },
     {
       title: "Bullet™ Mojave Insulating Tumbler 2",
       id: 2,
       img: `${prodct2}`,
-      des:
-        "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+      des: "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
     },
     {
       title: "Bullet™ Mojave Insulating Tumbler 3",
       id: 3,
       img: `${prodct3}`,
-      des:
-        "Looking zor a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+      des: "Looking zor a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
     },
   ];
   return (
@@ -201,18 +194,18 @@ const SingleProductPageComponent = () => {
               </nav>
             </div>
             <div class="mt-3 ">
-             
-              {
-                productdetails.map((item)=>(<div key={item.id}
+              {productdetails.map((item) => (
+                <div
+                  key={item.id}
                   id="pills-on-gray-color-1"
-                  className={`${active === item.id ? 'block' : 'hidden'}`}
+                  className={`${active === item.id ? "block" : "hidden"}`}
                   role="tabpanel"
                   aria-labelledby={`pills-on-gray-color-item-${item.id}`}
                 >
                   <div className="md:flex">
-                    <div className=" hidden md:block md:w-3/12">
+                    <div className="hidden  md:block md:w-3/12">
                       <div className="w-full h-full p-5">
-                      <img src={prodct1}/>
+                        <img src={prodct1} />
                       </div>
                     </div>
                     <div className="w-full md:w-9/12">
@@ -221,7 +214,7 @@ const SingleProductPageComponent = () => {
                           {item.title}
                         </h4>
                         <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                        {item.des}
+                          {item.des}
                         </p>
                         <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
                           Looking for a travel mug that can keep your drinks hot
@@ -229,17 +222,15 @@ const SingleProductPageComponent = () => {
                           further than our Travel Mug! The advanced insulation
                           technology can keep your hot drinks warm for up to 2
                           hours and your cold drinks cool for up to 4 hours. The
-                          mug is made of a combination of PP plastic and stainless
-                          steel, making it a durable and corrosion-resistant
-                          tumbler that is easy to clean.
+                          mug is made of a combination of PP plastic and
+                          stainless steel, making it a durable and
+                          corrosion-resistant tumbler that is easy to clean.
                         </p>
                       </div>
                     </div>
                   </div>
-                </div>))
-              }
-
-
+                </div>
+              ))}
             </div>
           </div>
         </div>
