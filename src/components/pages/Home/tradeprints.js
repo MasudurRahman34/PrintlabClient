@@ -33,7 +33,6 @@ const tradeprints = () => {
               >
                 Sign up Now
               </Link>
-              '
             </div>
           </div>
         </div>
