@@ -4,7 +4,9 @@ import { Thumb } from "./EmblaCarouselThumbsButton";
 import Zoom from "react-medium-image-zoom";
 
 const EmblaCarousel = (props) => {
-  const { slides, options, images } = props;
+  const { slides, options } = props;
+  console.log(slides);
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -39,11 +41,11 @@ const EmblaCarousel = (props) => {
     <div className="embla_single_product">
       <div className="embla_single_product__viewport" ref={emblaMainRef}>
         <div className="embla_single_product__container">
-          {slides.map((index) => (
+          {slides?.map((slide, index) => (
             <div className="embla_single_product__slide" key={index}>
               <div className="embla_single_product__slide__number">
                 <Zoom>
-                  <img src={`${"/assets/products/Hoodie-Mockup.jpg"}`} alt="" />
+                  <img src={`${slide.url}`} alt="" />
                 </Zoom>
               </div>
             </div>
@@ -57,13 +59,13 @@ const EmblaCarousel = (props) => {
           ref={emblaThumbsRef}
         >
           <div className="embla_single_product-thumbs__container">
-            {slides.map((index) => (
+            {slides?.map((slide, index) => (
               <Thumb
                 key={index}
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
                 index={index}
-                src="/assets/products/Hoodie-Mockup.jpg"
+                src={slide.url || "/assets/products/Hoodie-Mockup.jpg"}
               />
             ))}
           </div>

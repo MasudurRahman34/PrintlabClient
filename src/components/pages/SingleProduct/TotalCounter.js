@@ -1,16 +1,17 @@
 import React from "react";
 
-const TotalCounter = () => {
+const TotalCounter = ({ price }) => {
   return (
     <section className="fixed bottom-0 left-0 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <div className="flex-1 text-white text-end ">
             <p>
-              <strong className="text-2xl">Fri. 12th Apr £10.89</strong> Ex Vat
+              <strong className="text-2xl">Fri. 12th Apr £{price || 0}</strong>{" "}
+              Ex Vat
             </p>
             <p>
-              <strong>£13.07</strong> Inc Vat
+              <strong>£{price || 0}</strong> Inc Vat
             </p>
           </div>
           <div className="flex-1 w-full">
