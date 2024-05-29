@@ -30,7 +30,6 @@ const SingleProductPageComponent = () => {
     enabled: !!single_product,
   });
   const [active, setactive] = useState(1);
-  console.log(data?.data)
 
   const producttabs = [
     {
@@ -38,34 +37,25 @@ const SingleProductPageComponent = () => {
       id: 1,
     },
     {
-      title: "Product Details",
+      title: "technical_specification",
       id: 2,
     },
-    {
-      title: "Sustainability & Environmental Policy",
-      id: 3,
-    },
   ];
+
   const productdetails = [
     {
-      title: "Bullet™ Mojave Insulating Tumbler 1",
       id: 1,
-      img: `${prodct1}`,
-      des: "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+      img: `${data?.data?.specification?.details_imageUrl}`,
+      des: `${data?.data?.specification?.details}`
     },
     {
-      title: "Bullet™ Mojave Insulating Tumbler 2",
+
       id: 2,
-      img: `${prodct2}`,
-      des: "Looking for a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
-    },
-    {
-      title: "Bullet™ Mojave Insulating Tumbler 3",
-      id: 3,
-      img: `${prodct3}`,
-      des: "Looking zor a travel mug that can keep your drinks hot or cold for longer while youre on the go? Look no further than our Travel Mug! The advanced insulation technology can keep your hot drinks warm for up to 2 hours and your cold drinks cool for up to 4 hours. The mug is made of a combination of PP plastic and stainless steel, making it a durable and corrosion-resistant tumbler that is easy to clean.",
+      img: `${data?.data?.specification?.technical_specification_imageUrl}`,
+      des: `${data?.data?.specification?.technical_specification}`
     },
   ];
+
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
@@ -105,7 +95,7 @@ const SingleProductPageComponent = () => {
                     data-hs-tab="#pills-on-gray-color-1"
                     aria-controls={`pills-on-gray-color-${item.id}`}
                   >
-                    Product Details
+                    {item?.title}
                   </button>
                 ))}
               </nav>
@@ -122,27 +112,15 @@ const SingleProductPageComponent = () => {
                   <div className="md:flex">
                     <div className="hidden md:block md:w-3/12">
                       <div className="w-full h-full p-5">
-                        <img src={prodct1} />
+                        <img src={item?.img} />
                       </div>
                     </div>
                     <div className="w-full md:w-9/12">
                       <div className="p-5">
-                        <h4 className="pb-2 text-lg font-normal md:text-xl text-secondgraphy">
-                          {item.title}
-                        </h4>
                         <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                          {item.des}
+                          {item?.des}
                         </p>
-                        <p className=" text-sm md:text-base font-normal  text-[#555656] pb-2">
-                          Looking for a travel mug that can keep your drinks hot
-                          or cold for longer while youre on the go? Look no
-                          further than our Travel Mug! The advanced insulation
-                          technology can keep your hot drinks warm for up to 2
-                          hours and your cold drinks cool for up to 4 hours. The
-                          mug is made of a combination of PP plastic and
-                          stainless steel, making it a durable and
-                          corrosion-resistant tumbler that is easy to clean.
-                        </p>
+                     
                       </div>
                     </div>
                   </div>

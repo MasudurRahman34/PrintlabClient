@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 const SinglePageAccordion = ({ data }) => {
+  console.log(data?.artwork?.artwork_guide)
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
@@ -32,8 +33,7 @@ const SinglePageAccordion = ({ data }) => {
       <AccordionItem value="item-2">
         <AccordionTrigger className="font-bold text-secondgraphy">Artwork Guide</AccordionTrigger>
         <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
+        <div dangerouslySetInnerHTML={{__html:data?.artwork?.artwork_guide}} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3" className="font-bold text-secondgraphy">
