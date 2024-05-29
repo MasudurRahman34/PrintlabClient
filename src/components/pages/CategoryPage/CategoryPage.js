@@ -8,32 +8,24 @@ const CategoryPage = () => {
   const router = useRouter();
   const { product_category } = router.query;
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["categories-get"],
+    queryKey: ["category_products", product_category],
+    enabled: !!product_category,
     queryFn: () =>
       getProductsByCategoryQuery({ category_slug: product_category }),
   });
-
   console.log(data, isPending, isError, error);
-if(isPending){
-  return <h1>Loading...</h1>
-}
-  console.log(data)
+
+  if (isPending) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div>
       <ShowCase
-      data={data}
-      isPending={isPending}
-        title="Printed Mugs"
-        subTitle="Come and check out our range of Travel Drinkware. A variety of choice awaits, create your own design fast with our online designer. Order yours now and boost your promotional products or create fabulous gifts! "
-      />
-      <ShowCase
-        title="Printed Travel Mugs"
-        subTitle="Check out our range of Personalised Printed Ceramic Mugs. With a range of colours of colours to choose from you wont struggle find one to boost your brand or create stunning gifts."
-        bg
-      />
-      <ShowCase
-        title="Sports Bottle Printing"
-        subTitle="Sports bottles make the perfect high end branded giveaway or promotional item. Check out our range below now and choose the one right for you! "
+        data={data?.data}
+        isPending={isPending}
+        title={data?.data.title}
+        subTitle={data?.data.description}
       />
     </div>
   );

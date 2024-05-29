@@ -38,7 +38,9 @@ const EmblaCarousel = (props) => {
                     <Image
                       className="object-cover w-full h-full"
                       src={`${
-                        bestSell.imgUrl || "/assets/products/Hoodie-Mockup.jpg"
+                        bestSell?.media.filter(
+                          (item) => item.is_profile === 1
+                        )[0]?.url || "/assets/products/Hoodie-Mockup.jpg"
                       }`}
                       class="card-img-top"
                       alt="img"

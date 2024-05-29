@@ -1,15 +1,5 @@
 import React from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 const Quantity = () => {
   return (
     <div className="flex items-center justify-between gap-3 py-2">
@@ -17,7 +7,7 @@ const Quantity = () => {
         <strong>Quantity</strong>
       </div>
       <div className="w-2/3">
-        <form class="max-w-xs mx-auto">
+        <form>
           <label
             for="quantity-input"
             className="block mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

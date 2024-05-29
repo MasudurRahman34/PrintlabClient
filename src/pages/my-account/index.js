@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 
-const index = () => {
+const Index = () => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => console.log(data);
 
@@ -103,4 +103,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
