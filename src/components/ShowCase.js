@@ -10,6 +10,8 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
     return <h1>Loading...</h1>;
   }
 
+  console.log(data);
+
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
       <div className="custom_container text-secondgraphy">
@@ -17,9 +19,10 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
           <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
             {title}
           </h1>
-          <p className="mt-2 mb-2 text-sm font-normal md:text-base text-typography md:mb-5">
-            {subTitle}
-          </p>
+          <div
+            className="mt-2 mb-2 text-sm font-normal md:text-base text-typography md:mb-5"
+            dangerouslySetInnerHTML={{ __html: subTitle }}
+          ></div>
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data?.products.map((item) => (
@@ -39,9 +42,9 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
                 <h2 className="text-xl font-semibold text-secondgraphy">
                   {item?.title}
                 </h2>
-                <p className="mt-2 text-[14px] md:text-base font-normal text-typography ">
-                  {item?.description}
-                </p>
+                <div
+                  dangerouslySetInnerHTML={{ __html: item?.description }}
+                ></div>
               </div>
             </Link>
           ))}

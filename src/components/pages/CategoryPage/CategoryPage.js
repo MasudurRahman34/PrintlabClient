@@ -13,7 +13,6 @@ const CategoryPage = () => {
     queryFn: () =>
       getProductsByCategoryQuery({ category_slug: product_category }),
   });
-  console.log(data, isPending, isError, error);
 
   if (isPending) {
     return <h1>Loading...</h1>;
