@@ -67,6 +67,7 @@ const SingleProductPageComponent = () => {
     enabled: !!single_product,
   });
   const [active, setactive] = useState(1);
+  console.log(data?.data)
 
   const producttabs = [
     {
@@ -212,7 +213,7 @@ const SingleProductPageComponent = () => {
                   <div className="md:flex">
                     <div className=" hidden md:block md:w-3/12">
                       <div className="w-full h-full p-5">
-                      <img src={prodct1}/>
+                      <img src={item.img}/>
                       </div>
                     </div>
                     <div className="w-full md:w-9/12">
