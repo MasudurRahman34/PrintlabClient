@@ -504,3 +504,8 @@ a {
     display: none;
   }
 }
+
+.data-\[state\=active\]\:bg-white[data-state=active] {
+  background-color: #f5c107!important;
+
+}

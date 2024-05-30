@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import EmblaCarousel from "@/components/pages/SingleProduct/EmblaCarousel";
-import prodct1 from "../../../../public/assets/mug1.webp";
-import prodct2 from "../../../../public/assets/mug2.webp";
-import prodct3 from "../../../../public/assets/detailspolosy.png";
-
 import SinglePageAccordion from "@/components/pages/SingleProduct/Accordion";
 import Commitment from "@/components/Commitment";
-
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const OPTIONS = {
   axis: "y",
@@ -20,7 +16,7 @@ const SingleProductPageComponent = () => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, error, isLoading } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
     queryFn: () =>
       getSingleProductQuery({
@@ -29,42 +25,22 @@ const SingleProductPageComponent = () => {
       }),
     enabled: !!single_product,
   });
-  const [active, setactive] = useState(1);
-
-  const producttabs = [
-    {
-      title: "Product Details",
-      id: 1,
-    },
-    {
-      title: "technical_specification",
-      id: 2,
-    },
-  ];
-
-  const productdetails = [
-    {
-      id: 1,
-      img: `${data?.data?.specification?.details_imageUrl}`,
-      des: `${data?.data?.specification?.details}`
-    },
-    {
-
-      id: 2,
-      img: `${data?.data?.specification?.technical_specification_imageUrl}`,
-      des: `${data?.data?.specification?.technical_specification}`
-    },
-  ];
-
+  if (isLoading) {
+    <h1>Loading...</h1>;
+  }
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
         <div className="max-w-xl p-4 lg:border-r-2 border-secondgraphy">
           <div>
-            <EmblaCarousel slides={data?.data.media} options={OPTIONS} />
+            <EmblaCarousel slides={data?.data?.media} options={OPTIONS} />
           </div>
           <div>
-            <p>{data?.data.description}</p>
+            {data?.data.description && (
+              <div
+                dangerouslySetInnerHTML={{ __html: data?.data.description }}
+              />
+            )}
           </div>
           <div>
             <SinglePageAccordion data={data?.data} />
@@ -77,57 +53,79 @@ const SingleProductPageComponent = () => {
       </div>
       <div className="">
         <div className="mt-10">
+          <div className="bg-primary-light"></div>
+
           <div class="box-body">
-            <div className="bg-primary-light">
-              <nav
-                className="mx-auto flex space-x-2 rtl:space-x-reverse bg-primary-light  text-[#2B2B2B] leading-5 text-base overflow-x-auto "
-                aria-label="Tabs"
-              >
-                {producttabs.map((item) => (
-                  <button
-                    onClick={() => setactive(item.id)}
-                    key={item.id}
-                    type="button"
-                    className={` ${
-                      active === item.id ? "!bg-primary" : ""
-                    } text-sm md:text-base hover:bg-primary text-secondgraphy hs-tab-active:bg-gray-200 hs-tab-active:text-gray-800 hs-tab-active:hover:text-gray-800 dark:hs-tab-active:bg-light dark:hs-tab-active:text-white py-3 px-4 inline-flex items-center gap-2 bg-transparent  text-center active font-bold`}
-                    id="pills-on-gray-color-item-1"
-                    data-hs-tab="#pills-on-gray-color-1"
-                    aria-controls={`pills-on-gray-color-${item.id}`}
-                  >
-                    {item?.title}
-                  </button>
-                ))}
-              </nav>
-            </div>
-            <div class="mt-3 ">
-              {productdetails.map((item) => (
-                <div
-                  key={item.id}
-                  id="pills-on-gray-color-1"
-                  className={`${active === item.id ? "block" : "hidden"}`}
-                  role="tabpanel"
-                  aria-labelledby={`pills-on-gray-color-item-${item.id}`}
-                >
-                  <div className="md:flex">
-                    <div className="hidden md:block md:w-3/12">
-                      <div className="w-full h-full p-5">
-                        <img src={item?.img} />
+          </div>
+          {
+            data?.data?.specification &&     
+            <Tabs defaultValue="Product Details" className="w-full">
+            <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">
+              {data?.data?.specification?.details_imageUrl &&
+                data?.data?.specification?.details && (
+                  <TabsTrigger value="Product Details" className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none">
+                    Product Details
+                  </TabsTrigger>
+                )}
+              {data?.data?.specification?.technical_specification_imageUrl &&
+                data?.data?.specification?.technical_specification && (
+                  <TabsTrigger value="technical_specification" className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none">
+                    Technical_specification
+                  </TabsTrigger>
+                )}
+            </TabsList>
+            {data?.data?.specification?.details_imageUrl &&
+              data?.data?.specification?.details && (
+                <TabsContent value="Product Details">
+                  <div id="pills-on-gray-color-1" role="tabpanel">
+                    <div className="md:flex">
+                      <div className="hidden md:block md:w-3/12">
+                        <div className="w-full h-full p-5">
+                          <img
+                            src={data?.data?.specification?.details_imageUrl}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-full md:w-9/12">
-                      <div className="p-5">
-                        <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                          {item?.des}
-                        </p>
-                     
+                      <div className="w-full md:w-9/12">
+                        <div className="p-5">
+                          <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
+                            {data?.data?.specification?.details}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                </TabsContent>
+              )}
+            {data?.data?.specification?.technical_specification_imageUrl &&
+              data?.data?.specification?.technical_specification && (
+                <TabsContent value="technical_specification">
+                  <div id="pills-on-gray-color-1" role="tabpanel">
+                    <div className="md:flex">
+                      <div className="hidden md:block md:w-3/12">
+                        <div className="w-full h-full p-5">
+                          <img
+                            src={
+                              data?.data?.specification
+                                ?.technical_specification_imageUrl
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full md:w-9/12">
+                        <div className="p-5">
+                          <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
+                            {data?.data?.specification?.technical_specification}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+              )}
+          </Tabs>
+          }
+      
         </div>
       </div>
     </>

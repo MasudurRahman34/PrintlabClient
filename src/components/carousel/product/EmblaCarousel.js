@@ -40,7 +40,7 @@ const EmblaCarousel = (props) => {
                       src={`${
                         bestSell?.media.filter(
                           (item) => item.is_profile === 1
-                        )[0]?.url || "/assets/products/Hoodie-Mockup.jpg"
+                        )[0]?.url || "/assets/products/placehounder.png"
                       }`}
                       class="card-img-top"
                       alt="img"
