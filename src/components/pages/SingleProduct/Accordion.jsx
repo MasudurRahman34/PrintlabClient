@@ -6,7 +6,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 const SinglePageAccordion = ({ data }) => {
-  console.log(data?.artwork?.artwork_guide);
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Loader from "@/components/Loader/Loader";
 
 const OPTIONS = {
   axis: "y",
@@ -16,7 +17,7 @@ const SingleProductPageComponent = () => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
-  const { data, isPending, isError, error, isLoading } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
     queryFn: () =>
       getSingleProductQuery({
@@ -25,9 +26,7 @@ const SingleProductPageComponent = () => {
       }),
     enabled: !!single_product,
   });
-  if (isLoading) {
-    <h1>Loading...</h1>;
-  }
+
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
@@ -51,10 +50,8 @@ const SingleProductPageComponent = () => {
       <div>
         <Commitment />
       </div>
-      <div className="">
+      <div>
         <div className="mt-10">
-          <div className="bg-primary-light"></div>
-
           <div class="box-body">
           </div>
           {

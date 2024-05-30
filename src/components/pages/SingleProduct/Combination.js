@@ -9,6 +9,7 @@ import {
 import SelectBox from "./SelectBox";
 import DeliveryChoose from "./DeliveryChoose";
 import TotalCounter from "./TotalCounter";
+import Loader from "@/components/Loader/Loader";
 
 const Combination = ({ data }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
@@ -76,7 +77,7 @@ const Combination = ({ data }) => {
       </div>
       <div className="py-5">
         {isLoading ? (
-          <p>Loading...</p>
+          <Loader/>
         ) : isError ? (
           <p>Error</p>
         ) : (

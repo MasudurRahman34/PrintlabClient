@@ -5,7 +5,6 @@ import Zoom from "react-medium-image-zoom";
 
 const EmblaCarousel = (props) => {
   const { slides, options } = props;
-  console.log(slides);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
