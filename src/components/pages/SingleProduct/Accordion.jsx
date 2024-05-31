@@ -10,6 +10,7 @@ const SinglePageAccordion = ({ data ,isLoading}) => {
   if(isLoading){
     <Loader/>
   }
+  
   return (
    
     <Accordion type="single" collapsible className="w-full">

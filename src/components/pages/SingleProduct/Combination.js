@@ -67,6 +67,7 @@ const Combination = ({ data }) => {
     enabled: !!data?.data.id,
   });
 
+  console.log(data?.data?.title)
   return (
     <div className="md:flex-1">
       <div>
@@ -78,7 +79,7 @@ const Combination = ({ data }) => {
         {isLoading ? (
           <Loader/>
         ) : isError ? (
-          <p>Error</p>
+          <p></p>
         ) : (
           combination_data?.data?.map((item, index) => (
             <div key={index}>

@@ -36,7 +36,7 @@ const EmblaCarousel = (props) => {
     emblaMainApi.on("select", onSelect);
     emblaMainApi.on("reInit", onSelect);
   }, [emblaMainApi, onSelect]);
-  
+
   if(isLoading){
     <Loader/>
   }
