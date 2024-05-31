@@ -67,7 +67,6 @@ const Combination = ({ data }) => {
     enabled: !!data?.data.id,
   });
 
-  console.log(data?.data?.title)
   return (
     <div className="md:flex-1">
       <div>
