@@ -37,7 +37,6 @@ const Combination = ({ data }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
-  console.log(matched);
 
   // I need a function which will push to userSelectedOptions array when user select an option from SelectBox
 

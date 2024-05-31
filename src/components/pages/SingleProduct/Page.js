@@ -7,7 +7,9 @@ import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Loader from "@/components/Loader/Loader";
+// import detaisimg  from "./assete/products/placehounder.png";
+import detaislmg from "../../../../public/assets/products/placehounder.png"
+
 
 const OPTIONS = {
   axis: "y",
@@ -17,7 +19,7 @@ const SingleProductPageComponent = () => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
     queryFn: () =>
       getSingleProductQuery({
@@ -32,7 +34,7 @@ const SingleProductPageComponent = () => {
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
         <div className="max-w-xl p-4 lg:border-r-2 border-secondgraphy">
           <div>
-            <EmblaCarousel slides={data?.data?.media} options={OPTIONS} />
+            <EmblaCarousel slides={data?.data?.media} options={OPTIONS} isLoading={isLoading}  />
           </div>
           <div>
             {data?.data.description && (
@@ -42,7 +44,7 @@ const SingleProductPageComponent = () => {
             )}
           </div>
           <div>
-            <SinglePageAccordion data={data?.data} />
+            <SinglePageAccordion data={data?.data} isLoading={isLoading} />
           </div>
         </div>
         <Combination data={data} />
@@ -79,7 +81,7 @@ const SingleProductPageComponent = () => {
                       <div className="hidden md:block md:w-3/12">
                         <div className="w-full h-full p-5">
                           <img
-                            src={data?.data?.specification?.details_imageUrl}
+                            src={data?.data?.specification?.details_imageUrl }
                           />
                         </div>
                       </div>
@@ -104,7 +106,7 @@ const SingleProductPageComponent = () => {
                           <img
                             src={
                               data?.data?.specification
-                                ?.technical_specification_imageUrl
+                                ?.technical_specification_imageUrl 
                             }
                           />
                         </div>
