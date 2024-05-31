@@ -17,7 +17,7 @@ const SingleProductPageComponent = () => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
     queryFn: () =>
       getSingleProductQuery({
@@ -45,84 +45,90 @@ const SingleProductPageComponent = () => {
             <SinglePageAccordion data={data?.data} />
           </div>
         </div>
-        <Combination data={data} />
+        <Combination data={data} isProductLoading={isLoading} />
       </div>
       <div>
         <Commitment />
       </div>
       <div>
         <div className="mt-10">
-          <div class="box-body">
-          </div>
-          {
-            data?.data?.specification &&     
+          <div class="box-body"></div>
+          {data?.data?.specification && (
             <Tabs defaultValue="Product Details" className="w-full">
-            <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">
+              <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">
+                {data?.data?.specification?.details_imageUrl &&
+                  data?.data?.specification?.details && (
+                    <TabsTrigger
+                      value="Product Details"
+                      className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none"
+                    >
+                      Product Details
+                    </TabsTrigger>
+                  )}
+                {data?.data?.specification?.technical_specification_imageUrl &&
+                  data?.data?.specification?.technical_specification && (
+                    <TabsTrigger
+                      value="technical_specification"
+                      className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none"
+                    >
+                      Technical_specification
+                    </TabsTrigger>
+                  )}
+              </TabsList>
               {data?.data?.specification?.details_imageUrl &&
                 data?.data?.specification?.details && (
-                  <TabsTrigger value="Product Details" className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none">
-                    Product Details
-                  </TabsTrigger>
+                  <TabsContent value="Product Details">
+                    <div id="pills-on-gray-color-1" role="tabpanel">
+                      <div className="md:flex">
+                        <div className="hidden md:block md:w-3/12">
+                          <div className="w-full h-full p-5">
+                            <img
+                              src={data?.data?.specification?.details_imageUrl}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full md:w-9/12">
+                          <div className="p-5">
+                            <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
+                              {data?.data?.specification?.details}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
                 )}
               {data?.data?.specification?.technical_specification_imageUrl &&
                 data?.data?.specification?.technical_specification && (
-                  <TabsTrigger value="technical_specification" className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none">
-                    Technical_specification
-                  </TabsTrigger>
+                  <TabsContent value="technical_specification">
+                    <div id="pills-on-gray-color-1" role="tabpanel">
+                      <div className="md:flex">
+                        <div className="hidden md:block md:w-3/12">
+                          <div className="w-full h-full p-5">
+                            <img
+                              src={
+                                data?.data?.specification
+                                  ?.technical_specification_imageUrl
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full md:w-9/12">
+                          <div className="p-5">
+                            <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
+                              {
+                                data?.data?.specification
+                                  ?.technical_specification
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
                 )}
-            </TabsList>
-            {data?.data?.specification?.details_imageUrl &&
-              data?.data?.specification?.details && (
-                <TabsContent value="Product Details">
-                  <div id="pills-on-gray-color-1" role="tabpanel">
-                    <div className="md:flex">
-                      <div className="hidden md:block md:w-3/12">
-                        <div className="w-full h-full p-5">
-                          <img
-                            src={data?.data?.specification?.details_imageUrl}
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full md:w-9/12">
-                        <div className="p-5">
-                          <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                            {data?.data?.specification?.details}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </TabsContent>
-              )}
-            {data?.data?.specification?.technical_specification_imageUrl &&
-              data?.data?.specification?.technical_specification && (
-                <TabsContent value="technical_specification">
-                  <div id="pills-on-gray-color-1" role="tabpanel">
-                    <div className="md:flex">
-                      <div className="hidden md:block md:w-3/12">
-                        <div className="w-full h-full p-5">
-                          <img
-                            src={
-                              data?.data?.specification
-                                ?.technical_specification_imageUrl
-                            }
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full md:w-9/12">
-                        <div className="p-5">
-                          <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                            {data?.data?.specification?.technical_specification}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </TabsContent>
-              )}
-          </Tabs>
-          }
-      
+            </Tabs>
+          )}
         </div>
       </div>
     </>

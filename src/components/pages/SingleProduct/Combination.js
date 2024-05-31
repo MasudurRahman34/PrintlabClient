@@ -11,7 +11,7 @@ import DeliveryChoose from "./DeliveryChoose";
 import TotalCounter from "./TotalCounter";
 import Loader from "@/components/Loader/Loader";
 
-const Combination = ({ data }) => {
+const Combination = ({ data, isProductLoading }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
 
   const { data: allCombination } = useQuery({
@@ -36,8 +36,6 @@ const Combination = ({ data }) => {
       return matchedCombination[0];
     }
   }, [userSelectedOptions, allCombination?.data]);
-
-  console.log(matched);
 
   // I need a function which will push to userSelectedOptions array when user select an option from SelectBox
 
@@ -77,7 +75,7 @@ const Combination = ({ data }) => {
       </div>
       <div className="py-5">
         {isLoading ? (
-          <Loader/>
+          <Loader />
         ) : isError ? (
           <p>Error</p>
         ) : (
@@ -100,7 +98,7 @@ const Combination = ({ data }) => {
         </div>
       </div>
       <div className="py-5">
-        <DeliveryChoose />
+        <DeliveryChoose product_id={data?.data.id} />
         <PrintType />
       </div>
       <div className="p-2">

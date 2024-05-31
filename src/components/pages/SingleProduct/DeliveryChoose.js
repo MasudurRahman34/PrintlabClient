@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import DurationTimer from "./DurationTimer";
+
+import { getProductDeliveryServicesQuery } from "@/resolvers/query";
+import { useQuery } from "@tanstack/react-query";
 
 const deliveryOptions = [
   { id: 1, name: "Saver", price: "£0.00" },
@@ -9,11 +11,18 @@ const deliveryOptions = [
   { id: 4, name: "Same Day", price: "£0.00" },
 ];
 
-const DeliveryChoose = () => {
-  const [isGridView, setIsGridView] = useState(false);
+const DeliveryChoose = ({ product_id }) => {
   const [selectedDelivery, setSelectedDelivery] = useState(
     deliveryOptions[0].name
   );
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["delivery-services"],
+    queryFn: () => getProductDeliveryServicesQuery({ product_id }),
+    enabled: !!product_id,
+  });
+
+  console.log(data, isLoading);
+
   return (
     <>
       <div className="flex items-center justify-between w-full pb-3">
@@ -33,9 +42,7 @@ const DeliveryChoose = () => {
           </div>
         ))}
       </div>
-      <div className="relative z-10 w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
-        <p>Order within 08 hrs 52 mins 59 secs to receive by Tue. 9th Apr.</p>
-      </div>
+      <DurationTimer days={7} />
     </>
   );
 };

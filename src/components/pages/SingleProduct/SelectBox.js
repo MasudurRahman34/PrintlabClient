@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select";
 
 const SelectBox = ({ attribute_id, title, options, handleSelect }) => {
-  console.log(attribute_id);
   const handleChange = (value) => {
     handleSelect({ attribute_id, attribute_option_id: value });
   };
@@ -22,7 +21,7 @@ const SelectBox = ({ attribute_id, title, options, handleSelect }) => {
       <div className="w-2/3">
         <Select onValueChange={handleChange}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Please Select" />
+            <SelectValue placeholder="Please Select" value />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>

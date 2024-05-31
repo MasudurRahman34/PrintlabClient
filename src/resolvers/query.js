@@ -30,3 +30,8 @@ export const getAllCombinationForThisProductQuery = async ({ product_id }) =>
   await axios
     .get(`${backendUrl}/product/${product_id}/combinations`)
     .then((res) => res.data);
+
+export const getProductDeliveryServicesQuery = async ({ product_id }) =>
+  (
+    await axios.get(`${backendUrl}/product/${product_id}/services/delivery`)
+  ).data((res) => res.data);
