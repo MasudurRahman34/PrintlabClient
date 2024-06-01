@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Loader from "@/components/Loader/Loader";
+// import detaisimg  from "./assete/products/placehounder.png";
+import detaislmg from "../../../../public/assets/products/placehounder.png";
 
 const OPTIONS = {
   axis: "y",
@@ -26,14 +27,26 @@ const SingleProductPageComponent = () => {
       }),
     enabled: !!single_product,
   });
-
+  const mediaExists = data?.data?.media?.length > 0;
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
         <div className="max-w-xl p-4 lg:border-r-2 border-secondgraphy">
-          <div>
-            <EmblaCarousel slides={data?.data?.media} options={OPTIONS} />
-          </div>
+          {mediaExists ? (
+            <div>
+              <EmblaCarousel
+                slides={data.data.media}
+                options={OPTIONS}
+                isLoading={isLoading}
+              />
+            </div>
+          ) : (
+            <img
+              className=" w-[350px] h-[350px] md:w-[540px] md:h-[490px] mb-2"
+              src="https://i.ibb.co/9hF3Vbb/placehounder.png"
+              alt="Placeholder"
+            />
+          )}
           <div>
             {data?.data.description && (
               <div
@@ -42,7 +55,7 @@ const SingleProductPageComponent = () => {
             )}
           </div>
           <div>
-            <SinglePageAccordion data={data?.data} />
+            <SinglePageAccordion data={data?.data} isLoading={isLoading} />
           </div>
         </div>
         <Combination data={data} isProductLoading={isLoading} />

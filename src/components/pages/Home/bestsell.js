@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProductsQuery } from "@/resolvers/query";
+import Loader from "@/components/Loader/Loader";
 
-const BestSell = () => {
+const 
+BestSell = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const filterBy = [
@@ -86,7 +88,7 @@ const BestSell = () => {
                       </div>
                       <div className="text-center">
                         <p className="text-sm text-defaulttextcolor">
-                          {isPending ? "Loading Best Sell Products" : "error"}
+                          {isPending ? <Loader/> : "error"}
                         </p>
                       </div>
                     </div>

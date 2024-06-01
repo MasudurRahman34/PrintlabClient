@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "./EmblaCarouselThumbsButton";
 import Zoom from "react-medium-image-zoom";
+import Loader from "@/components/Loader/Loader";
 
 const EmblaCarousel = (props) => {
-  const { slides, options } = props;
+  const { slides, options,isLoading } = props;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -36,6 +37,9 @@ const EmblaCarousel = (props) => {
     emblaMainApi.on("reInit", onSelect);
   }, [emblaMainApi, onSelect]);
 
+  if(isLoading){
+    <Loader/>
+  }
   return (
     <div className="embla_single_product">
       <div className="embla_single_product__viewport" ref={emblaMainRef}>
@@ -64,7 +68,7 @@ const EmblaCarousel = (props) => {
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
                 index={index}
-                src={slide.url || "/assets/products/Hoodie-Mockup.jpg"}
+                src={slide.url || "/assets/products/placehounder.png"}
               />
             ))}
           </div>

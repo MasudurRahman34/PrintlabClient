@@ -77,7 +77,7 @@ const Combination = ({ data, isProductLoading }) => {
         {isLoading ? (
           <Loader />
         ) : isError ? (
-          <p>Error</p>
+          <p></p>
         ) : (
           combination_data?.data?.map((item, index) => (
             <div key={index}>

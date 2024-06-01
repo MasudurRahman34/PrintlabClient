@@ -5,8 +5,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-const SinglePageAccordion = ({ data }) => {
+import Loader from "@/components/Loader/Loader";
+const SinglePageAccordion = ({ data ,isLoading}) => {
+  if(isLoading){
+    <Loader/>
+  }
+  
   return (
+   
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger className="font-bold text-secondgraphy">
