@@ -5,8 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 
-const 
-BestSell = () => {
+const BestSell = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const filterBy = [
@@ -87,9 +86,9 @@ BestSell = () => {
                         <div className="w-20 h-20 border-t-2 border-b-2 rounded-full border-primary animate-spin"></div>
                       </div>
                       <div className="text-center">
-                        <p className="text-sm text-defaulttextcolor">
-                          {isPending ? <Loader/> : "error"}
-                        </p>
+                        <div className="text-sm text-defaulttextcolor">
+                          {isPending ? <Loader /> : "error"}
+                        </div>
                       </div>
                     </div>
                   ) : (

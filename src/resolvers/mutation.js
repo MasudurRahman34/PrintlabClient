@@ -5,3 +5,6 @@ const backendUrl =
 
 export const createCategoryMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/categories`, variables).then((res) => res.data);
+
+export const addToCartMutation = async ({ variables }) =>
+  axios.post(`${backendUrl}/cart`, variables).then((res) => res.data);

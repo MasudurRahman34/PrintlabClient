@@ -19,9 +19,12 @@ const SelectBox = ({ attribute_id, title, options, handleSelect }) => {
         <strong>{title}</strong>
       </div>
       <div className="w-2/3">
-        <Select onValueChange={handleChange}>
+        <Select
+          onValueChange={handleChange}
+          defaultValue={options[0].attribute_option_id}
+        >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Please Select" value />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>

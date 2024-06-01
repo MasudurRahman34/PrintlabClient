@@ -32,6 +32,9 @@ export const getAllCombinationForThisProductQuery = async ({ product_id }) =>
     .then((res) => res.data);
 
 export const getProductDeliveryServicesQuery = async ({ product_id }) =>
-  (
-    await axios.get(`${backendUrl}/product/${product_id}/services/delivery`)
-  ).data((res) => res.data);
+  await axios
+    .get(`${backendUrl}/product/${product_id}/services/delivery`)
+    .then((res) => res.data);
+
+export const getArtworkServicesQuery = async ({ product_id }) =>
+  await axios.get(`${backendUrl}/services/artworks`).then((res) => res.data);

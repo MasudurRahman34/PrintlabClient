@@ -8,7 +8,6 @@ import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import detaisimg  from "./assete/products/placehounder.png";
-import detaislmg from "../../../../public/assets/products/placehounder.png";
 
 const OPTIONS = {
   axis: "y",
