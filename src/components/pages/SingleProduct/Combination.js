@@ -11,7 +11,7 @@ import DeliveryChoose from "./DeliveryChoose";
 import TotalCounter from "./TotalCounter";
 import Loader from "@/components/Loader/Loader";
 import { addToCartMutation } from "@/resolvers/mutation";
-import { calculateTotal } from "@/lib/utils";
+import { calculateTotal, formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -165,25 +165,31 @@ const Combination = ({ data, isProductLoading }) => {
         {isLoading ? (
           <Loader />
         ) : isError ? (
-          <p></p>
+          <p>
+            No combination found for this product. Please contact the support
+          </p>
         ) : (
-          combination_data?.data?.map((item, index) => (
-            <div key={index}>
-              {item.type.label === "Select" && (
-                <SelectBox
-                  handleSelect={handleSelect}
-                  attribute_id={item.id}
-                  data={item}
-                  title={item.title}
-                  options={item.ProductOptions}
-                />
-              )}
+          <>
+            {combination_data?.data?.map((item, index) => (
+              <div key={index}>
+                {item.type.label === "Select" && (
+                  <SelectBox
+                    handleSelect={handleSelect}
+                    attribute_id={item.id}
+                    data={item}
+                    title={item.title}
+                    options={item.ProductOptions}
+                  />
+                )}
+              </div>
+            ))}
+            <div>
+              <p className="text-secondgraphy">
+                Prices shown are exclusive of VAT
+              </p>
             </div>
-          ))
+          </>
         )}
-        <div>
-          <p className="text-secondgraphy">Prices shown are exclusive of VAT</p>
-        </div>
       </div>
       <div className="py-5">
         <DeliveryChoose
@@ -207,29 +213,33 @@ const Combination = ({ data, isProductLoading }) => {
           <div className="text-right">
             <p className="text-sm">
               <strong className="text-xl font-bold">
-                £{" "}
-                {matched &&
-                  calculateTotal({
-                    price: matched.price,
-                    delivery_charge: selectedDelivery?.cost,
-                    artwork_charge: selectedPrintType?.children
-                      ? selectedPrintType?.children?.cost
-                      : selectedPrintType?.parent?.cost,
-                  })}
+                {matched
+                  ? formatPrice(
+                      calculateTotal({
+                        price: matched.price,
+                        delivery_charge: selectedDelivery?.cost,
+                        artwork_charge: selectedPrintType?.children
+                          ? selectedPrintType?.children?.cost
+                          : selectedPrintType?.parent?.cost,
+                      })
+                    )
+                  : formatPrice(0)}
               </strong>{" "}
               Ex VAT
             </p>
             <p className="text-xs">
               <strong>
-                £{" "}
-                {matched &&
-                  calculateTotal({
-                    price: matched.price,
-                    delivery_charge: selectedDelivery?.cost,
-                    artwork_charge: selectedPrintType?.children
-                      ? selectedPrintType?.children?.cost
-                      : selectedPrintType?.parent?.cost,
-                  })}
+                {matched
+                  ? formatPrice(
+                      calculateTotal({
+                        price: matched.price,
+                        delivery_charge: selectedDelivery?.cost,
+                        artwork_charge: selectedPrintType?.children
+                          ? selectedPrintType?.children?.cost
+                          : selectedPrintType?.parent?.cost,
+                      })
+                    )
+                  : formatPrice(0)}
               </strong>{" "}
               Inc VAT
             </p>
@@ -255,20 +265,33 @@ const Combination = ({ data, isProductLoading }) => {
       <TotalCounter
         isPending={isPending}
         addToCard={addToCart}
-        excVatPrice={calculateTotal({
-          price: matched?.price,
-          delivery_charge: selectedDelivery?.cost,
-          artwork_charge: selectedPrintType?.children
-            ? selectedPrintType?.children?.cost
-            : selectedPrintType?.parent?.cost,
-        })}
-        incVatPrice={calculateTotal({
-          price: matched?.price,
-          delivery_charge: selectedDelivery?.cost,
-          artwork_charge: selectedPrintType?.children
-            ? selectedPrintType?.children?.cost
-            : selectedPrintType?.parent?.cost,
-        })}
+        selectedDelivery={selectedDelivery}
+        excVatPrice={
+          matched
+            ? formatPrice(
+                calculateTotal({
+                  price: matched.price,
+                  delivery_charge: selectedDelivery?.cost,
+                  artwork_charge: selectedPrintType?.children
+                    ? selectedPrintType?.children?.cost
+                    : selectedPrintType?.parent?.cost,
+                })
+              )
+            : formatPrice(0)
+        }
+        incVatPrice={
+          matched
+            ? formatPrice(
+                calculateTotal({
+                  price: matched.price,
+                  delivery_charge: selectedDelivery?.cost,
+                  artwork_charge: selectedPrintType?.children
+                    ? selectedPrintType?.children?.cost
+                    : selectedPrintType?.parent?.cost,
+                })
+              )
+            : formatPrice(0)
+        }
       />
     </div>
   );

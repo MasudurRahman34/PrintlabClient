@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import EmblaCarousel from "@/components/pages/SingleProduct/EmblaCarousel";
+import React, { useMemo, useState } from "react";
+
 import SinglePageAccordion from "@/components/pages/SingleProduct/Accordion";
 import Commitment from "@/components/Commitment";
+import ImageGallery from "react-image-gallery";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import detaisimg  from "./assete/products/placehounder.png";
-
-const OPTIONS = {
-  axis: "y",
-};
 
 const SingleProductPageComponent = () => {
   const router = useRouter();
@@ -26,27 +23,39 @@ const SingleProductPageComponent = () => {
       }),
     enabled: !!single_product,
   });
-  const mediaExists = data?.data?.media?.length > 0;
+
+  const media = useMemo(() => {
+    if (data?.data?.media?.length > 0) {
+      return data.data.media.map((item) => {
+        return {
+          original: item.url,
+
+          thumbnail: item.url,
+        };
+      });
+    } else {
+      return [
+        {
+          original: "https://i.ibb.co/9hF3Vbb/placehounder.png",
+          thumbnail: "https://i.ibb.co/9hF3Vbb/placehounder.png",
+        },
+      ];
+    }
+  }, [data?.data]);
+
   return (
     <>
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
-        <div className="max-w-xl p-4 lg:border-r-2 border-secondgraphy">
-          {mediaExists ? (
-            <div>
-              <EmblaCarousel
-                slides={data.data.media}
-                options={OPTIONS}
-                isLoading={isLoading}
-              />
-            </div>
-          ) : (
-            <img
-              className=" w-[350px] h-[350px] md:w-[540px] md:h-[490px] mb-2"
-              src="https://i.ibb.co/9hF3Vbb/placehounder.png"
-              alt="Placeholder"
-            />
-          )}
-          <div>
+        <div className="max-w-xl p-4 mb-4 lg:border-r-2 border-secondgraphy ">
+          <ImageGallery
+            items={media}
+            autoPlay={false}
+            thumbnailPosition="right"
+            disableKeyDown={true}
+            showPlayButton={false}
+          />
+
+          <div className="mt-5">
             {data?.data.description && (
               <div
                 dangerouslySetInnerHTML={{ __html: data?.data.description }}

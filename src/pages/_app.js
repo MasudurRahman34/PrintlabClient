@@ -17,6 +17,7 @@ import "@/styles/embla_product_carousel.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 import "react-medium-image-zoom/dist/styles.css";
+
 import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();

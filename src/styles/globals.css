@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 @layer base {
   html {
     --color-primary: #ffd333;
@@ -509,11 +511,9 @@ a {
   }
 }
 
-.data-\[state\=active\]\:bg-white[data-state=active] {
-  background-color: #f5c107!important;
-
+.data-\[state\=active\]\:bg-white[data-state="active"] {
+  background-color: #f5c107 !important;
 }
-
 
 /* max-width: 72vw;
 width: 100%;
@@ -522,3 +522,10 @@ align-items: start;
 flex-wrap: wrap;
 padding: 20px 15px;
 gap-50px: !important; */
+
+/* Image slider for single page */
+
+.image-gallery-icon,
+.image-gallery-right-nav {
+  display: none !important;
+}

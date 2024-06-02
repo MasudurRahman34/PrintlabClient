@@ -1,3 +1,4 @@
+import useCountDownTimer from "@/components/hooks/useCountdownTimer";
 import React from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -6,18 +7,22 @@ const TotalCounter = ({
   incVatPrice = 0,
   addToCard,
   isPending,
+  selectedDelivery,
 }) => {
+  const { formattedDate } = useCountDownTimer({ days: selectedDelivery });
   return (
     <section className="fixed bottom-0 left-0 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <div className="flex-1 text-white text-end ">
             <p>
-              <strong className="text-2xl">Fri. 12th Apr £{excVatPrice}</strong>{" "}
+              <strong className="text-2xl">
+                {formattedDate} {excVatPrice}
+              </strong>{" "}
               Ex Vat
             </p>
             <p>
-              <strong>£{incVatPrice}</strong> Inc Vat
+              <strong>{incVatPrice}</strong> Inc Vat
             </p>
           </div>
           <div className="flex-1 w-full">
