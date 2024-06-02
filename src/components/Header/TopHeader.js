@@ -52,7 +52,7 @@ const links = [
   },
 ];
 
-const TopHeader = () => {
+const TopHeader = ({showcards}) => {
   return (
     <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
       <div className="text-black">
@@ -141,11 +141,9 @@ const TopHeader = () => {
             <span>My Account</span>
           </Link>
         </div>
-        <div>
-          <Link
-            href="/basket"
-            className="flex flex-col items-center space-y-1 group"
-          >
+        <div >
+         
+            <a onClick={showcards} href="#" className="flex flex-col items-center space-y-1 group">
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +161,8 @@ const TopHeader = () => {
               </svg>
             </span>
             <span>Basket</span>
-          </Link>
+            </a>
+   
         </div>
       </div>
     </section>
