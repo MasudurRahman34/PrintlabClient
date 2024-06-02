@@ -2,10 +2,10 @@ import React from "react";
 import TopHeader from "./TopHeader";
 import BottomHeader from "./BottomHeader";
 
-const ClientHeader = () => {
+const ClientHeader = ({ showcards, hideBasket }) => {
   return (
     <header>
-      <TopHeader />
+      <TopHeader showcards={showcards} hideBasket={hideBasket} />
       <BottomHeader />
     </header>
   );

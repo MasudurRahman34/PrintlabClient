@@ -1,22 +1,30 @@
 import React, { useState } from "react";
-const color = ["#252351", "#9AC285", "#CFE0CC", "#99CE81"];
 
-const ColorRadio = ({}) => {
-  const [selectedColor, setSelectedColor] = useState(color[0]);
+const ColorRadio = ({ handleSelect, title, options, userSelectedOptions }) => {
+  const handleChange = (value) => {
+    const { attribute_id, attribute_option_id } = value;
+    handleSelect({ attribute_id, attribute_option_id });
+  };
+
   return (
-    <div className="py-1">
-      <p>
-        <strong>Colour</strong> Natural/Green
-      </p>
-      <div className="flex gap-2 mt-3 ">
-        <div className="bg-[#252351] h-10 w-10 border rounded-md"></div>
-        {color.map((item, index) => (
+    <div className="flex items-center justify-between gap-3 py-2 mb-3">
+      <div className="w-1/3">
+        <p>
+          <strong>{title}</strong>
+        </p>
+      </div>
+      <div className="flex items-center w-2/3 gap-2">
+        {options.map((item, index) => (
           <div
-            className={`bg-[${item}] cursor-pointer h-10 w-10  ${
-              selectedColor === item ? "border-2 border-primary" : "border-2"
+            className={` cursor-pointer  h-10 w-10  ${
+              userSelectedOptions[item.attribute_id] ===
+              item.attribute_option_id
+                ? "border-4 border-primary"
+                : "border-4"
             } rounded-md `}
+            style={{ backgroundColor: item.attributeOption.title }}
             key={index}
-            onClick={() => setSelectedColor(item)}
+            onClick={() => handleChange(item)}
           ></div>
         ))}
       </div>

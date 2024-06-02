@@ -14,6 +14,7 @@ import { addToCartMutation } from "@/resolvers/mutation";
 import { calculateTotal, formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ColorRadio from "./ColorRadio";
 
 const Combination = ({ data, isProductLoading }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
@@ -185,19 +186,32 @@ const Combination = ({ data, isProductLoading }) => {
           </p>
         ) : (
           <>
-            {combination_data?.data?.map((item, index) => (
-              <div key={index}>
-                {item.type.label === "Select" && (
+            {combination_data?.data?.map((item, index) => {
+              if (item.type.label === "Select") {
+                return (
                   <SelectBox
+                    key={index}
                     handleSelect={handleSelect}
                     attribute_id={item.id}
                     data={item}
                     title={item.title}
                     options={item.ProductOptions}
                   />
-                )}
-              </div>
-            ))}
+                );
+              } else {
+                return (
+                  <ColorRadio
+                    key={index}
+                    handleSelect={handleSelect}
+                    attribute_id={item.id}
+                    data={item}
+                    title={item.title}
+                    userSelectedOptions={userSelectedOptions}
+                    options={item.ProductOptions}
+                  />
+                );
+              }
+            })}
             <div>
               <p className="text-secondgraphy">
                 Prices shown are exclusive of VAT

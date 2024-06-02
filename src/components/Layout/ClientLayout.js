@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ClientHeader from "../Header/ClientHeader";
 import ClientFooter from "../Footer/ClientFooter";
 import MobileNav from "../Footer/MobileNav";
+import Hoverbasket from "@/pages/hoverbasket";
 
 const ClientLayout = ({ children }) => {
   const [showbasket, setshowbasket] = useState(false);
@@ -17,6 +18,7 @@ const ClientLayout = ({ children }) => {
     <section className="flex flex-col w-full min-h-screen ">
       <header className="relative z-10 h-auto ">
         <ClientHeader showcards={showcards} hideBasket={hideBasket} />
+        <Hoverbasket show={showbasket} hideBasket={hideBasket} />
       </header>
       <main className="flex-1 ">{children}</main>
       <footer className="bg-secondgraphy min-h-40">
