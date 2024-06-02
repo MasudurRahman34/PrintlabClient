@@ -9,7 +9,9 @@ const TotalCounter = ({
   isPending,
   selectedDelivery,
 }) => {
-  const { formattedDate } = useCountDownTimer({ days: selectedDelivery });
+  const { formattedDate } = useCountDownTimer({
+    days: selectedDelivery?.duration,
+  });
   return (
     <section className="fixed bottom-0 left-0 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">

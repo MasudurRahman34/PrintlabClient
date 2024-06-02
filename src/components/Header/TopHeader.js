@@ -53,7 +53,8 @@ const links = [
   },
 ];
 
-const TopHeader = ({ showcards, hideBasket }) => {
+const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
+  console.log(total);
   return (
     <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
       <div className="text-black">
@@ -142,7 +143,13 @@ const TopHeader = ({ showcards, hideBasket }) => {
             <span>My Account</span>
           </Link>
         </div>
-        <div>
+        <div className="relative">
+          {total > 0 && (
+            <div className="absolute -top-2 flex items-center justify-center w-6 h-6 text-sm font-bold text-black rounded-full -right-0.5 bg-primary ">
+              {total}
+            </div>
+          )}
+
           <button
             onClick={showcards}
             className="flex flex-col items-center space-y-1 group"

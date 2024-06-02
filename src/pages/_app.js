@@ -19,7 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-medium-image-zoom/dist/styles.css";
 
 import { Toaster } from "react-hot-toast";
-import { store } from "./app/store";
+import { store } from "../app/store";
 import { Provider } from "react-redux";
 const queryClient = new QueryClient();
 

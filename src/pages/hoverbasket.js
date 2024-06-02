@@ -64,7 +64,7 @@ const Summary = ({ products }) => {
   );
 };
 
-export default function Hoverbasket({ show, hideBasket }) {
+export default function Hoverbasket({ show, hideBasket, total_refetch }) {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
@@ -80,6 +80,7 @@ export default function Hoverbasket({ show, hideBasket }) {
       {
         onSuccess: (data) => {
           refetch();
+          total_refetch();
           toast.success("Product deleted successfully");
         },
         onError: (error) => {
@@ -106,6 +107,15 @@ export default function Hoverbasket({ show, hideBasket }) {
 
   return (
     <>
+      <div
+        className={` justify-center absolute z-[999] bg-[white]  hidden md:flex  transition  ease-in-out  ${
+          show
+            ? "opacity-100 visible right-7 top-[80px]"
+            : " opacity-0 invisible -right-[150px] top-[80px]"
+        }`}
+      >
+        <div className=" w-[380px] min-h-[100px] border rounded  shadow-md shadow-[#7D7F7F]"></div>
+      </div>
       <div
         className={` justify-center absolute z-[999] bg-[white]  hidden md:flex  transition  ease-in-out  ${
           show

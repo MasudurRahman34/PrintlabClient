@@ -10,7 +10,7 @@ import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import detaisimg  from "./assete/products/placehounder.png";
 
-const SingleProductPageComponent = () => {
+const SingleProductPageComponent = ({ total_refetch }) => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
@@ -44,7 +44,7 @@ const SingleProductPageComponent = () => {
   }, [data?.data]);
 
   return (
-    <>
+    <section className="w-full py-10 custom_container ">
       <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
         <div className="max-w-xl p-4 mb-4 lg:border-r-2 border-secondgraphy ">
           <ImageGallery
@@ -66,7 +66,11 @@ const SingleProductPageComponent = () => {
             <SinglePageAccordion data={data?.data} isLoading={isLoading} />
           </div>
         </div>
-        <Combination data={data} isProductLoading={isLoading} />
+        <Combination
+          data={data}
+          isProductLoading={isLoading}
+          total_refetch={total_refetch}
+        />
       </div>
       <div>
         <Commitment />
@@ -152,7 +156,7 @@ const SingleProductPageComponent = () => {
           )}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

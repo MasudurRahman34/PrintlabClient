@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
 
-const Combination = ({ data, isProductLoading }) => {
+const Combination = ({ data, isProductLoading, total_refetch }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPrintType, setSelectedPrintType] = useState({
@@ -149,7 +149,12 @@ const Combination = ({ data, isProductLoading }) => {
       },
       {
         onSuccess: () => {
+          total_refetch();
           toast.success("Product added to cart");
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
         },
         onError: () => {
           toast.error("Something went wrong");
