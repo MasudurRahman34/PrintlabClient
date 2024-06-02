@@ -38,3 +38,6 @@ export const getProductDeliveryServicesQuery = async ({ product_id }) =>
 
 export const getArtworkServicesQuery = async ({ product_id }) =>
   await axios.get(`${backendUrl}/services/artworks`).then((res) => res.data);
+
+export const getIncompleteCartProductsQuery = async () =>
+  axios.get(`${backendUrl}/cart/incomplete`).then((res) => res.data);

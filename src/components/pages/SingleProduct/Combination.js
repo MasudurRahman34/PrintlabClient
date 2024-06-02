@@ -13,6 +13,7 @@ import Loader from "@/components/Loader/Loader";
 import { addToCartMutation } from "@/resolvers/mutation";
 import { calculateTotal } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Combination = ({ data, isProductLoading }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
@@ -239,10 +240,15 @@ const Combination = ({ data, isProductLoading }) => {
         </div>
         <div className="py-5">
           <button
-            className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150"
+            className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 flex items-center justify-center"
             onClick={addToCart}
+            disabled={isPending}
           >
-            Add to basket
+            {isPending ? (
+              <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin flex items-center justify-center" />
+            ) : (
+              "Add to Basket"
+            )}
           </button>
         </div>
       </div>

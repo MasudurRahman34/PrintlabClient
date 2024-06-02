@@ -1,4 +1,5 @@
 import React from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const TotalCounter = ({
   excVatPrice = 0,
@@ -21,11 +22,15 @@ const TotalCounter = ({
           </div>
           <div className="flex-1 w-full">
             <button
-              className="w-full py-2 font-bold text-white border rounded-md bg-primary border-primary-light hover:bg-primary-light"
+              className="flex items-center justify-center w-full py-2 font-bold transition-colors duration-150 border rounded-md text-secondgraphy bg-primary border-primary-light hover:bg-primary-light"
               onClick={addToCard}
               isPending={isPending}
             >
-              Add to Busket
+              {isPending ? (
+                <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />
+              ) : (
+                "Add to Basket"
+              )}
             </button>
           </div>
         </div>

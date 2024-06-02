@@ -40,3 +40,9 @@ export function calculateTotal({
     return total.toFixed(2);
   }
 }
+
+// make a price string from a number with pound sign and 2 decimal places
+
+export const formatPrice = (price) => {
+  return `£${parseFloat(price).toFixed(2)}`;
+};

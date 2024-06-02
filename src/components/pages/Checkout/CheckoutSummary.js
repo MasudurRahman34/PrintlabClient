@@ -1,11 +1,18 @@
 import Box from "@/components/ui/Box";
 import LabAccordion from "@/components/ui/LabAccordion";
 import { Button } from "@/components/ui/button";
+import { calculateTotal, formatPrice } from "@/lib/utils";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 
-const OrderSummary = () => {
+const OrderSummary = ({
+  sub_total,
+  total_vat,
+  delivery_charge,
+  artwork_charge,
+  total,
+}) => {
   const router = useRouter();
   return (
     <Box boxTitle="Order Summary">
@@ -16,12 +23,30 @@ const OrderSummary = () => {
               Sub total
             </p>
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">VAT</p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              Delivery Charge
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              Artwork Charge
+            </p>
             <p className="py-1 text-base font-bold text-[#2B2B2B]">Total:</p>
           </div>
-          <div className="order-card">
-            <p className="mt-4 mb-1 text-sm font-bold text-[#2B2B2B] ">33.70</p>
-            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">06.90</p>
-            <p className="py-1 text-base font-bold text-[#2B2B2B]">40.00</p>
+          <div className="text-right order-card">
+            <p className="mt-4 mb-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(sub_total)}
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(total_vat)}
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(delivery_charge)}
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(artwork_charge)}
+            </p>
+            <p className="py-1 text-base font-bold text-[#2B2B2B]">
+              {formatPrice(total)}
+            </p>
           </div>
         </div>
         <Button
@@ -37,10 +62,37 @@ const OrderSummary = () => {
   );
 };
 
-const CheckoutSummary = () => {
+const CheckoutSummary = ({ products }) => {
+  const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
+    useMemo(() => {
+      const sub_total = products
+        .map((product) => parseFloat(product.price))
+        .reduce((a, b) => a + b, 0);
+      const total_vat = products
+        .map((product) => parseFloat(product.tax))
+        .reduce((a, b) => a + b, 0);
+
+      const delivery_charge = products
+        .map((product) => parseFloat(product.delivery_service_charge))
+        .reduce((a, b) => a + b, 0);
+
+      const artwork_charge = products
+        .map((product) => parseFloat(product.artwork_service_charge))
+        .reduce((a, b) => a + b, 0);
+
+      const total = sub_total + total_vat + delivery_charge + artwork_charge;
+      return { sub_total, total_vat, delivery_charge, artwork_charge, total };
+    }, [products]);
+
   return (
     <div className="w-full px-10 order-info lg:w-4/12">
-      <OrderSummary />
+      <OrderSummary
+        artwork_charge={artwork_charge}
+        delivery_charge={delivery_charge}
+        sub_total={sub_total}
+        total={total}
+        total_vat={total_vat}
+      />
       {/*  <div className="px-5 mb-5">
         <div className="flex justify-between gap-2 px-4 py-2 bg-primary-light ">
           <h4 className="text-sm font-bold text-[#333]">

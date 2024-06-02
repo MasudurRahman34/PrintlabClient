@@ -8,3 +8,5 @@ export const createCategoryMutation = async ({ variables }) =>
 
 export const addToCartMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/cart`, variables).then((res) => res.data);
+export const deleteIncompleteCartProductMutation = async ({ cart_id }) =>
+  axios.delete(`${backendUrl}/cart/${cart_id}`).then((res) => res.data);
