@@ -35,7 +35,7 @@ const BottomHeader = () => {
     queryKey: ["categories-get"],
     queryFn: getCategoriesQuery,
   });
-console.log(data?.data[0])
+
   return (
     <section className="flex items-start justify-between gap-5 px-5 border-b border-gray-300 bg-primary header">
       {isPending || isError ? null : (
@@ -49,7 +49,7 @@ console.log(data?.data[0])
               ></div>
               <nav className={`menu ${isActive ? "active" : ""}`}>
                 {isPending ? (
-                  <Loader/>
+                  <Loader />
                 ) : isError ? (
                   "Error"
                 ) : (

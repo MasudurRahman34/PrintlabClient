@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Switcher1 from "./Switcher";
 import Image from "next/image";
+import Hoverbasket from "@/pages/hoverbasket";
 
 const links = [
   {
@@ -52,7 +53,7 @@ const links = [
   },
 ];
 
-const TopHeader = ({showcards}) => {
+const TopHeader = ({ showcards, hideBasket }) => {
   return (
     <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
       <div className="text-black">
@@ -141,28 +142,8 @@ const TopHeader = ({showcards}) => {
             <span>My Account</span>
           </Link>
         </div>
-        <div >
-         
-            <a onClick={showcards} href="#" className="flex flex-col items-center space-y-1 group">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 group-hover:text-primary"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                />
-              </svg>
-            </span>
-            <span>Basket</span>
-            </a>
-   
+        <div>
+          <Hoverbasket show={showcards} hideBasket={hideBasket} />
         </div>
       </div>
     </section>

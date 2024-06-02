@@ -84,6 +84,21 @@ const Combination = ({ data, isProductLoading }) => {
 
   // Add to card will be handled here with the selected options
   const addToCart = () => {
+    if (!selectedDelivery || !selectedPrintType) {
+      toast.error("Please select delivery and print type");
+      return;
+    }
+
+    if (!matched) {
+      toast.error("Please select all the options");
+      return;
+    }
+
+    if (matched.price === 0) {
+      toast.error("This Product is not available. Please select another one");
+      return;
+    }
+
     const variables = {
       product_id: data?.data.id,
       product_combination_id: matched.id,
