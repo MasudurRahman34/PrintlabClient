@@ -112,7 +112,7 @@ a {
   transition: color 0.3s ease;
 }
 
-@media(min-width: 992px) {
+@media (min-width: 992px) {
   .header .item-right a {
     text-decoration: none;
     font-size: 16px;
@@ -524,7 +524,8 @@ a {
 }
 
 .data-\[state\=active\]\:bg-white[data-state="active"] {
-  background-color: #f5c107 !important;
+  background-color: var(--color-secondgraphy) !important;
+  color: var(--color-secondary) !important;
 }
 
 /* max-width: 72vw;
@@ -540,4 +541,14 @@ gap-50px: !important; */
 .image-gallery-icon,
 .image-gallery-right-nav {
   display: none !important;
+}
+
+.textEditorContent ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.textEditorContent ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }

@@ -8,8 +8,8 @@ const JobDetails = ({ product }) => {
     days: product?.delivery_service.duration,
   });
   return (
-    <div className="p-5 mt-5 checkout-details">
-      <LabAccordion title="Job Details">
+    <div className="flex-1 p-5 checkout-details">
+      <LabAccordion title="Job Details" collasible>
         <div class=" flex flex-wrap gap-5">
           <div className="w-[150px]">
             <h1 className="font-bold text-secondgraphy">Qty:</h1>

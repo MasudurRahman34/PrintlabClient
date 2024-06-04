@@ -176,7 +176,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
   }, [combination_data?.data]);
 
   return (
-    <div className="md:flex-1">
+    <div className="col-span-12 lg:col-span-7 ">
       <div>
         <h1 className="text-xl font-bold md:text-2xl lg:text-4xl text-secondgraphy">
           {data?.data.title}
@@ -217,10 +217,13 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
                 );
               }
             })}
-            <div>
+            <div className="mt-3">
               <p className="text-secondgraphy">
-                Prices shown are exclusive of VAT
+                <strong>SKU:</strong> {matched?.sku}
               </p>
+              {matched?.price <= 0 && (
+                <p className="text-red-500">This product is not available</p>
+              )}
             </div>
           </>
         )}
@@ -250,7 +253,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
                 {matched
                   ? formatPrice(
                       calculateTotal({
-                        price: matched.price,
+                        price: matched?.price,
                         delivery_charge: selectedDelivery?.cost,
                         artwork_charge: selectedPrintType?.children
                           ? selectedPrintType?.children?.cost
@@ -266,7 +269,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
                 {matched
                   ? formatPrice(
                       calculateTotal({
-                        price: matched.price,
+                        price: matched?.price,
                         delivery_charge: selectedDelivery?.cost,
                         artwork_charge: selectedPrintType?.children
                           ? selectedPrintType?.children?.cost
@@ -284,9 +287,9 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
         </div>
         <div className="py-5">
           <button
-            className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 flex items-center justify-center"
+            className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 disabled:bg-secondary disabled:opacity-40  flex items-center justify-center "
             onClick={addToCart}
-            disabled={isPending}
+            disabled={isPending || matched?.price <= 0 || !selectedDelivery}
           >
             {isPending ? (
               <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin flex items-center justify-center" />
@@ -299,6 +302,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
       <TotalCounter
         isPending={isPending}
         addToCard={addToCart}
+        matched={matched}
         selectedDelivery={selectedDelivery}
         excVatPrice={
           matched

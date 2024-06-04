@@ -23,12 +23,7 @@ const OrderSummary = ({
               Sub total
             </p>
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">VAT</p>
-            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
-              Delivery Charge
-            </p>
-            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
-              Artwork Charge
-            </p>
+
             <p className="py-1 text-base font-bold text-[#2B2B2B]">Total:</p>
           </div>
           <div className="text-right order-card">
@@ -38,12 +33,7 @@ const OrderSummary = ({
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
               {formatPrice(total_vat)}
             </p>
-            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
-              {formatPrice(delivery_charge)}
-            </p>
-            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
-              {formatPrice(artwork_charge)}
-            </p>
+
             <p className="py-1 text-base font-bold text-[#2B2B2B]">
               {formatPrice(total)}
             </p>
@@ -120,7 +110,7 @@ const CheckoutSummary = ({ products }) => {
         </div>
       </div>
       <div>
-        <button className="w-full py-1 text-base font-bold text-center border rounded-md text-secondgraphy bg-primary-light border-primary hover:bg-primary">
+        <button className="w-full py-1 text-base font-bold text-center text-white border rounded-md bg-secondgraphy ">
           Countinus Shopping{" "}
         </button>
       </div>

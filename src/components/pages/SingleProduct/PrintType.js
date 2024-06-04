@@ -66,7 +66,7 @@ const PrintType = ({ selectedPrintType, setSelectedPrintType }) => {
 
   return (
     <div className="my-5 border-t ">
-      <div className="flex flex-wrap items-stretch gap-3 ">
+      <div className="flex flex-wrap items-stretch justify-center gap-3 md:justify-start ">
         {!isLoading &&
           !isError &&
           data?.data.length > 0 &&
@@ -81,7 +81,7 @@ const PrintType = ({ selectedPrintType, setSelectedPrintType }) => {
           ))}
       </div>
       {selectedPrintType && selectedPrintType?.parent?.children.length > 0 && (
-        <div className="flex flex-wrap items-stretch gap-3 ">
+        <div className="flex flex-wrap items-stretch justify-center gap-3 md:justify-start">
           {selectedPrintType?.parent?.children.map((item, index) => (
             <ArtworkCard
               item={item}

@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import mug from "../../public/assets/mug1.webp";
 import { useRouter } from "next/router";
+import { truncateHTML } from "@/lib/utils";
 
 const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
   const router = useRouter();
@@ -33,7 +34,11 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
             >
               <div className="w-full mb-1">
                 <img
-                  src={"https://i.ibb.co/YhCxD9N/mug1.webp"}
+                  src={
+                    item?.media?.length > 0
+                      ? item?.media[0]?.url
+                      : "https://placehold.co/600"
+                  }
                   alt={item?.title}
                   className="object-cover w-full h-72"
                 />
@@ -43,7 +48,12 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
                   {item?.title}
                 </h2>
                 <div
-                  dangerouslySetInnerHTML={{ __html: item?.description }}
+                  dangerouslySetInnerHTML={{
+                    __html: truncateHTML({
+                      html: item?.description,
+                      maxWords: 10,
+                    }),
+                  }}
                 ></div>
               </div>
             </Link>

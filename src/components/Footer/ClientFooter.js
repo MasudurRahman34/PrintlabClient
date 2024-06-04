@@ -66,7 +66,7 @@ const ClientFooter = () => {
               <label for="hs-trailing-button-add-on" class="sr-only">
                 Label
               </label>
-              <div class="flex rounded-sm">
+              <div class="flex rounded-sm flex-wrap gap-2 md:gap-0 justify-center ">
                 <input
                   type="text"
                   id="hs-trailing-button-add-on"

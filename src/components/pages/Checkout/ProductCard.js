@@ -64,34 +64,27 @@ const ProductCard = ({ product, idx, refetch }) => {
           </button>
         </div>
       </div>
-      <div className="flex justify-between pr-4 checkout-title">
-        <div className="flex flex-col gap-5 px-10 py-2 md:flex-row rounded-r-md bg-secondgraphy">
-          <p className="mt-3 text-base font-medium text-center text-white ">
-            Get 1 more copies for only £6.00
-          </p>
-          <button className="px-8 py-3 text-base font-bold text-center rounded-md text-secondgraphy bg-primary">
-            Upgrate
+
+      <div>
+        <div className="flex items-start justify-end pr-4 checkout-title">
+          <JobDetails product={product} />
+          <button
+            className="hidden md:block"
+            disabled={isPending}
+            onClick={handleDelete}
+          >
+            {isPending ? (
+              <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin" />
+            ) : (
+              <AiOutlineDelete
+                className="text-2xl text-[#AAAAAA] hover:text-[black]"
+                onClick={handleDelete}
+              />
+            )}
           </button>
         </div>
-        <button
-          className="hidden md:block"
-          disabled={isPending}
-          onClick={handleDelete}
-        >
-          {isPending ? (
-            <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin" />
-          ) : (
-            <AiOutlineDelete
-              className="text-2xl text-[#AAAAAA] hover:text-[black]"
-              onClick={handleDelete}
-            />
-          )}
-        </button>
-      </div>
-      <div>
-        <JobDetails product={product} />
+
         <ArtworkService product={product} />
-        <RefPONumber product={product} />
       </div>
     </div>
   );

@@ -157,7 +157,7 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
                       </div>
                       <div className="flex items-center">
                         <p className="mr-3 text-sm font-bold text-secondgraphy">
-                          $10.20
+                          {formatPrice(product.price)}
                         </p>
                         <button
                           onClick={() => handleDelete({ cart_id: product.id })}

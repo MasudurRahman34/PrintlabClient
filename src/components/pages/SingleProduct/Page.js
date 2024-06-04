@@ -43,10 +43,18 @@ const SingleProductPageComponent = ({ total_refetch }) => {
     }
   }, [data?.data]);
 
+  if (isError) {
+    return (
+      <div className="container mx-auto">
+        <h1>Product not found</h1>
+      </div>
+    );
+  }
+
   return (
     <section className="w-full py-10 custom_container ">
-      <div className="flex flex-col items-start justify-between gap-5 lg:flex-row ">
-        <div className="max-w-xl p-4 mb-4 lg:border-r-2 border-secondgraphy ">
+      <div className="grid items-start justify-between grid-cols-12 gap-5 lg:flex-row ">
+        <div className="col-span-12 p-4 mb-4  lg:col-span-5 lg:border-r-2 border-secondgraphy">
           <ImageGallery
             items={media}
             autoPlay={false}
@@ -114,9 +122,12 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                         </div>
                         <div className="w-full md:w-9/12">
                           <div className="p-5">
-                            <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                              {data?.data?.specification?.details}
-                            </p>
+                            <div
+                              className="textEditorContent"
+                              dangerouslySetInnerHTML={{
+                                __html: data?.data?.specification?.details,
+                              }}
+                            ></div>
                           </div>
                         </div>
                       </div>
@@ -140,12 +151,14 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                         </div>
                         <div className="w-full md:w-9/12">
                           <div className="p-5">
-                            <p className="text-sm md:text-base font-normal  text-[#555656] pb-2">
-                              {
-                                data?.data?.specification
-                                  ?.technical_specification
-                              }
-                            </p>
+                            <div
+                              className="textEditorContent"
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  data?.data?.specification
+                                    ?.technical_specification,
+                              }}
+                            ></div>
                           </div>
                         </div>
                       </div>

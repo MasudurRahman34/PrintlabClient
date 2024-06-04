@@ -8,6 +8,7 @@ const TotalCounter = ({
   addToCard,
   isPending,
   selectedDelivery,
+  matched,
 }) => {
   const { formattedDate } = useCountDownTimer({
     days: selectedDelivery?.duration,
@@ -29,9 +30,9 @@ const TotalCounter = ({
           </div>
           <div className="flex-1 w-full">
             <button
-              className="flex items-center justify-center w-full py-2 font-bold transition-colors duration-150 border rounded-md text-secondgraphy bg-primary border-primary-light hover:bg-primary-light"
+              className="flex items-center justify-center w-full py-2 font-bold transition-colors duration-150 border rounded-md text-secondgraphy bg-primary border-primary-light hover:bg-primary-light disabled:bg-secondary disabled:opacity-40 "
               onClick={addToCard}
-              isPending={isPending}
+              disabled={isPending || matched?.price <= 0 || !selectedDelivery}
             >
               {isPending ? (
                 <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />

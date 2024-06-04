@@ -7,9 +7,14 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-const LabAccordion = ({ title, children, triggerStyle = "" }) => {
+const LabAccordion = ({
+  title,
+  children,
+  triggerStyle = "",
+  collasible = true,
+}) => {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" collapsible={collasible} className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger
           className={cn(

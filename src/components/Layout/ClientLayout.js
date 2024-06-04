@@ -52,7 +52,6 @@ const ClientLayout = ({ children }) => {
       <footer className="bg-secondgraphy min-h-40">
         <ClientFooter />
       </footer>
-      <MobileNav />
     </section>
   );
 };
