@@ -100,7 +100,7 @@ const BottomHeader = () => {
                               manuCategory.children.map((child, index) => {
                                 return (
                                   <div className="list-item" key={index}>
-                                    <h4 className="title">
+                                    <h4 className="title text-sm md:text-base ">
                                       <Link href={`/${child.slug}`}>
                                         {child.title}
                                       </Link>
@@ -109,7 +109,7 @@ const BottomHeader = () => {
                                       {child.products.length > 0 &&
                                         child.products.map((product, index) => {
                                           return (
-                                            <li key={index}>
+                                            <li key={index} className="text-red-500">
                                               <Link
                                                 href={`/${child.slug}/${product.slug}`}
                                               >
