@@ -111,6 +111,18 @@ a {
   margin-left: 10px;
   transition: color 0.3s ease;
 }
+
+@media(min-width: 992px) {
+  .header .item-right a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #555555;
+    display: inline-block;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+    display: none;
+  }
+}
 .header .menu > ul > li {
   display: inline-block;
 
