@@ -56,22 +56,14 @@ const CheckoutSummary = ({ products }) => {
   const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
     useMemo(() => {
       const sub_total = products
-        .map((product) => parseFloat(product.price))
+        .map((product) => parseFloat(product.total))
         .reduce((a, b) => a + b, 0);
       const total_vat = products
         .map((product) => parseFloat(product.tax))
         .reduce((a, b) => a + b, 0);
 
-      const delivery_charge = products
-        .map((product) => parseFloat(product.delivery_service_charge))
-        .reduce((a, b) => a + b, 0);
-
-      const artwork_charge = products
-        .map((product) => parseFloat(product.artwork_service_charge))
-        .reduce((a, b) => a + b, 0);
-
-      const total = sub_total + total_vat + delivery_charge + artwork_charge;
-      return { sub_total, total_vat, delivery_charge, artwork_charge, total };
+      const total = sub_total + total_vat;
+      return { sub_total, total_vat, total };
     }, [products]);
 
   return (
@@ -83,16 +75,7 @@ const CheckoutSummary = ({ products }) => {
         total={total}
         total_vat={total_vat}
       />
-      {/*  <div className="px-5 mb-5">
-        <div className="flex justify-between gap-2 px-4 py-2 bg-primary-light ">
-          <h4 className="text-sm font-bold text-[#333]">
-            Redeem Tradeprint Credits
-          </h4>
-          <button>
-            <VscDiffAdded className="text-2xl" />
-          </button>
-        </div>
-      </div> */}
+
       <div className="mb-5 ">
         <div className="border rounded ">
           <LabAccordion title="Add  Discount Code">

@@ -83,8 +83,6 @@ const ProductCard = ({ product, idx, refetch }) => {
             )}
           </button>
         </div>
-
-        <ArtworkService product={product} />
       </div>
     </div>
   );
