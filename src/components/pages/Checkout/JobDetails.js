@@ -2,6 +2,7 @@ import React from "react";
 
 import LabAccordion from "@/components/ui/LabAccordion";
 import useCountDownTimer from "@/components/hooks/useCountdownTimer";
+import SingleAccordion from "./SingleAccordion";
 
 const JobDetails = ({ product }) => {
   const { formattedDate } = useCountDownTimer({
@@ -9,7 +10,7 @@ const JobDetails = ({ product }) => {
   });
   return (
     <div className="flex-1 p-5 checkout-details">
-      <LabAccordion title="Job Details" collasible>
+      <SingleAccordion title={"Job Details"} isInitiallyExpanded={true}>
         <div class=" flex flex-wrap gap-5">
           <div className="w-[150px]">
             <h1 className="font-bold text-secondgraphy">Qty:</h1>
@@ -42,7 +43,7 @@ const JobDetails = ({ product }) => {
             <p>{formattedDate}</p>
           </div>
         </div>
-      </LabAccordion>
+      </SingleAccordion>
     </div>
   );
 };

@@ -69,7 +69,7 @@ const ProductCard = ({ product, idx, refetch }) => {
         <div className="flex items-start justify-end pr-4 checkout-title">
           <JobDetails product={product} />
           <button
-            className="hidden md:block"
+            className="hidden mt-8 md:block"
             disabled={isPending}
             onClick={handleDelete}
           >
