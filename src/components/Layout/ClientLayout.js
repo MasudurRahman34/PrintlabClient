@@ -5,6 +5,7 @@ import MobileNav from "../Footer/MobileNav";
 import Hoverbasket from "@/pages/hoverbasket";
 import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartTotalQuery } from "@/resolvers/mutation";
+import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 
 const ClientLayout = ({ children }) => {
   const [showbasket, setshowbasket] = useState(false);
@@ -18,7 +19,7 @@ const ClientLayout = ({ children }) => {
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: "get_cart_total",
-    queryFn: getIncompleteCartTotalQuery,
+    queryFn: getIncompleteCartProductsQuery,
   });
 
   const total_refetch = useCallback(() => {

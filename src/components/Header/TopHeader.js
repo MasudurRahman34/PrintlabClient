@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Switcher1 from "./Switcher";
 import Image from "next/image";
 import Hoverbasket from "@/pages/hoverbasket";
+import { formatPrice } from "@/lib/utils";
 
 const links = [
   {
@@ -54,6 +55,23 @@ const links = [
 ];
 
 const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
+  const [cart, setCart] = useState({
+    totalPrice: 0,
+    totalQuantity: 0,
+  });
+
+  useEffect(() => {
+    if (total) {
+      const totalPrice = total
+        ?.map((item) => item.total)
+        .reduce((a, b) => a + b, 0);
+
+      const totalQuantity = total?.length;
+
+      setCart({ totalPrice, totalQuantity });
+    }
+  }, [total]);
+
   return (
     <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
       <div className="text-black">
@@ -109,7 +127,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
             <div key={link.id}>
               <Link
                 href={link.url}
-                className="flex-col items-center space-y-1  group lg:mt-0"
+                className="flex-col items-center space-y-1 group lg:mt-0"
               >
                 {link.Icon && <link.Icon />}
                 <span>{link.name}</span>
@@ -143,9 +161,9 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
           </Link>
         </div>
         <div className="relative">
-          {total > 0 && (
+          {cart.totalQuantity > 0 && (
             <div className="absolute -top-2 flex items-center justify-center w-6 h-6 text-sm font-bold text-black rounded-full -right-0.5 bg-primary ">
-              {total}
+              {cart.totalQuantity}
             </div>
           )}
 
@@ -169,7 +187,9 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
                 />
               </svg>
             </span>
-            <span>Basket</span>
+            <span>
+              {cart.totalQuantity > 0 ? formatPrice(cart.totalPrice) : "Basket"}
+            </span>
           </button>
         </div>
       </div>
