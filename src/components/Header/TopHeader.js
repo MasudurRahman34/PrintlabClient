@@ -62,9 +62,10 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
 
   useEffect(() => {
     if (total) {
-      const totalPrice = total
-        ?.map((item) => item.total)
-        .reduce((a, b) => a + b, 0);
+      const totalPrice =
+        total.length > 0
+          ? total?.map((item) => item.total).reduce((a, b) => a + b, 0)
+          : 0;
 
       const totalQuantity = total?.length;
 
