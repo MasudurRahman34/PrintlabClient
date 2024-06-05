@@ -63,19 +63,19 @@ const ClientFooter = () => {
 
           <div className="flex-1">
             <div>
-              <label for="hs-trailing-button-add-on" class="sr-only">
+              <label htmlFor="hs-trailing-button-add-on" className="sr-only">
                 Label
               </label>
-              <div class="flex rounded-sm">
+              <div className="flex rounded-sm">
                 <input
                   type="text"
                   id="hs-trailing-button-add-on"
                   name="hs-trailing-button-add-on"
-                  class="rounded-none ti-form-input rounded-s-sm focus:z-10"
+                  className="rounded-none ti-form-input rounded-s-sm focus:z-10"
                 />
                 <button
                   type="button"
-                  class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold text-white transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
+                  className="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold text-white transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
                 >
                   Subscribe
                 </button>

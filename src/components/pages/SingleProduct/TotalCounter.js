@@ -31,7 +31,7 @@ const TotalCounter = ({
             <button
               className="flex items-center justify-center w-full py-2 font-bold transition-colors duration-150 border rounded-md text-secondgraphy bg-primary border-primary-light hover:bg-primary-light"
               onClick={addToCard}
-              isPending={isPending}
+              // isPending={isPending}
             >
               {isPending ? (
                 <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />
