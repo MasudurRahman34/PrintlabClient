@@ -6,7 +6,11 @@ const ClientHeader = ({ showcards, hideBasket, total }) => {
   return (
     <header>
       <TopHeader showcards={showcards} hideBasket={hideBasket} total={total} />
-      <BottomHeader />
+      <BottomHeader
+        showcards={showcards}
+        hideBasket={hideBasket}
+        total={total}
+      />
     </header>
   );
 };

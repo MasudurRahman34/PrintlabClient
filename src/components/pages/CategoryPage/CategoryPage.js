@@ -7,6 +7,7 @@ import React from "react";
 const CategoryPage = () => {
   const router = useRouter();
   const { product_category } = router.query;
+  console.log(product_category);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["category_products", product_category],
     enabled: !!product_category,

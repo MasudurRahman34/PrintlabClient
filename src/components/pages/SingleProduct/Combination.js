@@ -15,6 +15,7 @@ import { calculateTotal, formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
+import MobileNav from "@/components/Footer/MobileNav";
 
 const Combination = ({ data, isProductLoading, total_refetch }) => {
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
@@ -23,6 +24,8 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
     parent: null,
     children: null,
   });
+
+  console.log(userSelectedOptions);
 
   const { data: allCombination } = useQuery({
     queryKey: ["all_combination_for_this_product", data?.data.id],
@@ -73,8 +76,11 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
         .sort((a, b) => a - b)
         .map((item) => item.toString());
       const selectedOptionsString = selectedOptions.join(",");
+
       const matchedCombination = allCombination?.data.filter((item) => {
-        const combinationOptions = item.combination.join(",");
+        const combinationOptions = item.combination
+          .sort((a, b) => a - b)
+          .join(",");
 
         return combinationOptions === selectedOptionsString;
       });
@@ -234,6 +240,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
           selectedDelivery={selectedDelivery}
           setSelectedDelivery={setSelectedDelivery}
         />
+
         <PrintType
           selectedPrintType={selectedPrintType}
           setSelectedPrintType={setSelectedPrintType}
@@ -318,6 +325,24 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
             : formatPrice(0)
         }
         incVatPrice={
+          matched
+            ? formatPrice(
+                calculateTotal({
+                  price: matched.price,
+                  delivery_charge: selectedDelivery?.cost,
+                  artwork_charge: selectedPrintType?.children
+                    ? selectedPrintType?.children?.cost
+                    : selectedPrintType?.parent?.cost,
+                })
+              )
+            : formatPrice(0)
+        }
+      />
+      <MobileNav
+        addToCard={addToCart}
+        isPending={isPending}
+        matched={matched}
+        price={
           matched
             ? formatPrice(
                 calculateTotal({

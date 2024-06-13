@@ -18,7 +18,7 @@ const links = [
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6 group-hover:text-primary "
+          className="flex items-center justify-center w-6 h-6 group-hover:text-primary "
         >
           <path
             strokeLinecap="round"
@@ -128,7 +128,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
             <div key={link.id}>
               <Link
                 href={link.url}
-                className="flex-col items-center space-y-1 group lg:mt-0"
+                className="flex-col items-center justify-center space-y-1 group lg:mt-0"
               >
                 {link.Icon && <link.Icon />}
                 <span>{link.name}</span>

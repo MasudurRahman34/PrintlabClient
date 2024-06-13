@@ -31,15 +31,15 @@ const ProductCard = ({ product, idx, refetch }) => {
   return (
     <div className="mb-5 overflow-hidden border rounded">
       <div className="flex flex-col justify-between gap-3 p-4 md:flex-row">
-        <div className="flex gap-3">
-          <h5 className="text-base font-normal text-[#8F9391]">
-            Item {idx + 1}.
-          </h5>
-          <h4 className="text-base font-bold text-[#2B2B2B] ">
-            {product?.product.title}
-          </h4>
-        </div>
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between">
+          <div className="flex gap-3">
+            <h5 className="text-base font-normal text-[#8F9391]">
+              Item {idx + 1}.
+            </h5>
+            <h4 className="text-base font-bold text-[#2B2B2B] ">
+              {product?.product.title}
+            </h4>
+          </div>
           <div className="text-right">
             <h4 className="text-base font-bold text-[#2B2B2B]">
               £{product.total}
@@ -48,6 +48,8 @@ const ProductCard = ({ product, idx, refetch }) => {
               Ex VAT: £{product.total}
             </h5>
           </div>
+        </div>
+        <div className="flex items-center justify-end">
           <button
             className="block md:hidden"
             disabled={isPending}
