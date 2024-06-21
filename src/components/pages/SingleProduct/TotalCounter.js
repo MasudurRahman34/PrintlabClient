@@ -14,7 +14,7 @@ const TotalCounter = ({
     days: selectedDelivery?.duration,
   });
   return (
-    <section className="fixed bottom-0 left-0 hidden w-full border-2 bg-secondgraphy border-primary md:block">
+    <section className="fixed bottom-0 left-0 z-50 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <div className="flex-1 text-white text-end ">
