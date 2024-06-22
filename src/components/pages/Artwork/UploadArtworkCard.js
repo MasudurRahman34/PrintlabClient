@@ -10,7 +10,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 
-const UploadArtworkCard = ({ product, refetch }) => {
+const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -106,7 +106,12 @@ const UploadArtworkCard = ({ product, refetch }) => {
                 onChange={handleFileChange}
               />
             </div>
-            <button className="flex px-2 py-2 text-sm font-medium border rounded-md md:text-lg lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 border-typography hover:bg-black hover:text-white ">
+            <button
+              className="flex px-2 py-2 text-sm font-medium border rounded-md md:text-lg lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 border-typography hover:bg-black hover:text-white "
+              onClick={() => {
+                handleSkip({ skip_cart_id: product.id });
+              }}
+            >
               Skip, Add Artwork Later
             </button>
           </div>

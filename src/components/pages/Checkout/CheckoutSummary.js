@@ -52,6 +52,52 @@ const OrderSummary = ({
   );
 };
 
+const MobileCheckoutSummary = ({
+  artwork_charge,
+  delivery_charge,
+  sub_total,
+  total,
+  total_vat,
+}) => {
+  const router = useRouter();
+  return (
+    <div className="fixed bottom-0 left-0 w-full px-2 bg-white border-t-2 shadow-sm lg:hidden order-info border-secondgraphy">
+      <div className="px-5 mb-5 ">
+        <div className="flex justify-between">
+          <div className="order-card">
+            <p className="mt-4 mb-1 text-sm font-bold text-[#2B2B2B] ">
+              Sub total
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">VAT</p>
+
+            <p className="py-1 text-base font-bold text-[#2B2B2B]">Total:</p>
+          </div>
+          <div className="text-right order-card">
+            <p className="mt-4 mb-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(sub_total)}
+            </p>
+            <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+              {formatPrice(total_vat)}
+            </p>
+
+            <p className="py-1 text-base font-bold text-[#2B2B2B]">
+              {formatPrice(total)}
+            </p>
+          </div>
+        </div>
+        <Button
+          className="w-full font-bold"
+          onClick={() => {
+            router.push("/artwork");
+          }}
+        >
+          Proceed to Checkout
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const CheckoutSummary = ({ products }) => {
   const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
     useMemo(() => {
@@ -67,14 +113,16 @@ const CheckoutSummary = ({ products }) => {
     }, [products]);
 
   return (
-    <div className="w-full px-10 order-info lg:w-4/12">
-      <OrderSummary
-        artwork_charge={artwork_charge}
-        delivery_charge={delivery_charge}
-        sub_total={sub_total}
-        total={total}
-        total_vat={total_vat}
-      />
+    <div className="w-full px-10 lg:block order-info lg:w-4/12">
+      <div className="hidden lg:block">
+        <OrderSummary
+          artwork_charge={artwork_charge}
+          delivery_charge={delivery_charge}
+          sub_total={sub_total}
+          total={total}
+          total_vat={total_vat}
+        />
+      </div>
 
       {/*  <div className="mb-5 ">
         <div className="border rounded ">
@@ -97,6 +145,13 @@ const CheckoutSummary = ({ products }) => {
           Countinus Shopping{" "}
         </button>
       </div> */}
+      <MobileCheckoutSummary
+        artwork_charge={artwork_charge}
+        delivery_charge={delivery_charge}
+        sub_total={sub_total}
+        total={total}
+        total_vat={total_vat}
+      />
     </div>
   );
 };

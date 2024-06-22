@@ -8,11 +8,11 @@ const ArtworkService = ({ product }) => {
   return (
     <div className="flex flex-col w-full py-5 md:flex-row">
       <div className="flex-1">
-        <p className="px-4 py-2 mt-2 border-2 rounded-md border-primary bg-primary-light text-secondgraphy">
+        <p className="px-4 py-2 mt-2 text-sm text-center border-2 rounded-md border-primary bg-primary-light text-secondgraphy md:text-base">
           if you order within{" "}
-          <span>
-            {timeLeft.hours} hrs {timeLeft.minutes} mins {timeLeft.seconds} secs
-          </span>
+          <span className="font-bold">{timeLeft.hours} </span> hrs{" "}
+          <span className="font-bold">{timeLeft.minutes} </span> mins{" "}
+          <span className="font-bold"> {timeLeft.seconds} </span> secs
         </p>
       </div>
     </div>

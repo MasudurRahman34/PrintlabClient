@@ -22,14 +22,45 @@ const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
 });
 
 const UploadArtwork = () => {
+  const [state, setState] = React.useState([]);
   const [activeCart, setActiveCart] = React.useState(null);
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
   });
 
+  const handleSkip = ({ skip_cart_id }) => {
+    const temp = state.map((cart) => {
+      if (cart.id === skip_cart_id) {
+        return {
+          ...cart,
+          artwork_status: "ARTWORK SKIPPED",
+        };
+      }
+      return cart;
+    });
+
+    setState(temp);
+  };
+
   useEffect(() => {
     if (data?.data.length > 0) {
+      const temp = [];
+
+      data.data.map((product, idx) => {
+        temp.push({
+          ...product,
+          artwork_status: product?.file
+            ? "ARTWORK UPLOADED"
+            : product.is_upload_artwork
+            ? "ARTWORK REQUIRED"
+            : product.is_design_service
+            ? "DESIGN SERVICE"
+            : "NOT SURE YET",
+        });
+      });
+
+      setState((prev) => [...temp]);
       setActiveCart(data.data[0].id);
     }
   }, [data]);
@@ -113,7 +144,7 @@ const UploadArtwork = () => {
               setActiveCart(Number(e.target.value));
             }}
           >
-            {data?.data.map((product, idx) => {
+            {state?.map((product, idx) => {
               return (
                 <option key={idx} value={product.id}>
                   Cart ID {product.id} - {product.product.title}
@@ -122,10 +153,10 @@ const UploadArtwork = () => {
             })}
           </select>
         </div>
-        {data?.data.length > 0 ? (
+        {state?.length > 0 ? (
           <div className="rounded-md artwork-page-history lg:flex bg-secondary ">
             <div className="flex-col hidden w-full gap-4 py-5 lg:flex lg:w-1/3">
-              {data.data.map((product, idx) => (
+              {state?.map((product, idx) => (
                 <div
                   className={`flex px-5 ${
                     product.id === activeCart ? "bg-white" : "bg-secondary"
@@ -150,23 +181,20 @@ const UploadArtwork = () => {
                     </h4>
                     <h4 className="flex text-sm font-normal md:text-base lg:text-lg text-secondgraphy md:font-medium -ms-2 ">
                       <GoDotFill className="mr-1 text-3xl text-primary" />
-                      {product.is_upload_artwork
-                        ? "ARTWORK REQUIRED"
-                        : product.is_design_service
-                        ? "DESIGN SERVICE REQUIRED"
-                        : "NOT SURE YET"}
+                      {product?.artwork_status}
                     </h4>
                   </div>
                 </div>
               ))}
             </div>
-            {data?.data.map((product, idx) => {
+            {state?.map((product, idx) => {
               return (
                 product.id === activeCart && (
                   <UploadArtworkCard
                     key={idx}
                     product={product}
                     refetch={refetch}
+                    handleSkip={handleSkip}
                   />
                 )
               );

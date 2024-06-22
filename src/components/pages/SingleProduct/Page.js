@@ -62,7 +62,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
   return (
     <section className="w-full py-10 custom_container ">
       <div className="grid items-start justify-between grid-cols-12 gap-5 lg:flex-row ">
-        <div className="col-span-12 pr-4 md:mb-4 lg:col-span-5 lg:border-r-2 border-secondgraphy">
+        <div className="col-span-12 lg:pr-4 md:mb-4 lg:col-span-5 lg:border-r-2 border-secondgraphy">
           <ImageGallery
             items={media}
             autoPlay={false}

@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 
-const BusketComponent = () => {
+const BusketComponent = ({ total_refetch }) => {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
@@ -37,6 +37,7 @@ const BusketComponent = () => {
           {data?.data.length > 0 ? (
             data.data.map((product, idx) => (
               <ProductCard
+                total_refetch={total_refetch}
                 key={product.id}
                 idx={idx}
                 product={product}
