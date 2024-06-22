@@ -76,7 +76,7 @@ const CheckoutSummary = ({ products }) => {
         total_vat={total_vat}
       />
 
-      <div className="mb-5 ">
+      {/*  <div className="mb-5 ">
         <div className="border rounded ">
           <LabAccordion title="Add  Discount Code">
             <div className="mt-5 mb-5">
@@ -96,7 +96,7 @@ const CheckoutSummary = ({ products }) => {
         <button className="w-full py-1 text-base font-bold text-center text-white border rounded-md bg-secondgraphy ">
           Countinus Shopping{" "}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

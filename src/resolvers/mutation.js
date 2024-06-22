@@ -13,3 +13,6 @@ export const deleteIncompleteCartProductMutation = async ({ cart_id }) =>
 
 export const getIncompleteCartTotalQuery = async () =>
   axios.get(`${backendUrl}/cart/incomplete/total`).then((res) => res.data);
+
+export const deleteUploadedArtworkMutation = async ({ file_id }) =>
+  axios.delete(`${backendUrl}/cart/files/${file_id}`).then((res) => res.data);

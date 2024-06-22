@@ -8,6 +8,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import UploadArtworkCard from "./UploadArtworkCard";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
@@ -54,9 +63,68 @@ const UploadArtwork = () => {
             </p>
           </div>
         </div>
+        <div className="w-full py-4 lg:hidden">
+          {/* <Select>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a fruit">
+                {data?.data.map((product, idx) => {
+                  if (product.id === activeCart) {
+                    return `Item ${idx + 1}. ${product.product.title}`;
+                  }
+                })}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {data?.data.map((product, idx) => (
+                <SelectItem key={idx} value={product.id}>
+                  <div>
+                    <h4 className="text-sm font-normal md:text-base lg:text-lg md:font-medium text-typography ">
+                      Item {idx + 1}.
+                    </h4>
+                    <div>
+                      <h4 className="mb-2 text-base font-medium md:text-lg lg:text-xl md:font-semibold lg:font-bold">
+                        {product.product.title}
+                      </h4>
+                      <h4 className="text-sm font-normal md:font-medium text-secondgraphy">
+                        <span className="text-sm md:text-base lg:text-lg">
+                          ITEM REF:
+                        </span>{" "}
+                        {product.id}
+                      </h4>
+                      <h4 className="flex text-sm font-normal md:text-base lg:text-lg text-secondgraphy md:font-medium -ms-2 ">
+                        <GoDotFill className="mr-1 text-3xl text-primary" />
+                        {product.is_upload_artwork
+                          ? "ARTWORK REQUIRED"
+                          : product.is_design_service
+                          ? "DESIGN SERVICE REQUIRED"
+                          : "NOT SURE YET"}
+                      </h4>
+                    </div>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select> */}
+
+          <select
+            className="w-full px-2 py-2 text-sm font-medium border rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 border-typography "
+            value={activeCart}
+            onChange={(e) => {
+              setActiveCart(Number(e.target.value));
+            }}
+          >
+            {data?.data.map((product, idx) => {
+              return (
+                <option key={idx} value={product.id}>
+                  Cart ID {product.id} - {product.product.title}
+                </option>
+              );
+            })}
+          </select>
+        </div>
         {data?.data.length > 0 ? (
           <div className="rounded-md artwork-page-history lg:flex bg-secondary ">
-            <div className="flex flex-col w-full gap-4 py-5 lg:w-1/3">
+            <div className="flex-col hidden w-full gap-4 py-5 lg:flex lg:w-1/3">
               {data.data.map((product, idx) => (
                 <div
                   className={`flex px-5 ${
@@ -95,7 +163,11 @@ const UploadArtwork = () => {
             {data?.data.map((product, idx) => {
               return (
                 product.id === activeCart && (
-                  <UploadArtworkCard key={idx} product={product} />
+                  <UploadArtworkCard
+                    key={idx}
+                    product={product}
+                    refetch={refetch}
+                  />
                 )
               );
             })}
