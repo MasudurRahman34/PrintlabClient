@@ -18,7 +18,7 @@ const ClientLayout = ({ children }) => {
   };
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: "get_cart_total",
+    queryKey: ["get_cart_total"],
     queryFn: getIncompleteCartProductsQuery,
   });
 

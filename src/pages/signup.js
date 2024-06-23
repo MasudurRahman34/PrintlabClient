@@ -1,21 +1,38 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 const Signup = () => {
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const { email, password, customerValue } = data;
+
+    if (email && password && customerValue) {
+      console.log(data);
+      const users = localStorage.getItem("users");
+      let usersArray = [];
+      if (users) {
+        usersArray = JSON.parse(users);
+      }
+      usersArray.push(data);
+
+      localStorage.setItem("users", JSON.stringify(usersArray));
+    } else {
+      toast.error("Please fill all the fields");
+    }
+  };
 
   return (
     <ClientLayout>
       <>
-        <div className="container mx-auto mb-2 md:mb-5 mt-10 px-2 ">
+        <div className="container px-2 mx-auto mt-10 mb-2 md:mb-5 ">
           <div className="flex justify-center ">
             <div className="w-[50%]">
-              <h4 className=" text-center font-semibold md:font-bold py-5px-5 mt-5 mb-5 text-lg md:text-xl lg:text-2xl xl:text-3xl ">
+              <h4 className="mt-5 mb-5 text-lg font-semibold text-center md:font-bold py-5px-5 md:text-xl lg:text-2xl xl:text-3xl">
                 Register
               </h4>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=" input-from w-full">
+                <div className="w-full input-from">
                   <div className="w-full mb-2 md:mb-5 ">
                     <label className=" text-[12px] md:text-base text-typography font-medium ">
                       Email
@@ -49,19 +66,39 @@ const Signup = () => {
                       id="countries"
                       class=" form-control border text-[12px] md:text-[14px] text-typography px-2 py-2 w-full"
                     >  */}
-                    <select {...register("customerValue")} className=" form-control border text-[12px] md:text-[14px] text-typography px-2 py-2 w-full outline-none ">
-                      <option selected disabled > Please select</option>
-                      <option value="Charity or Community Group">Charity or Community Group</option>
-                      <option value="Publin services of Edcation">Publin services of Edcation</option>
-                      <option value="Event / Entertainment">Event / Entertainment</option>
+                    <select
+                      {...register("customerValue")}
+                      className=" form-control border text-[12px] md:text-[14px] text-typography px-2 py-2 w-full outline-none "
+                    >
+                      <option selected disabled>
+                        {" "}
+                        Please select
+                      </option>
+                      <option value="Charity or Community Group">
+                        Charity or Community Group
+                      </option>
+                      <option value="Publin services of Edcation">
+                        Publin services of Edcation
+                      </option>
+                      <option value="Event / Entertainment">
+                        Event / Entertainment
+                      </option>
                       <option value="Personal">Personal</option>
-                      <option value="Designer / Agency">Designer / Agency</option>
-                      <option value="Small Business / Retail">Small Business / Retail</option>
-                      <option value="Comporate / office">Comporate / office</option>
-                      <option value="Printer / Print Reseller">Printer / Print Reseller</option>
+                      <option value="Designer / Agency">
+                        Designer / Agency
+                      </option>
+                      <option value="Small Business / Retail">
+                        Small Business / Retail
+                      </option>
+                      <option value="Comporate / office">
+                        Comporate / office
+                      </option>
+                      <option value="Printer / Print Reseller">
+                        Printer / Print Reseller
+                      </option>
                     </select>
                   </div>
-                  <div className=" mb-4 ">
+                  <div className="mb-4 ">
                     <div>
                       <input
                         type="checkbox"
@@ -80,7 +117,7 @@ const Signup = () => {
                       </label>
                     </div>
                   </div>
-                  <div className=" mb-4 ">
+                  <div className="mb-4 ">
                     <div>
                       <input
                         type="checkbox"

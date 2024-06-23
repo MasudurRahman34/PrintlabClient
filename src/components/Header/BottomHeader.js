@@ -90,7 +90,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                   </div>
                 )}
                 <ul className="menu-main">
-                  {data?.data.map((manuCategory) => {
+                  {data?.data.map((manuCategory, idx) => {
                     return (
                       <>
                         <li
@@ -99,6 +99,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                               ? "menu-item-has-children"
                               : ""
                           }`}
+                          key={idx}
                         >
                           <Link
                             href="#"

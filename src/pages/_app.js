@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import AuthProvider from "react-auth-kit/AuthProvider";
+import createStore from "react-auth-kit/createStore";
 
 import "@/styles/globals.css";
 //import "@/styles/style.css";
@@ -19,18 +21,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-medium-image-zoom/dist/styles.css";
 
 import { Toaster } from "react-hot-toast";
-import { store } from "../app/store";
-import { Provider } from "react-redux";
-const queryClient = new QueryClient();
+import { useAuth } from "@/hooks/useAuth";
 
 export default function App({ Component, pageProps }) {
+  const { isAuthenticated, user, token } = useAuth();
+
+  const queryClient = new QueryClient();
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-        {/*  <ReactQueryDevtools initialIsOpen={false} position="right" /> */}
-        <Toaster />
-      </QueryClientProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Component
+        {...pageProps}
+        isAuthenticated={isAuthenticated}
+        user={user}
+        token={token}
+      />
+      {/*  <ReactQueryDevtools initialIsOpen={false} position="right" /> */}
+      <Toaster />
+    </QueryClientProvider>
   );
 }
