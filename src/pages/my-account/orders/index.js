@@ -120,7 +120,7 @@ const Orders = () => {
                   </td>
                   <td className="text-center border border-gray-200">$100</td>
                   <td className="text-center border border-gray-200">
-                    <Button>View</Button>
+                    <Link href={`/my-account/orders/${"Something"}`}>View</Link>
                   </td>
                 </tr>
                 <tr>
@@ -133,7 +133,7 @@ const Orders = () => {
                   </td>
                   <td className="text-center border border-gray-200">$100</td>
                   <td className="text-center border border-gray-200">
-                    <Button>View</Button>
+                    <Link href={`/my-account/orders/${"Something"}`}>View</Link>
                   </td>
                 </tr>
                 <tr>
@@ -146,7 +146,7 @@ const Orders = () => {
                   </td>
                   <td className="text-center border border-gray-200">$100</td>
                   <td className="text-center border border-gray-200">
-                    <Button>View</Button>
+                    <Link href={`/my-account/orders/${"Something"}`}>View</Link>
                   </td>
                 </tr>
               </tbody>
