@@ -9,6 +9,8 @@ import DatePicker from "react-datepicker";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import DownloadInvoice from "./DownloadInvoice";
+import PrintInvoice from "./PrintInvoice";
 
 const Invoices = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -110,21 +112,20 @@ const Invoices = () => {
               <tbody>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">0001</div>
+                    <p className="text-sm text-gray-900">0001</p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">2021-09-09</div>
+                    <p className="text-sm text-gray-900">2021-09-09</p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">$ 100.00</div>
+                    <p className="text-sm text-gray-900">$ 100.00</p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">Paid</div>
+                    <p className="text-sm text-gray-900">Paid</p>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      <Link href="#">View</Link>
-                    </div>
+                  <td className="flex gap-3 px-6 py-4 whitespace-nowrap">
+                    <DownloadInvoice />
+                    <PrintInvoice />
                   </td>
                 </tr>
               </tbody>

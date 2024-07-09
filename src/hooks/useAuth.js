@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 export const useAuth = () => {
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -27,6 +30,7 @@ export const useAuth = () => {
   }, []);
 
   const login = async (credentials) => {
+    console.log(credentials);
     try {
       /* const response = await axios.post("/api/auth/login", credentials);
       const { user, token } = response.data; */
@@ -35,20 +39,23 @@ export const useAuth = () => {
       let user;
       if (typeof window !== "undefined") {
         const users = JSON.parse(localStorage.getItem("users"));
-        const existUser = users.find(
+        const existUser = users?.find(
           (u) =>
             u.email === credentials.email && u.password === credentials.password
         );
         if (!existUser) {
+          toast.error("Invalid credentials");
           throw new Error("Invalid credentials");
+        } else {
+          token = "fake_token";
+          user = {
+            id: existUser.id,
+            email: existUser.email,
+            first_name: existUser.first_name,
+            last_name: existUser.last_name,
+            customer_type: existUser.customer_type,
+          };
         }
-
-        token = "fake_token";
-        user = {
-          id: "dskfjsdlkfe",
-          email: existUser.email,
-          name: "Tanmoy",
-        };
       }
 
       // Save user and token to localStorage
@@ -60,8 +67,9 @@ export const useAuth = () => {
       setUser(user);
       setToken(token);
       setIsAuthenticated(true);
+      toast.success("Login successful");
     } catch (error) {
-      console.error("Login error", error);
+      toast.error("Login failed");
       setIsAuthenticated(false);
     }
   };
@@ -74,6 +82,7 @@ export const useAuth = () => {
     setUser(null);
     setToken(null);
     setIsAuthenticated(false);
+    router.push("/");
   };
 
   return { isAuthenticated, user, token, login, logout };
