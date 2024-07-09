@@ -13,6 +13,32 @@ import { MdDelete } from "react-icons/md";
 const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [checkFile, setCheckFile] = useState({
+    isChecking: true,
+    checked: false,
+    file: {
+      encryptionORdamage: {
+        result: null,
+        isLoading: false,
+      },
+      colors: {
+        result: null,
+        isLoading: false,
+      },
+      bleed: {
+        result: null,
+        isLoading: false,
+      },
+      generatingProofs: {
+        result: null,
+        isLoading: false,
+      },
+      proofsReady: {
+        result: null,
+        isLoading: false,
+      },
+    },
+  });
 
   const { mutate, isPending } = useMutation({
     mutationKey: "delete_uploaded_artwork",
@@ -155,6 +181,8 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
                 </div>
               </div>
             )
+          ) : checkFile.isChecking ? (
+            <div></div>
           ) : (
             <div className="mt-2 text-center md:mt-5">
               <p className="text-sm font-normal md:text-base md:font-medium text-typography">
@@ -166,6 +194,11 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
               </h4>
             </div>
           )}
+
+          <div>
+            <div className="flex items-center justify-center gap-2 mt-5">
+              
+          </div>
         </div>
       </div>
 
