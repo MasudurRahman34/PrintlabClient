@@ -9,6 +9,8 @@ import { BsClock } from "react-icons/bs";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { PDFDocument } from "pdf-lib";
+import CheckStatus, { LoadingSpinner } from "./CheckStatus";
 
 const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
   const [file, setFile] = useState(null);
@@ -37,6 +39,10 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
         result: null,
         isLoading: false,
       },
+      singleSided: {
+        result: null,
+        isLoading: false,
+      },
     },
   });
 
@@ -45,12 +51,51 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
     mutationFn: deleteUploadedArtworkMutation,
   });
 
+  // making a function for check if the pdf is double sided or single sided .
+  async function checkSingleOrDoubleSided(pdfPath) {
+    const pdfBytes = fs.readFileSync(pdfPath);
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const numPages = pdfDoc.getPageCount();
+
+    return numPages > 1 ? "Double-sided" : "Single-sided";
+  }
+
+  const handleCheckDoubleSided = async (file) => {
+    const selectedFile = file;
+    setCheckFile({
+      ...checkFile,
+      singleSided: {
+        ...checkFile.singleSided,
+        isLoading: true,
+      },
+    });
+
+    if (file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdfDoc = await PDFDocument.load(arrayBuffer);
+        const numPages = pdfDoc.getPageCount();
+        console.log(numPages > 1 ? "Double-sided" : "Single-sided");
+      } catch (error) {
+        console.log("Error processing PDF");
+      }
+    }
+    setCheckFile({
+      ...checkFile,
+      singleSided: {
+        ...checkFile.singleSided,
+        isLoading: false,
+      },
+    });
+  };
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setUploadProgress(0); // Reset progress on new file selection
-      uploadFile(selectedFile);
+      /* setUploadProgress(0); */ // Reset progress on new file selection
+      /* uploadFile(selectedFile); */
+      handleCheckDoubleSided(selectedFile);
     } else {
       alert("Please select a file to upload");
     }
@@ -181,8 +226,6 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
                 </div>
               </div>
             )
-          ) : checkFile.isChecking ? (
-            <div></div>
           ) : (
             <div className="mt-2 text-center md:mt-5">
               <p className="text-sm font-normal md:text-base md:font-medium text-typography">
@@ -194,10 +237,8 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
               </h4>
             </div>
           )}
-
-          <div>
-            <div className="flex items-center justify-center gap-2 mt-5">
-              
+          <div className="grid grid-cols-2 gap-4">
+            <CheckStatus />
           </div>
         </div>
       </div>
