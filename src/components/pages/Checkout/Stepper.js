@@ -4,6 +4,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineAutoDelete } from "react-icons/md";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Stepper, Step } from "react-form-stepper";
+import { BsCashCoin } from "react-icons/bs";
 
 const stepperData = [
   {
@@ -25,10 +26,17 @@ const stepperData = [
     icon: (
       <TbTruckDelivery className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
     ),
-    title: "Delivery & Payment",
+    title: "Delivery ",
   },
   {
     id: 4,
+    icon: (
+      <BsCashCoin className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
+    ),
+    title: " Payment",
+  },
+  {
+    id: 5,
     icon: (
       <MdOutlineAutoDelete className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
     ),

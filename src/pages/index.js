@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
   const { isAuthenticated, user, token } = useAuth();
-  console.log(isAuthenticated, user, token);
+
   return (
     <ClientLayout>
       <HeroSliderComponent />
