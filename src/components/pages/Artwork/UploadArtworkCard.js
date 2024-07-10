@@ -12,8 +12,28 @@ import { MdDelete } from "react-icons/md";
 import { PDFDocument } from "pdf-lib";
 import CheckStatus, { LoadingSpinner } from "./CheckStatus";
 
+const standardPageSizes = {
+  A4: { width: 595.28, height: 841.89 }, // in points
+  A5: { width: 419.53, height: 595.28 },
+  Letter: { width: 612, height: 792 },
+  // Add more standard sizes if needed
+};
+
+const getPageSize = (width, height) => {
+  for (const [size, dimensions] of Object.entries(standardPageSizes)) {
+    if (
+      Math.abs(width - dimensions.width) < 1 &&
+      Math.abs(height - dimensions.height) < 1
+    ) {
+      return size;
+    }
+  }
+  return "Unknown";
+};
+
 const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
   const [file, setFile] = useState(null);
+  const [imageSrc, setImageSrc] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [checkFile, setCheckFile] = useState({
     isChecking: true,
@@ -51,51 +71,82 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
     mutationFn: deleteUploadedArtworkMutation,
   });
 
-  // making a function for check if the pdf is double sided or single sided .
-  async function checkSingleOrDoubleSided(pdfPath) {
-    const pdfBytes = fs.readFileSync(pdfPath);
-    const pdfDoc = await PDFDocument.load(pdfBytes);
-    const numPages = pdfDoc.getPageCount();
+  const checkDoubleSided = async (file) => {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer);
+      const numPages = pdfDoc.getPageCount();
 
-    return numPages > 1 ? "Double-sided" : "Single-sided";
-  }
+      return numPages > 1 ? "Double-sided" : "Single-sided";
+    } catch (error) {
+      console.log("Error processing PDF");
+    }
+  };
 
   const handleCheckDoubleSided = async (file) => {
     const selectedFile = file;
     setCheckFile({
       ...checkFile,
-      singleSided: {
-        ...checkFile.singleSided,
-        isLoading: true,
+      file: {
+        ...checkFile.file,
+        singleSided: {
+          ...checkFile.singleSided,
+          isLoading: true,
+        },
       },
     });
+    let result = null;
 
-    if (file) {
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdfDoc = await PDFDocument.load(arrayBuffer);
-        const numPages = pdfDoc.getPageCount();
-        console.log(numPages > 1 ? "Double-sided" : "Single-sided");
-      } catch (error) {
-        console.log("Error processing PDF");
-      }
+    if (selectedFile) {
+      result = await checkDoubleSided(selectedFile);
     }
+    console.log(result);
     setCheckFile({
       ...checkFile,
-      singleSided: {
-        ...checkFile.singleSided,
-        isLoading: false,
+      file: {
+        ...checkFile.file,
+        singleSided: {
+          ...checkFile.singleSided,
+          isLoading: false,
+          result: result,
+        },
       },
     });
+
+    console.log(checkFile);
   };
 
-  const handleFileChange = (event) => {
+  const checkPDFBleed = async (fileArrayBuffer) => {
+    const pdfDoc = await PDFDocument.load(fileArrayBuffer);
+
+    const bleedBoxMargin = 18; // Example: 0.25 inches = 18 points
+    const pages = pdfDoc.getPages();
+    const pageInfoArray = pages.map((page, index) => {
+      const { width, height } = page.getSize();
+      const bleedBox = {
+        x: -bleedBoxMargin,
+        y: -bleedBoxMargin,
+        width: width + 2 * bleedBoxMargin,
+        height: height + 2 * bleedBoxMargin,
+      };
+      const pageSize = getPageSize(width, height);
+      return { page: index + 1, bleedBox, pageSize, width, height };
+    });
+
+    console.log(pageInfoArray);
+  };
+
+  const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
       /* setUploadProgress(0); */ // Reset progress on new file selection
       /* uploadFile(selectedFile); */
+
+      const arrayBuffer = await selectedFile.arrayBuffer();
+
       handleCheckDoubleSided(selectedFile);
+      checkPDFBleed(arrayBuffer);
     } else {
       alert("Please select a file to upload");
     }
@@ -237,8 +288,21 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
               </h4>
             </div>
           )}
-          <div className="grid grid-cols-2 gap-4">
-            <CheckStatus />
+          <div className="grid grid-cols-2 gap-4 mt-3">
+            <CheckStatus
+              text="Checking sided"
+              status={checkFile.file.singleSided.isLoading}
+              isMatched={checkFile.file.singleSided.result === "Single-sided"}
+            />
+            <CheckStatus
+              text="Checking Bleed"
+              status={checkFile.file.bleed.isLoading}
+              isMatched={checkFile.file.bleed.result === "Bleed is correct"}
+            />
+            <CheckStatus
+              text="Checking Size"
+              status={checkFile.file.singleSided.isLoading}
+            />
           </div>
         </div>
       </div>

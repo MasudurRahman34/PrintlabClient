@@ -8,15 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import UploadArtworkCard from "./UploadArtworkCard";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
