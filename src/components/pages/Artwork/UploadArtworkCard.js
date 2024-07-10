@@ -11,6 +11,7 @@ import { MdOutlineLock } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { PDFDocument } from "pdf-lib";
 import CheckStatus, { LoadingSpinner } from "./CheckStatus";
+import { useRouter } from "next/router";
 
 const standardPageSizes = {
   A4: { width: 595.28, height: 841.89 }, // in points
@@ -32,6 +33,7 @@ const getPageSize = (width, height) => {
 };
 
 const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
+  const router = useRouter();
   const [file, setFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);

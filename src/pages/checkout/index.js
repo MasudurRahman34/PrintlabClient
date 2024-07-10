@@ -2,7 +2,7 @@ import ClientLayout from "@/components/Layout/ClientLayout";
 
 import dynamic from "next/dynamic";
 
-import ManullyAddress from "@/components/dashboard/ManullyAddress";
+import ManullyAddress from "@/components/pages/delivery/ManullyAddress";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
