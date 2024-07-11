@@ -28,7 +28,7 @@ export const address_schema = yup.object().shape({
   last_name: yup.string().required("Last Name is required"),
   company_name: yup.string().required("Company Name is required"),
   address: yup.string().required("Address is required"),
-  address_2: yup.string(),
+  address_2: yup.string().required("Address 2 is required"),
   town: yup.string().required("Town is required"),
   postcode: yup.string().required("Postcode is required"),
   country: yup.string().required("Country is required"),

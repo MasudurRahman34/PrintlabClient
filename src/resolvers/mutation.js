@@ -17,8 +17,14 @@ export const getIncompleteCartTotalQuery = async () =>
 export const deleteUploadedArtworkMutation = async ({ file_id }) =>
   axios.delete(`${backendUrl}/cart/files/${file_id}`).then((res) => res.data);
 
-export const createAddressMutation = async ({ variables }) =>
-  axios.post(`${backendUrl}/address`, variables).then((res) => res.data);
+export const createAddressMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/address`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
 
 export const registerUserMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/register`, variables).then((res) => res.data);

@@ -1,5 +1,7 @@
 import Loader from "@/components/Loader/Loader";
+import { useAuth } from "@/hooks/useAuth";
 import useDebounce from "@/hooks/useDebounce";
+import useToastMessage from "@/hooks/useToastMessage";
 import { address_schema } from "@/lib/schema";
 import { createAddressMutation } from "@/resolvers/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -2078,6 +2080,8 @@ import toast from "react-hot-toast";
 ];
  */
 const NewAddressForm = () => {
+  const showToastMessage = useToastMessage();
+  const { isAuthenticated, user, session } = useAuth();
   const [results, set_results] = useState([]);
   const [post_code, set_post_code] = useState("");
   const [selectedAddress, set_selectedAddress] = useState(null);
@@ -2114,7 +2118,6 @@ const NewAddressForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     const variables = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -2128,25 +2131,24 @@ const NewAddressForm = () => {
       email: data.delivery_email,
       phone: data.delivery_mobile_number,
       is_default: data.default ? 1 : 0,
-      user_id: 27, // TODO:get from user context after authentication done
-      type: "delivery",
+      user_id: user?.id,
+      type: "shipping",
     };
 
     mutate(
       {
         variables,
+        token: session?.token,
       },
       {
         onSuccess: () => {
-          console.log("Address added successfully");
           toast.success("Address added successfully");
           reset();
           set_post_code("");
           set_results([]);
         },
         onError: (error) => {
-          console.error("Error adding address", error);
-          toast.error(error.response.data.message || "Error adding address");
+          showToastMessage(error.response.data.message || "An error occurred");
         },
       }
     );
@@ -2185,7 +2187,7 @@ const NewAddressForm = () => {
   }, []); */
 
   useEffect(() => {
-    if (selectedAddress && !manually) {
+    if (selectedAddress && !manually && results.length > 0) {
       const address = results.find((address) => address.id === selectedAddress);
 
       setValue("address", address.line_1, { shouldValidate: true });
@@ -2350,7 +2352,7 @@ const NewAddressForm = () => {
           </div>
           <div className="flex mt-2 md:mt-5">
             <label className="w-[40%] font-medium text-typography text-base ">
-              Address line 2 (optional)
+              Address line 2*
             </label>
             <div className="w-[60%]">
               <input

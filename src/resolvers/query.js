@@ -51,3 +51,12 @@ export const verifyEmailQuery = async ({ verify_url, token, signature }) => {
     })
     .then((res) => res.data);
 };
+
+export const getDeliveryAddressQuery = async ({ token }) =>
+  axios
+    .get(`${backendUrl}/user/address`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

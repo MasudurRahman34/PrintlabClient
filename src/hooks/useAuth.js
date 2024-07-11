@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import useToastMessage from "./useToastMessage";
 
 export const useAuth = () => {
+  const showToastMessage = useToastMessage();
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -19,7 +21,7 @@ export const useAuth = () => {
         : null;
     const storedUser =
       typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("user"))
+        ? JSON.parse(localStorage.getItem("user") || "")
         : null;
 
     if (storedSession && storedUser) {
@@ -39,7 +41,29 @@ export const useAuth = () => {
 
       let session;
       let user;
-      if (typeof window !== "undefined") {
+
+      const res = await axios.post(
+        `https://printlabapi.devtaijul.com/api/v1/login`,
+        {
+          email: credentials.email,
+          password: credentials.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await res?.data?.data;
+
+      session = {
+        token: data?.token,
+        token_type: data?.tokenType,
+      };
+      user = data?.user;
+
+      /*  if (typeof window !== "undefined") {
         const users = JSON.parse(localStorage.getItem("users"));
         const existUser = users?.find(
           (u) =>
@@ -61,20 +85,21 @@ export const useAuth = () => {
             customer_type: existUser.customer_type,
           };
         }
-      }
+      } */
 
       // Save user and token to localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("session", session);
+        localStorage.setItem("session", JSON.stringify(session));
       }
 
       setUser(user);
       setSession(session);
       setIsAuthenticated(true);
-      toast.success("Login successful");
+      toast.success(data.message || "Login successful");
+      router.push("/");
     } catch (error) {
-      toast.error("Login failed");
+      showToastMessage(error?.response?.data?.message || "Login failed");
       setIsAuthenticated(false);
     }
   };
