@@ -19,3 +19,6 @@ export const deleteUploadedArtworkMutation = async ({ file_id }) =>
 
 export const createAddressMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/address`, variables).then((res) => res.data);
+
+export const registerUserMutation = async ({ variables }) =>
+  axios.post(`${backendUrl}/register`, variables).then((res) => res.data);

@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
+// password must be at least 6 characters long and contain at least one number and one letter and one special character or symbol
 export const sign_up_schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
   last_name: yup.string().required("Last Name is required"),
@@ -7,6 +8,10 @@ export const sign_up_schema = yup.object().shape({
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
+      "Password must contain at least one letter, one number and one special character or symbol"
+    )
     .required("Password is required"),
   confirm_password: yup
     .string()

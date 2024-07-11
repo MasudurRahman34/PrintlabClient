@@ -4,7 +4,18 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { sign_up_schema } from "@/lib/schema";
+import { useMutation } from "@tanstack/react-query";
+import { registerUserMutation } from "@/resolvers/mutation";
+import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
 const Signup = () => {
+  const showToastMessage = useToastMessage();
+  const { register: authRegister } = useAuth();
+  const { mutate, isPending } = useMutation({
+    mutationKey: "register",
+    mutationFn: registerUserMutation,
+  });
+
   const {
     register,
     handleSubmit,
@@ -25,10 +36,57 @@ const Signup = () => {
   });
 
   const onSubmit = (data) => {
-    const { email, password, customer_type, first_name, last_name } = data;
+    const {
+      email,
+      password,
+      customer_type,
+      first_name,
+      last_name,
+      confirm_password,
+    } = data;
 
-    if (email && password && customer_type && first_name && last_name) {
-      const users = localStorage.getItem("users");
+    if (
+      email &&
+      password &&
+      customer_type &&
+      first_name &&
+      last_name &&
+      confirm_password
+    ) {
+      if (password !== confirm_password) {
+        toast.error("Password does not match");
+        return;
+      }
+
+      const variables = {
+        first_name,
+        last_name,
+        email,
+        password,
+        password_confirmation: confirm_password,
+      };
+
+      mutate(
+        {
+          variables,
+        },
+        {
+          onSuccess: (data) => {
+            authRegister({
+              token: data?.data.token,
+              token_type: data?.data.tokenType,
+              user: data?.data.user,
+            });
+            reset();
+          },
+          onError: (error) => {
+            console.log(error);
+            showToastMessage(error?.response?.data?.message);
+          },
+        }
+      );
+
+      /*  const users = localStorage.getItem("users");
       let usersArray = [];
       if (users) {
         usersArray = JSON.parse(users);
@@ -39,10 +97,10 @@ const Signup = () => {
         last_name,
         email,
         password,
-        customer_type,
+
       });
 
-      localStorage.setItem("users", JSON.stringify(usersArray));
+      localStorage.setItem("users", JSON.stringify(usersArray)); */
     } else {
       toast.error("Please fill all the fields");
     }

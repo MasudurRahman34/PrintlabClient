@@ -9,8 +9,14 @@ import DatePicker from "react-datepicker";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import DownloadInvoice from "./DownloadInvoice";
-import PrintInvoice from "./PrintInvoice";
+
+import dynamic from "next/dynamic";
+const DownloadInvoice = dynamic(() => import("./DownloadInvoice"), {
+  ssr: false,
+});
+const PrintInvoice = dynamic(() => import("./PrintInvoice"), {
+  ssr: false,
+});
 
 const Invoices = () => {
   const [startDate, setStartDate] = useState(new Date());

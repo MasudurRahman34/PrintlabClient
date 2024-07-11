@@ -41,3 +41,13 @@ export const getArtworkServicesQuery = async ({ product_id }) =>
 
 export const getIncompleteCartProductsQuery = async () =>
   axios.get(`${backendUrl}/cart/incomplete`).then((res) => res.data);
+
+export const verifyEmailQuery = async ({ verify_url, token, signature }) => {
+  return axios
+    .get(`${verify_url}&signature=${signature}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+};

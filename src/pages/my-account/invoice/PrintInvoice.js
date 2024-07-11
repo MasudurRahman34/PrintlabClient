@@ -5,13 +5,21 @@ import { IoPrint } from "react-icons/io5";
 
 const PrintInvoice = () => {
   function printPDF(pdfUrl) {
-    const newWindow = window.open(pdfUrl, "_blank");
-    if (newWindow) {
-      newWindow.onload = function () {
-        newWindow.print();
-      };
-    } else {
-      alert("Please allow popups for this website");
+    if (window !== undefined) {
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = pdfUrl;
+      document.body.appendChild(iframe);
+      iframe.contentWindow.print();
+
+      /* const newWindow = window.open(pdfUrl, "_blank");
+      if (newWindow) {
+        newWindow.onload = function () {
+          newWindow.print();
+        };
+      } else {
+        alert("Please allow popups for this website");
+      } */
     }
   }
   const downloadInvoiceFile = () => {
@@ -120,10 +128,17 @@ Qty: 5000, Paper Type: 130gsm Gloss Finish Paper, Size: A4 Landscape,Folding: Ro
       pageLabel: "Page ",
     };
 
-    const url = jsPDFInvoiceTemplate(invoiceData);
-    console.log(url);
-    const print = URL.createObjectURL(url.blob);
-    printPDF(print);
+    if (window !== undefined) {
+      const url = jsPDFInvoiceTemplate(invoiceData);
+
+      const print = URL.createObjectURL(url.blob);
+      printPDF(print);
+      /* jsPDFInvoiceTemplate(invoiceData, (pdf) => {
+        const pdfBlob = pdf.output("blob");
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        printPDF(pdfUrl);
+      }); */
+    }
   };
 
   return (

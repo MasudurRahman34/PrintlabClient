@@ -1,13 +1,11 @@
-// hoc/withAuth.js
-
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 
 const withAuth = (WrappedComponent) => {
-  return (props) => {
-    const { isAuthenticated } = useAuth();
+  const WithAuth = (props) => {
     const router = useRouter();
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
       if (!isAuthenticated) {
@@ -21,6 +19,16 @@ const withAuth = (WrappedComponent) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  // Set a display name for easier debugging
+  WithAuth.displayName = `WithAuth(${getDisplayName(WrappedComponent)})`;
+
+  return memo(WithAuth);
 };
+
+// Helper function to get the display name of the wrapped component
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+}
 
 export default withAuth;

@@ -9,19 +9,21 @@ export const useAuth = () => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
     // Check if token is in localStorage
-    const storedToken =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const storedSession =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("session"))
+        : null;
     const storedUser =
       typeof window !== "undefined"
         ? JSON.parse(localStorage.getItem("user"))
         : null;
 
-    if (storedToken && storedUser) {
-      setToken(storedToken);
+    if (storedSession && storedUser) {
+      setSession(storedSession);
       setUser(storedUser);
       setIsAuthenticated(true);
     } else {
@@ -35,7 +37,7 @@ export const useAuth = () => {
       /* const response = await axios.post("/api/auth/login", credentials);
       const { user, token } = response.data; */
 
-      let token;
+      let session;
       let user;
       if (typeof window !== "undefined") {
         const users = JSON.parse(localStorage.getItem("users"));
@@ -47,7 +49,10 @@ export const useAuth = () => {
           toast.error("Invalid credentials");
           throw new Error("Invalid credentials");
         } else {
-          token = "fake_token";
+          session = {
+            token: "123456",
+            token_type: "Bearer",
+          };
           user = {
             id: existUser.id,
             email: existUser.email,
@@ -61,11 +66,11 @@ export const useAuth = () => {
       // Save user and token to localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token);
+        localStorage.setItem("session", session);
       }
 
       setUser(user);
-      setToken(token);
+      setSession(session);
       setIsAuthenticated(true);
       toast.success("Login successful");
     } catch (error) {
@@ -77,13 +82,39 @@ export const useAuth = () => {
   const logout = () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      localStorage.removeItem("session");
     }
     setUser(null);
-    setToken(null);
+    setSession(null);
     setIsAuthenticated(false);
     router.push("/");
   };
 
-  return { isAuthenticated, user, token, login, logout };
+  const register = async ({ token, token_type, user }) => {
+    try {
+      const session = {
+        token,
+        token_type,
+      };
+
+      // Save user and token to localStorage
+      if (typeof window !== "undefined") {
+        await localStorage.setItem("user", JSON.stringify(user));
+        await localStorage.setItem("session", JSON.stringify(session));
+      }
+
+      setUser(user);
+      setSession(session);
+      setIsAuthenticated(true);
+      toast.success("Registration successful");
+
+      // Redirect to verify email page
+
+      if (!user.email_verified_at) {
+        router.push("/verify-email-alert");
+      }
+    } catch (error) {}
+  };
+
+  return { isAuthenticated, user, session, login, logout, register };
 };

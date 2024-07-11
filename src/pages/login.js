@@ -82,7 +82,7 @@ const Userlogin = () => {
                     <div className="w-full mb-5">
                       <p className="text-[12px] md:text-[14px] font-normal text-center text-typography">
                         New coustmar?
-                        <Link href="/signup">
+                        <Link href="/register">
                           <span className="underline text-[#4DA0D7]">
                             Register here{" "}
                           </span>
