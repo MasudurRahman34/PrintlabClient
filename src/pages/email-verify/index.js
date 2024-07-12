@@ -18,7 +18,6 @@ const EmailVerify = () => {
       verifyEmailQuery({ verify_url, token: session?.token, signature }),
     enabled: !!verify_url && !!session && !!signature,
   });
-  console.log(data, isLoading, isError, error);
 
   return (
     <ClientLayout>
@@ -33,7 +32,7 @@ const EmailVerify = () => {
                   Verifying your email
                 </h1>
               </div>
-            ) : data && data.code === 200 ? (
+            ) : data && data?.code === 200 ? (
               <div>
                 <h1 className="mb-4 text-2xl font-bold text-center">
                   {data?.message || "Your email is verified"}
@@ -48,7 +47,7 @@ const EmailVerify = () => {
                   </Link>
                 </div>
               </div>
-            ) : data.code === 401 ? (
+            ) : data?.code === 401 ? (
               <div>
                 <h1 className="mb-4 text-2xl font-bold text-center">
                   You are not logged in

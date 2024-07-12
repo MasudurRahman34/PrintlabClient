@@ -1,12 +1,31 @@
 import React from "react";
 import jsPDFInvoiceTemplate from "jspdf-invoice-template";
 import {} from "jspdf-invoice-template";
-import { FaDownload } from "react-icons/fa";
+import { IoPrint } from "react-icons/io5";
 
-const DownloadInvoice = () => {
+const PrintInvoice = () => {
+  function printPDF(pdfUrl) {
+    if (window !== undefined) {
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = pdfUrl;
+      document.body.appendChild(iframe);
+      iframe.contentWindow.print();
+
+      /* const newWindow = window.open(pdfUrl, "_blank");
+      if (newWindow) {
+        newWindow.onload = function () {
+          newWindow.print();
+        };
+      } else {
+        alert("Please allow popups for this website");
+      } */
+    }
+  }
   const downloadInvoiceFile = () => {
     const invoiceData = {
-      outputType: "save", // save, string, datauristring
+      outputType: "blob", // save, string, datauristring
+
       returnJsPDFDocObject: true,
       fileName: "Invoice 2021",
       orientationLandscape: false,
@@ -109,16 +128,28 @@ Qty: 5000, Paper Type: 130gsm Gloss Finish Paper, Size: A4 Landscape,Folding: Ro
       pageLabel: "Page ",
     };
 
-    if (window !== undefined) {
-      jsPDFInvoiceTemplate(invoiceData);
+    if (typeof window !== "undefined") {
+      const url = jsPDFInvoiceTemplate(invoiceData);
+
+      const print = URL.createObjectURL(url.blob);
+      printPDF(print);
+      /* jsPDFInvoiceTemplate(invoiceData, (pdf) => {
+        const pdfBlob = pdf.output("blob");
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        printPDF(pdfUrl);
+      }); */
+      /*  jsPDFInvoiceTemplate(invoiceData).then((pdf) => {
+        const pdfUrl = URL.createObjectURL(pdf);
+        printPDF(pdfUrl);
+      }); */
     }
   };
 
   return (
     <button onClick={downloadInvoiceFile}>
-      <FaDownload />
+      <IoPrint />
     </button>
   );
 };
 
-export default DownloadInvoice;
+export default PrintInvoice;
