@@ -48,7 +48,9 @@ const BusketComponent = ({ total_refetch }) => {
             <div className="text-center">No product in cart</div>
           )}
         </div>
-        <CheckoutSummary products={data?.data} isLoading={isLoading} />
+        <div className="w-full px-10 lg:block order-info lg:w-4/12">
+          <CheckoutSummary products={data?.data} isLoading={isLoading} />
+        </div>
       </div>
     </div>
   );

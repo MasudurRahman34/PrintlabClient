@@ -12,6 +12,7 @@ const OrderSummary = ({
   delivery_charge,
   artwork_charge,
   total,
+  next,
 }) => {
   const router = useRouter();
   return (
@@ -39,14 +40,25 @@ const OrderSummary = ({
             </p>
           </div>
         </div>
-        <Button
-          className="w-full font-bold"
-          onClick={() => {
-            router.push("/artwork");
-          }}
-        >
-          Proceed to Checkout
-        </Button>
+        {next === "checkout" ? (
+          <Button
+            className="w-full font-bold"
+            onClick={() => {
+              router.push("/artwork");
+            }}
+          >
+            Proceed to Artwork
+          </Button>
+        ) : (
+          <Button
+            className="w-full font-bold"
+            onClick={() => {
+              router.push("/payment");
+            }}
+          >
+            Proceed to Payment
+          </Button>
+        )}
       </div>
     </Box>
   );
@@ -58,6 +70,7 @@ const MobileCheckoutSummary = ({
   sub_total,
   total,
   total_vat,
+  next,
 }) => {
   const router = useRouter();
   return (
@@ -85,20 +98,31 @@ const MobileCheckoutSummary = ({
             </p>
           </div>
         </div>
-        <Button
-          className="w-full font-bold"
-          onClick={() => {
-            router.push("/artwork");
-          }}
-        >
-          Proceed to Checkout
-        </Button>
+        {next === "checkout" ? (
+          <Button
+            className="w-full font-bold"
+            onClick={() => {
+              router.push("/artwork");
+            }}
+          >
+            Proceed to Artwork
+          </Button>
+        ) : (
+          <Button
+            className="w-full font-bold"
+            onClick={() => {
+              router.push("/payment");
+            }}
+          >
+            Proceed to Payment
+          </Button>
+        )}
       </div>
     </div>
   );
 };
 
-const CheckoutSummary = ({ products }) => {
+const CheckoutSummary = ({ products, next = "checkout" }) => {
   const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
     useMemo(() => {
       const sub_total = products
@@ -113,7 +137,7 @@ const CheckoutSummary = ({ products }) => {
     }, [products]);
 
   return (
-    <div className="w-full px-10 lg:block order-info lg:w-4/12">
+    <div className="w-full ">
       <div className="hidden lg:block">
         <OrderSummary
           artwork_charge={artwork_charge}
@@ -121,6 +145,7 @@ const CheckoutSummary = ({ products }) => {
           sub_total={sub_total}
           total={total}
           total_vat={total_vat}
+          next={next}
         />
       </div>
 
@@ -151,6 +176,7 @@ const CheckoutSummary = ({ products }) => {
         sub_total={sub_total}
         total={total}
         total_vat={total_vat}
+        next={next}
       />
     </div>
   );

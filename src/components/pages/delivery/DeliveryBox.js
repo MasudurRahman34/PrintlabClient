@@ -6,14 +6,10 @@ import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import EditDeliveryAddressForm from "./EditDeliveryAddressForm";
 
-const DeliveryBox = () => {
+const DeliveryBox = ({ data, isLoading }) => {
   const [editAddressData, setEditAddressData] = useState({
     show: false,
     data: null,
-  });
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["cart"],
-    queryFn: getIncompleteCartProductsQuery,
   });
 
   return (

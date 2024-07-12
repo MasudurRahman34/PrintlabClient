@@ -2408,16 +2408,20 @@ const NewAddressForm = ({
         </div>
         <div className="bg-[#faefc9] p-2 md:p-5">
           <div>
-            <h5 className="mb-2 text-base font-semibold text-typography ">
-              How would like to be update on your Delivery
-            </h5>
-            <p className="mb-5 text-sm font-normal md:text-base text-typography">
-              Create print-ready artwork swiftly with our Online Designer. This
-              designer enables you to add your own images, text, or graphics and
-              see your final printed designs come to life. We even provide
-              interactive 3D models for certain products, allowing you to
-              visualise and modify your final product.
-            </p>
+            {address_type === "shipping" && (
+              <>
+                <h5 className="mb-2 text-base font-semibold text-typography ">
+                  How would like to be update on your Delivery
+                </h5>
+                <p className="mb-5 text-sm font-normal md:text-base text-typography">
+                  Create print-ready artwork swiftly with our Online Designer.
+                  This designer enables you to add your own images, text, or
+                  graphics and see your final printed designs come to life. We
+                  even provide interactive 3D models for certain products,
+                  allowing you to visualise and modify your final product.
+                </p>
+              </>
+            )}
 
             <div className="flex ">
               <label className="w-[40%] text-secondgraphy font-semibold  text-sm md:text-base ">
@@ -2461,20 +2465,6 @@ const NewAddressForm = ({
         </div>
         <div className="flex items-center justify-center py-2 md:py-5">
           <div>
-            {/* <div>
-              <input
-                type="checkbox"
-                id="saveaddress"
-                name="address"
-                for="address"
-              />
-              <label
-                for="saveaddress"
-                className="ml-3 text-sm font-medium md:text-base text-secondgraphy "
-              >
-                Save as Address
-              </label>
-            </div> */}
             <div>
               <input
                 type="checkbox"

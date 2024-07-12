@@ -16,16 +16,16 @@ import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
 import MobileNav from "@/components/Footer/MobileNav";
+import useToastMessage from "@/hooks/useToastMessage";
 
 const Combination = ({ data, isProductLoading, total_refetch }) => {
+  const showToastMessage = useToastMessage();
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPrintType, setSelectedPrintType] = useState({
     parent: null,
     children: null,
   });
-
-  console.log(userSelectedOptions);
 
   const { data: allCombination } = useQuery({
     queryKey: ["all_combination_for_this_product", data?.data.id],
@@ -114,7 +114,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
         ? selectedPrintType.children.id
         : selectedPrintType.parent.id,
       sku: matched.sku,
-      combinations: `[${matched.combination}]`,
+      combination: `[${matched.combination}]`,
       combination_string: matched.combination_string,
       is_upload_artwork: selectedPrintType.children
         ? selectedPrintType.children.is_upload_artwork
@@ -162,8 +162,8 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
             behavior: "smooth",
           });
         },
-        onError: () => {
-          toast.error("Something went wrong");
+        onError: (error) => {
+          showToastMessage(error.response.data.message);
         },
       }
     );

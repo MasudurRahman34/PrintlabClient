@@ -102,7 +102,7 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
     if (selectedFile) {
       result = await checkDoubleSided(selectedFile);
     }
-    console.log(result);
+
     setCheckFile({
       ...checkFile,
       file: {
@@ -114,8 +114,6 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
         },
       },
     });
-
-    console.log(checkFile);
   };
 
   const checkPDFBleed = async (fileArrayBuffer) => {
