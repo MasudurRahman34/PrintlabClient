@@ -60,3 +60,12 @@ export const getDeliveryAddressQuery = async ({ token }) =>
       },
     })
     .then((res) => res.data);
+
+export const fileCheckCombinationQuery = async ({ combination, token }) =>
+  axios
+    .get(`${backendUrl}/file-checks/combination?combination=${combination}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

@@ -9,7 +9,7 @@ import { BsClock } from "react-icons/bs";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { PDFDocument } from "pdf-lib";
+import { error, PDFDocument } from "pdf-lib";
 import CheckStatus, { LoadingSpinner } from "./CheckStatus";
 import { useRouter } from "next/router";
 
@@ -43,27 +43,38 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
     file: {
       encryptionORdamage: {
         result: null,
+        error: false,
         isLoading: false,
       },
       colors: {
         result: null,
+        error: false,
         isLoading: false,
       },
       bleed: {
         result: null,
         isLoading: false,
+        error: false,
       },
       generatingProofs: {
         result: null,
         isLoading: false,
+        error: false,
       },
       proofsReady: {
         result: null,
         isLoading: false,
+        error: false,
       },
       singleSided: {
         result: null,
         isLoading: false,
+        error: false,
+      },
+      size: {
+        result: null,
+        isLoading: false,
+        error: false,
       },
     },
   });
@@ -117,23 +128,116 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
   };
 
   const checkPDFBleed = async (fileArrayBuffer) => {
-    const pdfDoc = await PDFDocument.load(fileArrayBuffer);
+    // Here I am checking if the content bleeds
 
-    const bleedBoxMargin = 18; // Example: 0.25 inches = 18 points
-    const pages = pdfDoc.getPages();
-    const pageInfoArray = pages.map((page, index) => {
-      const { width, height } = page.getSize();
-      const bleedBox = {
-        x: -bleedBoxMargin,
-        y: -bleedBoxMargin,
-        width: width + 2 * bleedBoxMargin,
-        height: height + 2 * bleedBoxMargin,
+    try {
+      const pdfDoc = await PDFDocument.load(fileArrayBuffer);
+
+      const bleedBoxMargin = 18; // Example: 0.25 inches = 18 points
+      const pages = pdfDoc.getPages();
+      const pageInfoArray = pages.map((page, index) => {
+        const { width, height } = page.getSize();
+        const bleedBox = {
+          x: -bleedBoxMargin,
+          y: -bleedBoxMargin,
+          width: width + 2 * bleedBoxMargin,
+          height: height + 2 * bleedBoxMargin,
+        };
+        const pageSize = getPageSize(width, height);
+
+        const contentBleeds =
+          bleedBox.x < 0 &&
+          bleedBox.y < 0 &&
+          bleedBox.width > width &&
+          bleedBox.height > height;
+        return {
+          page: index + 1,
+          bleedBox,
+          pageSize,
+          width,
+          height,
+          contentBleeds,
+        };
+      });
+
+      return {
+        contentBleeds: pageInfoArray.every(
+          (page) => page.contentBleeds === true
+        ),
+        pageSize: pageInfoArray.every((page) => page.pageSize === "A4"),
       };
-      const pageSize = getPageSize(width, height);
-      return { page: index + 1, bleedBox, pageSize, width, height };
+    } catch (error) {
+      console.log("Error processing PDF");
+      return { error: true };
+    }
+  };
+
+  const handleCheckBleed = async (file) => {
+    const selectedFile = file;
+    setCheckFile({
+      ...checkFile,
+      file: {
+        ...checkFile.file,
+        bleed: {
+          ...checkFile.bleed,
+          isLoading: true,
+        },
+      },
     });
 
-    console.log(pageInfoArray);
+    let result = null;
+
+    if (selectedFile) {
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      result = await checkPDFBleed(arrayBuffer);
+    }
+
+    console.log(result, "I am ");
+
+    setCheckFile({
+      ...checkFile,
+      file: {
+        ...checkFile.file,
+        bleed: {
+          ...checkFile.bleed,
+          isLoading: false,
+          result: result.contentBleeds,
+        },
+      },
+    });
+  };
+
+  const handlePageSizeChecked = async (file) => {
+    const selectedFile = file;
+    setCheckFile({
+      ...checkFile,
+      file: {
+        ...checkFile.file,
+        size: {
+          ...checkFile.size,
+          isLoading: true,
+        },
+      },
+    });
+
+    let result = null;
+
+    if (selectedFile) {
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      result = await checkPDFBleed(arrayBuffer);
+    }
+
+    setCheckFile({
+      ...checkFile,
+      file: {
+        ...checkFile.file,
+        size: {
+          ...checkFile.size,
+          isLoading: false,
+          result: result.pageSize,
+        },
+      },
+    });
   };
 
   const handleFileChange = async (event) => {
@@ -143,10 +247,9 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
       /* setUploadProgress(0); */ // Reset progress on new file selection
       /* uploadFile(selectedFile); */
 
-      const arrayBuffer = await selectedFile.arrayBuffer();
-
-      handleCheckDoubleSided(selectedFile);
-      checkPDFBleed(arrayBuffer);
+      await handleCheckDoubleSided(selectedFile);
+      await handleCheckBleed(selectedFile);
+      await handlePageSizeChecked(selectedFile);
     } else {
       alert("Please select a file to upload");
     }
@@ -297,11 +400,12 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
             <CheckStatus
               text="Checking Bleed"
               status={checkFile.file.bleed.isLoading}
-              isMatched={checkFile.file.bleed.result === "Bleed is correct"}
+              isMatched={checkFile.file.bleed.result === true}
             />
             <CheckStatus
               text="Checking Size"
               status={checkFile.file.singleSided.isLoading}
+              isMatched={checkFile.file.size.result === true}
             />
           </div>
         </div>

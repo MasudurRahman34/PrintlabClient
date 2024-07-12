@@ -3,6 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import useDebounce from "@/hooks/useDebounce";
 import useToastMessage from "@/hooks/useToastMessage";
 import { address_schema } from "@/lib/schema";
+import { validateLondonPostcode } from "@/lib/utils";
 import { createAddressMutation } from "@/resolvers/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -2086,7 +2087,7 @@ const NewAddressForm = ({
 }) => {
   const showToastMessage = useToastMessage();
   const { isAuthenticated, user, session } = useAuth();
-  const [results, set_results] = useState([]);
+  const [results, set_results] = useState(null);
   const [post_code, set_post_code] = useState("");
   const [selectedAddress, set_selectedAddress] = useState(null);
   const [manually, set_manually] = useState(false);
@@ -2149,7 +2150,7 @@ const NewAddressForm = ({
           toast.success("Address added successfully");
           reset();
           set_post_code("");
-          set_results([]);
+          set_results(null);
           refetch();
           setShowNewAddressForm(false);
         },
@@ -2162,16 +2163,18 @@ const NewAddressForm = ({
 
   const search = async (searchQuery) => {
     try {
-      /*  const response = await axios.get(
-        `https://postcodes.io/postcodes/${searchQuery}`,
+      if (!validateLondonPostcode(searchQuery)) return;
+
+      const response = await axios.get(
+        `https://pcls1.craftyclicks.co.uk/json/rapidaddress?key=f1040-47ec6-d0279-02440&postcode=${searchQuery}&response=data_formatted`,
         {
           params: { q: searchQuery },
         }
-        console.log("Search results", response.data);
-      ); */
-      const addresses = JSON.parse(localStorage.getItem("addresses")) || [];
+      );
 
-      set_results(addresses);
+      const data = await response?.data;
+
+      set_results(data);
     } catch (error) {
       console.error("Error fetching search results", error);
     }
@@ -2193,13 +2196,17 @@ const NewAddressForm = ({
   }, []); */
 
   useEffect(() => {
-    if (selectedAddress && !manually && results.length > 0) {
-      const address = results.find((address) => address.id === selectedAddress);
+    if (selectedAddress && !manually && results) {
+      const address = results?.delivery_points?.find(
+        (address) => address.udprn === selectedAddress
+      );
+
+      console.log(address);
 
       setValue("address", address.line_1, { shouldValidate: true });
-      setValue("town", address.post_town, { shouldValidate: true });
-      setValue("postcode", address.postcode, { shouldValidate: true });
-      setValue("country", address.country, { shouldValidate: true });
+      setValue("town", results?.town, { shouldValidate: true });
+      setValue("postcode", results?.postcode, { shouldValidate: true });
+      setValue("country", results?.postal_county, { shouldValidate: true });
     }
   }, [selectedAddress, manually, results, setValue]);
 
@@ -2239,7 +2246,7 @@ const NewAddressForm = ({
             />
           </div>
         </div>
-        {results.length > 0 && (
+        {results && (
           <>
             <div className="flex mt-3">
               <p className="text-base  font-medium text-secondgraphy px-2 w-[65%]">
@@ -2254,13 +2261,9 @@ const NewAddressForm = ({
                   onChange={onSelectAddress}
                 >
                   <option value="">Select Address</option>
-                  {results.map((address) => (
-                    <option
-                      key={address.id}
-                      value={address.id}
-                      data-id={address.id}
-                    >
-                      {address.line_1}, {address.post_town}, {address.postcode}
+                  {results?.delivery_points?.map((address) => (
+                    <option key={address.udprn} value={address.udprn}>
+                      {address.line_1}, {results?.town}, {results?.postcode}
                     </option>
                   ))}
                 </select>

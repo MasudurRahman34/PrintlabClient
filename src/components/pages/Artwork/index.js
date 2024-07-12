@@ -1,19 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { BsClock } from "react-icons/bs";
 import { GoDotFill } from "react-icons/go";
 import dynamic from "next/dynamic";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
-import { getIncompleteCartProductsQuery } from "@/resolvers/query";
+import {
+  fileCheckCombinationQuery,
+  getIncompleteCartProductsQuery,
+} from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import UploadArtworkCard from "./UploadArtworkCard";
+import { useAuth } from "@/hooks/useAuth";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
 
 const UploadArtwork = () => {
+  const { session } = useAuth();
   const [state, setState] = React.useState([]);
   const [activeCart, setActiveCart] = React.useState(null);
   const { data, isLoading, isError, refetch } = useQuery({
@@ -21,6 +26,28 @@ const UploadArtwork = () => {
     queryFn: getIncompleteCartProductsQuery,
   });
 
+  const activeCartData = useMemo(() => {
+    if (activeCart) {
+      return state.find((cart) => cart.id === activeCart);
+    }
+  }, [activeCart, state]);
+
+  // getting combination file check flags
+  const {
+    data: file_check_flags,
+    isLoading: file_check_loading,
+    refetch: file_check_refetch,
+  } = useQuery({
+    queryKey: ["file_check_flag", activeCartData?.combination, session?.token],
+    queryFn: () =>
+      fileCheckCombinationQuery({
+        combination: activeCartData?.combination,
+        token: session?.token,
+      }),
+    enabled: !!activeCartData?.combination && !!session?.token,
+  });
+
+  // handling skip
   const handleSkip = ({ skip_cart_id }) => {
     const temp = state.map((cart) => {
       if (cart.id === skip_cart_id) {
@@ -35,6 +62,7 @@ const UploadArtwork = () => {
     setState(temp);
   };
 
+  // setting state on data fetch
   useEffect(() => {
     if (data?.data.length > 0) {
       const temp = [];
@@ -56,6 +84,12 @@ const UploadArtwork = () => {
       setActiveCart(data.data[0].id);
     }
   }, [data]);
+
+  // refetching on active cart change
+
+  useEffect(() => {
+    file_check_refetch();
+  }, [activeCart]);
 
   if (isLoading) {
     return <Loader />;
@@ -87,48 +121,6 @@ const UploadArtwork = () => {
           </div>
         </div>
         <div className="w-full py-4 lg:hidden">
-          {/* <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a fruit">
-                {data?.data.map((product, idx) => {
-                  if (product.id === activeCart) {
-                    return `Item ${idx + 1}. ${product.product.title}`;
-                  }
-                })}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {data?.data.map((product, idx) => (
-                <SelectItem key={idx} value={product.id}>
-                  <div>
-                    <h4 className="text-sm font-normal md:text-base lg:text-lg md:font-medium text-typography ">
-                      Item {idx + 1}.
-                    </h4>
-                    <div>
-                      <h4 className="mb-2 text-base font-medium md:text-lg lg:text-xl md:font-semibold lg:font-bold">
-                        {product.product.title}
-                      </h4>
-                      <h4 className="text-sm font-normal md:font-medium text-secondgraphy">
-                        <span className="text-sm md:text-base lg:text-lg">
-                          ITEM REF:
-                        </span>{" "}
-                        {product.id}
-                      </h4>
-                      <h4 className="flex text-sm font-normal md:text-base lg:text-lg text-secondgraphy md:font-medium -ms-2 ">
-                        <GoDotFill className="mr-1 text-3xl text-primary" />
-                        {product.is_upload_artwork
-                          ? "ARTWORK REQUIRED"
-                          : product.is_design_service
-                          ? "DESIGN SERVICE REQUIRED"
-                          : "NOT SURE YET"}
-                      </h4>
-                    </div>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
-
           <select
             className="w-full px-2 py-2 text-sm font-medium border rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 border-typography "
             value={activeCart}
