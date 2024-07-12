@@ -26,5 +26,14 @@ export const createAddressMutation = async ({ variables, token }) =>
     })
     .then((res) => res.data);
 
+export const updateAddressMutation = async ({ variables, token, address_id }) =>
+  axios
+    .put(`${backendUrl}/address/${address_id}`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
 export const registerUserMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/register`, variables).then((res) => res.data);

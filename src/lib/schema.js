@@ -38,3 +38,19 @@ export const address_schema = yup.object().shape({
     .email("Email is invalid")
     .required("Email is required"),
 });
+
+export const address_edit_schema = yup.object().shape({
+  first_name: yup.string().required("First Name is required"),
+  last_name: yup.string().required("Last Name is required"),
+  company_name: yup.string().required("Company Name is required"),
+  address: yup.string().required("Address is required"),
+  address_2: yup.string().required("Address 2 is required"),
+  town: yup.string().required("Town is required"),
+  postcode: yup.string().required("Postcode is required"),
+  country: yup.string().required("Country is required"),
+  delivery_mobile_number: yup.string().required("Mobile Number is required"),
+  delivery_email: yup
+    .string()
+    .email("Email is invalid")
+    .required("Email is required"),
+});

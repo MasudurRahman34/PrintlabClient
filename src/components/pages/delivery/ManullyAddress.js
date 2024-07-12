@@ -1,4 +1,5 @@
 import Box from "../../ui/Box";
+import BillingBox from "./BillingBox";
 import DeliveryBox from "./DeliveryBox";
 
 import NewAddressForm from "./NewAddressForm";
@@ -12,9 +13,7 @@ const ManullyAddress = () => {
       <div className="gap-5 md:flex">
         <div className="mt-5 mb-2 md:w-2/3 md:mb-5">
           <DeliveryBox />
-          <h4 className="w-full px-5 py-2 mt-5 text-base font-semibold rounded-md text-secondgraphy bg-primary ">
-            Billing Address
-          </h4>
+          <BillingBox />
           <h4 className="mt-5 mb-5 text-lg bg-[#faefc9] font-medium text-typography w-full rounded-md  px-5 py-2 ">
             Payment
           </h4>

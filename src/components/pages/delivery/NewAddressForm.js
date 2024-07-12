@@ -2079,7 +2079,11 @@ import toast from "react-hot-toast";
   },
 ];
  */
-const NewAddressForm = () => {
+const NewAddressForm = ({
+  setShowNewAddressForm,
+  address_type = "shipping",
+  refetch,
+}) => {
   const showToastMessage = useToastMessage();
   const { isAuthenticated, user, session } = useAuth();
   const [results, set_results] = useState([]);
@@ -2132,7 +2136,7 @@ const NewAddressForm = () => {
       phone: data.delivery_mobile_number,
       is_default: data.default ? 1 : 0,
       user_id: user?.id,
-      type: "shipping",
+      type: address_type,
     };
 
     mutate(
@@ -2146,6 +2150,8 @@ const NewAddressForm = () => {
           reset();
           set_post_code("");
           set_results([]);
+          refetch();
+          setShowNewAddressForm(false);
         },
         onError: (error) => {
           showToastMessage(error.response.data.message || "An error occurred");
@@ -2208,12 +2214,13 @@ const NewAddressForm = () => {
             <p className="text-[12px] md:text-base font-normal text-red-500">
               Required*
             </p>
-            <Link href="/my-account/delivery-payment">
-              {" "}
-              <p className="text-sm font-normal underline md:text-base text-primary">
-                Select existing address
-              </p>
-            </Link>
+
+            <p
+              className="text-sm font-normal underline cursor-pointer md:text-base text-primary"
+              onClick={() => setShowNewAddressForm(false)}
+            >
+              Select existing address
+            </p>
           </div>
         </div>
 

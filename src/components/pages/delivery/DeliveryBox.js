@@ -1,11 +1,16 @@
 import Box from "@/components/ui/Box";
 import React, { useState } from "react";
-import NewAddressForm from "./NewAddressForm";
 import SavedAddress from "./SavedAddress";
 import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
+import Loader from "@/components/Loader/Loader";
+import EditDeliveryAddressForm from "./EditDeliveryAddressForm";
 
 const DeliveryBox = () => {
+  const [editAddressData, setEditAddressData] = useState({
+    show: false,
+    data: null,
+  });
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["cart"],
     queryFn: getIncompleteCartProductsQuery,
@@ -23,7 +28,16 @@ const DeliveryBox = () => {
         </p>
       </div>
 
-      <SavedAddress cartItems={data?.data} />
+      {isLoading ? (
+        <Loader />
+      ) : editAddressData.show ? (
+        <EditDeliveryAddressForm
+          data={editAddressData.data}
+          setEditAddressData={setEditAddressData}
+        />
+      ) : (
+        <SavedAddress cartItems={data?.data} editAction={setEditAddressData} />
+      )}
     </Box>
   );
 };
