@@ -114,6 +114,8 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
       result = await checkDoubleSided(selectedFile);
     }
 
+    console.log(result);
+
     setCheckFile({
       ...checkFile,
       file: {
@@ -191,8 +193,6 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
       const arrayBuffer = await selectedFile.arrayBuffer();
       result = await checkPDFBleed(arrayBuffer);
     }
-
-    console.log(result, "I am ");
 
     setCheckFile({
       ...checkFile,
@@ -391,23 +391,29 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
               </h4>
             </div>
           )}
-          <div className="grid grid-cols-2 gap-4 mt-3">
-            <CheckStatus
-              text="Checking sided"
-              status={checkFile.file.singleSided.isLoading}
-              isMatched={checkFile.file.singleSided.result === "Single-sided"}
-            />
-            <CheckStatus
-              text="Checking Bleed"
-              status={checkFile.file.bleed.isLoading}
-              isMatched={checkFile.file.bleed.result === true}
-            />
-            <CheckStatus
-              text="Checking Size"
-              status={checkFile.file.singleSided.isLoading}
-              isMatched={checkFile.file.size.result === true}
-            />
-          </div>
+          {file && (
+            <>
+              <div className="grid grid-cols-2 gap-4 mt-3">
+                <CheckStatus
+                  text="Checking sided"
+                  status={checkFile.file.singleSided.isLoading}
+                  isMatched={
+                    checkFile.file.singleSided.result === "Single-sided"
+                  }
+                />
+                <CheckStatus
+                  text="Checking Bleed"
+                  status={checkFile.file.bleed.isLoading}
+                  isMatched={checkFile.file.bleed.result === true}
+                />
+                <CheckStatus
+                  text="Checking Size"
+                  status={checkFile.file.singleSided.isLoading}
+                  isMatched={checkFile.file.size.result === true}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
 
