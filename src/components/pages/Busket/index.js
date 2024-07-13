@@ -15,15 +15,6 @@ const BusketComponent = ({ total_refetch }) => {
     return <Loader />;
   }
 
-  if (isError) {
-    return (
-      <div>
-        <h1>Something went wrong</h1>
-        <button onClick={() => refetch()}>Try again</button>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div>

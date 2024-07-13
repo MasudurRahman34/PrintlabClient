@@ -6,8 +6,10 @@ import RefPONumber from "./Ref&PONumber";
 import { useMutation } from "@tanstack/react-query";
 import { deleteIncompleteCartProductMutation } from "@/resolvers/mutation";
 import toast from "react-hot-toast";
+import useToastMessage from "@/hooks/useToastMessage";
 
 const ProductCard = ({ product, idx, refetch, total_refetch }) => {
+  const showToastMessage = useToastMessage();
   const { mutate, isPending } = useMutation({
     mutationKey: "delete_cart_item",
     mutationFn: deleteIncompleteCartProductMutation,
@@ -23,7 +25,7 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
           toast.success("Product deleted successfully");
         },
         onError: (error) => {
-          toast.error("Something went wrong");
+          showToastMessage(error.response.data.message);
         },
       }
     );

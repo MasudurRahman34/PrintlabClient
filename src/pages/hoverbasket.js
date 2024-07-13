@@ -96,15 +96,6 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
     }
   }, [show]);
 
-  if (isError) {
-    return (
-      <div>
-        <h1>Something went wrong</h1>
-        <button onClick={() => refetch()}>Try again</button>
-      </div>
-    );
-  }
-
   return (
     <>
       <div
@@ -140,6 +131,10 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
           {isLoading ? (
             <div className="flex justify-center items-center h-[200px]">
               <Loader />
+            </div>
+          ) : isError ? (
+            <div className="p-4 text-center">
+              <h1>Something went wrong</h1>
             </div>
           ) : data?.data.length > 0 ? (
             <div>
