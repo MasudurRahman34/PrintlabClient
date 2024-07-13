@@ -10,12 +10,16 @@ import {
   getIncompleteCartProductsQuery,
 } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
-import UploadArtworkCard from "./UploadArtworkCard";
+
 import { useAuth } from "@/hooks/useAuth";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
+
+const UploadArtworkCard = dynamic(() =>
+  import("@/components/pages/Artwork/UploadArtworkCard")
+);
 
 const UploadArtwork = () => {
   const { session } = useAuth();

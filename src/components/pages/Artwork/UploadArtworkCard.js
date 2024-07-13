@@ -7,10 +7,9 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsClock } from "react-icons/bs";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { MdOutlineLock } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
-import { error, PDFDocument } from "pdf-lib";
-import CheckStatus, { LoadingSpinner } from "./CheckStatus";
+import { MdDelete, MdOutlineLock } from "react-icons/md";
+
+import CheckStatus from "./CheckStatus";
 import { useRouter } from "next/router";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { checkPdfFile } from "@/lib/fileChecker";
@@ -45,6 +44,7 @@ const UploadArtworkCard = ({
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [showProgress, setShowProgress] = useState(false);
   const [checkFile, setCheckFile] = useState({
     Bleed: {
       isLoading: false,
@@ -80,15 +80,13 @@ const UploadArtworkCard = ({
       // creating array form checkfile object
 
       const checkFileKeys = Object.keys(checkFile);
-      console.log(checkFileKeys);
 
       let i = 0;
 
       do {
         const checkType = checkFileKeys[i];
-        console.log(checkType);
+
         const result = await checkPdfFile(selectedFile, checkType);
-        console.log(result);
 
         setCheckFile((prev) => ({
           ...prev,
@@ -101,12 +99,22 @@ const UploadArtworkCard = ({
 
         i++;
       } while (i < checkFileKeys.length);
+
+      // if all the checks are passed then upload the file
+      const allChecksPassed = checkFileKeys.every(
+        (key) => checkFile[key].result
+      );
+
+      if (allChecksPassed) {
+        console.log("I am passed");
+      }
     } else {
       alert("Please select a file to upload");
     }
   };
 
   const uploadFile = (file) => {
+    setShowProgress(true);
     const url = `https://printlabapi.devtaijul.com/api/v1/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
     formData.append("files", file);
@@ -128,6 +136,7 @@ const UploadArtworkCard = ({
       })
       .catch((error) => {
         setUploadProgress(0);
+        setShowProgress(false);
         refetch();
         setFile(null);
         toast.error(
@@ -144,6 +153,9 @@ const UploadArtworkCard = ({
       {
         onSuccess: () => {
           refetch();
+          setFile(null);
+          setUploadProgress(0);
+          setShowProgress(false);
           toast.success("Artwork deleted successfully");
         },
         onError: (error) => {
@@ -153,7 +165,10 @@ const UploadArtworkCard = ({
       }
     );
   };
-  console.log(checkFile);
+
+  const handleUploadFile = () => {
+    uploadFile(file);
+  };
 
   useEffect(() => {
     if (file_check_flags && !file_check_flags.error) {
@@ -217,20 +232,8 @@ const UploadArtworkCard = ({
               Skip, Add Artwork Later
             </button>
           </div>
-          <div className="flex items-center w-full gap-2 mt-2 md:mt-5">
-            {file && (
-              <>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div
-                    className="bg-primary h-2.5 rounded-full"
-                    style={{ width: `${uploadProgress}%` }}
-                  ></div>
-                </div>
-                <p className="text-sm text-center">{uploadProgress}%</p>
-              </>
-            )}
-          </div>
-          {/* product?.file ? (
+
+          {product?.file ? (
             isPending ? (
               <div>
                 <Loader />
@@ -258,20 +261,48 @@ const UploadArtworkCard = ({
               </div>
             )
           ) : (
-            <div className="mt-2 text-center md:mt-5">
-              <p className="text-sm font-normal md:text-base md:font-medium text-typography">
-                {" "}
-                Artwork Later Accepted file types for this product:
-              </p>
-              <h4 className="text-sm font-medium md:text-base lg:text-lg md:font-serif lg:font-bold">
-                PDF
-              </h4>
+            <div className="mt-2 text-start md:mt-5">
+              {file_check_loading ? (
+                <div>
+                  <Loader />
+                </div>
+              ) : (
+                !file && (
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <span>
+                        <BsCheckSquareFill />
+                      </span>{" "}
+                      <p className="text-sm font-normal md:text-base md:font-medium text-typography">
+                        {" "}
+                        Artwork Later Accepted file types for this product:{" "}
+                        <strong>PDF</strong>
+                      </p>
+                    </div>
+                    {file_check_flags &&
+                      !file_check_flags.error &&
+                      file_check_flags.data.instruction.map(
+                        (instruction, idx) => (
+                          <div className="flex items-center gap-3" key={idx}>
+                            <span>
+                              <BsCheckSquareFill />
+                            </span>{" "}
+                            <p className="text-sm font-normal md:text-base md:font-medium text-typography">
+                              {" "}
+                              {instruction}
+                            </p>
+                          </div>
+                        )
+                      )}
+                  </div>
+                )
+              )}
             </div>
-          ) */}
+          )}
 
           {file ? (
             <>
-              <div className="grid grid-cols-2 gap-4 mt-3">
+              <div className="grid gap-4 mt-3 grid-col-span-1">
                 {Object.keys(checkFile).map((key, idx) => {
                   const stateOfKey = checkFile[key];
                   return (
@@ -283,62 +314,46 @@ const UploadArtworkCard = ({
                     />
                   );
                 })}
-                {/*  <CheckStatus
-                  text="Checking sided"
-                  status={checkFile.file.singleSided.isLoading}
-                  isMatched={
-                    checkFile.file.singleSided.result === "Single-sided"
-                  }
-                />
-                <CheckStatus
-                  text="Checking Bleed"
-                  status={checkFile.file.bleed.isLoading}
-                  isMatched={checkFile.file.bleed.result === true}
-                />
-                <CheckStatus
-                  text="Checking Size"
-                  status={checkFile.file.singleSided.isLoading}
-                  isMatched={checkFile.file.size.result === true}
-                /> */}
+              </div>
+              <div>
+                {Object.keys(checkFile).every(
+                  (key) => !checkFile[key].isLoading
+                ) &&
+                Object.keys(checkFile).every((key) => checkFile[key].result) ? (
+                  <button
+                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
+                    onClick={handleUploadFile}
+                  >
+                    Upload Artwork
+                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
+                    {/* <Loader /> */}
+                  </button>
+                ) : (
+                  <button
+                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
+                    onClick={handleUploadFile}
+                  >
+                    Force Upload
+                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
+                    {/* <Loader /> */}
+                  </button>
+                )}
               </div>
             </>
-          ) : (
-            <div className="mt-2 text-start md:mt-5">
-              {file_check_loading ? (
-                <div>
-                  <Loader />
+          ) : null}
+          <div className="flex items-center w-full gap-2 mt-2 md:mt-5">
+            {showProgress && (
+              <>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className="bg-primary h-2.5 rounded-full"
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
                 </div>
-              ) : (
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span>
-                      <BsCheckSquareFill />
-                    </span>{" "}
-                    <p className="text-sm font-normal md:text-base md:font-medium text-typography">
-                      {" "}
-                      Artwork Later Accepted file types for this product:{" "}
-                      <strong>PDF</strong>
-                    </p>
-                  </div>
-                  {file_check_flags &&
-                    !file_check_flags.error &&
-                    file_check_flags.data.instruction.map(
-                      (instruction, idx) => (
-                        <div className="flex items-center gap-3" key={idx}>
-                          <span>
-                            <BsCheckSquareFill />
-                          </span>{" "}
-                          <p className="text-sm font-normal md:text-base md:font-medium text-typography">
-                            {" "}
-                            {instruction}
-                          </p>
-                        </div>
-                      )
-                    )}
-                </div>
-              )}
-            </div>
-          )}
+                <p className="text-sm text-center">{uploadProgress}%</p>
+              </>
+            )}
+          </div>
         </div>
       </div>
 

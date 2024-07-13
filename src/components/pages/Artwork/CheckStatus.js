@@ -22,7 +22,7 @@ const CheckStatus = ({ className, text, status, isMatched = false }) => {
         </div>
       )}
       <h1
-        className={`font-semibold ${
+        className={`font-semibold text-sm md:text-base ${
           status || isMatched ? "text-green-600" : "text-red-600"
         }`}
       >
