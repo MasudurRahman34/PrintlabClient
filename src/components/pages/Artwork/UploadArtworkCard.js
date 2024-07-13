@@ -3,7 +3,7 @@ import { deleteUploadedArtworkMutation } from "@/resolvers/mutation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BsClock } from "react-icons/bs";
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -12,6 +12,8 @@ import { MdDelete } from "react-icons/md";
 import { error, PDFDocument } from "pdf-lib";
 import CheckStatus, { LoadingSpinner } from "./CheckStatus";
 import { useRouter } from "next/router";
+import { BsCheckSquareFill } from "react-icons/bs";
+import { checkPdfFile } from "@/lib/fileChecker";
 
 const standardPageSizes = {
   A4: { width: 595.28, height: 841.89 }, // in points
@@ -32,50 +34,22 @@ const getPageSize = (width, height) => {
   return "Unknown";
 };
 
-const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
+const UploadArtworkCard = ({
+  product,
+  refetch,
+  handleSkip,
+  file_check_flags,
+  file_check_loading,
+  file_check_refetch,
+}) => {
   const router = useRouter();
   const [file, setFile] = useState(null);
-  const [imageSrc, setImageSrc] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [checkFile, setCheckFile] = useState({
-    isChecking: true,
-    checked: false,
-    file: {
-      encryptionORdamage: {
-        result: null,
-        error: false,
-        isLoading: false,
-      },
-      colors: {
-        result: null,
-        error: false,
-        isLoading: false,
-      },
-      bleed: {
-        result: null,
-        isLoading: false,
-        error: false,
-      },
-      generatingProofs: {
-        result: null,
-        isLoading: false,
-        error: false,
-      },
-      proofsReady: {
-        result: null,
-        isLoading: false,
-        error: false,
-      },
-      singleSided: {
-        result: null,
-        isLoading: false,
-        error: false,
-      },
-      size: {
-        result: null,
-        isLoading: false,
-        error: false,
-      },
+    Bleed: {
+      isLoading: false,
+      result: null,
+      instruction: "Every page should have minimum bleed",
     },
   });
 
@@ -84,172 +58,49 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
     mutationFn: deleteUploadedArtworkMutation,
   });
 
-  const checkDoubleSided = async (file) => {
-    try {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(arrayBuffer);
-      const numPages = pdfDoc.getPageCount();
-
-      return numPages > 1 ? "Double-sided" : "Single-sided";
-    } catch (error) {
-      console.log("Error processing PDF");
-    }
-  };
-
-  const handleCheckDoubleSided = async (file) => {
-    const selectedFile = file;
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        singleSided: {
-          ...checkFile.singleSided,
-          isLoading: true,
-        },
-      },
-    });
-    let result = null;
-
-    if (selectedFile) {
-      result = await checkDoubleSided(selectedFile);
-    }
-
-    console.log(result);
-
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        singleSided: {
-          ...checkFile.singleSided,
-          isLoading: false,
-          result: result,
-        },
-      },
-    });
-  };
-
-  const checkPDFBleed = async (fileArrayBuffer) => {
-    // Here I am checking if the content bleeds
-
-    try {
-      const pdfDoc = await PDFDocument.load(fileArrayBuffer);
-
-      const bleedBoxMargin = 18; // Example: 0.25 inches = 18 points
-      const pages = pdfDoc.getPages();
-      const pageInfoArray = pages.map((page, index) => {
-        const { width, height } = page.getSize();
-        const bleedBox = {
-          x: -bleedBoxMargin,
-          y: -bleedBoxMargin,
-          width: width + 2 * bleedBoxMargin,
-          height: height + 2 * bleedBoxMargin,
-        };
-        const pageSize = getPageSize(width, height);
-
-        const contentBleeds =
-          bleedBox.x < 0 &&
-          bleedBox.y < 0 &&
-          bleedBox.width > width &&
-          bleedBox.height > height;
-        return {
-          page: index + 1,
-          bleedBox,
-          pageSize,
-          width,
-          height,
-          contentBleeds,
-        };
-      });
-
-      return {
-        contentBleeds: pageInfoArray.every(
-          (page) => page.contentBleeds === true
-        ),
-        pageSize: pageInfoArray.every((page) => page.pageSize === "A4"),
-      };
-    } catch (error) {
-      console.log("Error processing PDF");
-      return { error: true };
-    }
-  };
-
-  const handleCheckBleed = async (file) => {
-    const selectedFile = file;
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        bleed: {
-          ...checkFile.bleed,
-          isLoading: true,
-        },
-      },
-    });
-
-    let result = null;
-
-    if (selectedFile) {
-      const arrayBuffer = await selectedFile.arrayBuffer();
-      result = await checkPDFBleed(arrayBuffer);
-    }
-
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        bleed: {
-          ...checkFile.bleed,
-          isLoading: false,
-          result: result.contentBleeds,
-        },
-      },
-    });
-  };
-
-  const handlePageSizeChecked = async (file) => {
-    const selectedFile = file;
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        size: {
-          ...checkFile.size,
-          isLoading: true,
-        },
-      },
-    });
-
-    let result = null;
-
-    if (selectedFile) {
-      const arrayBuffer = await selectedFile.arrayBuffer();
-      result = await checkPDFBleed(arrayBuffer);
-    }
-
-    setCheckFile({
-      ...checkFile,
-      file: {
-        ...checkFile.file,
-        size: {
-          ...checkFile.size,
-          isLoading: false,
-          result: result.pageSize,
-        },
-      },
-    });
-  };
-
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
+
     if (selectedFile) {
       setFile(selectedFile);
+      // set state as loading
+
+      setCheckFile((prev) => {
+        const newState = {};
+        for (const key in prev) {
+          newState[key] = { ...prev[key], isLoading: true };
+        }
+        return newState;
+      });
+
       /* setUploadProgress(0); */ // Reset progress on new file selection
       /* uploadFile(selectedFile); */
 
-      await handleCheckDoubleSided(selectedFile);
-      await handleCheckBleed(selectedFile);
-      await handlePageSizeChecked(selectedFile);
+      // Check file type
+      // creating array form checkfile object
+
+      const checkFileKeys = Object.keys(checkFile);
+      console.log(checkFileKeys);
+
+      let i = 0;
+
+      do {
+        const checkType = checkFileKeys[i];
+        console.log(checkType);
+        const result = await checkPdfFile(selectedFile, checkType);
+        console.log(result);
+
+        setCheckFile((prev) => ({
+          ...prev,
+          [checkType]: {
+            ...prev[checkType],
+            result,
+            isLoading: false,
+          },
+        }));
+
+        i++;
+      } while (i < checkFileKeys.length);
     } else {
       alert("Please select a file to upload");
     }
@@ -302,6 +153,30 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
       }
     );
   };
+  console.log(checkFile);
+
+  useEffect(() => {
+    if (file_check_flags && !file_check_flags.error) {
+      const stateObj = {};
+      for (
+        let idx = 0;
+        idx < file_check_flags.data.file_check_option.length;
+        idx++
+      ) {
+        const tempObj = {
+          isLoading: false,
+          result: null,
+          instruction: file_check_flags.data.instruction[idx],
+        };
+
+        stateObj[file_check_flags.data.file_check_option[idx]] = tempObj;
+      }
+      setCheckFile((prev) => ({
+        ...prev,
+        ...stateObj,
+      }));
+    }
+  }, [file_check_flags]);
 
   return (
     <div className="w-full mt-5 lg:pl-4 lg:w-2/3">
@@ -310,7 +185,7 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
           <div className="py-3 lg:hidden">
             <p className="text-sm font-normal md:text-base lg:text-lg md:font-medium lg:font-bold text-typography">
               Item <span className="font-bold">{product.id}</span> -{" "}
-              {product.product.title}
+              {product?.product?.title}
             </p>
           </div>
           <div className="flex items-center justify-center gap-2 md:gap-4 lg:gap-6">
@@ -323,10 +198,12 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
                 Add Artwork
               </label>
 
+              {/*  accept pdf only */}
               <input
                 type="file"
                 id="artwork_file"
                 className="sr-only"
+                accept=".pdf"
                 multiple
                 onChange={handleFileChange}
               />
@@ -353,7 +230,7 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
               </>
             )}
           </div>
-          {product?.file ? (
+          {/* product?.file ? (
             isPending ? (
               <div>
                 <Loader />
@@ -390,11 +267,23 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
                 PDF
               </h4>
             </div>
-          )}
-          {file && (
+          ) */}
+
+          {file ? (
             <>
               <div className="grid grid-cols-2 gap-4 mt-3">
-                <CheckStatus
+                {Object.keys(checkFile).map((key, idx) => {
+                  const stateOfKey = checkFile[key];
+                  return (
+                    <CheckStatus
+                      key={idx}
+                      text={stateOfKey.instruction}
+                      status={stateOfKey.isLoading}
+                      isMatched={stateOfKey.result}
+                    />
+                  );
+                })}
+                {/*  <CheckStatus
                   text="Checking sided"
                   status={checkFile.file.singleSided.isLoading}
                   isMatched={
@@ -410,9 +299,45 @@ const UploadArtworkCard = ({ product, refetch, handleSkip }) => {
                   text="Checking Size"
                   status={checkFile.file.singleSided.isLoading}
                   isMatched={checkFile.file.size.result === true}
-                />
+                /> */}
               </div>
             </>
+          ) : (
+            <div className="mt-2 text-start md:mt-5">
+              {file_check_loading ? (
+                <div>
+                  <Loader />
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span>
+                      <BsCheckSquareFill />
+                    </span>{" "}
+                    <p className="text-sm font-normal md:text-base md:font-medium text-typography">
+                      {" "}
+                      Artwork Later Accepted file types for this product:{" "}
+                      <strong>PDF</strong>
+                    </p>
+                  </div>
+                  {file_check_flags &&
+                    !file_check_flags.error &&
+                    file_check_flags.data.instruction.map(
+                      (instruction, idx) => (
+                        <div className="flex items-center gap-3" key={idx}>
+                          <span>
+                            <BsCheckSquareFill />
+                          </span>{" "}
+                          <p className="text-sm font-normal md:text-base md:font-medium text-typography">
+                            {" "}
+                            {instruction}
+                          </p>
+                        </div>
+                      )
+                    )}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

@@ -179,6 +179,9 @@ const UploadArtwork = () => {
                     product={product}
                     refetch={refetch}
                     handleSkip={handleSkip}
+                    file_check_flags={file_check_flags}
+                    file_check_loading={file_check_loading}
+                    file_check_refetch={file_check_refetch}
                   />
                 )
               );
