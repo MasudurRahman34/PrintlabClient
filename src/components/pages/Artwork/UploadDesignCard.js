@@ -5,17 +5,16 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { BsClock } from "react-icons/bs";
+
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdDelete, MdOutlineLock } from "react-icons/md";
 
-import CheckStatus from "./CheckStatus";
 import { useRouter } from "next/router";
-import { BsCheckSquareFill } from "react-icons/bs";
-import { checkPdfFile } from "@/lib/fileChecker";
-import { useAuth } from "@/hooks/useAuth";
 
-const UploadArtworkCard = ({
+import { useAuth } from "@/hooks/useAuth";
+import LabAccordion from "@/components/ui/LabAccordion";
+
+const UploadDesignService = ({
   product,
   refetch,
   handleSkip,
@@ -29,13 +28,6 @@ const UploadArtworkCard = ({
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
-  const [checkFile, setCheckFile] = useState({
-    Bleed: {
-      isLoading: false,
-      result: null,
-      instruction: "Every page should have minimum bleed",
-    },
-  });
 
   const { mutate, isPending } = useMutation({
     mutationKey: "delete_uploaded_artwork",
@@ -49,55 +41,13 @@ const UploadArtworkCard = ({
       setFile(selectedFile);
       // set state as loading
 
-      setCheckFile((prev) => {
-        const newState = {};
-        for (const key in prev) {
-          newState[key] = { ...prev[key], isLoading: true };
-        }
-        return newState;
-      });
-
-      /* setUploadProgress(0); */ // Reset progress on new file selection
-      /* uploadFile(selectedFile); */
-
-      // Check file type
-      // creating array form checkfile object
-
-      const checkFileKeys = Object.keys(checkFile);
-
-      let i = 0;
-
-      do {
-        const checkType = checkFileKeys[i];
-
-        const result = await checkPdfFile(selectedFile, checkType);
-
-        setCheckFile((prev) => ({
-          ...prev,
-          [checkType]: {
-            ...prev[checkType],
-            result,
-            isLoading: false,
-          },
-        }));
-
-        i++;
-      } while (i < checkFileKeys.length);
-
-      // if all the checks are passed then upload the file
-      const allChecksPassed = checkFileKeys.every(
-        (key) => checkFile[key].result
-      );
-
-      if (allChecksPassed) {
-        console.log("I am passed");
-      }
+      await uploadFile(selectedFile);
     } else {
       alert("Please select a file to upload");
     }
   };
 
-  const uploadFile = (file, isForceUpload) => {
+  const uploadFile = (file) => {
     setShowProgress(true);
     const url = `https://printlabapi.devtaijul.com/api/v1/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
@@ -153,33 +103,6 @@ const UploadArtworkCard = ({
     );
   };
 
-  const handleUploadFile = () => {
-    uploadFile(file);
-  };
-
-  useEffect(() => {
-    if (file_check_flags && !file_check_flags.error) {
-      const stateObj = {};
-      for (
-        let idx = 0;
-        idx < file_check_flags.data.file_check_option.length;
-        idx++
-      ) {
-        const tempObj = {
-          isLoading: false,
-          result: null,
-          instruction: file_check_flags.data.instruction[idx],
-        };
-
-        stateObj[file_check_flags.data.file_check_option[idx]] = tempObj;
-      }
-      setCheckFile((prev) => ({
-        ...prev,
-        ...stateObj,
-      }));
-    }
-  }, [file_check_flags]);
-
   return (
     <div className="w-full mt-5 lg:pl-4 lg:w-2/3">
       <div className="flex justify-center w-full px-6 bg-white">
@@ -190,6 +113,37 @@ const UploadArtworkCard = ({
               {product?.product?.title}
             </p>
           </div>
+
+          <div className="mb-3">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h1 className="text-lg font-bold md:text-2xl">
+                Design Request Form
+              </h1>
+              <Link
+                className="px-4 py-2 font-semibold border rounded-md border-secondgraphy hover:bg-secondgraphy hover:text-white"
+                href="/assets/docs/Design+Request+Form+-+Tradeprint (1).docx"
+                download
+              >
+                Download Design Request Form
+              </Link>
+            </div>
+            <div className="mt-2">
+              <p className="mb-2 text-sm">
+                Tell us what you need by filling in and submitting the Design
+                Request Form. This will help us work together to create your
+                perfect design. Once submitted one of our graphic designers will
+                contact you within 24 working hours.
+              </p>
+              <p className="text-sm">
+                Do you have any logos, colours, images or copy you want to
+                include within your design? Upload these supporting files
+                alongside your Design Request Form to help ensure we use the
+                correct elements within your design.
+              </p>
+            </div>
+            <div className="w-full py-1 mt-2 bg-secondary" />
+          </div>
+
           <div className="flex items-center justify-center gap-2 mb-3 md:gap-4 lg:gap-6">
             <div>
               <label
@@ -197,7 +151,7 @@ const UploadArtworkCard = ({
                 className="flex px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
               >
                 <IoCloudUploadOutline className="hidden md:block text-base md:text-lg lg:text-xl mr-[2px] md:mr-2  font-semibold mt-1" />
-                Add Artwork
+                Upload Design Request File
               </label>
 
               {/*  accept pdf only */}
@@ -205,7 +159,6 @@ const UploadArtworkCard = ({
                 type="file"
                 id="artwork_file"
                 className="sr-only"
-                accept=".pdf"
                 onChange={handleFileChange}
               />
             </div>
@@ -247,87 +200,8 @@ const UploadArtworkCard = ({
                 </div>
               </div>
             )
-          ) : (
-            <div className="mt-2 text-start md:mt-5">
-              {file_check_loading ? (
-                <div>
-                  <Loader />
-                </div>
-              ) : (
-                !file && (
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <span>
-                        <BsCheckSquareFill />
-                      </span>{" "}
-                      <p className="text-sm font-normal md:text-base md:font-medium text-typography">
-                        {" "}
-                        Artwork Later Accepted file types for this product:{" "}
-                        <strong>PDF</strong>
-                      </p>
-                    </div>
-                    {file_check_flags &&
-                      !file_check_flags.error &&
-                      file_check_flags.data.instruction.map(
-                        (instruction, idx) => (
-                          <div className="flex items-center gap-3" key={idx}>
-                            <span>
-                              <BsCheckSquareFill />
-                            </span>{" "}
-                            <p className="text-sm font-normal md:text-base md:font-medium text-typography">
-                              {" "}
-                              {instruction}
-                            </p>
-                          </div>
-                        )
-                      )}
-                  </div>
-                )
-              )}
-            </div>
-          )}
-
-          {file ? (
-            <>
-              <div className="grid gap-4 mt-3 grid-col-span-1">
-                {Object.keys(checkFile).map((key, idx) => {
-                  const stateOfKey = checkFile[key];
-                  return (
-                    <CheckStatus
-                      key={idx}
-                      text={stateOfKey.instruction}
-                      status={stateOfKey.isLoading}
-                      isMatched={stateOfKey.result}
-                    />
-                  );
-                })}
-              </div>
-              <div>
-                {Object.keys(checkFile).every(
-                  (key) => !checkFile[key].isLoading
-                ) &&
-                Object.keys(checkFile).every((key) => checkFile[key].result) ? (
-                  <button
-                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
-                    onClick={handleUploadFile}
-                  >
-                    Upload Artwork
-                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
-                    {/* <Loader /> */}
-                  </button>
-                ) : (
-                  <button
-                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
-                    onClick={handleUploadFile}
-                  >
-                    Force Upload
-                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
-                    {/* <Loader /> */}
-                  </button>
-                )}
-              </div>
-            </>
           ) : null}
+
           <div className="flex items-center w-full gap-2 mt-2 md:mt-5">
             {showProgress && (
               <>
@@ -341,20 +215,33 @@ const UploadArtworkCard = ({
               </>
             )}
           </div>
+          <div>
+            <LabAccordion title="What's provided within the Design Service">
+              <div>
+                <div className="mb-3 text-center">
+                  <h1 className="text-xl font-semibold">
+                    Creation Service Summary
+                  </h1>
+                  <p className="mt-3 text-start">
+                    We work with you to create your design from scratch,
+                    following your instructions provided on the{" "}
+                    <strong>Design Request form.</strong>
+                  </p>
+                </div>
+                <div>
+                  <p>What is provided as part of the Design Service:</p>
+                  <ul className="list-disc list-inside">
+                    <li>Initial design concepts</li>
+                    <li>Unlimited revisions</li>
+                    <li>Final print-ready artwork</li>
+                  </ul>
+                </div>
+              </div>
+            </LabAccordion>
+          </div>
         </div>
       </div>
 
-      <div className="flex p-2 py-5 mt-5 mb-5 text-white border rounded-md bg-secondgraphy border-typography md:p-5 md:mb-10 ">
-        <p className="mr-2 ">
-          <BsClock className="text-xl md:text-2xl lg:text-3xl" />
-        </p>
-        <p className=" text-[10px] font-normal text-white md:text-sm">
-          Please note, on completion of your order we offer a 15 minute window
-          to make any final amends to your uploaded artwork via Orders in the
-          MyAccount area. After these 15 minutes, no further changes can be made
-          and all artwork will be processed for printing
-        </p>
-      </div>
       <div className="flex justify-center mt-5 mb-5 mr-auto lg:justify-end md:mb-10">
         <button
           className="flex  text-[14px] md:text-lg lg:text-xl font-medium md:font-semibold lg:font-bold py-3 px-5 md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy rounded-md  "
@@ -370,4 +257,4 @@ const UploadArtworkCard = ({
   );
 };
 
-export default UploadArtworkCard;
+export default UploadDesignService;

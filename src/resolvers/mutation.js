@@ -14,8 +14,14 @@ export const deleteIncompleteCartProductMutation = async ({ cart_id }) =>
 export const getIncompleteCartTotalQuery = async () =>
   axios.get(`${backendUrl}/carts/incomplete/total`).then((res) => res.data);
 
-export const deleteUploadedArtworkMutation = async ({ file_id }) =>
-  axios.delete(`${backendUrl}/cart/files/${file_id}`).then((res) => res.data);
+export const deleteUploadedArtworkMutation = async ({ file_id, token }) =>
+  axios
+    .delete(`${backendUrl}/cart/files/${file_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
 
 export const createAddressMutation = async ({ variables, token }) =>
   axios
@@ -49,4 +55,13 @@ export const createCheckoutSessionMutation = async ({ token }) =>
         },
       }
     )
+    .then((res) => res.data);
+
+export const skipFileUploadMutation = async ({ variables, cart_id, token }) =>
+  axios
+    .put(`${backendUrl}/carts/${cart_id}/file-skipped`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data);

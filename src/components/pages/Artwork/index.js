@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from "react";
 import { GoDotFill } from "react-icons/go";
 import dynamic from "next/dynamic";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   fileCheckCombinationQuery,
   getIncompleteCartProductsQuery,
@@ -12,6 +12,10 @@ import Loader from "@/components/Loader/Loader";
 
 import { useAuth } from "@/hooks/useAuth";
 import withAuth from "@/hoc/withAuth";
+import { skipFileUploadMutation } from "@/resolvers/mutation";
+import toast from "react-hot-toast";
+import useToastMessage from "@/hooks/useToastMessage";
+import UploadDesignService from "./UploadDesignCard";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
@@ -23,11 +27,17 @@ const UploadArtworkCard = dynamic(() =>
 
 const UploadArtwork = () => {
   const { session } = useAuth();
+  const showToastMessage = useToastMessage();
   const [state, setState] = React.useState([]);
   const [activeCart, setActiveCart] = React.useState(null);
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: "skip_file_upload",
+    mutationFn: skipFileUploadMutation,
   });
 
   const activeCartData = useMemo(() => {
@@ -53,17 +63,26 @@ const UploadArtwork = () => {
 
   // handling skip
   const handleSkip = ({ skip_cart_id }) => {
-    const temp = state.map((cart) => {
-      if (cart.id === skip_cart_id) {
-        return {
-          ...cart,
-          artwork_status: "ARTWORK SKIPPED",
-        };
+    mutate(
+      {
+        cart_id: skip_cart_id,
+        variables: {
+          is_skipped: 1,
+        },
+        token: session?.token,
+      },
+      {
+        onSuccess: (data) => {
+          toast.success("Artwork skipped successfully");
+          refetch();
+        },
+        onError: (error) => {
+          showToastMessage(
+            error.response.data.message || "Something went wrong"
+          );
+        },
       }
-      return cart;
-    });
-
-    setState(temp);
+    );
   };
 
   // setting state on data fetch
@@ -169,16 +188,20 @@ const UploadArtwork = () => {
                     </h4>
                     <h4 className="flex text-sm font-normal md:text-base lg:text-lg text-secondgraphy md:font-medium -ms-2 ">
                       <GoDotFill className="mr-1 text-3xl text-primary" />
-                      {product?.artwork_status}
+                      {product?.is_skipped ? "Skipped" : product.artwork_status}
                     </h4>
                   </div>
                 </div>
               ))}
             </div>
             {state?.map((product, idx) => {
-              return (
-                product.id === activeCart && (
-                  <UploadArtworkCard
+              console.log(product);
+              if (
+                product.id === activeCart &&
+                product.is_design_service === 1
+              ) {
+                return (
+                  <UploadDesignService
                     key={idx}
                     product={product}
                     refetch={refetch}
@@ -186,9 +209,25 @@ const UploadArtwork = () => {
                     file_check_flags={file_check_flags}
                     file_check_loading={file_check_loading}
                     file_check_refetch={file_check_refetch}
+                    isPending={isPending}
                   />
-                )
-              );
+                );
+              } else {
+                return (
+                  product.id === activeCart && (
+                    <UploadArtworkCard
+                      key={idx}
+                      product={product}
+                      refetch={refetch}
+                      handleSkip={handleSkip}
+                      file_check_flags={file_check_flags}
+                      file_check_loading={file_check_loading}
+                      file_check_refetch={file_check_refetch}
+                      isPending={isPending}
+                    />
+                  )
+                );
+              }
             })}
           </div>
         ) : (
