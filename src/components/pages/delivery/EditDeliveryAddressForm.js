@@ -14,10 +14,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const EditDeliveryAddressForm = ({ data, setEditAddressData }) => {
-  console.log(data.id);
+const EditDeliveryAddressForm = ({
+  data,
+  setEditAddressData,
+  fileType = "shipping",
+}) => {
   const showToastMessage = useToastMessage();
-  const { isAuthenticated, user, session } = useAuth();
+  const { user, session } = useAuth();
 
   const { mutate, isPending } = useMutation({
     mutationKey: "addAddress",
@@ -63,6 +66,7 @@ const EditDeliveryAddressForm = ({ data, setEditAddressData }) => {
       email: formdata.delivery_email,
       phone: formdata.delivery_mobile_number,
       is_default: formdata.default ? 1 : 0,
+      type: fileType,
       user_id: user?.id,
     };
 

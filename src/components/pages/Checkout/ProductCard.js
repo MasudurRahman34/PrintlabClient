@@ -40,7 +40,7 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
               Item {idx + 1}.
             </h5>
             <h4 className="text-base font-bold text-[#2B2B2B] hidden lg:block">
-              {product?.product.title}
+              {product?.product?.title}
             </h4>
           </div>
           <div className="hidden text-right lg:block">

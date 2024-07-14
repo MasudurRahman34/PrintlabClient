@@ -4,14 +4,36 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Userlogin = () => {
-  const { login } = useAuth();
+  const router = useRouter();
+  const { login, isAuthenticated } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
     const { email, password } = data;
-    await login({ email, password });
+    const result = await login(
+      { email, password },
+      { redirect_url: router?.query?.redirect_url }
+    );
+
+    if (result.status === "success") {
+      reset();
+      if (router.query.redirect_url) {
+        router.push(router.query.redirect_url);
+      } else {
+        router.push("/");
+      }
+    }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated, router]);
+
   return (
     <ClientLayout>
       <>

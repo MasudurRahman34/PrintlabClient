@@ -16,29 +16,21 @@ export const useAuth = () => {
   useEffect(() => {
     // Check if token is in localStorage
     const storedSession =
-      typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("session"))
-        : null;
+      typeof window !== "undefined" ? localStorage.getItem("session") : null;
     const storedUser =
-      typeof window !== "undefined"
-        ? JSON.parse(localStorage.getItem("user") || "")
-        : null;
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
 
     if (storedSession && storedUser) {
-      setSession(storedSession);
-      setUser(storedUser);
+      setSession(JSON.parse(storedSession));
+      setUser(JSON.parse(storedUser));
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
   }, []);
 
-  const login = async (credentials) => {
-    console.log(credentials);
+  const login = async (credentials, { redirect_url }) => {
     try {
-      /* const response = await axios.post("/api/auth/login", credentials);
-      const { user, token } = response.data; */
-
       let session;
       let user;
 
@@ -63,30 +55,6 @@ export const useAuth = () => {
       };
       user = data?.user;
 
-      /*  if (typeof window !== "undefined") {
-        const users = JSON.parse(localStorage.getItem("users"));
-        const existUser = users?.find(
-          (u) =>
-            u.email === credentials.email && u.password === credentials.password
-        );
-        if (!existUser) {
-          toast.error("Invalid credentials");
-          throw new Error("Invalid credentials");
-        } else {
-          session = {
-            token: "123456",
-            token_type: "Bearer",
-          };
-          user = {
-            id: existUser.id,
-            email: existUser.email,
-            first_name: existUser.first_name,
-            last_name: existUser.last_name,
-            customer_type: existUser.customer_type,
-          };
-        }
-      } */
-
       // Save user and token to localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem("user", JSON.stringify(user));
@@ -97,10 +65,16 @@ export const useAuth = () => {
       setSession(session);
       setIsAuthenticated(true);
       toast.success(data.message || "Login successful");
-      router.push("/");
+      return {
+        status: "success",
+        message: data.message,
+      };
     } catch (error) {
       showToastMessage(error?.response?.data?.message || "Login failed");
       setIsAuthenticated(false);
+      return {
+        status: "error",
+      };
     }
   };
 

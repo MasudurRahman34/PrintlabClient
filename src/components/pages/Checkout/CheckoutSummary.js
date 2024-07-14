@@ -1,6 +1,7 @@
 import Box from "@/components/ui/Box";
 import LabAccordion from "@/components/ui/LabAccordion";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import { calculateTotal, formatPrice } from "@/lib/utils";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
@@ -14,6 +15,7 @@ const OrderSummary = ({
   total,
   next,
 }) => {
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   return (
     <Box boxTitle="Order Summary">
@@ -44,7 +46,9 @@ const OrderSummary = ({
           <Button
             className="w-full font-bold"
             onClick={() => {
-              router.push("/artwork");
+              isAuthenticated
+                ? router.push("/artwork")
+                : router.push("/login?redirect_url=/artwork");
             }}
           >
             Proceed to Artwork

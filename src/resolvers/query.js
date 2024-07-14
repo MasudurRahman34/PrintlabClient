@@ -40,7 +40,7 @@ export const getArtworkServicesQuery = async ({ product_id }) =>
   await axios.get(`${backendUrl}/services/artworks`).then((res) => res.data);
 
 export const getIncompleteCartProductsQuery = async () =>
-  axios.get(`${backendUrl}/cart/incomplete`).then((res) => res.data);
+  axios.get(`${backendUrl}/carts/incomplete`).then((res) => res.data);
 
 export const verifyEmailQuery = async ({ verify_url, token, signature }) => {
   return axios

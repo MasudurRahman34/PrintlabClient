@@ -7,9 +7,8 @@ import Loader from "@/components/Loader/Loader";
 
 const DeliveryItems = ({ item, editAction }) => {
   const { isAuthenticated, session } = useAuth();
-  const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
-
+  const [showNewAddressForm, setShowNewAddressForm] = useState(false);
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["get-address", session?.token],
     queryFn: () => getDeliveryAddressQuery({ token: session?.token }),
@@ -25,7 +24,6 @@ const DeliveryItems = ({ item, editAction }) => {
       setSelectedAddress(data.data[0].id.toString());
     }
   }, [data]);
-
   return (
     <div>
       {showNewAddressForm && (
@@ -38,18 +36,25 @@ const DeliveryItems = ({ item, editAction }) => {
       <div>
         <div>
           <p>
-            Laminated Flyers delivery by 26/07/2024 <br /> Qty: 50, Paper Type:
-            350gsm Silk Finish Paper, Size: A7, Lamination: Both Sides (Matt),
-            Sides Printed: Single Sided, On Saver Turnaround
+            delivery by 26/07/2024 <br /> Qty: 50, Paper Type: 350gsm Silk
+            Finish Paper, Size: A7, Lamination: Both Sides (Matt), Sides
+            Printed: Single Sided, On Saver Turnaround
           </p>
         </div>
-        <div>
-          <h1 className="font-bold text-secondgraphy">
-            Select Existing Address*
-          </h1>
-          {isLoading ? (
-            <Loader />
-          ) : (
+
+        {isLoading ? (
+          <Loader />
+        ) : isError ? (
+          <div className="px-3 py-2 rounded-sm bg-primary">
+            <h1 className="font-bold text-secondgraphy ">
+              You Do not have any address saved. Please add a new address
+            </h1>
+          </div>
+        ) : (
+          <div>
+            <h1 className="font-bold text-secondgraphy">
+              Select Existing Address*
+            </h1>
             <div>
               <select
                 name="address"
@@ -65,30 +70,34 @@ const DeliveryItems = ({ item, editAction }) => {
                     </option>
                   ))}
               </select>
-              <div className="flex items-center justify-end gap-4 mt-2">
-                <button
-                  className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
-                  onClick={() =>
-                    editAction((prev) => {
-                      return {
-                        show: true,
-                        data: selectedAddressMemo,
-                      };
-                    })
-                  }
-                >
-                  Edit
-                </button>
-                <button
-                  className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
-                  onClick={() => setShowNewAddressForm(true)}
-                >
-                  Add New Address
-                </button>
-              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        {!isLoading ? (
+          <div className="flex items-center justify-end gap-4 mt-2">
+            {!isError ? (
+              <button
+                className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+                onClick={() =>
+                  editAction((prev) => {
+                    return {
+                      show: true,
+                      data: selectedAddressMemo,
+                    };
+                  })
+                }
+              >
+                Edit
+              </button>
+            ) : null}
+            <button
+              className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+              onClick={() => setShowNewAddressForm(true)}
+            >
+              Add New Address
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

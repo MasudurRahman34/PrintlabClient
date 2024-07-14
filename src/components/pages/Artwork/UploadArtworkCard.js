@@ -13,25 +13,7 @@ import CheckStatus from "./CheckStatus";
 import { useRouter } from "next/router";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { checkPdfFile } from "@/lib/fileChecker";
-
-const standardPageSizes = {
-  A4: { width: 595.28, height: 841.89 }, // in points
-  A5: { width: 419.53, height: 595.28 },
-  Letter: { width: 612, height: 792 },
-  // Add more standard sizes if needed
-};
-
-const getPageSize = (width, height) => {
-  for (const [size, dimensions] of Object.entries(standardPageSizes)) {
-    if (
-      Math.abs(width - dimensions.width) < 1 &&
-      Math.abs(height - dimensions.height) < 1
-    ) {
-      return size;
-    }
-  }
-  return "Unknown";
-};
+import { useAuth } from "@/hooks/useAuth";
 
 const UploadArtworkCard = ({
   product,
@@ -41,6 +23,7 @@ const UploadArtworkCard = ({
   file_check_loading,
   file_check_refetch,
 }) => {
+  const { session } = useAuth();
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -113,7 +96,7 @@ const UploadArtworkCard = ({
     }
   };
 
-  const uploadFile = (file) => {
+  const uploadFile = (file, isForceUpload) => {
     setShowProgress(true);
     const url = `https://printlabapi.devtaijul.com/api/v1/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
@@ -126,6 +109,9 @@ const UploadArtworkCard = ({
             (progressEvent.loaded * 100) / progressEvent.total
           );
           setUploadProgress(percentComplete);
+        },
+        headers: {
+          Authorization: `Bearer ${session?.token}`,
         },
       })
       .then((response) => {

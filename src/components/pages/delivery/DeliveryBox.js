@@ -30,6 +30,7 @@ const DeliveryBox = ({ data, isLoading }) => {
         <EditDeliveryAddressForm
           data={editAddressData.data}
           setEditAddressData={setEditAddressData}
+          fileType="shipping"
         />
       ) : (
         <SavedAddress cartItems={data?.data} editAction={setEditAddressData} />

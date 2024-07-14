@@ -16,6 +16,7 @@ const BillingBox = () => {
         <EditDeliveryAddressForm
           data={editAddressData.data}
           setEditAddressData={setEditAddressData}
+          fileType="billing"
         />
       ) : (
         <BillingAddressShow editAction={setEditAddressData} />

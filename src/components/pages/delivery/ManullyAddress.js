@@ -20,9 +20,6 @@ const ManullyAddress = () => {
         <div className="mt-5 mb-2 md:w-2/3 md:mb-5">
           <DeliveryBox data={data} isLoading={isLoading} />
           <BillingBox />
-          <h4 className="mt-5 mb-5 text-lg bg-[#faefc9] font-medium text-typography w-full rounded-md  px-5 py-2 ">
-            Payment
-          </h4>
         </div>
         <div className="mt-5 md:w-1/3">
           {isLoading ? (

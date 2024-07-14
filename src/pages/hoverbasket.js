@@ -147,7 +147,7 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
                           Item {idx + 1}.
                         </p>
                         <p className="text-sm font-semibold text-secondgraphy">
-                          {product.product.title}
+                          {product?.product?.title}
                         </p>
                       </div>
                       <div className="flex items-center">
