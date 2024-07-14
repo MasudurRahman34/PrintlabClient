@@ -116,7 +116,7 @@ Qty: 5000, Paper Type: 130gsm Gloss Finish Paper, Size: A4 Landscape,Folding: Ro
 
   return (
     <button>
-      <FaDownload />
+      <FaDownload onClick={downloadInvoiceFile} />
     </button>
   );
 };

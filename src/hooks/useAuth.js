@@ -12,6 +12,7 @@ export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check if token is in localStorage
@@ -24,8 +25,10 @@ export const useAuth = () => {
       setSession(JSON.parse(storedSession));
       setUser(JSON.parse(storedUser));
       setIsAuthenticated(true);
+      setIsLoading(false);
     } else {
       setIsAuthenticated(false);
+      setIsLoading(false);
     }
   }, []);
 
@@ -115,5 +118,5 @@ export const useAuth = () => {
     } catch (error) {}
   };
 
-  return { isAuthenticated, user, session, login, logout, register };
+  return { isAuthenticated, user, session, login, logout, register, isLoading };
 };

@@ -12,7 +12,7 @@ export const deleteIncompleteCartProductMutation = async ({ cart_id }) =>
   axios.delete(`${backendUrl}/carts/${cart_id}`).then((res) => res.data);
 
 export const getIncompleteCartTotalQuery = async () =>
-  axios.get(`${backendUrl}/cart/incomplete/total`).then((res) => res.data);
+  axios.get(`${backendUrl}/carts/incomplete/total`).then((res) => res.data);
 
 export const deleteUploadedArtworkMutation = async ({ file_id }) =>
   axios.delete(`${backendUrl}/cart/files/${file_id}`).then((res) => res.data);
@@ -37,3 +37,16 @@ export const updateAddressMutation = async ({ variables, token, address_id }) =>
 
 export const registerUserMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/register`, variables).then((res) => res.data);
+
+export const createCheckoutSessionMutation = async ({ token }) =>
+  axios
+    .post(
+      `${backendUrl}/checkout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data);

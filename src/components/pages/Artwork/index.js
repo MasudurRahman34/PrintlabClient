@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo } from "react";
-import { BsClock } from "react-icons/bs";
+
 import { GoDotFill } from "react-icons/go";
 import dynamic from "next/dynamic";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import { MdOutlineLock } from "react-icons/md";
+
 import { useQuery } from "@tanstack/react-query";
 import {
   fileCheckCombinationQuery,
@@ -12,6 +11,7 @@ import {
 import Loader from "@/components/Loader/Loader";
 
 import { useAuth } from "@/hooks/useAuth";
+import withAuth from "@/hoc/withAuth";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
@@ -199,4 +199,4 @@ const UploadArtwork = () => {
   );
 };
 
-export default UploadArtwork;
+export default withAuth(UploadArtwork);

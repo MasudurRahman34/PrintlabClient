@@ -11,15 +11,6 @@ const PrintInvoice = () => {
       iframe.src = pdfUrl;
       document.body.appendChild(iframe);
       iframe.contentWindow.print();
-
-      /* const newWindow = window.open(pdfUrl, "_blank");
-      if (newWindow) {
-        newWindow.onload = function () {
-          newWindow.print();
-        };
-      } else {
-        alert("Please allow popups for this website");
-      } */
     }
   }
   const downloadInvoiceFile = () => {

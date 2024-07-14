@@ -1,8 +1,7 @@
 import React from "react";
 import { AiOutlineDelete, AiOutlineLoading3Quarters } from "react-icons/ai";
 import JobDetails from "@/components/pages/Checkout/JobDetails";
-import ArtworkService from "./ArtworkService";
-import RefPONumber from "./Ref&PONumber";
+
 import { useMutation } from "@tanstack/react-query";
 import { deleteIncompleteCartProductMutation } from "@/resolvers/mutation";
 import toast from "react-hot-toast";
@@ -20,6 +19,7 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
       { cart_id: product.id },
       {
         onSuccess: (data) => {
+          console.log(refetch, total_refetch);
           refetch();
           total_refetch();
           toast.success("Product deleted successfully");
@@ -70,10 +70,7 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
             {isPending ? (
               <AiOutlineLoading3Quarters className="text-2xl text-white" />
             ) : (
-              <AiOutlineDelete
-                className="text-2xl text-white hover:text-[black]"
-                onClick={handleDelete}
-              />
+              <AiOutlineDelete className="text-2xl text-white hover:text-[black]" />
             )}
           </button>
         </div>
@@ -90,10 +87,7 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
             {isPending ? (
               <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin" />
             ) : (
-              <AiOutlineDelete
-                className="text-2xl text-[#AAAAAA] hover:text-[black]"
-                onClick={handleDelete}
-              />
+              <AiOutlineDelete className="text-2xl text-[#AAAAAA] hover:text-[black]" />
             )}
           </button>
         </div>

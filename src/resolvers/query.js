@@ -69,3 +69,12 @@ export const fileCheckCombinationQuery = async ({ combination, token }) =>
       },
     })
     .then((res) => res.data);
+
+export const getOrdersQuery = async ({ token }) =>
+  axios
+    .get(`${backendUrl}/orders`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

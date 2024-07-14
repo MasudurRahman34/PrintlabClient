@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader/Loader";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
 import { useEffect, memo } from "react";
@@ -5,16 +6,20 @@ import { useEffect, memo } from "react";
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const router = useRouter();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, isLoading } = useAuth();
 
     useEffect(() => {
-      if (!isAuthenticated) {
+      if (!isLoading && !isAuthenticated) {
         router.replace("/login");
       }
-    }, [isAuthenticated, router]);
+    }, [isAuthenticated, router, isLoading]);
 
-    if (!isAuthenticated) {
-      return null; // or a loading spinner
+    if (isLoading) {
+      return (
+        <div className="container mx-auto min-h-[40vh] flex items-center justify-center">
+          <Loader />
+        </div>
+      ); // or a loading spinner
     }
 
     return <WrappedComponent {...props} />;

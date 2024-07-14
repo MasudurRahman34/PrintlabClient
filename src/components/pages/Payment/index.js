@@ -1,20 +1,31 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import { formatPrice } from "@/lib/utils";
+import { createCheckoutSessionMutation } from "@/resolvers/mutation";
+import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
+import Loader from "@/components/Loader/Loader";
+import { useRouter } from "next/router";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
 
 const PaymentPageComponent = () => {
+  const router = useRouter();
+  const showToastMessage = useToastMessage();
+  const { isAuthenticated, session } = useAuth();
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
   });
 
-  console.log(data);
+  const { mutate, isPending } = useMutation({
+    mutationKey: "create_checkout_session",
+    mutationFn: createCheckoutSessionMutation,
+  });
 
   const { subTotal, totalTax, total } = useMemo(() => {
     if (!isError && data) {
@@ -32,7 +43,24 @@ const PaymentPageComponent = () => {
     return {};
   }, [data]);
 
-  console.log(subTotal, totalTax);
+  const handlePayment = () => {
+    mutate(
+      {
+        token: session?.token,
+      },
+      {
+        onSuccess: async (data) => {
+          router.push(data?.data.url);
+        },
+        onError: async (error) => {
+          console.log(error);
+          showToastMessage(error.response.data.message);
+        },
+      }
+    );
+  };
+
+  console.log(isPending);
 
   return (
     <div className="mb-8 ">
@@ -41,38 +69,45 @@ const PaymentPageComponent = () => {
         <div className="bg-white ">
           <div className="w-full">
             <div className="max-w-md mx-auto">
-              <div className="p-6 bg-gray-100 rounded-md">
-                <h2 className="text-3xl font-extrabold text-gray-800">
-                  {formatPrice(total)}
-                </h2>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <div className="p-6 bg-gray-100 rounded-md">
+                  <h2 className="text-3xl font-extrabold text-gray-800">
+                    {formatPrice(total)}
+                  </h2>
 
-                <ul className="mt-8 space-y-4 text-gray-800">
-                  <li className="flex flex-wrap gap-4 text-sm">
-                    Subtotal{" "}
-                    <span className="ml-auto font-bold">
-                      {formatPrice(subTotal)}
-                    </span>
-                  </li>
+                  <ul className="mt-8 space-y-4 text-gray-800">
+                    <li className="flex flex-wrap gap-4 text-sm">
+                      Subtotal{" "}
+                      <span className="ml-auto font-bold">
+                        {formatPrice(subTotal)}
+                      </span>
+                    </li>
 
-                  <li className="flex flex-wrap gap-4 text-sm">
-                    Tax{" "}
-                    <span className="ml-auto font-bold">
-                      {formatPrice(totalTax)}
-                    </span>
-                  </li>
-                  <li className="flex flex-wrap gap-4 pt-4 text-sm font-bold border-t-2">
-                    Total <span className="ml-auto">{formatPrice(total)}</span>
-                  </li>
-                </ul>
-                <div className="text-center">
-                  <button
-                    type="button"
-                    className="mt-8 w-40 py-3.5 text-sm bg-secondgraphy text-white rounded-md  tracking-wide"
-                  >
-                    Pay Now{" "}
-                  </button>
+                    <li className="flex flex-wrap gap-4 text-sm">
+                      Tax{" "}
+                      <span className="ml-auto font-bold">
+                        {formatPrice(totalTax)}
+                      </span>
+                    </li>
+                    <li className="flex flex-wrap gap-4 pt-4 text-sm font-bold border-t-2">
+                      Total{" "}
+                      <span className="ml-auto">{formatPrice(total)}</span>
+                    </li>
+                  </ul>
+                  <div className="text-center">
+                    <button
+                      type="button"
+                      className="mt-8 w-40 py-3.5 text-sm bg-secondgraphy text-white rounded-md  tracking-wide"
+                      disabled={isPending}
+                      onClick={handlePayment}
+                    >
+                      {isPending ? "Processing..." : "Pay Now"}
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
