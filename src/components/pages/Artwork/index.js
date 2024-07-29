@@ -18,11 +18,15 @@ import useToastMessage from "@/hooks/useToastMessage";
 import UploadDesignService from "./UploadDesignCard";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
+  loading: () => <Loader />,
   ssr: false,
 });
 
-const UploadArtworkCard = dynamic(() =>
-  import("@/components/pages/Artwork/UploadArtworkCard")
+const UploadArtworkCard = dynamic(
+  () => import("@/components/pages/Artwork/UploadArtworkCard"),
+  {
+    ssr: false,
+  }
 );
 
 const UploadArtwork = () => {
