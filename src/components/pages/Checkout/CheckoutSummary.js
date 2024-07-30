@@ -12,6 +12,8 @@ const OrderSummary = ({
   total_vat,
   delivery_charge,
   artwork_charge,
+  handleCheckout,
+  isCheckoutPending,
   total,
   next,
 }) => {
@@ -56,11 +58,10 @@ const OrderSummary = ({
         ) : (
           <Button
             className="w-full font-bold"
-            onClick={() => {
-              router.push("/payment");
-            }}
+            disabled={isCheckoutPending}
+            onClick={handleCheckout}
           >
-            Proceed to Payment
+            {isCheckoutPending ? "Processing..." : "Proceed to Payment"}
           </Button>
         )}
       </div>
@@ -74,6 +75,8 @@ const MobileCheckoutSummary = ({
   sub_total,
   total,
   total_vat,
+  isCheckoutPending,
+  handleCheckout,
   next,
 }) => {
   const router = useRouter();
@@ -114,11 +117,10 @@ const MobileCheckoutSummary = ({
         ) : (
           <Button
             className="w-full font-bold"
-            onClick={() => {
-              router.push("/payment");
-            }}
+            disabled={isCheckoutPending}
+            onClick={handleCheckout}
           >
-            Proceed to Payment
+            {isCheckoutPending ? "Processing..." : "Proceed to Payment"}
           </Button>
         )}
       </div>
@@ -126,7 +128,12 @@ const MobileCheckoutSummary = ({
   );
 };
 
-const CheckoutSummary = ({ products, next = "checkout" }) => {
+const CheckoutSummary = ({
+  products,
+  next = "checkout",
+  handleCheckout,
+  isCheckoutPending,
+}) => {
   const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
     useMemo(() => {
       const sub_total = products
@@ -149,6 +156,8 @@ const CheckoutSummary = ({ products, next = "checkout" }) => {
           sub_total={sub_total}
           total={total}
           total_vat={total_vat}
+          handleCheckout={handleCheckout}
+          isCheckoutPending={isCheckoutPending}
           next={next}
         />
       </div>
@@ -180,6 +189,8 @@ const CheckoutSummary = ({ products, next = "checkout" }) => {
         sub_total={sub_total}
         total={total}
         total_vat={total_vat}
+        handleCheckout={handleCheckout}
+        isCheckoutPending={isCheckoutPending}
         next={next}
       />
     </div>

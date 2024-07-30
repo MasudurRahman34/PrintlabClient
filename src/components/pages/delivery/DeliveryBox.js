@@ -6,7 +6,16 @@ import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import EditDeliveryAddressForm from "./EditDeliveryAddressForm";
 
-const DeliveryBox = ({ data, isLoading }) => {
+const DeliveryBox = ({
+  data,
+  isLoading,
+  address_data,
+  address_isError,
+  address_isLoading,
+  checkout_state,
+  set_checkout_state,
+  address_refetch,
+}) => {
   const [editAddressData, setEditAddressData] = useState({
     show: false,
     data: null,
@@ -33,7 +42,16 @@ const DeliveryBox = ({ data, isLoading }) => {
           fileType="shipping"
         />
       ) : (
-        <SavedAddress cartItems={data?.data} editAction={setEditAddressData} />
+        <SavedAddress
+          cartItems={data?.data}
+          editAction={setEditAddressData}
+          address_data={address_data}
+          address_isError={address_isError}
+          address_isLoading={address_isLoading}
+          checkout_state={checkout_state}
+          set_checkout_state={set_checkout_state}
+          address_refetch={address_refetch}
+        />
       )}
     </Box>
   );

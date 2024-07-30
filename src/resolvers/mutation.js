@@ -65,3 +65,12 @@ export const skipFileUploadMutation = async ({ variables, cart_id, token }) =>
       },
     })
     .then((res) => res.data);
+
+export const checkoutMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/checkout`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

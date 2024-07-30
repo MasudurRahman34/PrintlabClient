@@ -13,7 +13,7 @@ const SuccessPage = () => {
   const router = useRouter();
   const { session_id } = router.query;
 
-  const { data, isLoading, isError, refetch, error } = useQuery({
+  const { data, isLoading, isError, refetch, error, isSuccess } = useQuery({
     queryKey: ["checkout-session", session_id, session?.token],
     queryFn: () =>
       getCheckoutSessionQuery({ session_id, token: session?.token }),
@@ -28,12 +28,33 @@ const SuccessPage = () => {
         {data && ( */}
         <div className="flex flex-col items-center justify-center gap-4 p-4 md:p-6">
           <div className="flex flex-col items-center gap-2 text-center">
-            <CircleCheckIcon className="w-12 h-12 text-green-500" />
-            <h1 className="text-3xl font-semibold">Payment successful</h1>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/tight dark:text-gray-400">
-              Your order has been confirmed and is now being processed. Thank
-              you for shopping with us!
-            </p>
+            {isLoading ? (
+              <h1>Checking payment status</h1>
+            ) : (
+              <>
+                {isError ? (
+                  <div className="flex flex-col items-center">
+                    <XIcon className="w-12 h-12 text-red-500" />
+
+                    <p className="max-w-[600px] text-secondgraphy md:text-xl/tight break-words dark:text-gray-400">
+                      {error.response?.data?.message || "An error occurred"}
+                    </p>
+                  </div>
+                ) : (
+                  isSuccess && (
+                    <div className="flex flex-col items-center">
+                      <CircleCheckIcon className="w-12 h-12 text-green-500" />
+                      <h1 className="text-3xl font-semibold">
+                        Payment successful
+                      </h1>
+                      <p className="max-w-[600px] text-secondgraphy md:text-xl/tight dark:text-gray-400">
+                        {data?.data}
+                      </p>
+                    </div>
+                  )
+                )}
+              </>
+            )}
           </div>
         </div>
         {/* )} */}

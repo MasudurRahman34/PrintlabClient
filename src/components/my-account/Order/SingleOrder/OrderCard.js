@@ -3,6 +3,7 @@ import React from "react";
 import { number } from "yup";
 
 const OrderCard = ({ fullWidth, item }) => {
+  console.log(item);
   return (
     <div
       className={` mb-4 overflow-hidden border rounded  border-gray-100 ${
@@ -14,7 +15,7 @@ const OrderCard = ({ fullWidth, item }) => {
           <p className="text-sm">
             Order placed{" "}
             <span className="font-semibold">
-              {humanReadableDate(item.date)}
+              {humanReadableDate(item.created_at)}
             </span>
           </p>
           <p className="text-sm">
@@ -22,9 +23,7 @@ const OrderCard = ({ fullWidth, item }) => {
           </p>
           <p className="text-sm">
             Order Total{" "}
-            <span className="font-semibold">
-              {formatPrice(item.item_total)}
-            </span>
+            <span className="font-semibold">{formatPrice(item.total)}</span>
           </p>
         </div>
         {/* <div>
@@ -36,41 +35,38 @@ const OrderCard = ({ fullWidth, item }) => {
           <div className="flex flex-col items-stretch justify-between w-full gap-1 md:flex-row">
             <div className="w-full bg-white md:w-2/3">
               <div className="mb-2">
-                <h1 className="text-xl font-semibold">Ready To Print</h1>
+                <h1 className="text-xl font-semibold">{item.status}</h1>
                 <p className="text-sm">
-                  item <span className="font-semibold">#{item.id}</span>
+                  Item Number{" "}
+                  <span className="font-semibold">
+                    #{item.order_item_number}
+                  </span>
                 </p>
               </div>
               <div className="mb-2">
-                <h1 className="text-xl font-semibold">
-                  Classic Business Cards
-                </h1>
+                <h1 className="text-xl font-semibold">{item.product_title}</h1>
+
                 <p className="text-sm">
-                  Reference{" "}
-                  <span className="font-semibold"> Fatha Business Card</span>
-                </p>
-                <p className="text-sm">
-                  Qty: 250, Paper Type: 450gsm Silk, Sides Printed: Double
-                  Sided, Lamination: Both Sides (Matt), On Express Turnaround
+                  Qty: {item.quantity}, Cobination: {item.combination_string},
                 </p>
               </div>
               <div>
                 <h1 className="font-semibold ">Just Print</h1>
-                <p className="text-sm">
-                  Item Total{" "}
-                  <span className="font-semibold">
-                    {formatPrice(item.item_total)}
-                  </span>
-                </p>
               </div>
             </div>
             <div className="w-full p-2 bg-white md:w-1/3">
               <div className="mb-3">
                 <h1 className="font-semibold ">Delivery To</h1>
-                <p className="text-sm">Omar Faruk</p>
                 <p className="text-sm">
-                  Printlab, 172 Commercial Road, London, 07411284290,
-                  Info@Weareprintlab.Co.Uk, E1 2jy
+                  {item.shipping_address.first_name +
+                    " " +
+                    item.shipping_address.last_name}
+                </p>
+                <p className="text-sm">
+                  {item.shipping_address.address},{" "}
+                  {item.shipping_address.country}, {item.shipping_address.phone}
+                  , {item.shipping_address.email},{" "}
+                  {item.shipping_address.post_code}
                 </p>
               </div>
               <div>

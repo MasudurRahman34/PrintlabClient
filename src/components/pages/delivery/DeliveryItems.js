@@ -1,36 +1,86 @@
 import React, { useEffect, useMemo, useState } from "react";
 import NewAddressForm from "./NewAddressForm";
-import { useQuery } from "@tanstack/react-query";
-import { getDeliveryAddressQuery } from "@/resolvers/query";
-import { useAuth } from "@/hooks/useAuth";
+
 import Loader from "@/components/Loader/Loader";
 
-const DeliveryItems = ({ item, editAction }) => {
-  const { isAuthenticated, session } = useAuth();
+const DeliveryItems = ({
+  item,
+  editAction,
+  address_data,
+  address_isLoading,
+  address_isError,
+  checkout_state,
+  set_checkout_state,
+  address_refetch,
+}) => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["get-address", session?.token],
-    queryFn: () => getDeliveryAddressQuery({ token: session?.token }),
-    enabled: !!session?.token,
-  });
 
   const selectedAddressMemo = useMemo(() => {
-    return data?.data.find((item) => item.id.toString() === selectedAddress);
-  }, [selectedAddress, data]);
+    return address_data?.find((item) => item.id.toString() === selectedAddress);
+  }, [selectedAddress, address_data]);
+
+  const handleChange = (e) => {
+    setSelectedAddress(e.target.value);
+    set_checkout_state((prev) => {
+      return {
+        ...prev,
+        shipping_address: prev.shipping_address.map((insideItem) => {
+          if (insideItem.cart_id === item.id) {
+            return {
+              ...insideItem,
+              shipment_id: Number(e.target.value),
+            };
+          } else {
+            return insideItem;
+          }
+        }),
+      };
+    });
+  };
 
   useEffect(() => {
-    if (data && data.data.length > 0) {
-      setSelectedAddress(data.data[0].id.toString());
+    if (address_data && address_data.length > 0) {
+      const defaultAddress = address_data.find(
+        (address) => address.is_default === 1
+      );
+
+      if (defaultAddress) {
+        setSelectedAddress(defaultAddress.id.toString());
+        set_checkout_state((prev) => {
+          return {
+            ...prev,
+            shipping_address: prev.shipping_address.map((item) => {
+              return {
+                ...item,
+                shipment_id: defaultAddress.id,
+              };
+            }),
+          };
+        });
+      } else {
+        setSelectedAddress(address_data[0].id.toString());
+        set_checkout_state((prev) => {
+          return {
+            ...prev,
+            shipping_address: prev.shipping_address.map((item) => {
+              return {
+                ...item,
+                shipment_id: address_data[0].id,
+              };
+            }),
+          };
+        });
+      }
     }
-  }, [data]);
+  }, [address_data, set_checkout_state]);
   return (
     <div>
       {showNewAddressForm && (
         <NewAddressForm
           address_type="shipping"
           setShowNewAddressForm={setShowNewAddressForm}
-          refetch={refetch}
+          refetch={address_refetch}
         />
       )}
       <div>
@@ -42,9 +92,9 @@ const DeliveryItems = ({ item, editAction }) => {
           </p>
         </div>
 
-        {isLoading ? (
+        {address_isLoading ? (
           <Loader />
-        ) : isError ? (
+        ) : address_isError ? (
           <div className="px-3 py-2 rounded-sm bg-primary">
             <h1 className="font-bold text-secondgraphy ">
               You Do not have any address saved. Please add a new address
@@ -60,11 +110,11 @@ const DeliveryItems = ({ item, editAction }) => {
                 name="address"
                 id="address"
                 className="w-full px-3 py-2 border rounded-md border-secondgraphy focus:outline-none focus:border-primary"
-                onChange={(e) => setSelectedAddress(e.target.value)}
+                onChange={handleChange}
                 value={selectedAddress}
               >
-                {data &&
-                  data.data.map((item, index) => (
+                {address_data &&
+                  address_data.map((item, index) => (
                     <option key={index} value={item.id}>
                       {item.address}
                     </option>
@@ -73,9 +123,9 @@ const DeliveryItems = ({ item, editAction }) => {
             </div>
           </div>
         )}
-        {!isLoading ? (
+        {!address_isLoading ? (
           <div className="flex items-center justify-end gap-4 mt-2">
-            {!isError ? (
+            {!address_isError ? (
               <button
                 className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
                 onClick={() =>

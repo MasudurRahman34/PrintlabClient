@@ -18,8 +18,6 @@ const BillingAddressShow = ({ editAction }) => {
     return data?.data.find((item) => item.type === "billing");
   }, [data]);
 
-  console.log(billingAddessMemo);
-
   return (
     <div>
       {showNewAddressForm && (

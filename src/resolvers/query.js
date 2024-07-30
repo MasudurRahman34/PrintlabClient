@@ -81,7 +81,20 @@ export const getOrdersQuery = async ({ token }) =>
 
 export const getCheckoutSessionQuery = async ({ session_id, token }) =>
   axios
-    .post(`${backendUrl}/success?session_id=${session_id}`, {
+    .post(
+      `${backendUrl}/success?session_id=${session_id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data);
+
+export const getSingleOrderQuery = async ({ order_id, token }) =>
+  axios
+    .get(`${backendUrl}/orders/${order_id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
