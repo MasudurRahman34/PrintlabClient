@@ -43,6 +43,14 @@ const SingleProductPageComponent = ({ total_refetch }) => {
     }
   }, [data?.data]);
 
+  if (isLoading) {
+    return (
+      <div className="container mx-auto">
+        <h1>Loading</h1>
+      </div>
+    );
+  }
+
   if (isError) {
     return (
       <div className="container mx-auto">
@@ -54,7 +62,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
   return (
     <section className="w-full py-10 custom_container ">
       <div className="grid items-start justify-between grid-cols-12 gap-5 lg:flex-row ">
-        <div className="col-span-12 p-4 mb-4  lg:col-span-5 lg:border-r-2 border-secondgraphy">
+        <div className="col-span-12 lg:pr-4 md:mb-4 lg:col-span-5 lg:border-r-2 border-secondgraphy">
           <ImageGallery
             items={media}
             autoPlay={false}
@@ -66,6 +74,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
           <div className="mt-5">
             {data?.data.description && (
               <div
+                className="text-sm md:text-base textEditorContent"
                 dangerouslySetInnerHTML={{ __html: data?.data.description }}
               />
             )}
@@ -93,7 +102,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                   data?.data?.specification?.details && (
                     <TabsTrigger
                       value="Product Details"
-                      className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none"
+                      className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none"
                     >
                       Product Details
                     </TabsTrigger>
@@ -102,7 +111,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                   data?.data?.specification?.technical_specification && (
                     <TabsTrigger
                       value="technical_specification"
-                      className=" text-sm !md:text-base !font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none"
+                      className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none"
                     >
                       Technical_specification
                     </TabsTrigger>
@@ -123,7 +132,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                         <div className="w-full md:w-9/12">
                           <div className="p-5">
                             <div
-                              className="textEditorContent"
+                              className="text-sm textEditorContent md:text-base"
                               dangerouslySetInnerHTML={{
                                 __html: data?.data?.specification?.details,
                               }}
@@ -152,7 +161,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
                         <div className="w-full md:w-9/12">
                           <div className="p-5">
                             <div
-                              className="textEditorContent"
+                              className="text-sm textEditorContent md:text-base"
                               dangerouslySetInnerHTML={{
                                 __html:
                                   data?.data?.specification

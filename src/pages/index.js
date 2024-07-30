@@ -7,8 +7,11 @@ import Packs_banner from "@/components/pages/Home/packs_banner";
 
 import Tradeprint from "@/components/pages/Home/tradeprints";
 import HeroSliderComponent from "@/components/pages/Home/HeroSlider";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
+  const { isAuthenticated, user, token } = useAuth();
+
   return (
     <ClientLayout>
       <HeroSliderComponent />

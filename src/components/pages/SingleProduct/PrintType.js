@@ -80,18 +80,22 @@ const PrintType = ({ selectedPrintType, setSelectedPrintType }) => {
             />
           ))}
       </div>
+
       {selectedPrintType && selectedPrintType?.parent?.children.length > 0 && (
-        <div className="flex flex-wrap items-stretch justify-center gap-3 md:justify-start">
-          {selectedPrintType?.parent?.children.map((item, index) => (
-            <ArtworkCard
-              item={item}
-              key={index}
-              obj="children"
-              selectedPrintType={selectedPrintType}
-              setSelectedPrintType={setSelectedPrintType}
-            />
-          ))}
-        </div>
+        <>
+          <hr className="mt-5" />
+          <div className="flex flex-wrap items-stretch justify-center gap-3 md:justify-start">
+            {selectedPrintType?.parent?.children.map((item, index) => (
+              <ArtworkCard
+                item={item}
+                key={index}
+                obj="children"
+                selectedPrintType={selectedPrintType}
+                setSelectedPrintType={setSelectedPrintType}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

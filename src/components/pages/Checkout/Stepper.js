@@ -4,33 +4,41 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineAutoDelete } from "react-icons/md";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Stepper, Step } from "react-form-stepper";
+import { BsCashCoin } from "react-icons/bs";
 
 const stepperData = [
   {
     id: 1,
     icon: (
-      <FaShoppingBasket className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
+      <FaShoppingBasket className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),
     title: "Basket",
   },
   {
     id: 2,
     icon: (
-      <IoCloudUploadOutline className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
+      <IoCloudUploadOutline className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),
     title: "Upload Artwork",
   },
   {
     id: 3,
     icon: (
-      <TbTruckDelivery className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
+      <TbTruckDelivery className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),
-    title: "Delivery & Payment",
+    title: "Delivery ",
   },
   {
     id: 4,
     icon: (
-      <MdOutlineAutoDelete className="text-xl font-bold text-center md:text-2xl lg:text-3xl text-secbg-secondgraphy group-hover:text-white" />
+      <BsCashCoin className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
+    ),
+    title: " Payment",
+  },
+  {
+    id: 5,
+    icon: (
+      <MdOutlineAutoDelete className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),
     title: "Order seccess",
   },

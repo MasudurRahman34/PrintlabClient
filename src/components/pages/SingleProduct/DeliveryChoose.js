@@ -41,7 +41,7 @@ const DeliveryChoose = ({
 
   if (data?.data.length <= 0) {
     return (
-      <div className="relative z-10 w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
+      <div className="w-full px-3 py-3 text-sm text-center border-2  bg-primary-light border-primary">
         <p className="font-bold">
           No delivery services available for this product.
         </p>

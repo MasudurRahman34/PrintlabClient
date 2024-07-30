@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoriesQuery } from "@/resolvers/query";
 import Loader from "../Loader/Loader";
+import { BsFillBasketFill } from "react-icons/bs";
+import { MdOutlineManageAccounts } from "react-icons/md";
 
-const BottomHeader = () => {
+const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
+  const [cart, setCart] = useState({
+    totalPrice: 0,
+    totalQuantity: 0,
+  });
+
   const [isActive, setIsActive] = useState(false);
 
   const [activeMenu, setActiveMenu] = useState({
@@ -30,6 +37,19 @@ const BottomHeader = () => {
       menu: null,
     });
   };
+
+  useEffect(() => {
+    if (total) {
+      const totalPrice =
+        total.length > 0
+          ? total?.map((item) => item.total).reduce((a, b) => a + b, 0)
+          : 0;
+
+      const totalQuantity = total?.length;
+
+      setCart({ totalPrice, totalQuantity });
+    }
+  }, [total]);
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["categories-get"],
@@ -70,7 +90,7 @@ const BottomHeader = () => {
                   </div>
                 )}
                 <ul className="menu-main">
-                  {data?.data.map((manuCategory) => {
+                  {data?.data.map((manuCategory, idx) => {
                     return (
                       <>
                         <li
@@ -79,6 +99,7 @@ const BottomHeader = () => {
                               ? "menu-item-has-children"
                               : ""
                           }`}
+                          key={idx}
                         >
                           <Link
                             href="#"
@@ -100,7 +121,7 @@ const BottomHeader = () => {
                               manuCategory.children.map((child, index) => {
                                 return (
                                   <div className="list-item" key={index}>
-                                    <h4 className="title text-sm md:text-base ">
+                                    <h4 className="text-sm title md:text-base ">
                                       <Link href={`/${child.slug}`}>
                                         {child.title}
                                       </Link>
@@ -109,7 +130,10 @@ const BottomHeader = () => {
                                       {child.products.length > 0 &&
                                         child.products.map((product, index) => {
                                           return (
-                                            <li key={index} className="text-red-500">
+                                            <li
+                                              key={index}
+                                              className="text-red-500"
+                                            >
                                               <Link
                                                 href={`/${child.slug}/${product.slug}`}
                                               >
@@ -143,45 +167,29 @@ const BottomHeader = () => {
                 <span></span>
               </div>
 
-              <div className="flex items-center justify-center lg:hidden">
-                <div>
-                  <Link href="contact-us">
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 group-hover:text-primary"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
-                        />
-                      </svg>
-                    </span>
+              <div className="flex items-center justify-center gap-3 lg:hidden">
+                <div className="relative flex items-center ">
+                  <Link
+                    href="/my-account"
+                    className="flex flex-col items-center group"
+                  >
+                    <MdOutlineManageAccounts className="w-6 h-6 text-secondgraphy" />
                   </Link>
                 </div>
-                <div>
-                  <Link href="contact-us">
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 group-hover:text-primary"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                        />
-                      </svg>
-                    </span>
+
+                <div className="relative">
+                  {cart.totalQuantity > 0 && (
+                    <div className="absolute flex items-center justify-center w-6 h-6 text-sm font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                      {cart.totalQuantity}
+                    </div>
+                  )}
+
+                  <Link
+                    href={"/basket"}
+                    onClick={showcards}
+                    className="flex flex-col items-center group"
+                  >
+                    <BsFillBasketFill className="w-6 h-6 text-secondgraphy" />
                   </Link>
                 </div>
               </div>

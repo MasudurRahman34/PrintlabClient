@@ -1,0 +1,156 @@
+import React, { useEffect, useMemo, useState } from "react";
+import NewAddressForm from "./NewAddressForm";
+
+import Loader from "@/components/Loader/Loader";
+
+const DeliveryItems = ({
+  item,
+  editAction,
+  address_data,
+  address_isLoading,
+  address_isError,
+  checkout_state,
+  set_checkout_state,
+  address_refetch,
+}) => {
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [showNewAddressForm, setShowNewAddressForm] = useState(false);
+
+  const selectedAddressMemo = useMemo(() => {
+    return address_data?.find((item) => item.id.toString() === selectedAddress);
+  }, [selectedAddress, address_data]);
+
+  const handleChange = (e) => {
+    setSelectedAddress(e.target.value);
+    set_checkout_state((prev) => {
+      return {
+        ...prev,
+        shipping_address: prev.shipping_address.map((insideItem) => {
+          if (insideItem.cart_id === item.id) {
+            return {
+              ...insideItem,
+              shipment_id: Number(e.target.value),
+            };
+          } else {
+            return insideItem;
+          }
+        }),
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (address_data && address_data.length > 0) {
+      const defaultAddress = address_data.find(
+        (address) => address.is_default === 1
+      );
+
+      if (defaultAddress) {
+        setSelectedAddress(defaultAddress.id.toString());
+        set_checkout_state((prev) => {
+          return {
+            ...prev,
+            shipping_address: prev.shipping_address.map((item) => {
+              return {
+                ...item,
+                shipment_id: defaultAddress.id,
+              };
+            }),
+          };
+        });
+      } else {
+        setSelectedAddress(address_data[0].id.toString());
+        set_checkout_state((prev) => {
+          return {
+            ...prev,
+            shipping_address: prev.shipping_address.map((item) => {
+              return {
+                ...item,
+                shipment_id: address_data[0].id,
+              };
+            }),
+          };
+        });
+      }
+    }
+  }, [address_data, set_checkout_state]);
+  return (
+    <div>
+      {showNewAddressForm && (
+        <NewAddressForm
+          address_type="shipping"
+          setShowNewAddressForm={setShowNewAddressForm}
+          refetch={address_refetch}
+        />
+      )}
+      <div>
+        <div>
+          <p>
+            delivery by 26/07/2024 <br /> Qty: 50, Paper Type: 350gsm Silk
+            Finish Paper, Size: A7, Lamination: Both Sides (Matt), Sides
+            Printed: Single Sided, On Saver Turnaround
+          </p>
+        </div>
+
+        {address_isLoading ? (
+          <Loader />
+        ) : address_isError ? (
+          <div className="px-3 py-2 rounded-sm bg-primary">
+            <h1 className="font-bold text-secondgraphy ">
+              You Do not have any address saved. Please add a new address
+            </h1>
+          </div>
+        ) : (
+          <div>
+            <h1 className="font-bold text-secondgraphy">
+              Select Existing Address*
+            </h1>
+            <div>
+              <select
+                name="address"
+                id="address"
+                className="w-full px-3 py-2 border rounded-md border-secondgraphy focus:outline-none focus:border-primary"
+                onChange={handleChange}
+                value={selectedAddress}
+              >
+                {address_data &&
+                  address_data.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.address}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+        )}
+        {!address_isLoading ? (
+          <div className="flex items-center justify-end gap-4 mt-2">
+            {!address_isError ? (
+              <button
+                className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+                onClick={() =>
+                  editAction((prev) => {
+                    return {
+                      show: true,
+                      data: selectedAddressMemo,
+                    };
+                  })
+                }
+              >
+                Edit
+              </button>
+            ) : null}
+            <button
+              className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+              onClick={() => setShowNewAddressForm(true)}
+            >
+              Add New Address
+            </button>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
+export default DeliveryItems;

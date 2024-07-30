@@ -15,8 +15,11 @@ import { calculateTotal, formatPrice } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
+import MobileNav from "@/components/Footer/MobileNav";
+import useToastMessage from "@/hooks/useToastMessage";
 
 const Combination = ({ data, isProductLoading, total_refetch }) => {
+  const showToastMessage = useToastMessage();
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPrintType, setSelectedPrintType] = useState({
@@ -73,8 +76,11 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
         .sort((a, b) => a - b)
         .map((item) => item.toString());
       const selectedOptionsString = selectedOptions.join(",");
+
       const matchedCombination = allCombination?.data.filter((item) => {
-        const combinationOptions = item.combination.join(",");
+        const combinationOptions = item.combination
+          .sort((a, b) => a - b)
+          .join(",");
 
         return combinationOptions === selectedOptionsString;
       });
@@ -108,7 +114,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
         ? selectedPrintType.children.id
         : selectedPrintType.parent.id,
       sku: matched.sku,
-      combinations: `[${matched.combination}]`,
+      combination: `[${matched.combination}]`,
       combination_string: matched.combination_string,
       is_upload_artwork: selectedPrintType.children
         ? selectedPrintType.children.is_upload_artwork
@@ -156,8 +162,8 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
             behavior: "smooth",
           });
         },
-        onError: () => {
-          toast.error("Something went wrong");
+        onError: (error) => {
+          showToastMessage(error.response.data.message);
         },
       }
     );
@@ -234,6 +240,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
           selectedDelivery={selectedDelivery}
           setSelectedDelivery={setSelectedDelivery}
         />
+
         <PrintType
           selectedPrintType={selectedPrintType}
           setSelectedPrintType={setSelectedPrintType}
@@ -318,6 +325,24 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
             : formatPrice(0)
         }
         incVatPrice={
+          matched
+            ? formatPrice(
+                calculateTotal({
+                  price: matched.price,
+                  delivery_charge: selectedDelivery?.cost,
+                  artwork_charge: selectedPrintType?.children
+                    ? selectedPrintType?.children?.cost
+                    : selectedPrintType?.parent?.cost,
+                })
+              )
+            : formatPrice(0)
+        }
+      />
+      <MobileNav
+        addToCard={addToCart}
+        isPending={isPending}
+        matched={matched}
+        price={
           matched
             ? formatPrice(
                 calculateTotal({

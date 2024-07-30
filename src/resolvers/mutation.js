@@ -7,9 +7,70 @@ export const createCategoryMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/categories`, variables).then((res) => res.data);
 
 export const addToCartMutation = async ({ variables }) =>
-  axios.post(`${backendUrl}/cart`, variables).then((res) => res.data);
+  axios.post(`${backendUrl}/carts`, variables).then((res) => res.data);
 export const deleteIncompleteCartProductMutation = async ({ cart_id }) =>
-  axios.delete(`${backendUrl}/cart/${cart_id}`).then((res) => res.data);
+  axios.delete(`${backendUrl}/carts/${cart_id}`).then((res) => res.data);
 
 export const getIncompleteCartTotalQuery = async () =>
-  axios.get(`${backendUrl}/cart/incomplete/total`).then((res) => res.data);
+  axios.get(`${backendUrl}/carts/incomplete/total`).then((res) => res.data);
+
+export const deleteUploadedArtworkMutation = async ({ file_id, token }) =>
+  axios
+    .delete(`${backendUrl}/cart/files/${file_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const createAddressMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/address`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const updateAddressMutation = async ({ variables, token, address_id }) =>
+  axios
+    .put(`${backendUrl}/address/${address_id}`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const registerUserMutation = async ({ variables }) =>
+  axios.post(`${backendUrl}/register`, variables).then((res) => res.data);
+
+export const createCheckoutSessionMutation = async ({ token }) =>
+  axios
+    .post(
+      `${backendUrl}/checkout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data);
+
+export const skipFileUploadMutation = async ({ variables, cart_id, token }) =>
+  axios
+    .put(`${backendUrl}/carts/${cart_id}/file-skipped`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const checkoutMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/checkout`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

@@ -40,4 +40,63 @@ export const getArtworkServicesQuery = async ({ product_id }) =>
   await axios.get(`${backendUrl}/services/artworks`).then((res) => res.data);
 
 export const getIncompleteCartProductsQuery = async () =>
-  axios.get(`${backendUrl}/cart/incomplete`).then((res) => res.data);
+  axios.get(`${backendUrl}/carts/incomplete`).then((res) => res.data);
+
+export const verifyEmailQuery = async ({ verify_url, token, signature }) => {
+  return axios
+    .get(`${verify_url}&signature=${signature}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const getDeliveryAddressQuery = async ({ token }) =>
+  axios
+    .get(`${backendUrl}/user/address`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const fileCheckCombinationQuery = async ({ combination, token }) =>
+  axios
+    .get(`${backendUrl}/file-checks/combination?combination=${combination}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const getOrdersQuery = async ({ token }) =>
+  axios
+    .get(`${backendUrl}/orders`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const getCheckoutSessionQuery = async ({ session_id, token }) =>
+  axios
+    .post(
+      `${backendUrl}/success?session_id=${session_id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data);
+
+export const getSingleOrderQuery = async ({ order_id, token }) =>
+  axios
+    .get(`${backendUrl}/orders/${order_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

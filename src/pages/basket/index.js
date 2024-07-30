@@ -1,19 +1,10 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
-
-import dynamic from "next/dynamic";
-import BusketComponent from "@/components/pages/Busket";
-
-const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
-  ssr: false,
-});
+import BusketPageComponent from "@/components/pages/Busket/BusketPageComponent";
 
 const Checkout = () => {
   return (
     <ClientLayout>
-      <div className=" custom_container">
-        <Stepper />
-        <BusketComponent />
-      </div>
+      <BusketPageComponent />
     </ClientLayout>
   );
 };

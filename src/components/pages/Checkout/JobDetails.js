@@ -13,34 +13,34 @@ const JobDetails = ({ product }) => {
     <div className="flex-1 p-5 checkout-details">
       <SingleAccordion title={"Job Details"} isInitiallyExpanded={true}>
         <>
-          <div class=" flex flex-wrap gap-5">
-            <div className="w-[150px]">
+          <div class=" flex flex-wrap gap-5 text-sm md:text-base">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">Qty:</h1>
               <p>{product.quantity}</p>
             </div>
-            <div className="w-[150px]">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">Combination</h1>
               <p>{product.combination_string}</p>
             </div>
-            <div className="w-[150px]">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">SKU</h1>
               <p>{product.sku}</p>
             </div>
-            {/* <div className="w-[150px]">
+            {/* <div className="w-[120px] lg:w-[150px]">
             <h1 className="font-bold text-secondgraphy">Printed Sides</h1>
             <p>Single Sided</p>
           </div> */}
-            <div className="w-[150px]">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">Delivery Service</h1>
               <p>{product.delivery_service.service.title}</p>
             </div>
 
-            <div className="w-[150px]">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">Artwork Service</h1>
               <p>{product.artwork_service.title}</p>
             </div>
 
-            <div className="w-[150px]">
+            <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">
                 Estimated Delivery
               </h1>

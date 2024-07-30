@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 
-const BusketComponent = () => {
+const BusketComponent = ({ total_refetch }) => {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
@@ -13,15 +13,6 @@ const BusketComponent = () => {
 
   if (isLoading) {
     return <Loader />;
-  }
-
-  if (isError) {
-    return (
-      <div>
-        <h1>Something went wrong</h1>
-        <button onClick={() => refetch()}>Try again</button>
-      </div>
-    );
   }
 
   return (
@@ -37,6 +28,7 @@ const BusketComponent = () => {
           {data?.data.length > 0 ? (
             data.data.map((product, idx) => (
               <ProductCard
+                total_refetch={total_refetch}
                 key={product.id}
                 idx={idx}
                 product={product}
@@ -47,7 +39,9 @@ const BusketComponent = () => {
             <div className="text-center">No product in cart</div>
           )}
         </div>
-        <CheckoutSummary products={data?.data} isLoading={isLoading} />
+        <div className="w-full px-10 lg:block order-info lg:w-4/12">
+          <CheckoutSummary products={data?.data} isLoading={isLoading} />
+        </div>
       </div>
     </div>
   );

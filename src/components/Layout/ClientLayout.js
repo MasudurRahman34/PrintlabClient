@@ -18,14 +18,14 @@ const ClientLayout = ({ children }) => {
   };
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: "get_cart_total",
+    queryKey: ["get_cart_total"],
     queryFn: getIncompleteCartProductsQuery,
   });
 
-  const total_refetch = useCallback(() => {
+  const total_refetch = () => {
     refetch();
     setshowbasket(false);
-  }, [refetch]);
+  };
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
@@ -41,7 +41,7 @@ const ClientLayout = ({ children }) => {
           showcards={showcards}
           hideBasket={hideBasket}
           total={data?.data}
-          total_refetch={total_refetch}
+          total_refetch={refetch}
         />
         <Hoverbasket
           show={showbasket}

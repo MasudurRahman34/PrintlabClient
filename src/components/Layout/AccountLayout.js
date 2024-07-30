@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -51,6 +52,7 @@ const navLinks = [
 ];
 
 const AccountLayout = ({ children, breadcrumb }) => {
+  const { logout } = useAuth();
   const [opernav, setopernav] = useState(false);
   const navitem = (
     <>
@@ -66,8 +68,8 @@ const AccountLayout = ({ children, breadcrumb }) => {
   );
   return (
     <div>
-      <div className="container relative z-10 ">
-        <div className="mt-5 md:mt-[50px]  md:flex position-relative  z-10 ">
+      <div className="container relative ">
+        <div className="mt-5 md:mt-[50px]  md:flex position-relative  ">
           <div>
             <button onClick={() => setopernav(!opernav)}>
               <FaBars className="mt-5 text-2xl md:hidden " />
@@ -96,9 +98,16 @@ const AccountLayout = ({ children, breadcrumb }) => {
             <div className="border border-[#b7b7b7] mt-5 mb-5 w-[70%] "></div>
             <ul className="">{navitem}</ul>
             <div className="border border-[#b7b7b7]  mb-5 w-[70%] mt-[100px] "></div>
-            <button className="mt-5 mb-5">Log Out</button>
+            <button
+              className="mt-5 mb-5"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Log Out
+            </button>
           </div>
-          <div className="z-10 w-full md:w-9/12 pos">
+          <div className="w-full md:w-9/12 pos">
             <div>
               <h2 className="text-base font-bold md:text-lg text-secondgraphy ">
                 {breadcrumb}

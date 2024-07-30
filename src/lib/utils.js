@@ -66,3 +66,17 @@ export function truncateHTML({ html, maxWords }) {
 
   return truncatedText;
 }
+
+export const humanReadableDate = (date) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+export const validateLondonPostcode = (postcode) => {
+  const londonPostcodeRegex =
+    /^(E[0-9]|EC[0-9]|N[0-9]|NW[0-9]|SE[0-9]|SW[0-9]|W[0-9]|WC[0-9])[0-9A-Z]? \d[A-Z]{2}$/i;
+  return londonPostcodeRegex.test(postcode.trim());
+};

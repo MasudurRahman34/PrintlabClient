@@ -3,6 +3,7 @@ import Link from "next/link";
 import mug from "../../public/assets/mug1.webp";
 import { useRouter } from "next/router";
 import { truncateHTML } from "@/lib/utils";
+import Image from "next/image";
 
 const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
   const router = useRouter();
@@ -11,7 +12,7 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
     return <h1>Loading...</h1>;
   }
 
-  console.log(data);
+  console.log(product_category);
 
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
@@ -26,38 +27,33 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
           ></div>
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {data?.products.map((item) => (
-            <Link
-              href={`/${product_category}/${item?.slug}`}
-              key={item?.id}
-              className="flex flex-col transition-all duration-300 bg-white hover:shadow-primary hover:shadow-md"
-            >
-              <div className="w-full mb-1">
-                <img
-                  src={
-                    item?.media?.length > 0
-                      ? item?.media[0]?.url
-                      : "https://placehold.co/600"
-                  }
-                  alt={item?.title}
-                  className="object-cover w-full h-72"
-                />
-              </div>
-              <div className="w-full h-auto p-3 overflow-hidden text-center rounded-md">
-                <h2 className="text-xl font-semibold text-secondgraphy">
-                  {item?.title}
-                </h2>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: truncateHTML({
-                      html: item?.description,
-                      maxWords: 10,
-                    }),
-                  }}
-                ></div>
-              </div>
-            </Link>
-          ))}
+          {data?.products.map((item) => {
+            console.log(item);
+            return (
+              <Link href={`/${product_category}/${item?.slug}`} key={item.id}>
+                <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
+                  <div className="w-full h-[85%]">
+                    <Image
+                      className="object-cover w-full h-full"
+                      src={`${
+                        item?.media?.filter((item) => item.is_profile === 1)[0]
+                          ?.url || "/assets/products/placehounder.png"
+                      }`}
+                      class="card-img-top"
+                      alt="img"
+                      height={500}
+                      width={500}
+                    />
+                  </div>
+                  <div className="flex h-[15%] items-center justify-center">
+                    <p className="text-base font-medium text-center text-secondgraphy hover:underline hover:text-primary">
+                      {item.title}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

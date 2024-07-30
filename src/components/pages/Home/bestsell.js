@@ -91,8 +91,12 @@ const BestSell = () => {
                         </div>
                       </div>
                     </div>
-                  ) : (
+                  ) : data?.data?.length > 0 ? (
                     <EmblaCarousel slides={data?.data} options={OPTIONS} />
+                  ) : (
+                    <div className="text-center text-defaulttextcolor">
+                      <p>No product found</p>
+                    </div>
                   )}
                 </div>
               </div>
