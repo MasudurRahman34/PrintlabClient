@@ -1,6 +1,7 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 
 import UploadArtwork from "@/components/pages/Artwork";
+import withAuth from "@/hoc/withAuth";
 
 const Artwork = () => {
   return (
@@ -10,4 +11,4 @@ const Artwork = () => {
   );
 };
 
-export default Artwork;
+export default withAuth(Artwork);

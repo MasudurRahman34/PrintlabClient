@@ -2,6 +2,8 @@ import { formatPrice, humanReadableDate } from "@/lib/utils";
 import React from "react";
 
 const OrderCard = ({ fullWidth, item }) => {
+  console.log(item);
+
   return (
     <div
       className={` mb-4 overflow-hidden border rounded  border-gray-100 ${
@@ -49,7 +51,9 @@ const OrderCard = ({ fullWidth, item }) => {
                 </p>
               </div>
               <div>
-                <h1 className="font-semibold ">Just Print</h1>
+                <h1 className="font-semibold ">
+                  {item?.artwork_service?.title}
+                </h1>
               </div>
             </div>
             <div className="w-full p-2 bg-white md:w-1/3">
@@ -69,8 +73,9 @@ const OrderCard = ({ fullWidth, item }) => {
               </div>
               <div>
                 <h1 className="font-semibold ">Delivery By</h1>
-                <p className="text-sm">Thursday, 27th June 2024</p>
-                <p className="text-sm">By 8pm (FREE)</p>
+                <p className="text-sm">
+                  {humanReadableDate(item?.delivery_date)}
+                </p>
               </div>
             </div>
           </div>

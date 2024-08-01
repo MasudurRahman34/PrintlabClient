@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { memo, useEffect, useState } from "react";
 import { checkoutMutation } from "@/resolvers/mutation";
 import useToastMessage from "@/hooks/useToastMessage";
+import { getDateAfterDays } from "@/lib/utils";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
@@ -98,6 +99,7 @@ const ManullyAddress = () => {
         tempCheckoutState.shipping_address.push({
           cart_id: cart.id,
           shipment_id: null,
+          delivery_date: getDateAfterDays(cart.delivery_service.duration),
         });
       });
 

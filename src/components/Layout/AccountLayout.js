@@ -1,4 +1,4 @@
-"use client";
+import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useState } from "react";
@@ -127,4 +127,4 @@ const AccountLayout = ({ children, breadcrumb }) => {
   );
 };
 
-export default AccountLayout;
+export default withAuth(AccountLayout);

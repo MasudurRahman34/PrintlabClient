@@ -18,8 +18,6 @@ const SingleOrderItemComponent = () => {
     enabled: !!order_items_id && !!session?.token,
   });
 
-  console.log(data);
-
   return (
     <div>
       {isLoading ? (
@@ -27,7 +25,7 @@ const SingleOrderItemComponent = () => {
       ) : isError ? (
         <div>{error.message}</div>
       ) : (
-        data && data.data && <OrderCard fullWidth item={data.data} />
+        data && data?.data && <OrderCard fullWidth item={data?.data} />
       )}
     </div>
   );

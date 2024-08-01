@@ -80,3 +80,26 @@ export const validateLondonPostcode = (postcode) => {
     /^(E[0-9]|EC[0-9]|N[0-9]|NW[0-9]|SE[0-9]|SW[0-9]|W[0-9]|WC[0-9])[0-9A-Z]? \d[A-Z]{2}$/i;
   return londonPostcodeRegex.test(postcode.trim());
 };
+
+export function getDateAfterDays(days) {
+  // Create a new date object for the current date
+  const currentDate = new Date();
+
+  // Get the current hours
+  const currentHour = currentDate.getHours();
+
+  // If the current time is after 17:00 (5 PM), add an extra day
+  if (currentHour >= 17) {
+    days += 1;
+  }
+
+  // Add the specified number of days (with the possible extra day) to the current date
+  currentDate.setDate(currentDate.getDate() + days);
+
+  // Format the date as YYYY-MM-DD
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
+  const day = String(currentDate.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}

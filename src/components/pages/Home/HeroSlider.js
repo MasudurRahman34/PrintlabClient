@@ -2,26 +2,30 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Navigation } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import { getHeroBannerQuery } from "@/resolvers/query";
+import Loader from "@/components/Loader/Loader";
 
 const HeroSlider = () => {
+  const { data, isLoading, isError, isSuccess } = useQuery({
+    queryKey: ["heroSlider"],
+    queryFn: getHeroBannerQuery,
+  });
+
   return (
     <div className="hidden md:block">
       <Swiper navigation={true} modules={[Navigation]} className=" mySwiper">
-        <SwiperSlide>
-          <img
-            src="assets/images/Large Format Banner - desktop V2.webp"
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="assets/images/Brand Refresh - HOME Banner - Editable - Carole APPROVED copy.webp"
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="assets/images/BC homepage.webp" alt="" />
-        </SwiperSlide>
+        {isLoading ? (
+          <Loader />
+        ) : isError ? (
+          <div>Error</div>
+        ) : isSuccess && data?.data.length > 0 ? (
+          data?.data.map((item) => (
+            <SwiperSlide key={item.id}>
+              <img src={item.imageUrl} alt={item.title} />
+            </SwiperSlide>
+          ))
+        ) : null}
       </Swiper>
     </div>
   );

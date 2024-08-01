@@ -38,7 +38,7 @@ export const useAuth = () => {
       let user;
 
       const res = await axios.post(
-        `https://printlabapi.devtaijul.com/api/v1/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/login`,
         {
           email: credentials.email,
           password: credentials.password,

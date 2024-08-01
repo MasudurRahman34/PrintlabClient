@@ -121,9 +121,9 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center space-x-3">
+      {/*  <div className="flex items-center space-x-3">
         <span>VAT</span> <Switcher1 />
-      </div>
+      </div> */}
       <div className="hidden space-x-5 lg:flex">
         {links.map((link) => {
           return (
