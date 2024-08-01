@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const backendUrl =
-  process.env.BACKEND_URL || "https://printlabapi.devtaijul.com/api/v1";
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  "https://printlabapi.devtaijul.com/api/v2";
 
 export const createCategoryMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/categories`, variables).then((res) => res.data);

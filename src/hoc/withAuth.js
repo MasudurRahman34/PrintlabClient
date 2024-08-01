@@ -6,13 +6,17 @@ import { useEffect, memo } from "react";
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const router = useRouter();
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, isLoading, user } = useAuth();
 
     useEffect(() => {
       if (!isLoading && !isAuthenticated) {
         router.replace("/login");
+      } else if (isAuthenticated && user) {
+        if (user.email_verified_at === null) {
+          router.replace("/verify-email-alert");
+        }
       }
-    }, [isAuthenticated, router, isLoading]);
+    }, [isAuthenticated, router, isLoading, user]);
 
     if (isLoading) {
       return (

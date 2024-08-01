@@ -2,35 +2,34 @@ import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 
-const OrderTable = ({ orders }) => {
+const OrderItemTable = ({ orderItems }) => {
+  console.log(orderItems);
   return (
     <table className="w-full border border-collapse border-gray-200">
       <thead>
         <tr className="bg-gray-100">
-          <th className="px-2 text-left border border-gray-200">Order #</th>
-          <th className="border border-gray-200">Date</th>
+          <th className="px-2 text-left border border-gray-200">SR</th>
+          <th className="border border-gray-200">Combination String</th>
           <th className="border border-gray-200">Status</th>
           <th className="border border-gray-200">Total</th>
           <th className="border border-gray-200">Actions</th>
         </tr>
       </thead>
       <tbody>
-        {orders?.map((order) => (
-          <tr key={order.id}>
-            <td className="px-2 text-left border border-gray-200">
-              {order.order_number}
+        {orderItems?.map((orderItem, idx) => (
+          <tr key={orderItem.id}>
+            <td className="px-2 text-left border border-gray-200">{idx + 1}</td>
+            <td className="text-center border border-gray-200">
+              {orderItem.combination_string}
             </td>
             <td className="text-center border border-gray-200">
-              {order.order_date}
+              {orderItem.status}
             </td>
             <td className="text-center border border-gray-200">
-              {order.status}
+              {formatPrice(orderItem.total)}
             </td>
             <td className="text-center border border-gray-200">
-              {formatPrice(order.total_price)}
-            </td>
-            <td className="text-center border border-gray-200">
-              <Link href={`/my-account/orders/${order.id}`}>View</Link>
+              <Link href={`/my-account/order-items/${orderItem.id}`}>View</Link>
             </td>
           </tr>
         ))}
@@ -39,4 +38,4 @@ const OrderTable = ({ orders }) => {
   );
 };
 
-export default OrderTable;
+export default OrderItemTable;

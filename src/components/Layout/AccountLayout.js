@@ -1,4 +1,4 @@
-"use client";
+import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,6 +8,10 @@ const navLinks = [
   {
     name: "Orders",
     link: "/my-account/orders",
+  },
+  {
+    name: "Order Items",
+    link: "/my-account/order-items",
   },
   {
     name: "Invoice",
@@ -123,4 +127,4 @@ const AccountLayout = ({ children, breadcrumb }) => {
   );
 };
 
-export default AccountLayout;
+export default withAuth(AccountLayout);

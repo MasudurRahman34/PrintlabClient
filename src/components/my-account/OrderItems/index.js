@@ -10,19 +10,20 @@ import {
 import Link from "next/link";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import OrderTable from "./OrderTable";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
-import { getOrdersQuery } from "@/resolvers/query";
+import { getOrderItemsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
+import OrderItemTable from "./OrderItemsTable";
 
-const OrderComponent = () => {
+const OrderItems = () => {
   const { session } = useAuth();
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["orders", session?.token],
-    queryFn: () => getOrdersQuery({ token: session?.token }),
+    queryKey: ["order-items", session?.token],
+    queryFn: () => getOrderItemsQuery({ token: session?.token }),
     enabled: !!session?.token,
   });
+  console.log(data);
 
   return (
     <div>
@@ -110,7 +111,7 @@ const OrderComponent = () => {
           ) : isError ? (
             <p>You do not have any orders Yet </p>
           ) : data?.data.length > 0 ? (
-            <OrderTable orders={data?.data} />
+            <OrderItemTable orderItems={data?.data} />
           ) : (
             <p>You do not have any orders Yet </p>
           )}
@@ -120,4 +121,4 @@ const OrderComponent = () => {
   );
 };
 
-export default OrderComponent;
+export default OrderItems;

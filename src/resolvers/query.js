@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const backendUrl =
-  process.env.BACKEND_URL || "https://printlabapi.devtaijul.com/api/v1";
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  "https://printlabapi.devtaijul.com/api/v2";
 
 export const getCategoriesQuery = async ({ id = null }) =>
   await axios.get(`${backendUrl}/categories`).then((res) => res.data);
@@ -100,3 +101,23 @@ export const getSingleOrderQuery = async ({ order_id, token }) =>
       },
     })
     .then((res) => res.data);
+export const getOrderItemsQuery = async ({ order_id, token }) =>
+  axios
+    .get(`${backendUrl}/order-items`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const getSingleOrderItemsQuery = async ({ order_items_id, token }) =>
+  axios
+    .get(`${backendUrl}/order-items/${order_items_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const getHeroBannerQuery = async () =>
+  await axios.get(`${backendUrl}/banners`).then((res) => res.data);

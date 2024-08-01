@@ -1,6 +1,7 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 
 import ManullyAddress from "@/components/pages/delivery/ManullyAddress";
+import withAuth from "@/hoc/withAuth";
 
 const Checkout = () => {
   return (
@@ -10,4 +11,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default withAuth(Checkout);

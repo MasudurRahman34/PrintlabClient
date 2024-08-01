@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import NewAddressForm from "./NewAddressForm";
 
 import Loader from "@/components/Loader/Loader";
+import { getDateAfterDays, humanReadableDate } from "@/lib/utils";
 
 const DeliveryItems = ({
   item,
@@ -45,6 +46,8 @@ const DeliveryItems = ({
         (address) => address.is_default === 1
       );
 
+      console.log(defaultAddress);
+
       if (defaultAddress) {
         setSelectedAddress(defaultAddress.id.toString());
         set_checkout_state((prev) => {
@@ -53,7 +56,7 @@ const DeliveryItems = ({
             shipping_address: prev.shipping_address.map((item) => {
               return {
                 ...item,
-                shipment_id: defaultAddress.id,
+                shipment_id: defaultAddress?.id,
               };
             }),
           };
@@ -66,7 +69,7 @@ const DeliveryItems = ({
             shipping_address: prev.shipping_address.map((item) => {
               return {
                 ...item,
-                shipment_id: address_data[0].id,
+                shipment_id: address_data[0]?.id,
               };
             }),
           };
@@ -86,9 +89,14 @@ const DeliveryItems = ({
       <div>
         <div>
           <p>
-            delivery by 26/07/2024 <br /> Qty: 50, Paper Type: 350gsm Silk
-            Finish Paper, Size: A7, Lamination: Both Sides (Matt), Sides
-            Printed: Single Sided, On Saver Turnaround
+            delivery by{" "}
+            <span className="font-semibold text-secondgraphy">
+              {humanReadableDate(
+                getDateAfterDays(item.delivery_service.duration)
+              )}
+            </span>{" "}
+            <br /> Qty: {item.quantity}, Combination String:{" "}
+            {item.combination_string}
           </p>
         </div>
 
