@@ -1,9 +1,7 @@
 import { formatPrice, humanReadableDate } from "@/lib/utils";
 import React from "react";
-import { number } from "yup";
 
 const OrderCard = ({ fullWidth, item }) => {
-  console.log(item);
   return (
     <div
       className={` mb-4 overflow-hidden border rounded  border-gray-100 ${

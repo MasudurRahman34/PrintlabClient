@@ -10,6 +10,10 @@ const navLinks = [
     link: "/my-account/orders",
   },
   {
+    name: "Order Items",
+    link: "/my-account/order-items",
+  },
+  {
     name: "Invoice",
     link: "/my-account/invoice",
   },

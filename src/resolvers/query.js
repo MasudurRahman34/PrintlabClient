@@ -100,3 +100,20 @@ export const getSingleOrderQuery = async ({ order_id, token }) =>
       },
     })
     .then((res) => res.data);
+export const getOrderItemsQuery = async ({ order_id, token }) =>
+  axios
+    .get(`${backendUrl}/order-items`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
+export const getSingleOrderItemsQuery = async ({ order_items_id, token }) =>
+  axios
+    .get(`${backendUrl}/order-items/${order_items_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
