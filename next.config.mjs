@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["printlabapi.devtaijul.com"],
+    domains: ["printlabapi.devtaijul.com", "test.api.weareprintlab.co.uk"],
   },
 };
 

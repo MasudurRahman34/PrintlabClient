@@ -75,3 +75,11 @@ export const checkoutMutation = async ({ variables, token }) =>
       },
     })
     .then((res) => res.data);
+export const resendVerificationEmailMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/email/verification-notification`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

@@ -24,18 +24,17 @@ const navItems = [
     title: "About Us",
     links: [
       { name: "About Us", href: "#" },
-      { name: "Tradeprint Blog", href: "#" },
+      { name: "weareprintlab Blog", href: "#" },
       { name: "Careers", href: "#" },
-      { name: "ISO Frameworks", href: "#" },
     ],
   },
   {
-    title: "PRO Tools",
+    title: "FAQ",
     links: [
-      { name: "Pro Tools", href: "#" },
+      /* { name: "Pro Tools", href: "#" },
       { name: "Sample Packs", href: "#" },
       { name: "Tradeprint API", href: "#" },
-      { name: "Tradeprint PRO", href: "#" },
+      { name: "Tradeprint PRO", href: "#" }, */
     ],
   },
   {
@@ -44,8 +43,6 @@ const navItems = [
       { name: "Terms & Conditions", href: "#" },
       { name: "Privacy & Cookie Policy", href: "#" },
       { name: "Environmental Policy", href: "#" },
-      { name: "Two Sides", href: "#" },
-      { name: "Modern Slavery Statement", href: "#" },
     ],
   },
 ];
@@ -75,7 +72,7 @@ const ClientFooter = () => {
                 />
                 <button
                   type="button"
-                  class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold text-white transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
+                  class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold  transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary text-secondgraphy"
                 >
                   Subscribe
                 </button>
@@ -126,152 +123,85 @@ const ClientFooter = () => {
           <div className="block md:hidden">
             <LabAccordion title="Social Links" triggerStyle="bg-primary">
               <div>
+                <h4 className="text-lg font-semibold text-white">Follow Us</h4>
                 <div className="flex items-center w-full max-w-xl gap-2">
                   <Link
                     href="#"
+                    target="_blank"
                     className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
                   >
                     <FaLinkedinIn />
                   </Link>{" "}
                   <Link
-                    href="#"
+                    href="https://www.facebook.com/ukprintlab"
+                    target="_blank"
                     className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
                   >
                     <FaFacebookF />
                   </Link>{" "}
                   <Link
-                    href="#"
+                    href="https://www.instagram.com/printlab_uk/"
+                    target="_blank"
                     className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
                   >
                     <FaInstagram />
                   </Link>{" "}
                   <Link
                     href="#"
+                    target="_blank"
                     className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
                   >
                     <FaYoutube />
                   </Link>{" "}
                   <Link
                     href="#"
-                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-                  >
-                    <FaTiktok />
-                  </Link>{" "}
-                  <Link
-                    href="#"
+                    target="_blank"
                     className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
                   >
                     <FaXTwitter />
                   </Link>{" "}
-                  <Link
-                    href="#"
-                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-                  >
-                    <FaLinkedinIn />
-                  </Link>{" "}
-                  <Link
-                    href="#"
-                    className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-                  >
-                    <FaLinkedinIn />
-                  </Link>
                 </div>
-                <h4 className="text-lg font-semibold text-white">Follow Us</h4>
-                <ul className="flex gap-5">
-                  <li>
-                    <a href="#" className="text-white hover:text-primary">
-                      Facebook
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="text-white hover:text-primary">
-                      Twitter
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="text-white hover:text-primary">
-                      Instagram
-                    </a>
-                  </li>
-                </ul>
               </div>
             </LabAccordion>
           </div>
           <div className="hidden md:block">
+            <h4 className="mb-2 text-lg font-semibold text-white">Follow Us</h4>
             <div className="flex items-center w-full max-w-xl gap-2">
               <Link
                 href="#"
+                target="_blank"
                 className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaLinkedinIn />
               </Link>{" "}
               <Link
-                href="#"
+                href="https://www.facebook.com/ukprintlab"
+                target="_blank"
                 className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaFacebookF />
               </Link>{" "}
               <Link
-                href="#"
+                href="https://www.instagram.com/printlab_uk/"
+                target="_blank"
                 className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaInstagram />
               </Link>{" "}
               <Link
                 href="#"
+                target="_blank"
                 className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
               >
                 <FaYoutube />
               </Link>{" "}
-              <Link
-                href="#"
-                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-              >
-                <FaTiktok />
-              </Link>{" "}
-              <Link
-                href="#"
-                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-              >
-                <FaXTwitter />
-              </Link>{" "}
-              <Link
-                href="#"
-                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-              >
-                <FaLinkedinIn />
-              </Link>{" "}
-              <Link
-                href="#"
-                className="flex items-center justify-center rounded-full bg-primary w-7 h-7 text-secondgraphy"
-              >
-                <FaLinkedinIn />
-              </Link>
             </div>
-            <h4 className="text-lg font-semibold text-white">Follow Us</h4>
-            <ul className="flex gap-5">
-              <li>
-                <a href="#" className="text-white hover:text-primary">
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:text-primary">
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:text-primary">
-                  Instagram
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
       </section>
       <section className="text-white bg-typography">
         <div className="container py-5 mx-auto ">
-          <div className="flex flex-col gap-4 py-5 md:flex-row item">
+          {/* <div className="flex flex-col gap-4 py-5 md:flex-row item">
             <div className="flex flex-col items-center flex-1 gap-4 md:flex-row">
               <div className="flex items-center space-x-2 text-sm sm:text-base md:text-lg lg:text-xl">
                 <span>
@@ -368,14 +298,16 @@ const ClientFooter = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <hr className="w-full text-white" />
-          <div className="flex items-center justify-between w-full py-5 text-sm sm:text-base md:text-lg lg:text-xl">
+          </div> */}
+          {/* <hr className="w-full text-white" /> */}
+          <div className="flex items-center justify-between w-full py-5 text-sm sm:text-base ">
             <p>
-              2024 © Tradeprint. All Rights Reserved. Tradeprint is a trading
+              2024 © weareprintlab. All Rights Reserved. weareprintlab is a
+              trading
             </p>
             <Link
               href="#"
+              target="_blank"
               className="hidden text-white underline hover:text-primary md:block"
             >
               Home

@@ -97,7 +97,7 @@ const Userlogin = () => {
                       <input
                         type="submit"
                         value="Sign In"
-                        className="text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary"
+                        className="text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-secondgraphy cursor-pointer text-center py-2 w-full rounded-md  bg-primary"
                       />
                     </div>
                     <div className="w-full mb-5">

@@ -29,7 +29,10 @@ const ClientLayout = ({ children }) => {
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { total_refetch, working: "working" });
+      return React.cloneElement(child, {
+        total_refetch,
+        cart_items: data?.data,
+      });
     }
     return child;
   });

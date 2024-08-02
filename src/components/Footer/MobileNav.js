@@ -4,7 +4,7 @@ import { BsFillBasketFill } from "react-icons/bs";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const MobileNav = ({ cartItems, addToCard, isPending, matched, price }) => {
+const MobileNav = ({ addToCard, isPending, matched, price, cart_items }) => {
   return (
     <div
       className="fixed bottom-0 left-0 flex w-full bg-white border-t-2 shadow-inner h-14 md:hidden border-secondgraphy"
@@ -26,12 +26,20 @@ const MobileNav = ({ cartItems, addToCard, isPending, matched, price }) => {
           )}
         </button>
       </div>
-      <Link
-        href="/basket"
-        className="flex items-center justify-center w-16 h-full bg-white rounded-md shadow-inner cursor-pointer"
-      >
-        <BsFillBasketFill className="w-7 h-7 text-secondgraphy" />
-      </Link>
+      <div className="relative w-16 bg-white">
+        {cart_items?.length > 0 && (
+          <div className="absolute flex items-center justify-center w-6 h-6 text-sm font-bold text-white bg-red-500 rounded-full right-2 top-1 ">
+            {cart_items?.length}
+          </div>
+        )}
+
+        <Link
+          href="/basket"
+          className="flex items-center justify-center h-full rounded-md shadow-inner cursor-pointer"
+        >
+          <BsFillBasketFill className="w-7 h-7 text-secondgraphy" />
+        </Link>
+      </div>
     </div>
   );
 };

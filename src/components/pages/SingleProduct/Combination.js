@@ -18,7 +18,7 @@ import ColorRadio from "./ColorRadio";
 import MobileNav from "@/components/Footer/MobileNav";
 import useToastMessage from "@/hooks/useToastMessage";
 
-const Combination = ({ data, isProductLoading, total_refetch }) => {
+const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   const showToastMessage = useToastMessage();
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
@@ -341,6 +341,7 @@ const Combination = ({ data, isProductLoading, total_refetch }) => {
       <MobileNav
         addToCard={addToCart}
         isPending={isPending}
+        cart_items={cart_items}
         matched={matched}
         price={
           matched
