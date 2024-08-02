@@ -2,7 +2,7 @@ import axios from "axios";
 
 const backendUrl =
   process.env.NEXT_PUBLIC_BACKEND_URL ||
-  "https://printlabapi.devtaijul.com/api/v2";
+  "https://printlabapi.devtaijul.com/api/v1";
 
 export const getCategoriesQuery = async ({ id = null }) =>
   await axios.get(`${backendUrl}/categories`).then((res) => res.data);
