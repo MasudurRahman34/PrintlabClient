@@ -10,7 +10,7 @@ import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import detaisimg  from "./assete/products/placehounder.png";
 
-const SingleProductPageComponent = ({ total_refetch }) => {
+const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
   const router = useRouter();
   const { single_product, product_category } = router.query;
 
@@ -87,6 +87,7 @@ const SingleProductPageComponent = ({ total_refetch }) => {
           data={data}
           isProductLoading={isLoading}
           total_refetch={total_refetch}
+          cart_items={cart_items}
         />
       </div>
       <div>

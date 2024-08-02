@@ -1,23 +1,74 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Loader from "@/components/Loader/Loader";
 import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
+import { resendVerificationEmailMutation } from "@/resolvers/mutation";
 import { verifyEmailQuery } from "@/resolvers/query";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 const EmailVerify = () => {
+  const showToastMessage = useToastMessage();
   const router = useRouter();
-  const { isAuthenticated, session, user } = useAuth();
+
+  const {
+    isAuthenticated,
+    session,
+    user,
+    isLoading: authIsLoading,
+  } = useAuth();
   const { verify_url, signature } = router.query;
 
-  const { data, isLoading, refetch, isError, error } = useQuery({
+  const { data, isLoading, refetch, isError, error, isSuccess } = useQuery({
     queryKey: ["verifyEmail", verify_url, session, signature],
     queryFn: () =>
       verifyEmailQuery({ verify_url, token: session?.token, signature }),
     enabled: !!verify_url && !!session && !!signature,
   });
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: "resend-verification-email",
+    mutationFn: resendVerificationEmailMutation,
+  });
+
+  const handleResendVerificationEmail = () => {
+    mutate(
+      { variables: {}, token: session?.token },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          toast.success("Verification email sent successfully");
+        },
+        onError: (error) => {
+          console.log(error);
+          showToastMessage(error.response.data.message);
+        },
+      }
+    );
+  };
+
+  const verifyUserSession = async () => {
+    const tempUser = user;
+
+    if (tempUser?.email_verified_at) {
+      return true;
+    }
+
+    const updatedUser = {
+      ...tempUser,
+      email_verified_at: new Date().toISOString(),
+    };
+
+    await localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      verifyUserSession();
+    }
+  }, [isSuccess]);
 
   return (
     <ClientLayout>
@@ -73,7 +124,10 @@ const EmailVerify = () => {
                   the button below to resend the verification email
                 </p>
                 <div className="text-center ">
-                  <button className="px-4 py-2 mt-4 text-white rounded-md bg-secondgraphy">
+                  <button
+                    className="px-4 py-2 mt-4 text-white rounded-md bg-secondgraphy"
+                    onClick={handleResendVerificationEmail}
+                  >
                     Resend Verification Email
                   </button>
                 </div>

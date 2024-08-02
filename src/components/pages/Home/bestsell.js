@@ -37,7 +37,7 @@ const BestSell = () => {
 
   const OPTIONS = { align: "start" };
 
-  const { isPending, data, isError, error } = useQuery({
+  const { isLoading, data, isError, error } = useQuery({
     queryKey: ["best-sell"],
     queryFn: getAllProductsQuery,
   });
@@ -80,17 +80,12 @@ const BestSell = () => {
                 </div>
 
                 <div className="mt-3">
-                  {isPending || isError ? (
+                  {isLoading ? (
                     <div>
-                      <div className="flex items-center justify-center">
-                        <div className="w-20 h-20 border-t-2 border-b-2 rounded-full border-primary animate-spin"></div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-sm text-defaulttextcolor">
-                          {isPending ? <Loader /> : "error"}
-                        </div>
-                      </div>
+                      <Loader />
                     </div>
+                  ) : isError ? (
+                    <div>Something went wrong!</div>
                   ) : data?.data?.length > 0 ? (
                     <EmblaCarousel slides={data?.data} options={OPTIONS} />
                   ) : (

@@ -1,7 +1,41 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
-import React from "react";
+import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
+import { resendVerificationEmailMutation } from "@/resolvers/mutation";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const VerifyEmailAlert = () => {
+  const router = useRouter();
+  const showToastMessage = useToastMessage();
+  const { session, isAuthenticated, isLoading } = useAuth();
+  const { mutate, isPending } = useMutation({
+    mutationKey: "resend-verification-email",
+    mutationFn: resendVerificationEmailMutation,
+  });
+
+  const handleResendVerificationEmail = () => {
+    mutate(
+      { variables: {}, token: session?.token },
+      {
+        onSuccess: (data) => {
+          toast.success("Verification email sent successfully");
+        },
+        onError: (error) => {
+          showToastMessage(error.response.data.message);
+        },
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated, isLoading]);
+
   return (
     <ClientLayout>
       <div className="container mx-auto ">
@@ -15,8 +49,14 @@ const VerifyEmailAlert = () => {
               check your email and click on the link to verify your email.
             </p>
             <div className="text-center ">
-              <button className="px-4 py-2 mt-4 text-white rounded-md bg-secondgraphy">
-                Resend Verification Email
+              <button
+                className="px-4 py-2 mt-4 text-white rounded-md bg-secondgraphy"
+                onClick={handleResendVerificationEmail}
+                disabled={isPending}
+              >
+                {isPending
+                  ? "Sending verification email..."
+                  : "Resend verification email"}
               </button>
             </div>
           </div>

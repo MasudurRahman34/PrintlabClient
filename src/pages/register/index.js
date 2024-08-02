@@ -109,9 +109,9 @@ const Signup = () => {
   return (
     <ClientLayout>
       <>
-        <div className="container px-2 mx-auto mt-10 mb-2 md:mb-5 ">
+        <div className="container px-4 mx-auto mt-10 mb-2 md:mb-5 ">
           <div className="flex justify-center ">
-            <div className="w-[50%]">
+            <div className="w-full max-w-lg">
               <h4 className="mt-5 mb-5 text-lg font-semibold text-center md:font-bold py-5px-5 md:text-xl lg:text-2xl xl:text-3xl">
                 Register
               </h4>
@@ -272,7 +272,7 @@ const Signup = () => {
                   </div>
 
                   <div className="mb-2">
-                    <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-white text-center py-2 w-full rounded-md  bg-primary">
+                    <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-secondgraphy text-center py-2 w-full rounded-md  bg-primary">
                       Sign Up
                     </button>
                   </div>
