@@ -133,7 +133,6 @@ const UploadArtwork = () => {
   return (
     <div className="py-5 custom_container ">
       <Stepper activeStep={1} />
-      <div className="payment-process"></div>
 
       <div className="p-4 bg-secondary">
         <div className="bg-white artsummry ">

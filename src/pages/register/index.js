@@ -85,22 +85,6 @@ const Signup = () => {
           },
         }
       );
-
-      /*  const users = localStorage.getItem("users");
-      let usersArray = [];
-      if (users) {
-        usersArray = JSON.parse(users);
-      }
-      usersArray.push({
-        id: usersArray.length + 1,
-        first_name,
-        last_name,
-        email,
-        password,
-
-      });
-
-      localStorage.setItem("users", JSON.stringify(usersArray)); */
     } else {
       toast.error("Please fill all the fields");
     }
@@ -272,8 +256,11 @@ const Signup = () => {
                   </div>
 
                   <div className="mb-2">
-                    <button className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-secondgraphy text-center py-2 w-full rounded-md  bg-primary">
-                      Sign Up
+                    <button
+                      disabled={isPending}
+                      className=" text-base md:text-lg hover:bg-[#eed680] font-semibold md:font-bold text-secondgraphy text-center py-2 w-full rounded-md  bg-primary"
+                    >
+                      {isPending ? "Registering..." : "Register"}
                     </button>
                   </div>
                   <div className="w-full mb-5">
