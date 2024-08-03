@@ -83,3 +83,6 @@ export const resendVerificationEmailMutation = async ({ variables, token }) =>
       },
     })
     .then((res) => res.data);
+
+export const loginMutation = async ({ variables }) =>
+  axios.post(`${backendUrl}/login`, variables).then((res) => res.data);

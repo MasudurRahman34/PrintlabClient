@@ -28,6 +28,8 @@ const ManullyAddress = () => {
     billing_address: null,
   });
 
+  console.log("checkout_state", checkout_state);
+
   const { data, isLoading, isError, error, isSuccess, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
@@ -53,27 +55,34 @@ const ManullyAddress = () => {
 
   const handleCheckout = () => {
     // validating all data is available or not null or undefined
-    if (
-      checkout_state.cart_id.length > 0 &&
-      checkout_state.shipping_address.length > 0 &&
-      checkout_state.billing_address
-    ) {
-      mutate(
-        {
-          variables: checkout_state,
-          token: session?.token,
+
+    const variables = {};
+
+    if (checkout_state.cart_id.length === 0)
+      return showToastMessage("Cart is empty");
+    if (checkout_state.shipping_address.length === 0)
+      return showToastMessage("Shipping address is required");
+    if (!checkout_state.billing_address)
+      return showToastMessage("Billing address is required");
+
+    variables.cart_id = checkout_state.cart_id;
+    variables.shipping_address = checkout_state.shipping_address;
+    variables.billing_address = checkout_state.billing_address;
+
+    mutate(
+      {
+        variables,
+        token: session?.token,
+      },
+      {
+        onSuccess: (data) => {
+          location.href = `${data?.data.url}`;
         },
-        {
-          onSuccess: (data) => {
-            console.log(data);
-            location.href = `${data?.data.url}`;
-          },
-          onError: (error) => {
-            showToastMessage(error);
-          },
-        }
-      );
-    }
+        onError: (error) => {
+          showToastMessage(error);
+        },
+      }
+    );
   };
   useEffect(() => {
     if (isSuccess && address_isSuccess) {
@@ -94,11 +103,18 @@ const ManullyAddress = () => {
         billing_address: billing_address ? billing_address.id : null,
       };
 
+      const defaultAddress =
+        (address_data?.data?.length > 0 &&
+          address_data?.data.find(
+            (address_data) => address_data.is_default === 1
+          )) ||
+        address_data?.data[0];
+
       data?.data.forEach((cart) => {
         tempCheckoutState.cart_id.push(cart.id);
         tempCheckoutState.shipping_address.push({
           cart_id: cart.id,
-          shipment_id: null,
+          shipment_id: defaultAddress?.id,
           delivery_date: getDateAfterDays(cart.delivery_service.duration),
         });
       });
@@ -109,11 +125,11 @@ const ManullyAddress = () => {
 
   return (
     <>
-      <div className=" custom_container">
+      <div className="custom_container">
         <Stepper activeStep={2} />
       </div>
-      <div className="custom_container ">
-        <h1 className="px-3 py-2 mt-5 text-lg font-bold md:text-2xl lg:text-3xl text-secondgraphy md:py-5">
+      <div className="custom_container">
+        <h1 className="px-3 py-2 text-lg font-bold md:text-2xl lg:text-3xl text-secondgraphy md:py-5">
           Delivery
         </h1>
         <div className="gap-5 md:flex">

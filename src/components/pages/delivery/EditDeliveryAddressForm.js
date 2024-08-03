@@ -105,11 +105,19 @@ const EditDeliveryAddressForm = ({
   return (
     <div>
       <div className="px-3 py-2 md:py-3">
-        <div className="flex items-center justify-between mb-2 md:mb-3 ">
-          <h6 className="px-2 py-5 text-base font-semibold text-black ">
-            Edit Delivery Address
-          </h6>
-        </div>
+        {data?.type === "shipping" ? (
+          <div className="flex items-center justify-between mb-2 md:mb-3 ">
+            <h6 className="px-2 py-5 text-base font-semibold text-black ">
+              Edit Delivery Address
+            </h6>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between mb-2 md:mb-3 ">
+            <h6 className="px-2 py-5 text-base font-semibold text-black ">
+              Edit Billing Address
+            </h6>
+          </div>
+        )}
 
         {/* ---------- */}
         <div className="flex ">
@@ -246,7 +254,7 @@ const EditDeliveryAddressForm = ({
         </div>
         <div className="bg-[#faefc9] p-2 md:p-5">
           <div>
-            {data.type === "shipping" ? (
+            {data?.type === "shipping" ? (
               <>
                 <h5 className="mb-2 text-base font-semibold text-typography ">
                   How would like to be update on your Delivery
@@ -262,7 +270,9 @@ const EditDeliveryAddressForm = ({
             ) : null}
             <div className="flex ">
               <label className="w-[40%] text-secondgraphy font-semibold  text-sm md:text-base ">
-                Delivery contact Mobile number
+                {data?.type === "shipping"
+                  ? "Delivery Mobile Number"
+                  : "Billing Mobile Number"}
               </label>
 
               <div className="w-[60%]">
@@ -281,7 +291,9 @@ const EditDeliveryAddressForm = ({
             </div>
             <div className="flex mt-2 md:mt-4 ">
               <label className="w-[40%] text-secondgraphy font-semibold  text-sm md:text-base ">
-                Delivery Enter Email
+                {data?.type === "shipping"
+                  ? "Delivery Email Address"
+                  : "Billing Email Address"}
               </label>
 
               <div className="w-[60%]">
@@ -318,7 +330,7 @@ const EditDeliveryAddressForm = ({
               })
             }
           >
-            {data.type === "shipping" ? "Choose different address" : "Cancel"}
+            {data?.type === "shipping" ? "Choose different address" : "Cancel"}
           </button>
         </div>
       </form>

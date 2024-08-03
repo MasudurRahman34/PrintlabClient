@@ -32,31 +32,12 @@ export const useAuth = () => {
     }
   }, []);
 
-  const login = async (credentials, { redirect_url }) => {
+  const login = async ({ token, token_type, user }) => {
     try {
-      let session;
-      let user;
-
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
-        {
-          email: credentials.email,
-          password: credentials.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = await res?.data?.data;
-
-      session = {
-        token: data?.token,
-        token_type: data?.tokenType,
+      const session = {
+        token,
+        token_type,
       };
-      user = data?.user;
 
       // Save user and token to localStorage
       if (typeof window !== "undefined") {
@@ -67,17 +48,8 @@ export const useAuth = () => {
       setUser(user);
       setSession(session);
       setIsAuthenticated(true);
-      toast.success(data.message || "Login successful");
-      return {
-        status: "success",
-        message: data.message,
-      };
     } catch (error) {
-      showToastMessage(error?.response?.data?.message || "Login failed");
       setIsAuthenticated(false);
-      return {
-        status: "error",
-      };
     }
   };
 

@@ -1,12 +1,11 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
+import Loader from "@/components/Loader/Loader";
+import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import { getCheckoutSessionQuery } from "@/resolvers/query";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 
 const SuccessPage = () => {
   const { session } = useAuth();
@@ -22,14 +21,17 @@ const SuccessPage = () => {
 
   return (
     <ClientLayout>
-      <div className="container mx-auto">
+      <div className="custom_container">
         {/* {isLoading && <p>Loading...</p>}
         {isError && <p>Error</p>}
         {data && ( */}
         <div className="flex flex-col items-center justify-center gap-4 p-4 md:p-6">
           <div className="flex flex-col items-center gap-2 text-center">
             {isLoading ? (
-              <h1>Checking payment status</h1>
+              <div>
+                <Loader />
+                <h1>Checking Order status </h1>
+              </div>
             ) : (
               <>
                 {isError ? (
@@ -103,4 +105,4 @@ function XIcon(props) {
   );
 }
 
-export default SuccessPage;
+export default withAuth(SuccessPage);

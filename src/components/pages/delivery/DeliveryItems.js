@@ -46,37 +46,14 @@ const DeliveryItems = ({
         (address) => address.is_default === 1
       );
 
-      console.log(defaultAddress);
-
       if (defaultAddress) {
         setSelectedAddress(defaultAddress.id.toString());
-        set_checkout_state((prev) => {
-          return {
-            ...prev,
-            shipping_address: prev.shipping_address.map((item) => {
-              return {
-                ...item,
-                shipment_id: defaultAddress?.id,
-              };
-            }),
-          };
-        });
       } else {
         setSelectedAddress(address_data[0].id.toString());
-        set_checkout_state((prev) => {
-          return {
-            ...prev,
-            shipping_address: prev.shipping_address.map((item) => {
-              return {
-                ...item,
-                shipment_id: address_data[0]?.id,
-              };
-            }),
-          };
-        });
       }
     }
-  }, [address_data, set_checkout_state]);
+  }, [address_data]);
+
   return (
     <div>
       {showNewAddressForm && (
