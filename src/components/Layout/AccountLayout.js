@@ -71,8 +71,8 @@ const AccountLayout = ({ children, breadcrumb }) => {
     </>
   );
   return (
-    <div>
-      <div className="container relative ">
+    <div className="custom_container">
+      <div className="relative ">
         <div className="mt-5 md:mt-[50px]  md:flex position-relative  ">
           <div>
             <button onClick={() => setopernav(!opernav)}>
