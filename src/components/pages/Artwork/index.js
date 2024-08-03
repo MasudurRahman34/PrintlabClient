@@ -198,7 +198,6 @@ const UploadArtwork = () => {
               ))}
             </div>
             {state?.map((product, idx) => {
-              console.log(product);
               if (
                 product.id === activeCart &&
                 product.is_design_service === 1

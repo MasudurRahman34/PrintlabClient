@@ -97,9 +97,11 @@ const UploadArtworkCard = ({
     }
   };
 
-  const uploadFile = (file, isForceUpload) => {
+  const uploadFile = (file, isForceUpload = false) => {
+    console.log(isForceUpload, "isForceUpload");
+
     setShowProgress(true);
-    const url = `https://printlabapi.devtaijul.com/api/v1/cart/${product.id}/files`; // Replace with your upload URL
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
     formData.append("files", file);
 
@@ -153,8 +155,8 @@ const UploadArtworkCard = ({
     );
   };
 
-  const handleUploadFile = () => {
-    uploadFile(file);
+  const handleUploadFile = ({ isForceUpload }) => {
+    uploadFile(file, isForceUpload);
   };
 
   useEffect(() => {
@@ -318,7 +320,9 @@ const UploadArtworkCard = ({
                 ) : (
                   <button
                     className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
-                    onClick={handleUploadFile}
+                    onClick={() => {
+                      handleUploadFile({ isForceUpload: true });
+                    }}
                   >
                     Force Upload
                     <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
