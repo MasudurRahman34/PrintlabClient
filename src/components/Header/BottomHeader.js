@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaAngleLeft } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoriesQuery } from "@/resolvers/query";
 import Loader from "../Loader/Loader";

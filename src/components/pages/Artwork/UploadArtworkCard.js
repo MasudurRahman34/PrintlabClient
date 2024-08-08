@@ -35,6 +35,26 @@ const UploadArtworkCard = ({
       result: null,
       instruction: "Every page should have minimum bleed",
     },
+    /* A4: {
+      isLoading: false,
+      result: null,
+      instruction: "Every page should be A4 size",
+    },
+    A2: {
+      isLoading: false,
+      result: null,
+      instruction: "Every page should be A2 size",
+    }, */
+    Letter: {
+      isLoading: false,
+      result: null,
+      instruction: "Every page should be letter size",
+    },
+    /*  A3: {
+      isLoading: false,
+      result: null,
+      instruction: "Every page should be A3 size",
+    }, */
   });
 
   const { mutate, isPending } = useMutation({
@@ -98,8 +118,6 @@ const UploadArtworkCard = ({
   };
 
   const uploadFile = (file, isForceUpload = false) => {
-    console.log(isForceUpload, "isForceUpload");
-
     setShowProgress(true);
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();

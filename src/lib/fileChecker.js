@@ -9,13 +9,45 @@ export const checkPdfFile = async (file, checkType) => {
     let checkResult = false;
 
     const SIZES = {
+      A2: { width: 1190.55, height: 1683.78 },
+      A3: { width: 841.89, height: 1190.55 },
       A4: { width: 595.28, height: 841.89 },
       Letter: { width: 612, height: 792 },
       A5: { width: 419.53, height: 595.28 },
     };
     const MIN_BLEED = 18;
 
+    const hasBleedMargin = (page, size) => {
+      const { width, height } = page.getSize();
+      console.log(size.width + MIN_BLEED, width);
+
+      return (
+        width >= size.width + MIN_BLEED && height >= size.height + MIN_BLEED
+      );
+    };
+
     switch (checkType) {
+      case "A2":
+        // Check if all pages in the PDF are A2 size (1190.55 x 1683.78 points)
+        checkResult = pdfDoc.getPages().every((page) => {
+          const { width, height } = page.getSize();
+          return (
+            Math.abs(width - SIZES.A2.width) < 1 &&
+            Math.abs(height - SIZES.A2.height) < 1
+          );
+        });
+        break;
+
+      case "A3":
+        // Check if all pages in the PDF are A3 size (841.89 x 1190.55 points)
+        checkResult = pdfDoc.getPages().every((page) => {
+          const { width, height } = page.getSize();
+          return (
+            Math.abs(width - SIZES.A3.width) < 1 &&
+            Math.abs(height - SIZES.A3.height) < 1
+          );
+        });
+        break;
       case "A4":
         // Check if all pages in the PDF are A4 size (595.28 x 841.89 points)
         checkResult = pdfDoc.getPages().every((page) => {
@@ -27,19 +59,45 @@ export const checkPdfFile = async (file, checkType) => {
         });
         break;
 
-      case "Bleed":
-        // Check if no page in the PDF has a size smaller than standard sizes minus 18 points
+      case "A5":
+        // Check if all pages in the PDF are A5 size (419.53 x 595.28 points)
         checkResult = pdfDoc.getPages().every((page) => {
           const { width, height } = page.getSize();
           return (
-            width >= SIZES.A4.width - MIN_BLEED &&
-            height >= SIZES.A4.height - MIN_BLEED &&
-            width >= SIZES.Letter.width - MIN_BLEED &&
-            height >= SIZES.Letter.height - MIN_BLEED &&
-            width >= SIZES.A5.width - MIN_BLEED &&
-            height >= SIZES.A5.height - MIN_BLEED
+            Math.abs(width - SIZES.A5.width) < 1 &&
+            Math.abs(height - SIZES.A5.height) < 1
           );
         });
+        break;
+
+      case "Letter":
+        // Check if all pages in the PDF are Letter size (612 x 792 points)
+        checkResult = pdfDoc.getPages().every((page) => {
+          const { width, height } = page.getSize();
+          console.log(width, height);
+
+          return (
+            Math.abs(width - SIZES.Letter.width) < 1 &&
+            Math.abs(height - SIZES.Letter.height) < 1
+          );
+        });
+        break;
+
+      case "Bleed":
+        // Check if no page in the PDF has a size smaller than standard sizes minus 18 points
+        checkResult = pdfDoc
+          .getPages()
+          .every(
+            (page) =>
+              hasBleedMargin(page, SIZES.A4) ||
+              hasBleedMargin(page, SIZES.Letter) ||
+              hasBleedMargin(page, SIZES.A5) ||
+              hasBleedMargin(page, SIZES.A3) ||
+              hasBleedMargin(page, SIZES.A2)
+          );
+
+        console.log(checkResult);
+
         break;
 
       case "singleSided":
