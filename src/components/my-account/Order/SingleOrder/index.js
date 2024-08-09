@@ -36,7 +36,12 @@ const SingleOrderComponent = () => {
             <Loader />
           ) : isSuccess && data ? (
             data?.data.order_items.map((item) => (
-              <OrderCard key={item.id} item={item} fullWidth />
+              <OrderCard
+                key={item.id}
+                item={item}
+                fullWidth
+                refetch={refetch}
+              />
             ))
           ) : (
             <p>No Items found</p>

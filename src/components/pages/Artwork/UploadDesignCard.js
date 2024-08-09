@@ -49,7 +49,7 @@ const UploadDesignService = ({
 
   const uploadFile = (file) => {
     setShowProgress(true);
-    const url = `https://printlabapi.devtaijul.com/api/v1/cart/${product.id}/files`; // Replace with your upload URL
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
     formData.append("files", file);
 
