@@ -17,42 +17,42 @@ const navLinks = [
     name: "Invoice",
     link: "/my-account/invoice",
   },
-  {
+  /* {
     name: "Delivery Addresses",
     link: "/my-account/delivery-addresses",
-  },
-  {
+  }, */
+  /* {
     name: "Favourites",
     link: "/my-account/favourites",
-  },
-  {
+  }, */
+  /*  {
     name: "Credit Application",
     link: "/my-account/credit-application",
-  },
-  {
+  }, */
+  /* {
     name: "Concerns",
     link: "/my-account/concerns",
-  },
-  {
+  }, */
+  /* {
     name: "Quotes",
     link: " /my-account/quote-request",
-  },
-  {
+  }, */
+  /* {
     name: "Communication Preferences",
     link: "/my-account/communication-preferences",
-  },
-  {
+  }, */
+  /*  {
     name: "Payment Settings",
     link: "/my-account/payment-settings",
-  },
+  }, */
   {
     name: "Account Settings",
     link: "/my-account/account-settings",
   },
-  {
+  /* {
     name: "API Configuration",
     link: "/my-account/api-configuration",
-  },
+  }, */
 ];
 
 const AccountLayout = ({ children, breadcrumb }) => {
@@ -87,7 +87,14 @@ const AccountLayout = ({ children, breadcrumb }) => {
             >
               <ul>{navitem}</ul>
               <div className="border border-[#b7b7b7] mt-5 mb-5 w-[30%] "></div>
-              <button className="mt-2 mb-2">Log Out</button>
+              <button
+                className="mt-2 mb-2"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Log Out
+              </button>
             </div>
           </div>
           <div className="hidden md:block md:w-3/12">
