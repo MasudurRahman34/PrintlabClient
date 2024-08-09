@@ -86,3 +86,12 @@ export const resendVerificationEmailMutation = async ({ variables, token }) =>
 
 export const loginMutation = async ({ variables }) =>
   axios.post(`${backendUrl}/login`, variables).then((res) => res.data);
+
+export const uploadFileMutation = async ({ formdata, token, cart_id }) =>
+  axios
+    .post(`${backendUrl}/cart/${cart_id}/files`, formdata, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

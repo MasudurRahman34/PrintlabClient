@@ -10,8 +10,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
 import { checkPdfFile } from "@/lib/fileChecker";
-import { deleteUploadedArtworkMutation } from "@/resolvers/mutation";
+import {
+  deleteUploadedArtworkMutation,
+  uploadFileMutation,
+} from "@/resolvers/mutation";
 import { fileCheckCombinationQuery } from "@/resolvers/query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -23,11 +27,11 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
 const UploadArtwork = ({ item, refetch }) => {
+  const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const router = useRouter();
   const [file, setFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [showProgress, setShowProgress] = useState(false);
+
   const [checkFile, setCheckFile] = useState({
     Bleed: {
       isLoading: false,
@@ -73,8 +77,8 @@ const UploadArtwork = ({ item, refetch }) => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationKey: "delete_uploaded_artwork",
-    mutationFn: deleteUploadedArtworkMutation,
+    mutationKey: "upload_file",
+    mutationFn: uploadFileMutation,
   });
 
   const handleFileChange = async (event) => {
@@ -92,15 +96,7 @@ const UploadArtwork = ({ item, refetch }) => {
         return newState;
       });
 
-      /* setUploadProgress(0); */ // Reset progress on new file selection
-      /* uploadFile(selectedFile); */
-
-      // Check file type
-      // creating array form checkfile object
-
       const checkFileKeys = Object.keys(checkFile);
-
-      console.log(checkFileKeys);
 
       let i = 0;
 
@@ -135,57 +131,25 @@ const UploadArtwork = ({ item, refetch }) => {
   };
 
   const uploadFile = (file, isForceUpload = false) => {
-    setShowProgress(true);
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${item.cart_id}/files`; // Replace with your upload URL
     const formData = new FormData();
     formData.append("files", file);
     isForceUpload && formData.append("is_force_upload", 1);
 
-    axios
-      .post(url, formData, {
-        onUploadProgress: (progressEvent) => {
-          const percentComplete = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setUploadProgress(percentComplete);
-        },
-        headers: {
-          Authorization: `Bearer ${session?.token}`,
-        },
-      })
-      .then((response) => {
-        setUploadProgress(100);
-        setFile(null);
-        refetch();
-        toast.success("File uploaded successfully");
-      })
-      .catch((error) => {
-        setUploadProgress(0);
-        setShowProgress(false);
-        refetch();
-        setFile(null);
-        toast.error(
-          error.response.data.message?.files?.length > 0
-            ? error.response.data.message.files[0]
-            : error.response.data.message
-        );
-      });
-  };
-
-  const deleteUploadedArtwork = () => {
     mutate(
-      { file_id: product.file.id, token: session?.token },
+      {
+        formdata: formData,
+        token: session?.token,
+        cart_id: item.cart_id,
+      },
       {
         onSuccess: () => {
           refetch();
           setFile(null);
-          setUploadProgress(0);
-          setShowProgress(false);
-          toast.success("Artwork deleted successfully");
+          toast.success("Artwork uploaded successfully");
         },
         onError: (error) => {
           refetch();
-          toast.error(error.response.data.message);
+          showToastMessage(error.response.data.message);
         },
       }
     );
@@ -250,25 +214,6 @@ const UploadArtwork = ({ item, refetch }) => {
                   onChange={handleFileChange}
                 />
               </div>
-              {showProgress && (
-                <div className="w-full">
-                  <div className="relative pt-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <span className="inline-block px-2 py-1 text-xs font-semibold uppercase rounded-full text-typography bg-typography bg-opacity-10">
-                          {uploadProgress}%
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex h-2 mb-4 overflow-hidden text-xs rounded bg-typography">
-                      <div
-                        style={{ width: `${uploadProgress}%` }}
-                        className="flex flex-col justify-center text-center text-white shadow-none whitespace-nowrap bg-typography"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {item?.file ? (
                 isPending ? (
@@ -359,32 +304,38 @@ const UploadArtwork = ({ item, refetch }) => {
               ) : null}
             </div>
             <DialogFooter>
-              <div>
-                {Object.keys(checkFile).every(
-                  (key) => !checkFile[key].isLoading
-                ) &&
-                Object.keys(checkFile).every((key) => checkFile[key].result) ? (
-                  <button
-                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
-                    onClick={handleUploadFile}
-                  >
-                    Upload Artwork
-                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
-                    {/* <Loader /> */}
-                  </button>
-                ) : (
-                  <button
-                    className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold lg:text-lg lg:font-bold bg-secondgraphy "
-                    onClick={() => {
-                      handleUploadFile({ isForceUpload: true });
-                    }}
-                  >
-                    Force Upload
-                    <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
-                    {/* <Loader /> */}
-                  </button>
-                )}
-              </div>
+              {file && (
+                <div>
+                  {Object.keys(checkFile).every(
+                    (key) => !checkFile[key].isLoading
+                  ) &&
+                  Object.keys(checkFile).every(
+                    (key) => checkFile[key].result
+                  ) ? (
+                    <button
+                      className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold bg-secondgraphy "
+                      onClick={handleUploadFile}
+                      disabled={isPending}
+                    >
+                      {isPending ? "Uploading..." : "Upload Artwork"}
+                      <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
+                      {/* <Loader /> */}
+                    </button>
+                  ) : (
+                    <button
+                      className="flex px-4 py-2 mt-5 text-sm font-medium text-white rounded-md md:text-base md:font-semibold bg-secondgraphy "
+                      onClick={() => {
+                        handleUploadFile({ isForceUpload: true });
+                      }}
+                      disabled={isPending}
+                    >
+                      {isPending ? "Uploading..." : "Force Upload Artwork"}
+                      <IoCloudUploadOutline className="ml-2 text-lg md:text-xl lg:text-2xl" />
+                      {/* <Loader /> */}
+                    </button>
+                  )}
+                </div>
+              )}
             </DialogFooter>
           </DialogContent>
         </Dialog>{" "}

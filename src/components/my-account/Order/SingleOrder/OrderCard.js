@@ -4,11 +4,20 @@ import { formatPrice, humanReadableDate } from "@/lib/utils";
 import axios from "axios";
 import React from "react";
 import UploadArtwork from "./UploadArtwork";
+import { useMutation } from "@tanstack/react-query";
+import { deleteUploadedArtworkMutation } from "@/resolvers/mutation";
+import toast from "react-hot-toast";
+import UploadDesignFile from "./UploadDesignFile";
 
 const OrderCard = ({ fullWidth, item, refetch }) => {
   const { session } = useAuth();
   const showToastMessage = useToastMessage();
   const [isGenerating, setIsGenerating] = React.useState(false);
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: "delete_uploaded_artwork",
+    mutationFn: deleteUploadedArtworkMutation,
+  });
 
   const handleDownload = async (url, filename, fileExtension) => {
     try {
@@ -36,6 +45,23 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
       setIsGenerating(false);
     }
   };
+
+  const deleteUploadedArtwork = () => {
+    mutate(
+      { file_id: item.file.id, token: session?.token },
+      {
+        onSuccess: () => {
+          refetch();
+          toast.success("Artwork File deleted successfully");
+        },
+        onError: (error) => {
+          showToastMessage(error.response.data.message);
+          refetch();
+        },
+      }
+    );
+  };
+  console.log(item);
 
   return (
     <div
@@ -175,7 +201,17 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
                     {item.file.is_force_upload === 1 && (
                       <p className="text-red-500">Force Uploaded</p>
                     )}
+
+                    <button
+                      onClick={deleteUploadedArtwork}
+                      className="p-2 mt-2 text-red-500 underline rounded hover:bg-red-500 hover:text-white"
+                      disabled={isPending}
+                    >
+                      {isPending ? "Removing..." : "Remove"}
+                    </button>
                   </div>
+                ) : item.is_design_service ? (
+                  <UploadDesignFile item={item} refetch={refetch} />
                 ) : (
                   <UploadArtwork item={item} refetch={refetch} />
                 )}
