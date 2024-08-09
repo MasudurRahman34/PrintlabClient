@@ -76,7 +76,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
   }, [total]);
 
   return (
-    <section className="flex items-center justify-between h-20 gap-10 px-5 border-b border-gray-300">
+    <section className="flex items-center justify-between h-12 gap-10 px-5 border-b border-gray-300 lg:h-20">
       <div className="text-black">
         <Link href="/">
           <Image

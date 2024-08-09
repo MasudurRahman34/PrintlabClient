@@ -13,7 +13,7 @@ export default function Home() {
       <HeroSliderComponent />
       <Achievement />
       <Bestsell />
-      <Tradeprint />
+      {/* <Tradeprint /> */}
       <Business />
       <Packs_banner />
     </ClientLayout>

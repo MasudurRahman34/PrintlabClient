@@ -11,7 +11,7 @@ import {
 import Loader from "@/components/Loader/Loader";
 
 import { useAuth } from "@/hooks/useAuth";
-import withAuth from "@/hoc/withAuth";
+
 import { skipFileUploadMutation } from "@/resolvers/mutation";
 import toast from "react-hot-toast";
 import useToastMessage from "@/hooks/useToastMessage";
@@ -108,7 +108,10 @@ const UploadArtwork = () => {
       });
 
       setState((prev) => [...temp]);
-      setActiveCart(data.data[0].id);
+
+      if (activeCart === null) {
+        setActiveCart(data.data[0].id);
+      }
     }
   }, [data]);
 
@@ -240,4 +243,4 @@ const UploadArtwork = () => {
   );
 };
 
-export default withAuth(UploadArtwork);
+export default UploadArtwork;

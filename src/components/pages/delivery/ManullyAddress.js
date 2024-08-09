@@ -125,7 +125,7 @@ const ManullyAddress = () => {
 
   return (
     <>
-      <div className="custom_container">
+      <div className="hidden custom_container lg:block">
         <Stepper activeStep={2} />
       </div>
       <div className="custom_container">

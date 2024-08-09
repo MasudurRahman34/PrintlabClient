@@ -55,7 +55,7 @@ const DeliveryItems = ({
   }, [address_data]);
 
   return (
-    <div>
+    <div className="mb-4">
       {showNewAddressForm && (
         <NewAddressForm
           address_type="shipping"

@@ -46,33 +46,35 @@ const stepperData = [
 
 const CheckoutStepper = ({ activeStep = 0 }) => {
   return (
-    <Stepper
-      activeStep={activeStep}
-      connectorStateColors={true}
-      connectorStyleConfig={{
-        activeColor: "#1c4454",
-        completedColor: "#1c4454",
-        inactiveColor: "#d1d1d1",
-      }}
-    >
-      {stepperData.map((item) => (
-        <Step
-          label={item.title}
-          key={item.id}
-          styleConfig={{
-            activeBgColor: "#1c4454",
-            completedBgColor: "#1c4454",
-            activeTextColor: "#fff",
-            completedTextColor: "#fff",
-            size: "3rem",
-            circleFontSize: "1.5rem",
-            inactiveBgColor: "#d1d1d1",
-          }}
-        >
-          <div key={item.id}>{item.icon}</div>
-        </Step>
-      ))}
-    </Stepper>
+    <div className="hidden lg:block">
+      <Stepper
+        activeStep={activeStep}
+        connectorStateColors={true}
+        connectorStyleConfig={{
+          activeColor: "#1c4454",
+          completedColor: "#1c4454",
+          inactiveColor: "#d1d1d1",
+        }}
+      >
+        {stepperData.map((item) => (
+          <Step
+            label={item.title}
+            key={item.id}
+            styleConfig={{
+              activeBgColor: "#1c4454",
+              completedBgColor: "#1c4454",
+              activeTextColor: "#fff",
+              completedTextColor: "#fff",
+              size: "3rem",
+              circleFontSize: "1.5rem",
+              inactiveBgColor: "#d1d1d1",
+            }}
+          >
+            <div key={item.id}>{item.icon}</div>
+          </Step>
+        ))}
+      </Stepper>
+    </div>
   );
 };
 

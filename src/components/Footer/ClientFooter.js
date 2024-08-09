@@ -31,8 +31,8 @@ const navItems = [
   {
     title: "FAQ",
     links: [
-      /* { name: "Pro Tools", href: "#" },
-      { name: "Sample Packs", href: "#" },
+      { name: "FAQ", href: "#" },
+      /*  { name: "Sample Packs", href: "#" },
       { name: "Tradeprint API", href: "#" },
       { name: "Tradeprint PRO", href: "#" }, */
     ],

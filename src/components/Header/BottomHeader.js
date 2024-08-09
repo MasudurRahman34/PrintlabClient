@@ -50,14 +50,14 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
     }
   }, [total]);
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["categories-get"],
     queryFn: getCategoriesQuery,
   });
 
   return (
-    <section className="flex items-start justify-between gap-5 px-5 border-b border-gray-300 bg-primary header">
-      {isPending || isError ? null : (
+    <section className="flex items-start justify-between gap-5 px-4 border-b border-gray-300 lg:px-5 bg-primary header">
+      {isLoading || isError ? null : (
         <div className="w-full">
           <div className="row v-center">
             {/* <!-- menu start here --> */}
@@ -67,7 +67,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                 onClick={toggleMenu}
               ></div>
               <nav className={`menu ${isActive ? "active" : ""}`}>
-                {isPending ? (
+                {isLoading ? (
                   <Loader />
                 ) : isError ? (
                   "Error"

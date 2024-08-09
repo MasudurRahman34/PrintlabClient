@@ -35,22 +35,22 @@ const UploadArtworkCard = ({
       result: null,
       instruction: "Every page should have minimum bleed",
     },
-    /* A4: {
+    /* A4check: {
       isLoading: false,
       result: null,
       instruction: "Every page should be A4 size",
     },
-    A2: {
+    A2check: {
       isLoading: false,
       result: null,
       instruction: "Every page should be A2 size",
-    }, */
-    Letter: {
+    },
+    Lettercheck: {
       isLoading: false,
       result: null,
       instruction: "Every page should be letter size",
     },
-    /*  A3: {
+    A3check: {
       isLoading: false,
       result: null,
       instruction: "Every page should be A3 size",
@@ -122,6 +122,7 @@ const UploadArtworkCard = ({
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${product.id}/files`; // Replace with your upload URL
     const formData = new FormData();
     formData.append("files", file);
+    isForceUpload && formData.append("is_force_upload", 1);
 
     axios
       .post(url, formData, {
@@ -207,7 +208,10 @@ const UploadArtworkCard = ({
           <div className="py-3 lg:hidden">
             <p className="text-sm font-normal md:text-base lg:text-lg md:font-medium lg:font-bold text-typography">
               Item <span className="font-bold">{product.id}</span> -{" "}
-              {product?.product?.title}
+              {product?.product?.title}{" "}
+              <span className="font-semibold">
+                {product.is_skipped === 1 && "- Skipped"}
+              </span>
             </p>
           </div>
           <div className="flex items-center justify-center gap-2 mb-3 md:gap-4 lg:gap-6">
@@ -370,7 +374,7 @@ const UploadArtworkCard = ({
         <p className="mr-2 ">
           <BsClock className="text-xl md:text-2xl lg:text-3xl" />
         </p>
-        <p className=" text-[10px] font-normal text-white md:text-sm">
+        <p className="text-xs font-normal text-white md:text-sm">
           Please note, on completion of your order we offer a 15 minute window
           to make any final amends to your uploaded artwork via Orders in the
           MyAccount area. After these 15 minutes, no further changes can be made

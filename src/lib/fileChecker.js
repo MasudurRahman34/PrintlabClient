@@ -4,7 +4,9 @@ export const checkPdfFile = async (file, checkType) => {
   try {
     const pdfBytes = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(pdfBytes);
-    const numPages = pdfDoc.getPageCount();
+    const numPages = await pdfDoc.getPageCount();
+    const pages = await pdfDoc.getPages();
+    console.log(pages);
 
     let checkResult = false;
 
@@ -15,88 +17,84 @@ export const checkPdfFile = async (file, checkType) => {
       Letter: { width: 612, height: 792 },
       A5: { width: 419.53, height: 595.28 },
     };
-    const MIN_BLEED = 18;
+    const MIN_BLEED = 8.5;
 
-    const hasBleedMargin = (page, size) => {
+    // Function to check if a page is of exact size
+    const isExactSize = (page, size) => {
       const { width, height } = page.getSize();
-      console.log(size.width + MIN_BLEED, width);
-
       return (
-        width >= size.width + MIN_BLEED && height >= size.height + MIN_BLEED
+        Math.abs(width - size.width) < 1 && Math.abs(height - size.height) < 1
       );
     };
 
+    // Function to check bleed on a single page
+    async function checkBleed(page) {
+      const bleedBox = await page.getBleedBox();
+      const trimBox = await page.getTrimBox();
+
+      console.log(bleedBox, trimBox);
+
+      // Example: Expecting a 3mm bleed (assuming the dimensions are in points)
+      const expectedBleed = 8.5; // 3mm in points
+
+      // Calculate the actual bleed
+      const actualBleedLeft = trimBox.x - bleedBox.x;
+      const actualBleedBottom = trimBox.y - bleedBox.y;
+      const actualBleedRight =
+        bleedBox.x + bleedBox.width - (trimBox.x + trimBox.width);
+      const actualBleedTop =
+        bleedBox.y + bleedBox.height - (trimBox.y + trimBox.height);
+
+      const hasCorrectBleed =
+        actualBleedLeft >= expectedBleed &&
+        actualBleedBottom >= expectedBleed &&
+        actualBleedRight >= expectedBleed &&
+        actualBleedTop >= expectedBleed;
+
+      return hasCorrectBleed;
+    }
+
     switch (checkType) {
-      case "A2":
-        // Check if all pages in the PDF are A2 size (1190.55 x 1683.78 points)
-        checkResult = pdfDoc.getPages().every((page) => {
-          const { width, height } = page.getSize();
-          return (
-            Math.abs(width - SIZES.A2.width) < 1 &&
-            Math.abs(height - SIZES.A2.height) < 1
-          );
-        });
-        break;
-
-      case "A3":
-        // Check if all pages in the PDF are A3 size (841.89 x 1190.55 points)
-        checkResult = pdfDoc.getPages().every((page) => {
-          const { width, height } = page.getSize();
-          return (
-            Math.abs(width - SIZES.A3.width) < 1 &&
-            Math.abs(height - SIZES.A3.height) < 1
-          );
-        });
-        break;
-      case "A4":
-        // Check if all pages in the PDF are A4 size (595.28 x 841.89 points)
-        checkResult = pdfDoc.getPages().every((page) => {
-          const { width, height } = page.getSize();
-          return (
-            Math.abs(width - SIZES.A4.width) < 1 &&
-            Math.abs(height - SIZES.A4.height) < 1
-          );
-        });
-        break;
-
-      case "A5":
-        // Check if all pages in the PDF are A5 size (419.53 x 595.28 points)
-        checkResult = pdfDoc.getPages().every((page) => {
-          const { width, height } = page.getSize();
-          return (
-            Math.abs(width - SIZES.A5.width) < 1 &&
-            Math.abs(height - SIZES.A5.height) < 1
-          );
-        });
-        break;
-
-      case "Letter":
-        // Check if all pages in the PDF are Letter size (612 x 792 points)
-        checkResult = pdfDoc.getPages().every((page) => {
-          const { width, height } = page.getSize();
-          console.log(width, height);
-
-          return (
-            Math.abs(width - SIZES.Letter.width) < 1 &&
-            Math.abs(height - SIZES.Letter.height) < 1
-          );
-        });
-        break;
-
-      case "Bleed":
-        // Check if no page in the PDF has a size smaller than standard sizes minus 18 points
+      case "A2check":
         checkResult = pdfDoc
           .getPages()
-          .every(
-            (page) =>
-              hasBleedMargin(page, SIZES.A4) ||
-              hasBleedMargin(page, SIZES.Letter) ||
-              hasBleedMargin(page, SIZES.A5) ||
-              hasBleedMargin(page, SIZES.A3) ||
-              hasBleedMargin(page, SIZES.A2)
-          );
+          .every((page) => isExactSize(page, SIZES.A2));
+        break;
 
-        console.log(checkResult);
+      case "A3check":
+        checkResult = pdfDoc
+          .getPages()
+          .every((page) => isExactSize(page, SIZES.A3));
+        break;
+
+      case "A4check":
+        checkResult = pdfDoc
+          .getPages()
+          .every((page) => isExactSize(page, SIZES.A4));
+        break;
+
+      case "A5check":
+        checkResult = pdfDoc
+          .getPages()
+          .every((page) => isExactSize(page, SIZES.A5));
+        break;
+
+      case "Lettercheck":
+        checkResult = pdfDoc
+          .getPages()
+          .every((page) => isExactSize(page, SIZES.Letter));
+      case "Bleed":
+        // Check if no page in the PDF has a size smaller than standard sizes minus 18 points
+        const tempResults = [];
+
+        for (let i = 0; i < numPages; i++) {
+          const page = pages[i];
+          const bleedCheck = await checkBleed(page);
+          tempResults.push(bleedCheck);
+        }
+
+        checkResult = tempResults.every((result) => result);
+        return checkResult;
 
         break;
 

@@ -12,6 +12,7 @@ const OrderSummary = ({
   total_vat,
   delivery_charge,
   artwork_charge,
+  is_disable_button,
   handleCheckout,
   isCheckoutPending,
   total,
@@ -58,7 +59,7 @@ const OrderSummary = ({
         ) : (
           <Button
             className="w-full font-bold"
-            disabled={isCheckoutPending}
+            disabled={isCheckoutPending || is_disable_button}
             onClick={handleCheckout}
           >
             {isCheckoutPending ? "Processing..." : "Proceed to Payment"}
@@ -76,6 +77,7 @@ const MobileCheckoutSummary = ({
   total,
   total_vat,
   isCheckoutPending,
+  is_disable_button,
   handleCheckout,
   next,
 }) => {
@@ -116,8 +118,8 @@ const MobileCheckoutSummary = ({
           </Button>
         ) : (
           <Button
-            className="w-full font-bold"
-            disabled={isCheckoutPending}
+            className="w-full font-bold disabled:opacity-50"
+            disabled={isCheckoutPending || is_disable_button}
             onClick={handleCheckout}
           >
             {isCheckoutPending ? "Processing..." : "Proceed to Payment"}
@@ -134,18 +136,30 @@ const CheckoutSummary = ({
   handleCheckout,
   isCheckoutPending,
 }) => {
-  const { sub_total, total_vat, delivery_charge, artwork_charge, total } =
-    useMemo(() => {
-      const sub_total = products
-        .map((product) => parseFloat(product.total))
-        .reduce((a, b) => a + b, 0);
-      const total_vat = products
-        .map((product) => parseFloat(product.tax))
-        .reduce((a, b) => a + b, 0);
+  const {
+    sub_total,
+    total_vat,
+    delivery_charge,
+    artwork_charge,
+    total,
+    is_disable_button,
+  } = useMemo(() => {
+    const sub_total = products
+      .map((product) => parseFloat(product.total))
+      .reduce((a, b) => a + b, 0);
+    const total_vat = products
+      .map((product) => parseFloat(product.tax))
+      .reduce((a, b) => a + b, 0);
 
-      const total = sub_total + total_vat;
-      return { sub_total, total_vat, total };
-    }, [products]);
+    const total = sub_total + total_vat;
+    const is_disable_button = products.length === 0;
+    return {
+      sub_total,
+      total_vat,
+      total,
+      is_disable_button: is_disable_button,
+    };
+  }, [products]);
 
   return (
     <div className="w-full ">
@@ -155,6 +169,7 @@ const CheckoutSummary = ({
           delivery_charge={delivery_charge}
           sub_total={sub_total}
           total={total}
+          is_disable_button={is_disable_button}
           total_vat={total_vat}
           handleCheckout={handleCheckout}
           isCheckoutPending={isCheckoutPending}
@@ -187,6 +202,7 @@ const CheckoutSummary = ({
         artwork_charge={artwork_charge}
         delivery_charge={delivery_charge}
         sub_total={sub_total}
+        is_disable_button={is_disable_button}
         total={total}
         total_vat={total_vat}
         handleCheckout={handleCheckout}

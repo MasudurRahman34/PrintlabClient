@@ -19,7 +19,7 @@
 /* customize tailwind css */
 
 .custom_container {
-  @apply max-w-[1400px] py-8 px-2 mx-auto md:px-3 lg:px-5;
+  @apply max-w-[1400px] py-4 lg:py-8 px-2 mx-auto md:px-3 lg:px-5;
 }
 
 @media screen and (min-width: 640px) {
@@ -78,10 +78,11 @@ a {
 .header {
   display: block;
   width: 100%;
+  min-height: 50px;
   position: relative;
   z-index: 99;
-  min-height: 70px;
-  padding: 15px;
+
+  padding: 10px;
 }
 .header .item-left {
   flex: 0 0 17%;
@@ -111,6 +112,10 @@ a {
 }
 
 @media (min-width: 992px) {
+  .header {
+    padding: 15px;
+    min-height: 70px;
+  }
   .header .item-right a {
     text-decoration: none;
     font-size: 16px;
