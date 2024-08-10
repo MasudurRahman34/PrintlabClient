@@ -32,7 +32,7 @@ const EmblaCarousel = (props) => {
             return (
               <div className="embla__slide" key={index}>
                 <Link
-                  href={`/${bestSell?.categories[0]?.slug}/${bestSell?.slug}`}
+                  href={`/product/${bestSell?.categories[0]?.slug}/${bestSell?.slug}`}
                 >
                   <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
                     <div className="w-full h-[85%]">

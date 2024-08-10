@@ -121,3 +121,8 @@ export const getSingleOrderItemsQuery = async ({ order_items_id, token }) =>
 
 export const getHeroBannerQuery = async () =>
   await axios.get(`${backendUrl}/banners`).then((res) => res.data);
+
+export const getProductBySearchQuery = async ({ search }) =>
+  await axios
+    .get(`${backendUrl}/products?filter[slug]=${search}`)
+    .then((res) => res.data);

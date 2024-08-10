@@ -2,10 +2,10 @@ import React, { useCallback, useState } from "react";
 import ClientHeader from "../Header/ClientHeader";
 import ClientFooter from "../Footer/ClientFooter";
 import MobileNav from "../Footer/MobileNav";
-import Hoverbasket from "@/pages/hoverbasket";
 import { useQuery } from "@tanstack/react-query";
 import { getIncompleteCartTotalQuery } from "@/resolvers/mutation";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
+import Hoverbasket from "../hoverbasket";
 
 const ClientLayout = ({ children }) => {
   const [showbasket, setshowbasket] = useState(false);
@@ -52,7 +52,7 @@ const ClientLayout = ({ children }) => {
           total_refetch={refetch}
         />
       </header>
-      <main className="flex-1 ">{childrenWithProps}</main>
+      <main className="flex-1 my-8 sm:my-0">{childrenWithProps}</main>
       <footer className="bg-secondgraphy min-h-40">
         <ClientFooter />
       </footer>

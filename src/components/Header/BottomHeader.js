@@ -5,8 +5,11 @@ import { getCategoriesQuery } from "@/resolvers/query";
 import Loader from "../Loader/Loader";
 import { BsFillBasketFill } from "react-icons/bs";
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { useAuth } from "@/hooks/useAuth";
+import { FiLogIn } from "react-icons/fi";
 
 const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
+  const { user, isAuthenticated, isLoading: auth_loading } = useAuth();
   const [cart, setCart] = useState({
     totalPrice: 0,
     totalQuantity: 0,
@@ -54,6 +57,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
     queryKey: ["categories-get"],
     queryFn: getCategoriesQuery,
   });
+  console.log(user);
 
   return (
     <section className="flex items-start justify-between gap-5 px-4 border-b border-gray-300 lg:px-5 bg-primary header">
@@ -167,18 +171,26 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
               </div>
 
               <div className="flex items-center justify-center gap-3 lg:hidden">
-                <div className="relative flex items-center ">
-                  <Link
-                    href="/my-account"
-                    className="flex flex-col items-center group"
-                  >
-                    <MdOutlineManageAccounts className="w-6 h-6 text-secondgraphy" />
-                  </Link>
-                </div>
+                {!auth_loading && isAuthenticated ? (
+                  <div className="flex flex-col items-center ">
+                    <Link
+                      href="/my-account"
+                      className="flex flex-col items-center group"
+                    >
+                      <MdOutlineManageAccounts className="w-6 h-6 text-secondgraphy" />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="flex items-center ">
+                    <Link href="/login" className="flex items-center group">
+                      <FiLogIn className="w-6 h-6 text-secondg raphy" />
+                    </Link>
+                  </div>
+                )}
 
                 <div className="relative">
                   {cart.totalQuantity > 0 && (
-                    <div className="absolute flex items-center justify-center w-6 h-6 text-sm font-bold text-white bg-red-500 rounded-full -top-2 -right-2 ">
+                    <div className="absolute flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full md:w-6 md:h-6 Md:text-sm -top-2 -right-2 ">
                       {cart.totalQuantity}
                     </div>
                   )}
@@ -186,7 +198,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                   <Link
                     href={"/basket"}
                     onClick={showcards}
-                    className="flex flex-col items-center group"
+                    className="flex items-center group"
                   >
                     <BsFillBasketFill className="w-6 h-6 text-secondgraphy" />
                   </Link>

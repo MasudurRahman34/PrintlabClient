@@ -38,7 +38,7 @@ const withAuth = (WrappedComponent) => {
 
     // If not loading, this component is responsible for rendering the wrapped component
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || (user && user.email_verified_at === null)) {
       return null; // or <Redirect to="/login" />
     }
 

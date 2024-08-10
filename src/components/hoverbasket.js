@@ -98,7 +98,7 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
   return (
     <>
       <div
-        className={` justify-center absolute z-[999] bg-[white]  hidden md:flex  transition  ease-in-out  ${
+        className={` justify-center absolute z-[999] bg-[white]  hidden lg:flex  transition  ease-in-out  ${
           show
             ? "opacity-100 visible right-7 top-[80px]"
             : " opacity-0 invisible -right-[150px] top-[80px]"
@@ -107,7 +107,7 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
         <div className=" w-[380px] min-h-[100px] border rounded  shadow-md shadow-[#7D7F7F]"></div>
       </div>
       <div
-        className={` justify-center absolute z-[999] bg-[white]  hidden md:flex  transition  ease-in-out  ${
+        className={` justify-center absolute z-[999] bg-[white]  hidden lg:flex  transition  ease-in-out  ${
           show
             ? "opacity-100 visible right-7 top-[80px]"
             : " opacity-0 invisible -right-[150px] top-[80px]"
