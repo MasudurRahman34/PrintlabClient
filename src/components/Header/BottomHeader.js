@@ -57,7 +57,6 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
     queryKey: ["categories-get"],
     queryFn: getCategoriesQuery,
   });
-  console.log(user);
 
   return (
     <section className="flex items-start justify-between gap-5 px-4 border-b border-gray-300 lg:px-5 bg-primary header">

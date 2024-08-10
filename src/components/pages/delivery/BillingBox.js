@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import EditDeliveryAddressForm from "./EditDeliveryAddressForm";
 import BillingAddressShow from "./BillingAddressShow";
 
-const BillingBox = () => {
+const BillingBox = ({
+  address_data,
+  address_loading,
+  address_isError,
+  address_refetch,
+}) => {
   const [editAddressData, setEditAddressData] = useState({
     show: false,
     data: null,
@@ -19,7 +24,13 @@ const BillingBox = () => {
           fileType="billing"
         />
       ) : (
-        <BillingAddressShow editAction={setEditAddressData} />
+        <BillingAddressShow
+          editAction={setEditAddressData}
+          data={address_data}
+          refetch={address_refetch}
+          isLoading={address_loading}
+          isError={address_isError}
+        />
       )}
     </Box>
   );

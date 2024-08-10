@@ -38,11 +38,9 @@ const EmailVerify = () => {
       { variables: {}, token: session?.token },
       {
         onSuccess: (data) => {
-          console.log(data);
           toast.success("Verification email sent successfully");
         },
         onError: (error) => {
-          console.log(error);
           showToastMessage(error.response.data.message);
         },
       }

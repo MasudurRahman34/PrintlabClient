@@ -53,14 +53,11 @@ const PaymentPageComponent = () => {
           router.push(data?.data.url);
         },
         onError: async (error) => {
-          console.log(error);
           showToastMessage(error.response.data.message);
         },
       }
     );
   };
-
-  console.log(isPending);
 
   return (
     <div className="mb-8 ">

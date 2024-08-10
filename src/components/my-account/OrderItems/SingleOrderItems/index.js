@@ -25,7 +25,10 @@ const SingleOrderItemComponent = () => {
       ) : isError ? (
         <div>{error.message}</div>
       ) : (
-        data && data?.data && <OrderCard fullWidth item={data?.data} />
+        data &&
+        data?.data && (
+          <OrderCard fullWidth item={data?.data} refetch={refetch} />
+        )
       )}
     </div>
   );

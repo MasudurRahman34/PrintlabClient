@@ -24,7 +24,6 @@ const Userlogin = () => {
     mutationKey: "login",
     mutationFn: loginMutation,
   });
-  console.log(router);
 
   const {
     register,
@@ -54,7 +53,6 @@ const Userlogin = () => {
       { variables },
       {
         onSuccess: async (data) => {
-          console.log(data);
           const { token, tokenType, user } = data?.data;
           await login({ token, token_type: tokenType, user });
           reset();

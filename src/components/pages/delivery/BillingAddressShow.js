@@ -1,18 +1,17 @@
 import React, { useMemo, useState } from "react";
 import NewAddressForm from "./NewAddressForm";
 import { useAuth } from "@/hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import { getDeliveryAddressQuery } from "@/resolvers/query";
 
-const BillingAddressShow = ({ editAction }) => {
+const BillingAddressShow = ({
+  editAction,
+  data,
+  isLoading,
+  isError,
+  error,
+  refetch,
+}) => {
   const { isAuthenticated, session } = useAuth();
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
-
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["get-address", session?.token],
-    queryFn: () => getDeliveryAddressQuery({ token: session?.token }),
-    enabled: !!session?.token,
-  });
 
   const billingAddessMemo = useMemo(() => {
     return data?.data.find((item) => item.type === "billing");

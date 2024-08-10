@@ -73,10 +73,10 @@ const AccountLayout = ({ children, breadcrumb }) => {
   return (
     <div className="custom_container">
       <div className="relative ">
-        <div className="mt-5 md:mt-[50px]  md:flex position-relative  ">
+        <div className=" md:mt-[50px]  md:flex position-relative  ">
           <div>
             <button onClick={() => setopernav(!opernav)}>
-              <FaBars className="mt-5 text-2xl md:hidden " />
+              <FaBars className="text-2xl  md:hidden" />
             </button>
             <div
               className={` ${

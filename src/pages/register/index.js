@@ -80,7 +80,6 @@ const Signup = () => {
             reset();
           },
           onError: (error) => {
-            console.log(error);
             showToastMessage(error?.response?.data?.message);
           },
         }

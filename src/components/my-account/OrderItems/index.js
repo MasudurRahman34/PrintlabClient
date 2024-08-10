@@ -23,7 +23,6 @@ const OrderItems = () => {
     queryFn: () => getOrderItemsQuery({ token: session?.token }),
     enabled: !!session?.token,
   });
-  console.log(data);
 
   return (
     <div>

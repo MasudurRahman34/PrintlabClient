@@ -28,8 +28,6 @@ const ManullyAddress = () => {
     billing_address: null,
   });
 
-  console.log("checkout_state", checkout_state);
-
   const { data, isLoading, isError, error, isSuccess, refetch } = useQuery({
     queryKey: ["incomplete_cart_items"],
     queryFn: getIncompleteCartProductsQuery,
@@ -86,13 +84,6 @@ const ManullyAddress = () => {
   };
   useEffect(() => {
     if (isSuccess && address_isSuccess) {
-      /* const defaultAddress = address_data?.data.find(
-        (address_data) => address_data.is_default === 1
-      );
-      const defaultAddressId = defaultAddress
-        ? defaultAddress.id
-        : address_data?.data[0].id; */
-
       const billing_address = address_data?.data.find(
         (address) => address.type === "billing"
       );
@@ -121,7 +112,7 @@ const ManullyAddress = () => {
 
       set_checkout_state(tempCheckoutState);
     }
-  }, [isSuccess, address_isSuccess]);
+  }, [isSuccess, address_isSuccess, address_data, data]);
 
   return (
     <>
@@ -144,7 +135,12 @@ const ManullyAddress = () => {
               set_checkout_state={set_checkout_state}
               address_refetch={address_refetch}
             />
-            <BillingBox />
+            <BillingBox
+              address_data={address_data}
+              address_isError={address_isError}
+              address_loading={address_loading}
+              address_refetch={address_refetch}
+            />
           </div>
           <div className="mt-5 md:w-1/3">
             {isLoading ? (

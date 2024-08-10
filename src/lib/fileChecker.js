@@ -6,7 +6,6 @@ export const checkPdfFile = async (file, checkType) => {
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const numPages = await pdfDoc.getPageCount();
     const pages = await pdfDoc.getPages();
-    console.log(pages);
 
     let checkResult = false;
 
@@ -31,8 +30,6 @@ export const checkPdfFile = async (file, checkType) => {
     async function checkBleed(page) {
       const bleedBox = await page.getBleedBox();
       const trimBox = await page.getTrimBox();
-
-      console.log(bleedBox, trimBox);
 
       // Example: Expecting a 3mm bleed (assuming the dimensions are in points)
       const expectedBleed = 8.5; // 3mm in points

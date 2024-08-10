@@ -1,26 +1,23 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-
-import DatePicker from "react-datepicker";
-
-import Link from "next/link";
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
 
-import dynamic from "next/dynamic";
-const DownloadInvoice = dynamic(() => import("./DownloadInvoice"), {
-  ssr: false,
-});
-const PrintInvoice = dynamic(() => import("./PrintInvoice"), {
-  ssr: false,
-});
+import { useQuery } from "@tanstack/react-query";
+import { getOrdersQuery } from "@/resolvers/query";
+import { useAuth } from "@/hooks/useAuth";
+import Loader from "@/components/Loader/Loader";
+import InvoiceRow from "./InvoiceRow";
 
 const InvoiceComponent = () => {
+  const { session } = useAuth();
   const [startDate, setStartDate] = useState(new Date());
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["orders", session?.token],
+    queryFn: () => getOrdersQuery({ token: session?.token }),
+    enabled: !!session?.token,
+  });
+
   return (
     <div>
-      <div>
+      {/* <div>
         <label
           htmlFor="price"
           className="block text-sm font-medium leading-6 text-gray-900 sr-only"
@@ -75,9 +72,9 @@ const InvoiceComponent = () => {
             <Button>Filter</Button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="overflow-x-auto">
-        <div className="flex items-center justify-between py-3">
+        {/*  <div className="flex items-center justify-between py-3">
           <Link href="#" className="hover:underline">
             Show all
           </Link>
@@ -87,49 +84,42 @@ const InvoiceComponent = () => {
               <Label htmlFor="terms">Display orders form our old website</Label>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <table className="w-full border border-collapse border-gray-200">
-          <thead>
-            <tr>
-              <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                Invoice #
-              </th>
-              <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                Date
-              </th>
-              <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                Total
-              </th>
-              <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                Status
-              </th>
-              <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <p className="text-sm text-gray-900">0001</p>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <p className="text-sm text-gray-900">2021-09-09</p>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <p className="text-sm text-gray-900">$ 100.00</p>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <p className="text-sm text-gray-900">Paid</p>
-              </td>
-              <td className="flex gap-3 px-6 py-4 whitespace-nowrap">
-                <DownloadInvoice />
-                <PrintInvoice />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {isLoading ? (
+          <Loader />
+        ) : isError ? (
+          <div>{error.message}</div>
+        ) : data && data?.data.length > 0 ? (
+          <table className="w-full border border-collapse border-gray-200">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Invoice #
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Date
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Total
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.data.map((item) => (
+                <InvoiceRow key={item.id} item={item} />
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>You do not have any Payment Yet </p>
+        )}
       </div>
     </div>
   );

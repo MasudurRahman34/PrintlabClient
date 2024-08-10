@@ -57,7 +57,7 @@ const SearchProduct = () => {
   }, [debouncedSearchTerm]);
 
   return (
-    <div className="relative bg-white border-2 border-black rounded-full cursor-pointer">
+    <div className="relative max-w-2xl bg-white border-2 border-black rounded-full cursor-pointer">
       <label htmlFor="hs-trailing-button-add-on-with-icon" className="sr-only">
         Label
       </label>

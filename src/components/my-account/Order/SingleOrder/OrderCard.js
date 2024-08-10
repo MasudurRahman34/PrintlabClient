@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import UploadDesignFile from "./UploadDesignFile";
 
 const OrderCard = ({ fullWidth, item, refetch }) => {
+  console.log(item);
+
   const { session } = useAuth();
   const showToastMessage = useToastMessage();
   const [isGenerating, setIsGenerating] = React.useState(false);
@@ -61,7 +63,6 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
       }
     );
   };
-  console.log(item);
 
   return (
     <div

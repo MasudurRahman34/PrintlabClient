@@ -12,8 +12,6 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
     return <h1>Loading...</h1>;
   }
 
-  console.log(product_category);
-
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
       <div className="custom_container text-secondgraphy">
@@ -28,7 +26,6 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data?.products.map((item) => {
-            console.log(item);
             return (
               <Link href={`/${product_category}/${item?.slug}`} key={item.id}>
                 <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">

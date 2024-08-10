@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 
 const OrderItemTable = ({ orderItems }) => {
-  console.log(orderItems);
   return (
     <table className="w-full border border-collapse border-gray-200">
       <thead>

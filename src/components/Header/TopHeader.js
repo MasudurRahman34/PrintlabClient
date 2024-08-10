@@ -87,7 +87,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
         </Link>
       </div>
       <div
-        className="flex-1 hidden max-w-xl lg:block"
+        className="flex-1 hidden lg:block"
         style={{
           zIndex: 99999,
         }}
