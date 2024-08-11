@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginMutation } from "@/resolvers/mutation";
 import useToastMessage from "@/hooks/useToastMessage";
 import toast from "react-hot-toast";
+import MetaData from "@/components/ui/MetaData";
 
 const Userlogin = () => {
   const showToastMessage = useToastMessage();
@@ -69,20 +70,6 @@ const Userlogin = () => {
         },
       }
     );
-
-    /* const result = await login(
-      { email, password },
-      { redirect_url: router?.query?.redirect_url }
-    );
-
-    if (result.status === "success") {
-      reset();
-      if (router.query.redirect_url) {
-        router.push(router.query.redirect_url);
-      } else {
-        router.push("/");
-      }
-    } */
   };
 
   useEffect(() => {
@@ -94,6 +81,7 @@ const Userlogin = () => {
   return (
     <ClientLayout>
       <>
+        <MetaData title="Login" />
         <div className="container mx-auto mt-10 mb-2 md:mb-5 ">
           <div className="flex justify-center ">
             <div className=" w-full md:w-[50%]">

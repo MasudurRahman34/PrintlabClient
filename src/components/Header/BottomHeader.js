@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoriesQuery } from "@/resolvers/query";
@@ -124,7 +124,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                                 return (
                                   <div className="list-item" key={index}>
                                     <h4 className="text-sm title md:text-base ">
-                                      <Link href={`/${child.slug}`}>
+                                      <Link href={`/product/${child.slug}`}>
                                         {child.title}
                                       </Link>
                                     </h4>
@@ -137,7 +137,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                                               className="text-red-500"
                                             >
                                               <Link
-                                                href={`/${child.slug}/${product.slug}`}
+                                                href={`/product/${child.slug}/${product.slug}`}
                                               >
                                                 {product.title}
                                               </Link>
@@ -211,4 +211,4 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
   );
 };
 
-export default BottomHeader;
+export default memo(BottomHeader);

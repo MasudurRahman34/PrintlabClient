@@ -6,10 +6,12 @@ import Packs_banner from "@/components/pages/Home/packs_banner";
 
 import Tradeprint from "@/components/pages/Home/tradeprints";
 import HeroSliderComponent from "@/components/pages/Home/HeroSlider";
+import MetaData from "@/components/ui/MetaData";
 
 export default function Home() {
   return (
     <ClientLayout>
+      <MetaData title="Home" />
       <HeroSliderComponent />
       <Achievement />
       <Bestsell />

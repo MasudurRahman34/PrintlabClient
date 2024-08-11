@@ -26,17 +26,11 @@ const stepperData = [
     icon: (
       <TbTruckDelivery className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),
-    title: "Delivery ",
+    title: "Delivery & Payment",
   },
+
   {
     id: 4,
-    icon: (
-      <BsCashCoin className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
-    ),
-    title: " Payment",
-  },
-  {
-    id: 5,
     icon: (
       <MdOutlineAutoDelete className="text-lg font-bold text-center md:text-xl lg:text-2xl text-secbg-secondgraphy group-hover:text-white" />
     ),

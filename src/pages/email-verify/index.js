@@ -1,5 +1,6 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Loader from "@/components/Loader/Loader";
+import MetaData from "@/components/ui/MetaData";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import { resendVerificationEmailMutation } from "@/resolvers/mutation";
@@ -70,6 +71,7 @@ const EmailVerify = () => {
 
   return (
     <ClientLayout>
+      <MetaData title="Email Verification" />
       <div className="container mx-auto ">
         <div className="flex items-center justify-center  h-[30vh]">
           <div className="max-w-xl p-8 bg-white rounded-lg shadow-lg">

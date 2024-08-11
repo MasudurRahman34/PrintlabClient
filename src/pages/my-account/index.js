@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import MetaData from "@/components/ui/MetaData";
 
 const Index = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -14,6 +15,7 @@ const Index = () => {
 
   return (
     <ClientLayout>
+      <MetaData title="My Account" />
       <AccountLayout breadcrumb="PrintLab Pro">
         <div className="flex items-center justify-start w-full py-5">
           <div className="max-w-lg ">

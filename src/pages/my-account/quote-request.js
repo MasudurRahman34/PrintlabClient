@@ -1,11 +1,13 @@
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import { Button } from "@/components/ui/button";
+import MetaData from "@/components/ui/MetaData";
 import React from "react";
 
 const QuoteRequest = () => {
   return (
     <ClientLayout>
+      <MetaData title="Quote Request" />
       <AccountLayout breadcrumb="Quote Request">
         {" "}
         <section>

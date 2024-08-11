@@ -1,4 +1,5 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
+import MetaData from "@/components/ui/MetaData";
 
 import withAuth from "@/hoc/withAuth";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import React from "react";
 const SuccessPage = () => {
   return (
     <ClientLayout>
+      <MetaData title="Cancel" />
       <div className="custom_container">
         {/* {isLoading && <p>Loading...</p>}
         {isError && <p>Error</p>}

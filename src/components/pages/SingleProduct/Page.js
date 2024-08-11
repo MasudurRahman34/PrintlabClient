@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MetaData from "@/components/ui/MetaData";
 // import detaisimg  from "./assete/products/placehounder.png";
 
 const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
@@ -51,6 +52,8 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
     );
   }
 
+  console.log(data);
+
   if (isError) {
     return (
       <div className="container mx-auto">
@@ -60,126 +63,135 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
   }
 
   return (
-    <section className="w-full py-10 custom_container ">
-      <div className="grid items-start justify-between grid-cols-12 gap-5 lg:flex-row ">
-        <div className="col-span-12 lg:pr-4 md:mb-4 lg:col-span-5 lg:border-r-2 border-secondgraphy">
-          <ImageGallery
-            items={media}
-            autoPlay={false}
-            thumbnailPosition="right"
-            disableKeyDown={true}
-            showPlayButton={false}
-          />
+    <>
+      <MetaData
+        title={data?.data?.meta_title}
+        description={data?.data?.meta_description}
+      />
+      <section className="w-full py-10 custom_container ">
+        <div className="grid items-start justify-between grid-cols-12 gap-5 lg:flex-row ">
+          <div className="col-span-12 lg:pr-4 md:mb-4 lg:col-span-5 lg:border-r-2 border-secondgraphy">
+            <ImageGallery
+              items={media}
+              autoPlay={false}
+              thumbnailPosition="right"
+              disableKeyDown={true}
+              showPlayButton={false}
+            />
 
-          <div className="mt-5">
-            {data?.data.description && (
-              <div
-                className="text-sm md:text-base textEditorContent"
-                dangerouslySetInnerHTML={{ __html: data?.data.description }}
-              />
-            )}
+            <div className="mt-5">
+              {data?.data.description && (
+                <div
+                  className="text-sm md:text-base textEditorContent"
+                  dangerouslySetInnerHTML={{ __html: data?.data.description }}
+                />
+              )}
+            </div>
+            <div>
+              <SinglePageAccordion data={data?.data} isLoading={isLoading} />
+            </div>
           </div>
-          <div>
-            <SinglePageAccordion data={data?.data} isLoading={isLoading} />
-          </div>
+          <Combination
+            data={data}
+            isProductLoading={isLoading}
+            total_refetch={total_refetch}
+            cart_items={cart_items}
+          />
         </div>
-        <Combination
-          data={data}
-          isProductLoading={isLoading}
-          total_refetch={total_refetch}
-          cart_items={cart_items}
-        />
-      </div>
-      <div>
-        <Commitment />
-      </div>
-      <div>
-        <div className="mt-10">
-          <div class="box-body"></div>
-          {data?.data?.specification && (
-            <Tabs defaultValue="Product Details" className="w-full">
-              <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">
+        <div>
+          <Commitment />
+        </div>
+        <div>
+          <div className="mt-10">
+            <div class="box-body"></div>
+            {data?.data?.specification && (
+              <Tabs defaultValue="Product Details" className="w-full">
+                <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">
+                  {data?.data?.specification?.details_imageUrl &&
+                    data?.data?.specification?.details && (
+                      <TabsTrigger
+                        value="Product Details"
+                        className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none"
+                      >
+                        Product Details
+                      </TabsTrigger>
+                    )}
+                  {data?.data?.specification
+                    ?.technical_specification_imageUrl &&
+                    data?.data?.specification?.technical_specification && (
+                      <TabsTrigger
+                        value="technical_specification"
+                        className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none"
+                      >
+                        Technical_specification
+                      </TabsTrigger>
+                    )}
+                </TabsList>
                 {data?.data?.specification?.details_imageUrl &&
                   data?.data?.specification?.details && (
-                    <TabsTrigger
-                      value="Product Details"
-                      className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -ml-1 !rounded-r-none"
-                    >
-                      Product Details
-                    </TabsTrigger>
+                    <TabsContent value="Product Details">
+                      <div id="pills-on-gray-color-1" role="tabpanel">
+                        <div className="md:flex">
+                          <div className="hidden md:block md:w-3/12">
+                            <div className="w-full h-full p-5">
+                              <img
+                                src={
+                                  data?.data?.specification?.details_imageUrl
+                                }
+                              />
+                            </div>
+                          </div>
+                          <div className="w-full md:w-9/12">
+                            <div className="p-5">
+                              <div
+                                className="text-sm textEditorContent md:text-base"
+                                dangerouslySetInnerHTML={{
+                                  __html: data?.data?.specification?.details,
+                                }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
                   )}
                 {data?.data?.specification?.technical_specification_imageUrl &&
                   data?.data?.specification?.technical_specification && (
-                    <TabsTrigger
-                      value="technical_specification"
-                      className=" text-xs md:text-base font-bold text-secondgraphy -mt-[3px] p-[6px] -mr-1 !rounded-l-none"
-                    >
-                      Technical_specification
-                    </TabsTrigger>
-                  )}
-              </TabsList>
-              {data?.data?.specification?.details_imageUrl &&
-                data?.data?.specification?.details && (
-                  <TabsContent value="Product Details">
-                    <div id="pills-on-gray-color-1" role="tabpanel">
-                      <div className="md:flex">
-                        <div className="hidden md:block md:w-3/12">
-                          <div className="w-full h-full p-5">
-                            <img
-                              src={data?.data?.specification?.details_imageUrl}
-                            />
-                          </div>
-                        </div>
-                        <div className="w-full md:w-9/12">
-                          <div className="p-5">
-                            <div
-                              className="text-sm textEditorContent md:text-base"
-                              dangerouslySetInnerHTML={{
-                                __html: data?.data?.specification?.details,
-                              }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                )}
-              {data?.data?.specification?.technical_specification_imageUrl &&
-                data?.data?.specification?.technical_specification && (
-                  <TabsContent value="technical_specification">
-                    <div id="pills-on-gray-color-1" role="tabpanel">
-                      <div className="md:flex">
-                        <div className="hidden md:block md:w-3/12">
-                          <div className="w-full h-full p-5">
-                            <img
-                              src={
-                                data?.data?.specification
-                                  ?.technical_specification_imageUrl
-                              }
-                            />
-                          </div>
-                        </div>
-                        <div className="w-full md:w-9/12">
-                          <div className="p-5">
-                            <div
-                              className="text-sm textEditorContent md:text-base"
-                              dangerouslySetInnerHTML={{
-                                __html:
+                    <TabsContent value="technical_specification">
+                      <div id="pills-on-gray-color-1" role="tabpanel">
+                        <div className="md:flex">
+                          <div className="hidden md:block md:w-3/12">
+                            <div className="w-full h-full p-5">
+                              <img
+                                src={
                                   data?.data?.specification
-                                    ?.technical_specification,
-                              }}
-                            ></div>
+                                    ?.technical_specification_imageUrl
+                                }
+                              />
+                            </div>
+                          </div>
+                          <div className="w-full md:w-9/12">
+                            <div className="p-5">
+                              <div
+                                className="text-sm textEditorContent md:text-base"
+                                dangerouslySetInnerHTML={{
+                                  __html:
+                                    data?.data?.specification
+                                      ?.technical_specification,
+                                }}
+                              ></div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </TabsContent>
-                )}
-            </Tabs>
-          )}
+                    </TabsContent>
+                  )}
+              </Tabs>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

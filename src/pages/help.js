@@ -1,4 +1,5 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
+import MetaData from "@/components/ui/MetaData";
 import Link from "next/link";
 import React from "react";
 
@@ -110,6 +111,7 @@ const popularArticles = [
 const help = () => {
   return (
     <ClientLayout>
+      <MetaData title="Help" />
       <div className="p-3 text-center rounded-md bg-red-50">
         <div className="py-3">
           <h1 className="text-4xl font-medium">Need help?</h1>

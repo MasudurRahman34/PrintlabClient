@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";

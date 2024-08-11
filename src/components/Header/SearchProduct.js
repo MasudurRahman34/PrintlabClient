@@ -33,6 +33,10 @@ const SearchProduct = () => {
     }
   };
 
+  const hideResultBox = () => {
+    setFocus(false);
+  };
+
   useEffect(() => {
     if (debouncedSearchTerm) {
       // Fetch data from the API using the debounced search term
@@ -99,7 +103,7 @@ const SearchProduct = () => {
             <h1 className="text-center">No product available </h1>
           </div>
         ) : (
-          <div className="absolute left-0 z-50 w-full p-4 bg-white border-2 rounded-b-lg top-12">
+          <div className="absolute left-0 z-50 w-full p-4 overflow-y-auto bg-white border-2 rounded-b-lg max-h-96 top-12">
             <ul>
               {searchResults.map((product, index) => {
                 return (
@@ -109,6 +113,7 @@ const SearchProduct = () => {
                   >
                     <Link
                       href={`/product/${product.categories[0]?.slug}/${product.slug}`}
+                      onClick={hideResultBox}
                     >
                       {product.title}
                     </Link>

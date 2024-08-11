@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUserMutation } from "@/resolvers/mutation";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
+import MetaData from "@/components/ui/MetaData";
 const Signup = () => {
   const showToastMessage = useToastMessage();
   const { register: authRegister } = useAuth();
@@ -92,6 +93,7 @@ const Signup = () => {
   return (
     <ClientLayout>
       <>
+        <MetaData title="Register" />
         <div className="container px-4 mx-auto mt-10 mb-2 md:mb-5 ">
           <div className="flex justify-center ">
             <div className="w-full max-w-lg">

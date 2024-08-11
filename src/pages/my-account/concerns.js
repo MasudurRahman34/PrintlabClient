@@ -1,11 +1,13 @@
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import { Button } from "@/components/ui/button";
+import MetaData from "@/components/ui/MetaData";
 import React from "react";
 
 const ConcernPage = () => {
   return (
     <ClientLayout>
+      <MetaData title="Concerns Overview" />
       <AccountLayout breadcrumb="Concerns Overview">
         <section>
           <div className="p-5 mt-3 text-center bg-secondary text-wrap">

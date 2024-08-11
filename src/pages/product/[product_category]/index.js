@@ -1,17 +1,18 @@
+import Banner from "@/components/Banner";
 import ClientLayout from "@/components/Layout/ClientLayout";
+import CategoryPage from "@/components/pages/CategoryPage/CategoryPage";
 import React from "react";
 
-const UnknownPage = () => {
+const index = () => {
   return (
     <ClientLayout>
-      <div className="flex items-center justify-center w-full h-44">
-        <div>
-          <h1 className="text-4xl font-bold text-center">404</h1>
-          <p className="text-center">Page not found</p>
-        </div>
-      </div>
+      {/* <Banner
+        title="Mug Printing"
+        text="Our Custom printed mug range is ideal for so many occasions. Offer them at events or get them printed for your staff to showcase your brand! How about using them to showcase your unique designs. Check out our range now. "
+      /> */}
+      <CategoryPage />
     </ClientLayout>
   );
 };
 
-export default UnknownPage;
+export default index;

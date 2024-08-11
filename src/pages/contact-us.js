@@ -1,9 +1,11 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
+import MetaData from "@/components/ui/MetaData";
 import React from "react";
 
 const ContactUs = () => {
   return (
     <ClientLayout>
+      <MetaData title="Contact Us" />
       <section className="container py-5 mx-auto text-gray-700">
         <div className="max-w-5xl mx-auto text-center">
           <p className="pb-5 text-xl">CONTACT US</p>

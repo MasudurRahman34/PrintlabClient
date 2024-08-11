@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from "react";
 import ClientHeader from "../Header/ClientHeader";
 import ClientFooter from "../Footer/ClientFooter";
-import MobileNav from "../Footer/MobileNav";
 import { useQuery } from "@tanstack/react-query";
-import { getIncompleteCartTotalQuery } from "@/resolvers/mutation";
 import { getIncompleteCartProductsQuery } from "@/resolvers/query";
 import Hoverbasket from "../hoverbasket";
 

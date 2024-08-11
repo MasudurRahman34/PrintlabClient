@@ -5,12 +5,9 @@ import { useRouter } from "next/router";
 import { truncateHTML } from "@/lib/utils";
 import Image from "next/image";
 
-const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
+const ShowCase = ({ title, subTitle, data, bg }) => {
   const router = useRouter();
   const { product_category } = router.query;
-  if (isPending) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
@@ -27,7 +24,10 @@ const ShowCase = ({ title, subTitle, data, bg, isPending }) => {
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data?.products.map((item) => {
             return (
-              <Link href={`/${product_category}/${item?.slug}`} key={item.id}>
+              <Link
+                href={`/product/${product_category}/${item?.slug}`}
+                key={item.id}
+              >
                 <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
                   <div className="w-full h-[85%]">
                     <Image
