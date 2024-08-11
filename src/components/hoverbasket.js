@@ -113,7 +113,13 @@ export default function Hoverbasket({ show, hideBasket, total_refetch }) {
             : " opacity-0 invisible -right-[150px] top-[80px]"
         }`}
       >
-        <div className=" w-[380px] min-h-[100px] border rounded  shadow-md shadow-[#7D7F7F]">
+        <div
+          className=" w-[380px] min-h-[100px] border rounded  shadow-md shadow-[#7D7F7F]"
+          style={{
+            position: "relative",
+            zIndex: 999999,
+          }}
+        >
           <div className="relative py-3 border-b-2 basket-title">
             <h6 className="flex-1 mx-auto text-sm font-bold text-center md:text-base text-secondgraphy">
               Your Basket

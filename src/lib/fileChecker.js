@@ -16,11 +16,11 @@ export const checkPdfFile = async (file, checkType) => {
       Letter: { width: 612, height: 792 },
       A5: { width: 419.53, height: 595.28 },
     };
-    const MIN_BLEED = 8.5;
 
     // Function to check if a page is of exact size
     const isExactSize = (page, size) => {
       const { width, height } = page.getSize();
+
       return (
         Math.abs(width - size.width) < 1 && Math.abs(height - size.height) < 1
       );

@@ -50,7 +50,7 @@ const DurationTimer = ({ days }) => {
   const formattedDate = moment(targetDate).format("ddd. Do MMM");
 
   return (
-    <div className="relative z-10 w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
+    <div className="z-10 w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
       {timeLeft.hours !== undefined && (
         <p>
           Order within <strong>{timeLeft.hours}</strong> hours{" "}
