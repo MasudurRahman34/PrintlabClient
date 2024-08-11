@@ -22,7 +22,7 @@ const DeliveryBox = ({
 
   return (
     <Box boxTitle="Delivery Address" fullWidth>
-      <div className="p-4 border-b border-b-secondgraphy">
+      <div className="p-4 text-sm border-b border-b-secondgraphy md:text-base">
         <h1 className="font-bold">Choose Delivery For Each Item</h1>
         <p>
           Want a faster checkout experience? Set a{" "}

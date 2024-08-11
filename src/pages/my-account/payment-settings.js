@@ -2,6 +2,7 @@ import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import MetaData from "@/components/ui/MetaData";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useRouter } from "next/router";
 import React from "react";
@@ -10,6 +11,7 @@ const PaymentSettings = () => {
   const router = useRouter();
   return (
     <ClientLayout>
+      <MetaData title="Payment Settings" />
       <AccountLayout breadcrumb="Account Settings">
         <section>
           <div className="my-2">

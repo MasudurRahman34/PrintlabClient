@@ -187,19 +187,21 @@ const UploadArtwork = ({ item, refetch }) => {
       <div className="text-secondgraphy">
         <Dialog>
           <DialogTrigger asChild>
-            <span className="font-bold underline cursor-pointer">
+            <span className="font-bold underline cursor-pointer ">
               Click here
             </span>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Upload File</DialogTitle>
+              <DialogTitle className="text-sm md:text-base">
+                Upload File
+              </DialogTitle>
             </DialogHeader>
             <div className="grid py-4">
               <div>
                 <label
                   htmlFor="artwork_file"
-                  className="flex items-center justify-center px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
+                  className="flex items-center justify-center px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
                 >
                   <IoCloudUploadOutline className="hidden md:block text-base md:text-lg lg:text-xl mr-[2px] md:mr-2  font-semibold mt-1" />
                   Add Artwork

@@ -381,9 +381,20 @@ const UploadArtworkCard = ({
           and all artwork will be processed for printing
         </p>
       </div>
-      <div className="flex justify-center mt-5 mb-5 mr-auto lg:justify-end md:mb-10">
+      <div className="justify-center hidden mt-5 mb-5 mr-auto lg:flex lg:justify-end md:mb-10 md">
         <button
-          className="flex  text-[14px] md:text-lg lg:text-xl font-medium md:font-semibold lg:font-bold py-3 px-5 md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy rounded-md  "
+          className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
+          onClick={() => {
+            router.push("/checkout");
+          }}
+        >
+          <MdOutlineLock className="text-base md:text-xl mt-[2px] md:mt-0 lg:text-2xl mr-1 " />
+          Continue To Delivery & Payment
+        </button>
+      </div>
+      <div className="fixed bottom-0 left-0 z-50 flex justify-center w-full py-5 mr-auto bg-white border shadow-inner lg:hidden">
+        <button
+          className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
           onClick={() => {
             router.push("/checkout");
           }}

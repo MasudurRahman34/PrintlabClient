@@ -89,7 +89,9 @@ const UploadDesignFile = ({ item, refetch }) => {
           </DialogTrigger>
           <DialogContent className="sm:max-w-xl">
             <DialogHeader>
-              <DialogTitle>Upload File</DialogTitle>
+              <DialogTitle className="text-sm md:text-base">
+                Upload File
+              </DialogTitle>
             </DialogHeader>
             <div className="grid py-4">
               <div className="mb-3">
@@ -117,14 +119,13 @@ const UploadDesignFile = ({ item, refetch }) => {
                     correct elements within your design.
                   </p>
                 </div>
-                <div className="w-full py-1 mt-2 bg-secondary" />
               </div>
 
               <div className="flex items-center justify-center gap-2 mb-3 md:gap-4 lg:gap-6">
                 <div>
                   <label
                     htmlFor="artwork_file"
-                    className="flex px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
+                    className="flex px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
                   >
                     <IoCloudUploadOutline className="hidden md:block text-base md:text-lg lg:text-xl mr-[2px] md:mr-2  font-semibold mt-1" />
                     Upload Design Request File
@@ -154,16 +155,16 @@ const UploadDesignFile = ({ item, refetch }) => {
                 <LabAccordion title="What's provided within the Design Service">
                   <div>
                     <div className="mb-3 text-center">
-                      <h1 className="text-xl font-semibold">
+                      <h1 className="text-base font-semibold">
                         Creation Service Summary
                       </h1>
-                      <p className="mt-3 text-start">
+                      <p className="mt-3 text-sm text-start">
                         We work with you to create your design from scratch,
                         following your instructions provided on the{" "}
                         <strong>Design Request form.</strong>
                       </p>
                     </div>
-                    <div>
+                    <div className="text-sm">
                       <p>What is provided as part of the Design Service:</p>
                       <ul className="list-disc list-inside">
                         <li>Initial design concepts</li>

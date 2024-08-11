@@ -82,6 +82,7 @@ const ManullyAddress = () => {
       }
     );
   };
+
   useEffect(() => {
     if (isSuccess && address_isSuccess) {
       const billing_address = address_data?.data.find(
@@ -120,9 +121,6 @@ const ManullyAddress = () => {
         <Stepper activeStep={2} />
       </div>
       <div className="custom_container">
-        <h1 className="px-3 py-2 text-lg font-bold md:text-2xl lg:text-3xl text-secondgraphy md:py-5">
-          Delivery
-        </h1>
         <div className="gap-5 md:flex">
           <div className="mt-5 mb-2 md:w-2/3 md:mb-5">
             <DeliveryBox

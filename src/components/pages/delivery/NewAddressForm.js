@@ -8,7 +8,6 @@ import { createAddressMutation } from "@/resolvers/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -142,11 +141,11 @@ const NewAddressForm = ({
       <div className="px-3 py-2 md:py-3">
         {address_type === "shipping" && (
           <div className="flex items-center justify-between mb-2 md:mb-3 ">
-            <h6 className="px-2 py-5 text-base font-semibold text-black ">
+            <h6 className="px-2 py-5 text-sm font-semibold text-black md:text-base ">
               Add new Delivery Addresses
             </h6>
             <div>
-              <p className="text-[12px] md:text-base font-normal text-red-500">
+              <p className="text-sm font-normal text-red-500 md:text-base">
                 Required*
               </p>
 
@@ -171,14 +170,14 @@ const NewAddressForm = ({
           </div>
         )}
         <div className="flex ">
-          <p className="text-base  font-medium text-secondgraphy px-2 w-[65%]">
+          <p className="text-sm md:text-base  font-medium text-secondgraphy px-2 w-[65%]">
             PostCode*
           </p>
           <div className="w-full">
             <input
               type="text"
               placeholder="Enter Post code"
-              className="block w-full px-2 py-2 mb-2 border rounded-md outline-none border-secondgraphy "
+              className="block w-full px-2 py-1 mb-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy "
               value={post_code}
               onChange={handlePostCode}
             />
@@ -187,14 +186,14 @@ const NewAddressForm = ({
         {results && (
           <>
             <div className="flex mt-3">
-              <p className="text-base  font-medium text-secondgraphy px-2 w-[65%]">
+              <p className=" text-sm md:text-base  font-medium text-secondgraphy px-2 w-[65%]">
                 Select Address
               </p>
               <div className="w-full">
                 <select
                   name="address_select"
                   id="address_select"
-                  className="block w-full px-2 py-2 mb-2 border rounded-md outline-none border-secondgraphy"
+                  className="block w-full px-2 py-1 mb-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                   value={selectedAddress}
                   onChange={onSelectAddress}
                 >
@@ -208,7 +207,7 @@ const NewAddressForm = ({
               </div>
             </div>
             <div className="flex mt-3">
-              <p className="text-base invisible  font-medium text-secondgraphy px-2 w-[65%]">
+              <p className="text-sm md:text-base invisible  font-medium text-secondgraphy px-2 w-[65%]">
                 Select Address
               </p>
               <div>
@@ -234,14 +233,14 @@ const NewAddressForm = ({
         <div className="border"></div>
         <div className="px-2 mb-2 md:px-5 md:mb-5">
           <div className="flex mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base ">
               Frist Name*
             </label>
 
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="first_name"
                 {...register("first_name")}
               />
@@ -251,13 +250,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Last Name*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="last_name"
                 {...register("last_name")}
               />
@@ -267,13 +266,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Compony Name*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="company_name"
                 {...register("company_name")}
               />
@@ -283,13 +282,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Address line 1*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 border rounded-md shadow-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 text-sm border rounded-md shadow-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="address"
                 {...register("address")}
               />
@@ -299,13 +298,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Address line 2*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 border rounded-md shadow-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 text-sm border rounded-md shadow-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="address_2"
                 {...register("address_2")}
               />
@@ -315,13 +314,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Town*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="town"
                 {...register("town")}
               />
@@ -331,13 +330,13 @@ const NewAddressForm = ({
             </div>
           </div>
           <div className="flex mt-2 md:mt-5">
-            <label className="w-[40%] font-medium text-typography text-base ">
+            <label className="w-[40%] font-medium text-typography text-sm md:text-base">
               Country*
             </label>
             <div className="w-[60%]">
               <input
                 type="text"
-                className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                 name="country"
                 {...register("country")}
               />
@@ -374,7 +373,7 @@ const NewAddressForm = ({
               <div className="w-[60%]">
                 <input
                   type="text"
-                  className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                  className="block w-full px-2 py-1 mb-2 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                   name="delivery_mobile_number"
                   {...register("delivery_mobile_number")}
                 />
@@ -393,7 +392,7 @@ const NewAddressForm = ({
               <div className="w-[60%]">
                 <input
                   type="email"
-                  className="block w-full px-2 py-2 -mt-2 border rounded-md outline-none border-secondgraphy"
+                  className="block w-full px-2 py-1 -mt-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
                   name="delivery_email"
                   {...register("delivery_email")}
                 />

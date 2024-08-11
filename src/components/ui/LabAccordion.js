@@ -22,7 +22,9 @@ const LabAccordion = ({
             triggerStyle
           )}
         >
-          <h4 className="text-base font-bold text-secondgraphy">{title}</h4>
+          <h4 className="text-sm font-bold md:text-base text-secondgraphy">
+            {title}
+          </h4>
         </AccordionTrigger>
 
         <AccordionContent className="px-5 py-2">{children}</AccordionContent>

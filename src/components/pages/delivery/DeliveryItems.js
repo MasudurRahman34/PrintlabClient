@@ -65,7 +65,7 @@ const DeliveryItems = ({
       )}
       <div>
         <div>
-          <p>
+          <p className="text-sm md:text-base">
             delivery by{" "}
             <span className="font-semibold text-secondgraphy">
               {humanReadableDate(
@@ -81,20 +81,20 @@ const DeliveryItems = ({
           <Loader />
         ) : address_isError ? (
           <div className="px-3 py-2 rounded-sm bg-primary">
-            <h1 className="font-bold text-secondgraphy ">
+            <h1 className="text-sm font-bold text-secondgraphy md:text-base">
               You Do not have any address saved. Please add a new address
             </h1>
           </div>
         ) : (
           <div>
-            <h1 className="font-bold text-secondgraphy">
+            <h1 className="text-sm font-bold text-secondgraphy md:text-base">
               Select Existing Address*
             </h1>
             <div>
               <select
                 name="address"
                 id="address"
-                className="w-full px-3 py-2 border rounded-md border-secondgraphy focus:outline-none focus:border-primary"
+                className="w-full px-3 py-2 text-sm border rounded-md border-secondgraphy focus:outline-none focus:border-primary md:text-base"
                 onChange={handleChange}
                 value={selectedAddress}
               >
@@ -112,7 +112,7 @@ const DeliveryItems = ({
           <div className="flex items-center justify-end gap-4 mt-2">
             {!address_isError ? (
               <button
-                className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+                className="px-4 py-2 mt-2 text-sm border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy md:text-base"
                 onClick={() =>
                   editAction((prev) => {
                     return {
@@ -126,7 +126,7 @@ const DeliveryItems = ({
               </button>
             ) : null}
             <button
-              className="px-4 py-2 mt-2 border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy"
+              className="px-4 py-2 mt-2 text-sm border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy md:text-base"
               onClick={() => setShowNewAddressForm(true)}
             >
               Add New Address

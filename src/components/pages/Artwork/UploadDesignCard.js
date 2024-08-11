@@ -116,7 +116,7 @@ const UploadDesignService = ({
 
           <div className="mb-3">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-              <h1 className="text-lg font-bold md:text-2xl">
+              <h1 className="text-lg font-bold md:text-xl ">
                 Design Request Form
               </h1>
               <Link
@@ -148,7 +148,7 @@ const UploadDesignService = ({
             <div>
               <label
                 htmlFor="artwork_file"
-                className="flex px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
+                className="flex px-2 py-2 text-sm font-medium text-center rounded-md cursor-pointer text-secondgraphy lg:text-base md:font-semibold lg:font-bold md:px-8 lg:px-8 xl:px-16 bg-primary hover:bg-primary "
               >
                 <IoCloudUploadOutline className="hidden md:block text-base md:text-lg lg:text-xl mr-[2px] md:mr-2  font-semibold mt-1" />
                 Upload Design Request File
@@ -163,7 +163,7 @@ const UploadDesignService = ({
               />
             </div>
             <button
-              className="flex px-2 py-2 text-sm font-medium border rounded-md md:text-lg lg:text-xl md:font-semibold lg:font-bold md:px-8 lg:px-8 border-typography hover:bg-black hover:text-white "
+              className="flex px-2 py-2 text-sm font-medium border rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-8 lg:px-8 border-typography hover:bg-black hover:text-white "
               disabled={product?.file && isPendingSkip}
               onClick={() => {
                 handleSkip({ skip_cart_id: product.id });
@@ -242,9 +242,20 @@ const UploadDesignService = ({
         </div>
       </div>
 
-      <div className="flex justify-center mt-5 mb-5 mr-auto lg:justify-end md:mb-10">
+      <div className="justify-center hidden mt-5 mb-5 mr-auto lg:flex lg:justify-end md:mb-10 md">
         <button
-          className="flex  text-[14px] md:text-lg lg:text-xl font-medium md:font-semibold lg:font-bold py-3 px-5 md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy rounded-md  "
+          className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
+          onClick={() => {
+            router.push("/checkout");
+          }}
+        >
+          <MdOutlineLock className="text-base md:text-xl mt-[2px] md:mt-0 lg:text-2xl mr-1 " />
+          Continue To Delivery & Payment
+        </button>
+      </div>
+      <div className="fixed bottom-0 left-0 z-50 flex justify-center w-full py-5 mr-auto bg-white border shadow-inner lg:hidden">
+        <button
+          className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
           onClick={() => {
             router.push("/checkout");
           }}

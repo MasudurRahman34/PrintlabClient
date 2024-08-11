@@ -16,18 +16,19 @@ import { skipFileUploadMutation } from "@/resolvers/mutation";
 import toast from "react-hot-toast";
 import useToastMessage from "@/hooks/useToastMessage";
 import UploadDesignService from "./UploadDesignCard";
+import UploadArtworkCard from "./UploadArtworkCard";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   loading: () => <Loader />,
   ssr: false,
 });
 
-const UploadArtworkCard = dynamic(
+/* const UploadArtworkCard = dynamic(
   () => import("@/components/pages/Artwork/UploadArtworkCard"),
   {
     ssr: false,
   }
-);
+); */
 
 const UploadArtwork = () => {
   const { session } = useAuth();
@@ -140,10 +141,10 @@ const UploadArtwork = () => {
       <div className="p-4 bg-secondary">
         <div className="bg-white artsummry ">
           <div className="bg-secondary">
-            <h4 className="text-lg font-medium text-secondgraphy md:text-xl lg:text-2xl xl:text-3xl md:font-semibold lg:font-bold lg:ps-2">
+            <h4 className="text-lg font-medium lg:text-xl text-secondgraphy md:font-semibold lg:font-bold ">
               Upload Artwork ( {data?.data.length} items)
             </h4>
-            <p className="text-sm font-medium lg:text-base lg:ps-5 text-typography">
+            <p className="text-sm font-medium lg:text-base text-typography">
               You can upload your files below, or skip this step and upload your
               files later at a time that suits you.
             </p>
@@ -179,20 +180,18 @@ const UploadArtwork = () => {
                     setActiveCart(product.id);
                   }}
                 >
-                  <h4 className="text-sm md:text-base lg:text-lg font-normal md:font-medium text-typography w-[30%] ">
+                  <h4 className="text-sm md:text-base  font-normal md:font-medium text-typography w-[30%] ">
                     Item {idx + 1}.
                   </h4>
                   <div className="w-[70%]">
-                    <h4 className="mb-2 text-base font-medium md:text-lg lg:text-xl md:font-semibold lg:font-bold">
+                    <h4 className="mb-2 text-base font-medium md:text-lg md:font-semibold lg:font-bold">
                       {product.product.title}
                     </h4>
                     <h4 className="text-sm font-normal md:font-medium text-secondgraphy">
-                      <span className="text-sm md:text-base lg:text-lg">
-                        ITEM REF:
-                      </span>{" "}
+                      <span className="text-sm md:text-base ">ITEM REF:</span>{" "}
                       {product.id}
                     </h4>
-                    <h4 className="flex text-sm font-normal md:text-base lg:text-lg text-secondgraphy md:font-medium -ms-2 ">
+                    <h4 className="flex text-sm font-normal md:text-base text-secondgraphy md:font-medium -ms-2 ">
                       <GoDotFill className="mr-1 text-3xl text-primary" />
                       {product?.is_skipped ? "Skipped" : product.artwork_status}
                     </h4>
