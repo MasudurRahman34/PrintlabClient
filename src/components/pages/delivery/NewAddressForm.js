@@ -23,6 +23,7 @@ const NewAddressForm = ({
   const [post_code, set_post_code] = useState("");
   const [selectedAddress, set_selectedAddress] = useState(null);
   const [manually, set_manually] = useState(false);
+  const [isFetchingAddress, set_isFetchingAddress] = useState(false);
 
   const { mutate, isPending } = useMutation({
     mutationKey: "addAddress",
@@ -58,19 +59,21 @@ const NewAddressForm = ({
     const variables = {
       first_name: data.first_name,
       last_name: data.last_name,
-      company_name: data.company_name,
       line_1: data.address,
-      line_2: data.address_2 || "",
-      country: data.country,
-      town: data.town,
       post_code: post_code,
       address: data.address,
-      email: data.delivery_email,
-      phone: data.delivery_mobile_number,
       is_default: data.default ? 1 : 0,
       user_id: user?.id,
       type: address_type,
     };
+
+    if (data.company_name) variables.company_name = data.company_name;
+    if (data.address_2) variables.line_2 = data.address_2;
+    if (data.country) variables.country = data.country;
+    if (data.town) variables.town = data.town;
+    if (data.delivery_email) variables.email = data.delivery_email;
+    if (data.delivery_mobile_number)
+      variables.phone = data.delivery_mobile_number;
 
     mutate(
       {
@@ -96,7 +99,7 @@ const NewAddressForm = ({
   const search = async (searchQuery) => {
     try {
       if (!validateLondonPostcode(searchQuery)) return;
-
+      set_isFetchingAddress(true);
       const response = await axios.get(
         `https://pcls1.craftyclicks.co.uk/json/rapidaddress?key=f1040-47ec6-d0279-02440&postcode=${searchQuery}&response=data_formatted`,
         {
@@ -105,9 +108,10 @@ const NewAddressForm = ({
       );
 
       const data = await response?.data;
-
+      set_isFetchingAddress(false);
       set_results(data);
     } catch (error) {
+      set_isFetchingAddress(false);
       console.error("Error fetching search results", error);
     }
   };
@@ -137,7 +141,7 @@ const NewAddressForm = ({
   }, [selectedAddress, manually, results, setValue]);
 
   return (
-    <div>
+    <div className="pb-4">
       <div className="px-3 py-2 md:py-3">
         {address_type === "shipping" && (
           <div className="flex items-center justify-between mb-2 md:mb-3 ">
@@ -183,50 +187,54 @@ const NewAddressForm = ({
             />
           </div>
         </div>
-        {results && (
-          <>
-            <div className="flex mt-3">
-              <p className=" text-sm md:text-base  font-medium text-secondgraphy px-2 w-[65%]">
-                Select Address
-              </p>
-              <div className="w-full">
-                <select
-                  name="address_select"
-                  id="address_select"
-                  className="block w-full px-2 py-1 mb-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
-                  value={selectedAddress}
-                  onChange={onSelectAddress}
-                >
-                  <option value="">Select Address</option>
-                  {results?.delivery_points?.map((address) => (
-                    <option key={address.udprn} value={address.udprn}>
-                      {address.line_1}, {results?.town}, {results?.postcode}
-                    </option>
-                  ))}
-                </select>
+        {isFetchingAddress ? (
+          <Loader />
+        ) : (
+          results && (
+            <>
+              <div className="flex mt-3">
+                <p className=" text-sm md:text-base  font-medium text-secondgraphy px-2 w-[65%]">
+                  Select Address
+                </p>
+                <div className="w-full">
+                  <select
+                    name="address_select"
+                    id="address_select"
+                    className="block w-full px-2 py-1 mb-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy"
+                    value={selectedAddress}
+                    onChange={onSelectAddress}
+                  >
+                    <option value="">Select Address</option>
+                    {results?.delivery_points?.map((address) => (
+                      <option key={address.udprn} value={address.udprn}>
+                        {address.line_1}, {results?.town}, {results?.postcode}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div className="flex mt-3">
-              <p className="text-sm md:text-base invisible  font-medium text-secondgraphy px-2 w-[65%]">
-                Select Address
-              </p>
-              <div>
-                <input
-                  type="checkbox"
-                  id="address"
-                  name="address"
-                  for="address"
-                  onChange={(e) => set_manually(e.target.checked)}
-                />
-                <label
-                  for="address"
-                  className="ml-3 text-sm font-medium md:text-base text-secondgraphy "
-                >
-                  Enter Addresses Manualy
-                </label>
+              <div className="flex mt-3">
+                <p className="text-sm md:text-base invisible  font-medium text-secondgraphy px-2 w-[65%]">
+                  Select Address
+                </p>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="address"
+                    name="address"
+                    for="address"
+                    onChange={(e) => set_manually(e.target.checked)}
+                  />
+                  <label
+                    for="address"
+                    className="ml-3 text-sm font-medium md:text-base text-secondgraphy "
+                  >
+                    Enter Addresses Manualy
+                  </label>
+                </div>
               </div>
-            </div>
-          </>
+            </>
+          )
         )}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -406,7 +414,7 @@ const NewAddressForm = ({
           </div>
         </div>
         {address_type === "shipping" && (
-          <div className="flex items-center justify-center py-2 md:py-5">
+          <div className="flex items-center justify-start py-2 md:py-5">
             <div>
               <div>
                 <input
@@ -431,7 +439,11 @@ const NewAddressForm = ({
             type="submit"
             className="w-full py-1 text-base font-bold text-white border rounded-md md:py-2 bg-secondgraphy "
           >
-            {isPending ? "Adding Address..." : "Add Address"}
+            {isPending
+              ? "Adding Address..."
+              : address_type === "shipping"
+              ? "Add Delivery Address"
+              : "Add Billing Address"}
           </button>
         </div>
       </form>

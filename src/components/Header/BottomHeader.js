@@ -56,6 +56,7 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["categories-get"],
     queryFn: getCategoriesQuery,
+    staleTime: 1000 * 60 * 60 * 24,
   });
 
   return (

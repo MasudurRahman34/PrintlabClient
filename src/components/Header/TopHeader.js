@@ -115,7 +115,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
         {isAuthenticated ? (
           <div>
             <Link
-              href="/my-account"
+              href="/my-account/orders"
               className="flex flex-col items-center space-y-1 group"
             >
               <span>
@@ -165,7 +165,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
         )}
         <div className="relative">
           {cart.totalQuantity > 0 && (
-            <div className="absolute flex items-center justify-center w-4 h-4 text-xs font-bold text-black rounded-full -top-1 right-3 bg-primary ">
+            <div className="absolute flex items-center justify-center w-5 h-5 text-xs font-bold text-black rounded-full -top-2 right-2 bg-primary ">
               {cart.totalQuantity}
             </div>
           )}

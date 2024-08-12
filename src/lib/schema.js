@@ -25,18 +25,15 @@ export const sign_up_schema = yup.object().shape({
 
 export const address_schema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
-  last_name: yup.string(),
+  last_name: yup.string().required("Last Name is required"),
   company_name: yup.string(),
   address: yup.string().required("Address is required"),
-  address_2: yup.string().required("Address 2 is required"),
+  address_2: yup.string(),
   town: yup.string(),
   postcode: yup.string().required("Postcode is required"),
   country: yup.string(),
-  delivery_mobile_number: yup.string().required("Mobile Number is required"),
-  delivery_email: yup
-    .string()
-    .email("Email is invalid")
-    .required("Email is required"),
+  delivery_mobile_number: yup.string(),
+  delivery_email: yup.string().email("Email is invalid"),
 });
 
 export const address_edit_schema = yup.object().shape({
@@ -49,7 +46,7 @@ export const address_edit_schema = yup.object().shape({
   postcode: yup.string(),
   country: yup.string(),
   delivery_mobile_number: yup.string(),
-  delivery_email: yup.string().email("Email is invalid"),
+  delivery_email: yup.string(),
 });
 
 export const login_schema = yup.object().shape({

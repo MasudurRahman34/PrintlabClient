@@ -45,10 +45,10 @@ const navLinks = [
     name: "Payment Settings",
     link: "/my-account/payment-settings",
   }, */
-  {
+  /* {
     name: "Account Settings",
     link: "/my-account/account-settings",
-  },
+  }, */
   /* {
     name: "API Configuration",
     link: "/my-account/api-configuration",
@@ -76,7 +76,7 @@ const AccountLayout = ({ children, breadcrumb }) => {
         <div className=" md:mt-[50px]  md:flex position-relative  ">
           <div>
             <button onClick={() => setopernav(!opernav)}>
-              <FaBars className="text-2xl  md:hidden" />
+              <FaBars className="text-2xl md:hidden" />
             </button>
             <div
               className={` ${
@@ -97,7 +97,7 @@ const AccountLayout = ({ children, breadcrumb }) => {
               </button>
             </div>
           </div>
-          <div className="hidden md:block md:w-3/12">
+          <div className="hidden md:block md:w-2/12">
             <div>
               <h2 className="text-base font-medium leading-6 md:text-lg text-typography">
                 Our Account
@@ -118,7 +118,7 @@ const AccountLayout = ({ children, breadcrumb }) => {
               Log Out
             </button>
           </div>
-          <div className="w-full md:w-9/12 pos">
+          <div className="w-full md:w-10/12 ">
             <div>
               <h2 className="text-base font-bold md:text-lg text-secondgraphy ">
                 {breadcrumb}

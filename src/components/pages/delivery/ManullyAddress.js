@@ -15,6 +15,7 @@ import { memo, useEffect, useState } from "react";
 import { checkoutMutation } from "@/resolvers/mutation";
 import useToastMessage from "@/hooks/useToastMessage";
 import { getDateAfterDays } from "@/lib/utils";
+import { useRouter } from "next/router";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
@@ -55,11 +56,24 @@ const ManullyAddress = () => {
     // validating all data is available or not null or undefined
 
     const variables = {};
+    console.log("checkout_state", checkout_state);
 
     if (checkout_state.cart_id.length === 0)
       return showToastMessage("Cart is empty");
-    if (checkout_state.shipping_address.length === 0)
-      return showToastMessage("Shipping address is required");
+    if (checkout_state.shipping_address.find((item) => !item.shipment_id)) {
+      const emptyAddress = checkout_state.shipping_address.filter(
+        (item) => !item.shipment_id
+      );
+
+      emptyAddress.forEach((item) => {
+        showToastMessage(
+          `Shipping address is required for cart id ${item.cart_id}`
+        );
+      });
+
+      return;
+    }
+
     if (!checkout_state.billing_address)
       return showToastMessage("Billing address is required");
 
@@ -85,33 +99,52 @@ const ManullyAddress = () => {
 
   useEffect(() => {
     if (isSuccess && address_isSuccess) {
-      const billing_address = address_data?.data.find(
-        (address) => address.type === "billing"
-      );
-
       const tempCheckoutState = {
         cart_id: [],
         shipping_address: [],
-        billing_address: billing_address ? billing_address.id : null,
+        billing_address: null,
       };
 
-      const defaultAddress =
-        (address_data?.data?.length > 0 &&
-          address_data?.data.find(
-            (address_data) => address_data.is_default === 1
-          )) ||
-        address_data?.data[0];
+      // if address is available then set the default address
+      if (address_data?.data && address_data?.data.length > 0) {
+        const billing_address = address_data?.data?.find(
+          (address) => address.type === "billing"
+        );
+        const defaultAddress =
+          (address_data?.data?.length > 0 &&
+            address_data?.data.find(
+              (address_data) => address_data.is_default === 1
+            )) ||
+          address_data?.data[0];
 
-      data?.data.forEach((cart) => {
-        tempCheckoutState.cart_id.push(cart.id);
-        tempCheckoutState.shipping_address.push({
-          cart_id: cart.id,
-          shipment_id: defaultAddress?.id,
-          delivery_date: getDateAfterDays(cart.delivery_service.duration),
+        // if address is available then set the default address
+        data?.data.forEach((cart) => {
+          tempCheckoutState.cart_id.push(cart.id);
+          tempCheckoutState.shipping_address.push({
+            cart_id: cart.id,
+            shipment_id: defaultAddress?.id,
+            delivery_date: getDateAfterDays(cart.delivery_service.duration),
+          });
         });
-      });
 
-      set_checkout_state(tempCheckoutState);
+        tempCheckoutState.billing_address = billing_address?.id || null;
+
+        console.log("I am inside");
+
+        set_checkout_state(tempCheckoutState);
+      } else {
+        // if address is not available then set the default address
+        data?.data.forEach((cart) => {
+          tempCheckoutState.cart_id.push(cart.id);
+          tempCheckoutState.shipping_address.push({
+            cart_id: cart.id,
+            shipment_id: null,
+            delivery_date: getDateAfterDays(cart.delivery_service.duration),
+          });
+        });
+
+        set_checkout_state(tempCheckoutState);
+      }
     }
   }, [isSuccess, address_isSuccess, address_data, data]);
 

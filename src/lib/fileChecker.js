@@ -48,7 +48,7 @@ export const checkPdfFile = async (file, checkType) => {
         actualBleedRight >= expectedBleed &&
         actualBleedTop >= expectedBleed;
 
-      return hasCorrectBleed;
+      return !hasCorrectBleed;
     }
 
     switch (checkType) {
@@ -90,7 +90,8 @@ export const checkPdfFile = async (file, checkType) => {
           tempResults.push(bleedCheck);
         }
 
-        checkResult = tempResults.every((result) => result);
+        checkResult = tempResults.every((result) => result === true);
+
         return checkResult;
 
         break;

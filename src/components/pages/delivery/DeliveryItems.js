@@ -10,6 +10,7 @@ const DeliveryItems = ({
   address_data,
   address_isLoading,
   address_isError,
+
   checkout_state,
   set_checkout_state,
   address_refetch,
@@ -79,7 +80,7 @@ const DeliveryItems = ({
 
         {address_isLoading ? (
           <Loader />
-        ) : address_isError ? (
+        ) : !address_data ? (
           <div className="px-3 py-2 rounded-sm bg-primary">
             <h1 className="text-sm font-bold text-secondgraphy md:text-base">
               You Do not have any address saved. Please add a new address
@@ -110,7 +111,7 @@ const DeliveryItems = ({
         )}
         {!address_isLoading ? (
           <div className="flex items-center justify-end gap-4 mt-2">
-            {!address_isError ? (
+            {address_data ? (
               <button
                 className="px-4 py-2 mt-2 text-sm border rounded-md border-secondgraphy hover:text-white hover:bg-secondgraphy md:text-base"
                 onClick={() =>
