@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { formatPrice } from "@/lib/utils";
+import Link from "next/link";
 
 const DownloadInvoice = dynamic(() => import("./DownloadInvoice"), {
   ssr: false,
@@ -9,7 +10,9 @@ const PrintInvoice = dynamic(() => import("./PrintInvoice"), {
   ssr: false,
 });
 
-const InvoiceRow = ({ item }) => {
+const InvoiceRow = ({ item, idx }) => {
+  console.log(item);
+
   const invoiceGeneratedObj = useMemo(() => {
     return {
       outputType: "blob", // save, string, datauristring
@@ -42,8 +45,7 @@ const InvoiceRow = ({ item }) => {
         name: "Printlab",
         address: "London ,172 Commercial Road",
         phone: "07411284290",
-        email: "email@example.com",
-        email_1: "info@example.al",
+        email: "info@weareprintlab.co.uk",
         website: "https://weareprintlab.co.uk",
       },
       contact: {
@@ -52,10 +54,9 @@ const InvoiceRow = ({ item }) => {
         address: `${item.billing_address.country}, ${item.billing_address.address}`,
         phone: item.billing_address.phone,
         email: item.billing_address.email,
-        otherInfo: "www.website.al",
       },
       invoice: {
-        label: "Invoice #: ",
+        label: `Invoice #: ${item.order_number}`,
         num: item.id,
         invDate: `Invoice Date: ${item.order_date}`,
         invGenDate: `Invoice Generated: ${item.order_date}`,
@@ -111,7 +112,15 @@ const InvoiceRow = ({ item }) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
-        <p className="text-sm text-gray-900">{item.id}</p>
+        <p className="text-sm text-gray-900">{idx + 1}</p>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <Link
+          href={`/my-account/orders/${item.id}`}
+          className="text-sm text-gray-900"
+        >
+          {item.order_number}
+        </Link>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <p className="text-sm text-gray-900">{item.order_date}</p>

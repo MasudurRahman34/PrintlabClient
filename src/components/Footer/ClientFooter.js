@@ -16,22 +16,22 @@ const navItems = [
   {
     title: "Help",
     links: [
-      { name: "Contact Us", href: "#" },
-      { name: "Help Center", href: "#" },
+      { name: "Contact Us", href: "/contact-us" },
+      { name: "Help Center", href: "/help" },
     ],
   },
   {
     title: "About Us",
     links: [
-      { name: "About Us", href: "#" },
-      { name: "weareprintlab Blog", href: "#" },
-      { name: "Careers", href: "#" },
+      { name: "About Us", href: "/about-us" },
+      /*  { name: "weareprintlab Blog", href: "#" }, */
+      { name: "Careers", href: "/careers" },
     ],
   },
   {
     title: "FAQ",
     links: [
-      { name: "FAQ", href: "#" },
+      { name: "FAQ", href: "/faq" },
       /*  { name: "Sample Packs", href: "#" },
       { name: "Tradeprint API", href: "#" },
       { name: "Tradeprint PRO", href: "#" }, */
@@ -40,9 +40,9 @@ const navItems = [
   {
     title: "Important",
     links: [
-      { name: "Terms & Conditions", href: "#" },
-      { name: "Privacy & Cookie Policy", href: "#" },
-      { name: "Environmental Policy", href: "#" },
+      { name: "Terms & Conditions", href: "/terms" },
+      { name: "Privacy & Cookie Policy", href: "/privacy" },
+      { name: "Environmental Policy", href: "/environmental-policy" },
     ],
   },
 ];
@@ -90,12 +90,12 @@ const ClientFooter = () => {
                   <ul className="space-y-2">
                     {navItem.links.map((link, index) => (
                       <li key={index}>
-                        <a
+                        <Link
                           href={link.href}
                           className="text-sm hover:text-primary"
                         >
                           {link.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

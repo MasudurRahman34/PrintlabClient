@@ -95,7 +95,10 @@ const InvoiceComponent = () => {
             <thead>
               <tr>
                 <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Invoice #
+                  SL
+                </th>
+                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Order NO.
                 </th>
                 <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                   Date
@@ -112,8 +115,8 @@ const InvoiceComponent = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data.map((item) => (
-                <InvoiceRow key={item.id} item={item} />
+              {data?.data.map((item, idx) => (
+                <InvoiceRow key={item.id} item={item} idx={idx} />
               ))}
             </tbody>
           </table>

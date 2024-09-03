@@ -41,6 +41,8 @@ const DeliveryItems = ({
     });
   };
 
+  console.log("item", item);
+
   useEffect(() => {
     if (address_data && address_data.length > 0) {
       const defaultAddress = address_data.find(
@@ -73,6 +75,9 @@ const DeliveryItems = ({
                 getDateAfterDays(item.delivery_service.duration)
               )}
             </span>{" "}
+            <br />
+            <span>Product Name:</span>{" "}
+            <span className="font-medium"> {item.product.title}</span>
             <br /> Qty: {item.quantity}, Combination String:{" "}
             {item.combination_string}
           </p>

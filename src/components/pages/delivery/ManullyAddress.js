@@ -56,7 +56,6 @@ const ManullyAddress = () => {
     // validating all data is available or not null or undefined
 
     const variables = {};
-    console.log("checkout_state", checkout_state);
 
     if (checkout_state.cart_id.length === 0)
       return showToastMessage("Cart is empty");
@@ -128,8 +127,6 @@ const ManullyAddress = () => {
         });
 
         tempCheckoutState.billing_address = billing_address?.id || null;
-
-        console.log("I am inside");
 
         set_checkout_state(tempCheckoutState);
       } else {

@@ -1,7 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import AuthProvider from "react-auth-kit/AuthProvider";
-import createStore from "react-auth-kit/createStore";
 
 import "@/styles/globals.css";
 //import "@/styles/style.css";

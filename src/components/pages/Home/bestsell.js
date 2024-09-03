@@ -53,8 +53,8 @@ const BestSell = () => {
                   Custom Printed Best Sellers
                 </h5>
               </div>
-              <div className="box-body -mt-[15px]">
-                <div className="border-b dark:border-white/10">
+              <div className="box-body mt-[15px]">
+                {/* <div className="border-b dark:border-white/10">
                   <nav
                     className="-mb-0.5 flex justify-center space-x-6 rtl:space-x-reverse overflow-x-auto"
                     aria-label="Tabs"
@@ -77,7 +77,7 @@ const BestSell = () => {
                       </button>
                     ))}
                   </nav>
-                </div>
+                </div> */}
 
                 <div className="mt-3">
                   {isLoading ? (
