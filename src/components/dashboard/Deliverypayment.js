@@ -47,15 +47,9 @@ const Deliverypayment = () => {
                       className="block w-full px-2 py-2 mb-2 -mt-2 border rounded-md shadow-md outline-none border-primary "
                       {...register("postcode", { required: true })}
                     />
-                    <input
-                      type="checkbox"
-                      id=""
-                      name="address"
-                      for="address"
-                      required
-                    />
+                    <input type="checkbox" id="" name="address" required />
                     <label
-                      for="address"
+                      htmlFor="address"
                       className="ml-3 text-sm font-medium md:text-base text-secondgraphy "
                     >
                       Enter Addresses Manualy
@@ -79,7 +73,7 @@ const Deliverypayment = () => {
             </h5>
             <div className="px-5 py-5">
               <div className="flex justify-between">
-                <div className="font-semibold text-black  text-bae md:text-lg">
+                <div className="font-semibold text-black text-bae md:text-lg">
                   <p className="py-2">Sub Total</p>
                   <p className="py-2">Vat</p>
                 </div>

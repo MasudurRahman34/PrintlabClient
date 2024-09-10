@@ -1,6 +1,7 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Loader from "@/components/Loader/Loader";
 import MetaData from "@/components/ui/MetaData";
+import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import { resendVerificationEmailMutation } from "@/resolvers/mutation";
@@ -140,4 +141,4 @@ const EmailVerify = () => {
   );
 };
 
-export default EmailVerify;
+export default withAuth(EmailVerify);

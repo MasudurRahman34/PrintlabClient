@@ -7,9 +7,12 @@ import { BsFillBasketFill } from "react-icons/bs";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { FiLogIn } from "react-icons/fi";
+import DesktopBottomHeader from "./DesktopBottomHeader";
+import { IoLogOut } from "react-icons/io5";
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
-  const { user, isAuthenticated, isLoading: auth_loading } = useAuth();
+  const { user, isAuthenticated, isLoading: auth_loading, logout } = useAuth();
   const [cart, setCart] = useState({
     totalPrice: 0,
     totalQuantity: 0,
@@ -60,155 +63,177 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
   });
 
   return (
-    <section className="flex items-start justify-between gap-5 px-4 border-b border-gray-300 lg:px-5 bg-primary header">
+    <>
       {isLoading || isError ? null : (
-        <div className="w-full">
-          <div className="row v-center">
-            {/* <!-- menu start here --> */}
-            <div className="header-item item-center">
-              <div
-                className={`menu-overlay ${isActive ? "active" : ""}`}
-                onClick={toggleMenu}
-              ></div>
-              <nav className={`menu ${isActive ? "active" : ""}`}>
-                {isLoading ? (
-                  <Loader />
-                ) : isError ? (
-                  "Error"
-                ) : (
+        <>
+          <section className="flex items-center justify-between gap-5 px-4 border-b border-gray-300 lg:px-5 bg-primary header lg:hidden">
+            <div className="w-full ">
+              <div className="row v-center">
+                {/* <!-- menu start here --> */}
+                <div className="header-item item-center">
                   <div
-                    className={`mobile-menu-head ${
-                      activeMenu.id ? "active" : ""
-                    }`}
+                    className={`menu-overlay ${isActive ? "active" : ""}`}
+                    onClick={toggleMenu}
+                  ></div>
+                  <nav className={`menu ${isActive ? "active" : ""}`}>
+                    {isLoading ? (
+                      <Loader />
+                    ) : isError ? (
+                      "Error"
+                    ) : (
+                      <div
+                        className={`mobile-menu-head ${
+                          activeMenu.id ? "active" : ""
+                        }`}
+                      >
+                        <div className="go-back" onClick={goBackMenu}>
+                          {"<"}
+                        </div>
+                        <div className="current-menu-title">
+                          {activeMenu.menu ? activeMenu.menu.name : ""}
+                        </div>
+                        <div className="mobile-menu-close" onClick={toggleMenu}>
+                          &times;
+                        </div>
+                      </div>
+                    )}
+                    <ul className="menu-main">
+                      {data?.data.map((manuCategory, idx) => {
+                        return (
+                          <>
+                            <li
+                              className={`${
+                                manuCategory.children.length > 0
+                                  ? "menu-item-has-children"
+                                  : ""
+                              }`}
+                              key={idx}
+                            >
+                              <div
+                                className="flex items-center justify-between w-full px-4 py-3 text-sm border-b border-gray-300 title md:text-base"
+                                onClick={() => {
+                                  showSubMenu({ manuCategory });
+                                }}
+                              >
+                                <span>{manuCategory.title}</span>{" "}
+                                {manuCategory.children.length > 0 && (
+                                  <FaChevronRight className="cursor-pointer" />
+                                )}
+                              </div>
+                              <div
+                                className={`sub-menu mega-menu mega-menu-column-4 ${
+                                  activeMenu.id &&
+                                  activeMenu.id === manuCategory.id
+                                    ? "active"
+                                    : ""
+                                }`}
+                              >
+                                {manuCategory.children.length > 0 &&
+                                  manuCategory.children.map((child, index) => {
+                                    return (
+                                      <div className="list-item" key={index}>
+                                        <h4 className="text-sm title md:text-base ">
+                                          <Link href={`/product/${child.slug}`}>
+                                            {child.title}
+                                          </Link>
+                                        </h4>
+                                        <ul>
+                                          {child.products.length > 0 &&
+                                            child.products.map(
+                                              (product, index) => {
+                                                return (
+                                                  <li
+                                                    key={index}
+                                                    className="text-red-500"
+                                                  >
+                                                    <Link
+                                                      href={`/product/${child.slug}/${product.slug}`}
+                                                    >
+                                                      {product.title}
+                                                    </Link>
+                                                  </li>
+                                                );
+                                              }
+                                            )}
+                                        </ul>
+                                      </div>
+                                    );
+                                  })}
+                              </div>
+                            </li>
+                          </>
+                        );
+                      })}
+                    </ul>
+                  </nav>
+                </div>
+
+                {/* 	<!-- menu end here --> */}
+                <div className="justify-between header-item item-right">
+                  {/* 	<!-- mobile menu trigger --> */}
+                  <div
+                    className="mobile-menu-trigger"
+                    onClick={() => {
+                      toggleMenu();
+                    }}
                   >
-                    <div className="go-back" onClick={goBackMenu}>
-                      {"<"}
-                    </div>
-                    <div className="current-menu-title">
-                      {activeMenu.menu ? activeMenu.menu.name : ""}
-                    </div>
-                    <div className="mobile-menu-close" onClick={toggleMenu}>
-                      &times;
-                    </div>
+                    <span></span>
                   </div>
-                )}
-                <ul className="menu-main">
-                  {data?.data.map((manuCategory, idx) => {
-                    return (
+
+                  <div className="flex items-center justify-center gap-3 lg:hidden">
+                    {!auth_loading && isAuthenticated ? (
                       <>
-                        <li
-                          className={`${
-                            manuCategory.children.length > 0
-                              ? "menu-item-has-children"
-                              : ""
-                          }`}
-                          key={idx}
-                        >
+                        <div className="flex flex-col items-center ">
                           <Link
-                            href="#"
+                            href="/my-account"
+                            className="flex flex-col items-center group"
+                          >
+                            <MdOutlineManageAccounts className="w-6 h-6 text-secondgraphy" />
+                          </Link>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <button
+                            className="mt-5 mb-5 "
                             onClick={() => {
-                              showSubMenu({ manuCategory });
+                              logout();
                             }}
                           >
-                            {manuCategory.title}{" "}
-                            <i className="fa fa-angle-down"></i>
-                          </Link>
-                          <div
-                            className={`sub-menu mega-menu mega-menu-column-4 ${
-                              activeMenu.id && activeMenu.id === manuCategory.id
-                                ? "active"
-                                : ""
-                            }`}
-                          >
-                            {manuCategory.children.length > 0 &&
-                              manuCategory.children.map((child, index) => {
-                                return (
-                                  <div className="list-item" key={index}>
-                                    <h4 className="text-sm title md:text-base ">
-                                      <Link href={`/product/${child.slug}`}>
-                                        {child.title}
-                                      </Link>
-                                    </h4>
-                                    <ul>
-                                      {child.products.length > 0 &&
-                                        child.products.map((product, index) => {
-                                          return (
-                                            <li
-                                              key={index}
-                                              className="text-red-500"
-                                            >
-                                              <Link
-                                                href={`/product/${child.slug}/${product.slug}`}
-                                              >
-                                                {product.title}
-                                              </Link>
-                                            </li>
-                                          );
-                                        })}
-                                    </ul>
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        </li>
+                            <IoLogOut className="w-6 h-6 text-secondgraphy" />
+                          </button>
+                        </div>
                       </>
-                    );
-                  })}
-                </ul>
-              </nav>
-            </div>
+                    ) : (
+                      <div className="flex items-center ">
+                        <Link href="/login" className="flex items-center group">
+                          <FiLogIn className="w-6 h-6 text-secondg raphy" />
+                        </Link>
+                      </div>
+                    )}
 
-            {/* 	<!-- menu end here --> */}
-            <div className="justify-between header-item item-right">
-              {/* 	<!-- mobile menu trigger --> */}
-              <div
-                className="mobile-menu-trigger"
-                onClick={() => {
-                  toggleMenu();
-                }}
-              >
-                <span></span>
-              </div>
+                    <div className="relative flex flex-col items-center ">
+                      {cart.totalQuantity > 0 && (
+                        <div className="absolute flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full md:w-6 md:h-6 Md:text-sm -top-2 -right-2 ">
+                          {cart.totalQuantity}
+                        </div>
+                      )}
 
-              <div className="flex items-center justify-center gap-3 lg:hidden">
-                {!auth_loading && isAuthenticated ? (
-                  <div className="flex flex-col items-center ">
-                    <Link
-                      href="/my-account"
-                      className="flex flex-col items-center group"
-                    >
-                      <MdOutlineManageAccounts className="w-6 h-6 text-secondgraphy" />
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="flex items-center ">
-                    <Link href="/login" className="flex items-center group">
-                      <FiLogIn className="w-6 h-6 text-secondg raphy" />
-                    </Link>
-                  </div>
-                )}
-
-                <div className="relative">
-                  {cart.totalQuantity > 0 && (
-                    <div className="absolute flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full md:w-6 md:h-6 Md:text-sm -top-2 -right-2 ">
-                      {cart.totalQuantity}
+                      <Link
+                        href={"/basket"}
+                        onClick={showcards}
+                        className="flex items-center group"
+                      >
+                        <BsFillBasketFill className="w-5 h-5 text-secondgraphy" />
+                      </Link>
                     </div>
-                  )}
-
-                  <Link
-                    href={"/basket"}
-                    onClick={showcards}
-                    className="flex items-center group"
-                  >
-                    <BsFillBasketFill className="w-6 h-6 text-secondgraphy" />
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
+          <DesktopBottomHeader categories={data?.data} />
+        </>
       )}
-    </section>
+    </>
   );
 };
 

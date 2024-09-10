@@ -1,5 +1,6 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import MetaData from "@/components/ui/MetaData";
+import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import { resendVerificationEmailMutation } from "@/resolvers/mutation";
@@ -68,4 +69,4 @@ const VerifyEmailAlert = () => {
   );
 };
 
-export default VerifyEmailAlert;
+export default withAuth(VerifyEmailAlert);

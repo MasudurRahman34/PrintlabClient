@@ -13,8 +13,8 @@ const HeroSlider = () => {
   });
 
   return (
-    <div className="hidden md:block">
-      <Swiper navigation={true} modules={[Navigation]} className=" mySwiper">
+    <div className="">
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {isLoading ? (
           <Loader />
         ) : isError ? (
@@ -22,7 +22,7 @@ const HeroSlider = () => {
         ) : isSuccess && data?.data.length > 0 ? (
           data?.data.map((item) => (
             <SwiperSlide key={item.id}>
-              <img src={item.imageUrl} alt={item.title} />
+              <img src={item.imageUrl} alt={item.title} className="min-h-52" />
             </SwiperSlide>
           ))
         ) : null}

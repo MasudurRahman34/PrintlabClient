@@ -86,15 +86,6 @@ const AccountLayout = ({ children, breadcrumb }) => {
               } absolute z-30 bg-primary p-5 rounded-lg  `}
             >
               <ul>{navitem}</ul>
-              <div className="border border-[#b7b7b7] mt-5 mb-5 w-[30%] "></div>
-              <button
-                className="mt-2 mb-2"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                Log Out
-              </button>
             </div>
           </div>
           <div className="hidden md:block md:w-2/12">
