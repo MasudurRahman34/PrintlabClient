@@ -7,7 +7,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const MobileNav = ({ addToCard, isPending, matched, price, cart_items }) => {
   return (
     <div
-      className="fixed bottom-0 left-0 flex w-full bg-white border-t-2 shadow-inner h-14 md:hidden border-secondgraphy"
+      className="fixed bottom-0 left-0 flex w-full py-1 bg-white border-t-2 shadow-inner h-14 md:hidden "
       style={{ zIndex: 9999 }}
     >
       <div className="flex items-center justify-center h-full px-3 text-sm font-bold bg-white shadow-inner cursor-pointer">

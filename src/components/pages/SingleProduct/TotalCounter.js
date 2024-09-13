@@ -13,6 +13,7 @@ const TotalCounter = ({
   const { formattedDate } = useCountDownTimer({
     days: selectedDelivery?.duration,
   });
+
   return (
     <section className="fixed bottom-0 left-0 z-50 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">
@@ -20,7 +21,7 @@ const TotalCounter = ({
           <div className="flex-1 text-white text-end ">
             <p>
               <strong className="text-2xl">
-                {formattedDate} {excVatPrice}
+                {selectedDelivery && formattedDate} {excVatPrice}
               </strong>{" "}
               Ex Vat
             </p>
