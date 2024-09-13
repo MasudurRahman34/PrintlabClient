@@ -9,8 +9,11 @@ import { registerUserMutation } from "@/resolvers/mutation";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import MetaData from "@/components/ui/MetaData";
+import { useRouter } from "next/router";
 const Signup = () => {
   const showToastMessage = useToastMessage();
+  const router = useRouter();
+  const { redirect_url } = router.query;
   const { register: authRegister } = useAuth();
   const { mutate, isPending } = useMutation({
     mutationKey: "register",

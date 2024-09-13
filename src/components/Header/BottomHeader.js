@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { FiLogIn } from "react-icons/fi";
 import DesktopBottomHeader from "./DesktopBottomHeader";
 import { IoLogOut } from "react-icons/io5";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaChevronRight, FaUser } from "react-icons/fa";
 
 const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
   const { user, isAuthenticated, isLoading: auth_loading, logout } = useAuth();
@@ -205,26 +205,35 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                     ) : (
                       <div className="flex items-center ">
                         <Link href="/login" className="flex items-center group">
-                          <FiLogIn className="w-6 h-6 text-secondg raphy" />
+                          <FaUser className="w-5 h-5 text-secondgraphy" />
                         </Link>
                       </div>
                     )}
 
-                    <div className="relative flex flex-col items-center ">
-                      {cart.totalQuantity > 0 && (
-                        <div className="absolute flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full md:w-6 md:h-6 Md:text-sm -top-2 -right-2 ">
+                    {cart?.totalQuantity > 0 ? (
+                      <div className="flex items-center justify-start gap-2 mr-1 rounded-md text-white bg-secondgraphy py-1.5 px-3">
+                        <Link
+                          href={"/basket"}
+                          onClick={showcards}
+                          className="flex items-center justify-start group"
+                        >
+                          <BsFillBasketFill className="w-5 h-5 text-white text-secondgraphy" />
+                        </Link>
+                        <div className="flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full md:w-6 md:h-6 Md:text-sm">
                           {cart.totalQuantity}
                         </div>
-                      )}
-
-                      <Link
-                        href={"/basket"}
-                        onClick={showcards}
-                        className="flex items-center group"
-                      >
-                        <BsFillBasketFill className="w-5 h-5 text-secondgraphy" />
-                      </Link>
-                    </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center mr-3 ">
+                        <Link
+                          href={"/basket"}
+                          onClick={showcards}
+                          className="flex items-center group"
+                        >
+                          <BsFillBasketFill className="w-5 h-5 text-secondgraphy" />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

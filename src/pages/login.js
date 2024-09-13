@@ -2,7 +2,6 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -17,7 +16,6 @@ import MetaData from "@/components/ui/MetaData";
 const Userlogin = () => {
   const showToastMessage = useToastMessage();
   const router = useRouter();
-  const pathname = router.pathname;
   const { redirect_url } = router.query;
   const { login, isAuthenticated } = useAuth();
 
@@ -147,11 +145,11 @@ const Userlogin = () => {
                           Stay signed in
                         </label>
                       </div>
-                      <Link href="#">
+                      {/* <Link href="#">
                         <span className="text-[12px] md:text-[14px] underline  text-[#4DA0D7]">
                           Forgot Password
                         </span>
-                      </Link>
+                      </Link> */}
                     </div>
                     <div className="mb-2">
                       <input
@@ -163,8 +161,12 @@ const Userlogin = () => {
                     </div>
                     <div className="w-full mb-5">
                       <p className="text-[12px] md:text-[14px] font-normal text-center text-typography">
-                        New coustmar?
-                        <Link href="/register">
+                        New customar?{" "}
+                        <Link
+                          href={`/register${
+                            redirect_url ? "?redirect_url=" + redirect_url : ""
+                          }`}
+                        >
                           <span className="underline text-[#4DA0D7]">
                             Register here{" "}
                           </span>

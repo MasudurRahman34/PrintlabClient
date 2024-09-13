@@ -89,6 +89,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
+  console.log("matched", matched);
+
   // Add to card will be handled here with the selected options
   const addToCart = () => {
     if (!selectedDelivery || !selectedPrintType) {
@@ -97,7 +99,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
 
     if (!matched) {
-      toast.error("Please select all the options");
+      toast.error("Combination not found. Please select another one");
       return;
     }
 
@@ -192,9 +194,11 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         {isLoading ? (
           <Loader />
         ) : isError ? (
-          <p>
-            No combination found for this product. Please contact the support
-          </p>
+          <div className="w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
+            <p className="font-bold">
+              No combination found for this product. Please contact the support
+            </p>
+          </div>
         ) : (
           <>
             {combination_data?.data?.map((item, index) => {
@@ -227,7 +231,10 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
               <p className="text-secondgraphy">
                 <strong>SKU:</strong> {matched?.sku}
               </p>
-              {matched?.price <= 0 && (
+              {matched && matched?.price <= 0 && (
+                <p className="text-red-500">This product is not available</p>
+              )}
+              {!matched && (
                 <p className="text-red-500">This product is not available</p>
               )}
             </div>
@@ -296,7 +303,9 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           <button
             className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 disabled:bg-secondary disabled:opacity-40  flex items-center justify-center "
             onClick={addToCart}
-            disabled={isPending || matched?.price <= 0 || !selectedDelivery}
+            disabled={
+              isPending || !matched || matched?.price <= 0 || !selectedDelivery
+            }
           >
             {isPending ? (
               <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin flex items-center justify-center" />
