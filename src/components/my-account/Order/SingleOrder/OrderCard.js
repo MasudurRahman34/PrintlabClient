@@ -119,7 +119,9 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
                 </p>
               </div>
               <div className="mb-2">
-                <h1 className="text-xl font-semibold">{item.product_title}</h1>
+                <h1 className="text-xl font-semibold">
+                  {item.product_title || item.product.title}
+                </h1>
 
                 <p className="text-sm">
                   Qty: {item.quantity}, Cobination: {item.combination_string},

@@ -23,10 +23,12 @@ const OrderTable = ({ orders }) => {
             <td className="px-2 text-left border border-gray-200">
               {order.order_number}
             </td>
-            <td className="px-2 text-left border border-gray-200">
+            <td className="flex flex-col gap-1 px-2 py-1 text-xs text-left border border-gray-200">
               {order.order_items.map((item) => (
                 <Link href={`/my-account/order-items/${item.id}`} key={item.id}>
-                  <p>{item.order_item_number}</p>
+                  <span className="text-sm hover:underline">
+                    {item.order_item_number}
+                  </span>
                 </Link>
               ))}
             </td>

@@ -12,6 +12,9 @@ const OrderItemTable = ({ orderItems }) => {
           <th className="px-2 text-left border border-gray-200">
             Order Item No:
           </th>
+          <th className="px-2 text-left border border-gray-200">
+            Product Name
+          </th>
 
           <th className="px-2 text-left border border-gray-200 min-w-52">
             Combination String
@@ -28,6 +31,9 @@ const OrderItemTable = ({ orderItems }) => {
             <td className="px-2 text-left border border-gray-200">{idx + 1}</td>
             <td className="px-2 text-left border border-gray-200">
               {orderItem.order_item_number}
+            </td>
+            <td className="px-2 text-left border border-gray-200">
+              {orderItem.product.title}
             </td>
 
             <td className="px-2 overflow-y-auto border border-gray-200 text-start min-w-52">

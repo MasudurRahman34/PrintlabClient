@@ -172,7 +172,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   };
 
   useEffect(() => {
-    if (combination_data?.data.length > 0) {
+    if (combination_data?.data && combination_data?.data.length > 0) {
       const temp = {};
 
       combination_data?.data.map((option) => {
@@ -193,7 +193,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       <div className="py-5">
         {isLoading ? (
           <Loader />
-        ) : isError ? (
+        ) : combination_data?.error ? (
           <div className="w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
             <p className="font-bold">
               No combination found for this product. Please contact the support

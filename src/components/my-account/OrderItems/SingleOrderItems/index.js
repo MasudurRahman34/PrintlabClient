@@ -7,7 +7,7 @@ import React from "react";
 import OrderCard from "../../Order/SingleOrder/OrderCard";
 
 const SingleOrderItemComponent = () => {
-  const { session, isAuthenticated } = useAuth();
+  const { session } = useAuth();
   const router = useRouter();
   const { order_items_id } = router.query;
 

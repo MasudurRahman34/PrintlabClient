@@ -253,7 +253,7 @@ const UploadDesignService = ({
           Continue To Delivery & Payment
         </button>
       </div>
-      <div className="fixed bottom-0 left-0 z-50 flex justify-center w-full py-5 mr-auto bg-white border shadow-inner lg:hidden">
+      <div className="fixed bottom-0 left-0 z-50 flex justify-center w-full py-5 mr-auto bg-white border shadow-inner bordet-t-2 lg:hidden">
         <button
           className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
           onClick={() => {

@@ -7,12 +7,15 @@ const DesktopBottomHeader = ({ categories = [] }) => {
   return (
     <section className="items-center justify-center hidden w-full h-full bg-primary lg:flex">
       <nav className="flex items-center justify-center w-full h-full">
-        <ul className="flex max-w-[calc(100vw-2rem)] items-center justify-center w-full h-full gap-3 ">
+        <ul className="flex max-w-[calc(100vw-2rem)] items-center  justify-center w-full h-full gap-3 ">
           {categories.map((category) => {
             return (
-              <li key={category.id} className=" group">
+              <li
+                key={category.id}
+                className="flex items-center justify-center h-16 group"
+              >
                 <div className="flex items-center justify-start max-w-44">
-                  <span className="h-full gap-2 px-2 py-3 text-sm font-semibold cursor-pointer text-secondgraphy">
+                  <span className="h-full gap-2 px-2 py-3 text-xs font-semibold cursor-pointer text-secondgraphy">
                     {category.title}{" "}
                   </span>
                   {category.children.length > 0 && (
