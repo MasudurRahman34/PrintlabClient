@@ -1,14 +1,14 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
 import MetaData from "@/components/ui/MetaData";
-import withAuth from "@/hoc/withAuth";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import { resendVerificationEmailMutation } from "@/resolvers/mutation";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
-const VerifyEmailAlert = () => {
+const EmailVerifyAlert = () => {
   const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const { mutate, isPending } = useMutation({
@@ -61,4 +61,4 @@ const VerifyEmailAlert = () => {
   );
 };
 
-export default withAuth(VerifyEmailAlert);
+export default EmailVerifyAlert;

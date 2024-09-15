@@ -5,6 +5,8 @@ import { useEffect, memo } from "react";
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const router = useRouter();
+    const pathname = router.pathname;
+
     const { isAuthenticated, isLoading, user } = useAuth();
 
     useEffect(() => {
@@ -15,7 +17,7 @@ const withAuth = (WrappedComponent) => {
           router.replace("/verify-email-alert");
         }
       }
-    }, [isAuthenticated, router, isLoading, user]);
+    }, [isAuthenticated, isLoading, user]);
 
     if (isLoading) {
       return (
@@ -38,8 +40,15 @@ const withAuth = (WrappedComponent) => {
 
     // If not loading, this component is responsible for rendering the wrapped component
 
-    if (!isAuthenticated || (user && user.email_verified_at === null)) {
+    if (!isAuthenticated) {
       return null; // or <Redirect to="/login" />
+    } else if (isAuthenticated && user) {
+      if (
+        user.email_verified_at === null &&
+        pathname !== "/verify-email-alert"
+      ) {
+        return null; // or <Redirect to="/verify-email-alert" />
+      }
     }
 
     return <WrappedComponent {...props} />;

@@ -36,7 +36,7 @@ const NewAddressForm = ({
     reset,
     handleSubmit,
     getValues,
-    watch,
+
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -96,6 +96,8 @@ const NewAddressForm = ({
     );
   };
 
+  console.log("errors", errors);
+
   const search = async (searchQuery) => {
     try {
       if (!validateLondonPostcode(searchQuery)) return;
@@ -121,6 +123,7 @@ const NewAddressForm = ({
   const handlePostCode = (e) => {
     set_post_code(e.target.value);
     debouncedSearch(e.target.value);
+    setValue("postcode", e.target.value, { shouldValidate: true });
   };
 
   const onSelectAddress = (e) => {
@@ -180,11 +183,15 @@ const NewAddressForm = ({
           <div className="w-full">
             <input
               type="text"
+              name="post_code"
               placeholder="Enter Post code"
               className="block w-full px-2 py-1 mb-2 text-sm border rounded-md outline-none md:text-base md:py-2 border-secondgraphy "
               value={post_code}
               onChange={handlePostCode}
             />
+            {errors.postcode && (
+              <p className="text-red-500">{errors.postcode.message}</p>
+            )}
           </div>
         </div>
         {isFetchingAddress ? (
