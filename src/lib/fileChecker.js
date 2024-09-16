@@ -4,8 +4,8 @@ export const checkPdfFile = async (file, checkType) => {
   try {
     const pdfBytes = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(pdfBytes);
-    const numPages = await pdfDoc.getPageCount();
-    const pages = await pdfDoc.getPages();
+    const numPages = pdfDoc.getPageCount();
+    const pages = pdfDoc.getPages();
 
     let checkResult = false;
 
@@ -17,22 +17,9 @@ export const checkPdfFile = async (file, checkType) => {
       A5: { width: 419.53, height: 595.28 },
     };
 
-    // Function to check if a page is of exact size
-    const isExactSize = (page, size) => {
-      const { width, height } = page.getSize();
-
-      return (
-        Math.abs(width - size.width) < 1 && Math.abs(height - size.height) < 1
-      );
-    };
-
-    // Function to check bleed on a single page
-    async function checkBleed(page) {
+    async function bleedLeftAround(page) {
       const bleedBox = await page.getBleedBox();
       const trimBox = await page.getTrimBox();
-
-      // Example: Expecting a 3mm bleed (assuming the dimensions are in points)
-      const expectedBleed = 8.5; // 3mm in points
 
       // Calculate the actual bleed
       const actualBleedLeft = trimBox.x - bleedBox.x;
@@ -42,44 +29,82 @@ export const checkPdfFile = async (file, checkType) => {
       const actualBleedTop =
         bleedBox.y + bleedBox.height - (trimBox.y + trimBox.height);
 
+      return {
+        actualBleedLeft,
+        actualBleedBottom,
+        actualBleedRight,
+        actualBleedTop,
+      };
+    }
+
+    // Function to check if a page is of exact size
+    const isExactSize = async (page, size) => {
+      const { width, height } = page.getSize();
+      const aproxBleed = 5 * 15;
+
+      const portraitCheck =
+        Math.abs(width - size.width) <= aproxBleed &&
+        Math.abs(height - size.height) <= aproxBleed;
+      const landscapeCheck =
+        Math.abs(width - size.height) <= aproxBleed &&
+        Math.abs(height - size.width) <= aproxBleed;
+
+      return portraitCheck || landscapeCheck;
+    };
+
+    const pageChecker = async (size) => {
+      const tempResults = [];
+
+      for (let i = 0; i < numPages; i++) {
+        const page = pages[i];
+        const sizeCheck = await isExactSize(page, size);
+        tempResults.push(sizeCheck);
+      }
+
+      return tempResults.every((result) => result === true);
+    };
+
+    // Function to check bleed on a single page
+    async function checkBleed(page) {
+      // Example: Expecting a 3mm bleed (assuming the dimensions are in points)
+      const expectedBleed = 3; // 3mm in points
+
+      const {
+        actualBleedLeft,
+        actualBleedBottom,
+        actualBleedRight,
+        actualBleedTop,
+      } = await bleedLeftAround(page);
+
       const hasCorrectBleed =
         actualBleedLeft >= expectedBleed &&
         actualBleedBottom >= expectedBleed &&
         actualBleedRight >= expectedBleed &&
         actualBleedTop >= expectedBleed;
 
-      return !hasCorrectBleed;
+      return hasCorrectBleed;
     }
 
     switch (checkType) {
       case "A2check":
-        checkResult = pdfDoc
-          .getPages()
-          .every((page) => isExactSize(page, SIZES.A2));
+        checkResult = await pageChecker(SIZES.A2);
         break;
 
       case "A3check":
-        checkResult = pdfDoc
-          .getPages()
-          .every((page) => isExactSize(page, SIZES.A3));
+        checkResult = await pageChecker(SIZES.A3);
         break;
 
       case "A4check":
-        checkResult = pdfDoc
-          .getPages()
-          .every((page) => isExactSize(page, SIZES.A4));
+        checkResult = await pageChecker(SIZES.A4);
         break;
 
       case "A5check":
-        checkResult = pdfDoc
-          .getPages()
-          .every((page) => isExactSize(page, SIZES.A5));
+        checkResult = await pageChecker(SIZES.A5);
         break;
 
       case "Lettercheck":
-        checkResult = pdfDoc
-          .getPages()
-          .every((page) => isExactSize(page, SIZES.Letter));
+        checkResult = await pageChecker(SIZES.Letter);
+        break;
       case "Bleed":
         // Check if no page in the PDF has a size smaller than standard sizes minus 18 points
         const tempResults = [];
@@ -91,8 +116,6 @@ export const checkPdfFile = async (file, checkType) => {
         }
 
         checkResult = tempResults.every((result) => result === true);
-
-        return checkResult;
 
         break;
 

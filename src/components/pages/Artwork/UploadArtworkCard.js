@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { checkPdfFile } from "@/lib/fileChecker";
 import { useAuth } from "@/hooks/useAuth";
+import useToastMessage from "@/hooks/useToastMessage";
 
 const UploadArtworkCard = ({
   product,
@@ -24,6 +25,7 @@ const UploadArtworkCard = ({
   file_check_refetch,
   isPending: isPendingSkip,
 }) => {
+  const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const router = useRouter();
   const [file, setFile] = useState(null);
@@ -147,11 +149,7 @@ const UploadArtworkCard = ({
         setShowProgress(false);
         refetch();
         setFile(null);
-        toast.error(
-          error.response.data.message?.files?.length > 0
-            ? error.response.data.message.files[0]
-            : error.response.data.message
-        );
+        showToastMessage(error?.response?.data?.message);
       });
   };
 

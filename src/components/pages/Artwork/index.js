@@ -23,13 +23,6 @@ const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
 
-/* const UploadArtworkCard = dynamic(
-  () => import("@/components/pages/Artwork/UploadArtworkCard"),
-  {
-    ssr: false,
-  }
-); */
-
 const UploadArtwork = () => {
   const { session } = useAuth();
   const showToastMessage = useToastMessage();
