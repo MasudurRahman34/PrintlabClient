@@ -15,6 +15,7 @@ export const checkPdfFile = async (file, checkType) => {
       A4: { width: 595.28, height: 841.89 },
       Letter: { width: 612, height: 792 },
       A5: { width: 419.53, height: 595.28 },
+      businessCard: { width: 240.945, height: 155.906 },
     };
 
     async function bleedLeftAround(page) {
@@ -41,6 +42,8 @@ export const checkPdfFile = async (file, checkType) => {
     const isExactSize = async (page, size) => {
       const { width, height } = page.getSize();
       const aproxBleed = 5 * 15;
+
+      console.log("width", width, "height", height);
 
       const portraitCheck =
         Math.abs(width - size.width) <= aproxBleed &&
@@ -100,6 +103,10 @@ export const checkPdfFile = async (file, checkType) => {
 
       case "A5check":
         checkResult = await pageChecker(SIZES.A5);
+        break;
+
+      case "businessCardCheck":
+        checkResult = await pageChecker(SIZES.businessCard);
         break;
 
       case "Lettercheck":
