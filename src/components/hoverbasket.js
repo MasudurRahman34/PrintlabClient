@@ -11,7 +11,6 @@ import Link from "next/link";
 const Summary = ({ products }) => {
   const { total } = useMemo(() => {
     const sub_total = products
-
       .map((product) => parseFloat(product.price))
       .reduce((a, b) => a + b, 0);
     const total_vat = products

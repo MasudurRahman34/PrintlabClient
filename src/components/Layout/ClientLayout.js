@@ -15,7 +15,7 @@ const ClientLayout = ({ children }) => {
     setshowbasket(false);
   };
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, error } = useQuery({
     queryKey: ["get_cart_total"],
     queryFn: getIncompleteCartProductsQuery,
   });
@@ -50,6 +50,7 @@ const ClientLayout = ({ children }) => {
           total_refetch={refetch}
         />
       </header>
+
       <main className="flex-1 sm:my-0">{childrenWithProps}</main>
       <footer className="bg-secondgraphy min-h-40">
         <ClientFooter />

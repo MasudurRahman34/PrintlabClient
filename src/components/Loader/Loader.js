@@ -1,4 +1,4 @@
-import { FadeLoader, ScaleLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 
 export default function Loader() {
   return (
