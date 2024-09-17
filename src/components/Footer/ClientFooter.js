@@ -53,31 +53,9 @@ const ClientFooter = () => {
       <section className="container py-5 mx-auto text-white">
         <div className="flex flex-col items-center justify-between max-w-5xl gap-3 py-5 mx-auto md:flex-row text-primary-text ">
           <div className="flex-1">
-            <p className="text-sm">
+            <p className="text-sm text-center">
               Sign me up for exclusive offers and print inspiration by email
             </p>
-          </div>
-
-          <div className="flex-1">
-            <div>
-              <label htmlFor="hs-trailing-button-add-on" class="sr-only">
-                Label
-              </label>
-              <div class="flex rounded-sm flex-wrap gap-2 md:gap-0 justify-center ">
-                <input
-                  type="text"
-                  id="hs-trailing-button-add-on"
-                  name="hs-trailing-button-add-on"
-                  class="rounded-none ti-form-input text-secondgraphy px-2 rounded-s-sm focus:z-10"
-                />
-                <button
-                  type="button"
-                  class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold  transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary text-secondgraphy"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </div>
           </div>
         </div>
         <hr className="w-full text-typography" />
