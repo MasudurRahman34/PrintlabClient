@@ -1,87 +1,209 @@
 export default function TermsContent() {
   return (
-    <div className="p-8 space-y-8 leading-relaxed text-gray-700 bg-white rounded-lg shadow-lg">
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">1. Introduction</h2>
-        <p>
-          Welcome to [Your Company Name]. These terms and conditions outline the
-          rules and regulations for the use of our website and services.
-        </p>
-      </section>
+    <div className="container px-4 py-10 mx-auto">
+      <h1 className="mb-6 text-4xl font-bold">Terms and Conditions</h1>
+      <p className="mb-4">
+        These Terms and Conditions (&quot;Agreement&quot;) apply to all products
+        and services provided by <strong>We Are Print Lab</strong>{" "}
+        (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or
+        &quot;our&quot;). By accessing or using our services, you agree to
+        comply with and be bound by these terms. Please review the following
+        carefully.
+      </p>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">2. Intellectual Property</h2>
-        <p>
-          The content, layout, design, data, databases, and graphics on this
-          website are protected by copyright and intellectual property laws.
-          Reproduction, redistribution, or republication of any material is
-          prohibited without our express written consent.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">1. General Provisions</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Scope:</strong> These Terms and Conditions govern the use of
+          our printing and packaging services, including but not limited to
+          custom packaging, promotional printing, large format printing, and
+          branding solutions.
+        </li>
+        <li>
+          <strong>Acceptance of Orders:</strong> All orders are subject to
+          acceptance by We Are Print Lab. We reserve the right to reject any
+          order without providing reasons.
+        </li>
+        <li>
+          <strong>Modifications:</strong> We may update or modify these Terms at
+          any time. Continued use of our services after such modifications will
+          constitute your acceptance of the new terms.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">3. User Obligations</h2>
-        <p>
-          By using our services, you agree to provide accurate information,
-          respect the rights of others, and comply with all applicable laws and
-          regulations. Any fraudulent or unauthorized activities are strictly
-          prohibited.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">2. Orders & Payment</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Pricing:</strong> All prices quoted are in GBP unless
+          otherwise specified. Prices are subject to change without prior
+          notice. Quotes are valid for 30 days from the date of issue.
+        </li>
+        <li>
+          <strong>Payment Terms:</strong> A 50% deposit is required upon placing
+          an order, with the remaining balance due upon completion or delivery.
+          We accept payment by [Payment Methods]. Late payments may result in a
+          delay of your order.
+        </li>
+        <li>
+          <strong>Order Confirmation:</strong> Once your order is confirmed and
+          payment is received, we will begin the production process. No changes
+          can be made to the order once production has started without incurring
+          additional costs.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">4. Order Processing</h2>
-        <p>
-          All orders are subject to acceptance and availability. We reserve the
-          right to refuse or cancel any order at our discretion. Once an order
-          is placed, it cannot be canceled or modified without our approval.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">
+        3. Delivery & Turnaround Time
+      </h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Delivery Times:</strong> We will endeavor to deliver your
+          products by the agreed date. However, delivery times are estimates and
+          not guaranteed. Delays due to unforeseen circumstances such as
+          supplier issues, transportation strikes, or natural disasters are
+          beyond our control.
+        </li>
+        <li>
+          <strong>Shipping:</strong> Shipping costs are not included in the
+          quoted price unless specified. All shipments are subject to the
+          carrier’s terms and conditions. Risk of loss or damage passes to the
+          customer upon delivery to the carrier.
+        </li>
+        <li>
+          <strong>Pick-Up:</strong> If you choose to collect your order from our
+          premises, collection must be made within 7 days of notification that
+          the order is ready. Failure to collect within this period may result
+          in additional storage charges.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">5. Payment Terms</h2>
-        <p>
-          Payments must be made in full before we begin processing your order.
-          We accept various payment methods including credit cards, PayPal, and
-          bank transfers. Payment details are secure and confidential.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">4. Proofs and Approvals</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Digital Proofs:</strong> We will provide digital proofs for
+          your approval before production begins. It is your responsibility to
+          carefully review all proofs for accuracy. We are not responsible for
+          any errors once a proof is approved, including but not limited to
+          spelling, color, or design mistakes.
+        </li>
+        <li>
+          <strong>Approval Delay:</strong> Any delay in approving proofs may
+          result in delayed production or delivery of your order.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">6. Limitation of Liability</h2>
-        <p>
-          We are not liable for any indirect, incidental, or consequential
-          damages that may arise from the use of our services. Our maximum
-          liability is limited to the amount paid for the order in question.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">
+        5. Cancellations & Changes
+      </h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Cancellations:</strong> Orders may only be canceled before
+          production begins. If production has started, you will be responsible
+          for the full cost of the order. Any deposit paid will not be refunded.
+        </li>
+        <li>
+          <strong>Order Changes:</strong> Any request to change an order after
+          production has started may result in additional fees and delays. We
+          Are Print Lab reserves the right to reject change requests once the
+          order has been approved and production is underway.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">7. Governing Law</h2>
-        <p>
-          These terms and conditions are governed by and construed in accordance
-          with the laws of [Your Jurisdiction]. Any disputes arising from the
-          use of our services will be subject to the exclusive jurisdiction of
-          the courts in [Your Jurisdiction].
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">6. Returns & Refunds</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Damaged Goods:</strong> If products are received damaged or
+          defective, you must notify us within 48 hours of receiving the order.
+          We will arrange for the return of the goods and, at our discretion,
+          offer a replacement or refund.
+        </li>
+        <li>
+          <strong>Non-Refundable Items:</strong> Custom products are
+          non-refundable once approved and produced unless they are defective or
+          damaged in transit.
+        </li>
+        <li>
+          <strong>Return Shipping:</strong> Customers are responsible for the
+          cost of return shipping unless the return is due to an error on our
+          part or damaged goods.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">8. Changes to Terms</h2>
-        <p>
-          We reserve the right to update or modify these terms and conditions at
-          any time without prior notice. Your continued use of our services
-          after any changes indicates your acceptance of the new terms.
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">7. Warranty & Liability</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Limited Warranty:</strong> We guarantee that our products will
+          be free from defects in materials and workmanship under normal use. If
+          a product is found to be defective, our liability is limited to the
+          replacement of the product or a refund of the purchase price.
+        </li>
+        <li>
+          <strong>No Other Warranties:</strong> Except for the above-stated
+          limited warranty, all products and services are provided &quot;as
+          is&quot; without any other warranties, express or implied, including
+          but not limited to merchantability, fitness for a particular purpose,
+          or non-infringement.
+        </li>
+        <li>
+          <strong>Liability Limitation:</strong> To the extent permitted by law,
+          We Are Print Lab will not be liable for any indirect, special, or
+          consequential damages arising out of or related to the use of our
+          products and services, including but not limited to loss of profits,
+          loss of business opportunities, or reputational harm.
+        </li>
+      </ul>
 
-      <section>
-        <h2 className="mb-4 text-3xl font-bold">9. Contact Information</h2>
-        <p>
-          If you have any questions or concerns regarding these terms and
-          conditions, please contact us at [Your Contact Information].
-        </p>
-      </section>
+      <h2 className="mb-4 text-2xl font-semibold">8. Intellectual Property</h2>
+      <ul className="mb-4 ml-6 list-disc">
+        <li>
+          <strong>Design Ownership:</strong> Any custom designs, concepts, or
+          artwork created by We Are Print Lab remain our intellectual property
+          unless otherwise agreed upon in writing. You are granted a
+          non-exclusive, non-transferable license to use the designs solely for
+          the intended purpose.
+        </li>
+        <li>
+          <strong>Client-Supplied Materials:</strong> You warrant that any
+          artwork, logos, or designs provided by you do not infringe on any
+          third-party intellectual property rights. You will indemnify and hold
+          We Are Print Lab harmless against any claims related to intellectual
+          property infringement.
+        </li>
+      </ul>
+
+      <h2 className="mb-4 text-2xl font-semibold">9. Confidentiality</h2>
+      <p className="mb-4">
+        We respect the confidentiality of your personal information and
+        proprietary designs. Any details shared with us for the purpose of
+        completing your order will not be disclosed to third parties except as
+        necessary to fulfill your order or as required by law.
+      </p>
+
+      <h2 className="mb-4 text-2xl font-semibold">10. Governing Law</h2>
+      <p className="mb-4">
+        This Agreement is governed by and construed in accordance with the laws
+        of England and Wales. Any disputes arising from this Agreement will be
+        subject to the exclusive jurisdiction of the courts of England.
+      </p>
+
+      <h2 className="mb-4 text-2xl font-semibold">11. Contact Us</h2>
+      <p className="mb-4">
+        If you have any questions regarding these Terms and Conditions, please
+        contact us at:
+      </p>
+      <ul className="mb-4 ml-6">
+        <li>
+          Email:{" "}
+          <a
+            href="mailto:info@weareprintlab.co.uk"
+            className="text-blue-600 underline"
+          >
+            info@weareprintlab.co.uk
+          </a>
+        </li>
+        <li>Phone: [Your Phone Number]</li>
+        <li>Address: [Your Company Address]</li>
+      </ul>
     </div>
   );
 }

@@ -8,9 +8,7 @@ const page = () => {
   return (
     <ClientLayout>
       <div>
-        <AboutSection />
         <ServicesSection />
-        <TeamSection />
       </div>
     </ClientLayout>
   );
