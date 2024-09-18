@@ -95,3 +95,12 @@ export const uploadFileMutation = async ({ formdata, token, cart_id }) =>
       },
     })
     .then((res) => res.data);
+
+export const ForgetPasswordMutation=async({variables})=>
+  axios
+    .post(`${backendUrl}/forgot-password`, variables)
+    .then((res) => res.data)
+export const resetPasswordMutation=async({variables})=>
+  axios
+    .post(`${backendUrl}/reset-password`, variables)
+    .then((res) => res.data)

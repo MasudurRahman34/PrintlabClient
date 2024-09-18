@@ -51,13 +51,13 @@ const ClientFooter = () => {
   return (
     <>
       <section className="container py-5 mx-auto text-white">
-        <div className="flex flex-col items-center justify-between max-w-5xl gap-3 py-5 mx-auto md:flex-row text-primary-text ">
+        {/* <div className="flex flex-col items-center justify-between max-w-5xl gap-3 py-5 mx-auto md:flex-row text-primary-text ">
           <div className="flex-1">
             <p className="text-sm text-center">
               Sign me up for exclusive offers and print inspiration by email
             </p>
           </div>
-        </div>
+        </div> */}
         <hr className="w-full text-typography" />
         <div className="flex flex-col gap-4 py-5 md:flex-row">
           <div className="flex flex-col items-start justify-between flex-1 w-full gap-5 md:flex-row md:gap-10">
