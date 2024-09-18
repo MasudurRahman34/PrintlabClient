@@ -54,3 +54,23 @@ export const login_schema = yup.object().shape({
   password: yup.string().required("Password is required"),
   stay_signed_in: yup.bool(),
 });
+
+export const forgot_password_schema = yup.object().shape({
+  email: yup.string().email("Email is invalid").required("Email is required"),
+})
+
+export const reset_password_schema = yup.object().shape({
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
+      "Password must contain at least one letter, one number and one special character or symbol"
+    )
+    .required("Password is required"),
+    password_confirmation: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+    email: yup.string().email("Email is invalid").required("Email is required"),
+})

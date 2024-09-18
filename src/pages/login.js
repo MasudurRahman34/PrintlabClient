@@ -145,11 +145,11 @@ const Userlogin = () => {
                           Stay signed in
                         </label>
                       </div>
-                      {/* <Link href="#">
+                      <Link href="/forget-password">
                         <span className="text-[12px] md:text-[14px] underline  text-[#4DA0D7]">
                           Forgot Password
                         </span>
-                      </Link> */}
+                      </Link>
                     </div>
                     <div className="mb-2">
                       <input
@@ -161,7 +161,7 @@ const Userlogin = () => {
                     </div>
                     <div className="w-full mb-5">
                       <p className="text-[12px] md:text-[14px] font-normal text-center text-typography">
-                        New customar?{" "}
+                        New Customer?{" "}
                         <Link
                           href={`/register${
                             redirect_url ? "?redirect_url=" + redirect_url : ""
