@@ -17,9 +17,11 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
 import MobileNav from "@/components/Footer/MobileNav";
 import useToastMessage from "@/hooks/useToastMessage";
+import Increament from "./Increament";
 
 const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   const showToastMessage = useToastMessage();
+  const [quantity, setQuantity] = useState(1);
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPrintType, setSelectedPrintType] = useState({
@@ -69,6 +71,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       getProductsAttributeCombinationQuery({ product_id: data?.data.id }),
     enabled: !!data?.data.id,
   });
+  //  console.log("product_data", data);
 
   const matched = useMemo(() => {
     if (allCombination?.data) {
@@ -88,8 +91,6 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       return matchedCombination[0];
     }
   }, [userSelectedOptions, allCombination?.data]);
-
-  console.log("matched", matched);
 
   // Add to card will be handled here with the selected options
   const addToCart = () => {
@@ -138,7 +139,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       artwork_service_charge: selectedPrintType.children
         ? selectedPrintType.children.cost
         : selectedPrintType.parent.cost,
-      quantity: 1,
+      quantity: quantity,
       discount: 0,
       tax: 0,
       total: calculateTotal({
@@ -147,6 +148,11 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         artwork_charge: selectedPrintType?.children
           ? selectedPrintType?.children?.cost
           : selectedPrintType?.parent?.cost,
+        quantity: quantity,
+        increment: data?.data?.productQuantityRule?.increment,
+        per_quantity_price:
+          data?.data?.productQuantityRule?.per_increament_price,
+        calculationType: data?.data?.productQuantityRule?.calculation_type,
         calc: true,
       }),
     };
@@ -227,6 +233,14 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                 );
               }
             })}
+            {data?.data?.productQuantityRule && (
+              <Increament
+                title="Quantity"
+                quantity={quantity}
+                setQuantity={setQuantity}
+                productQuantityRule={data?.data?.productQuantityRule}
+              />
+            )}
             <div className="mt-3">
               <p className="text-secondgraphy">
                 <strong>SKU:</strong> {matched?.sku}
@@ -272,6 +286,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                         artwork_charge: selectedPrintType?.children
                           ? selectedPrintType?.children?.cost
                           : selectedPrintType?.parent?.cost,
+                        quantity: quantity,
+                        increment: data?.data?.productQuantityRule?.increment,
+                        per_quantity_price:
+                          data?.data?.productQuantityRule?.per_increament_price,
+                        calculationType:
+                          data?.data?.productQuantityRule?.calculation_type,
                       })
                     )
                   : formatPrice(0)}
@@ -288,6 +308,11 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                         artwork_charge: selectedPrintType?.children
                           ? selectedPrintType?.children?.cost
                           : selectedPrintType?.parent?.cost,
+                        quantity: quantity,
+                        increment: data?.data?.productQuantityRule?.increment,
+                        per_quantity_price:
+                          data?.data?.productQuantityRule?.per_increament_price,
+                        calculationType: data?.data?.productQuantityRule,
                       })
                     )
                   : formatPrice(0)}
@@ -329,6 +354,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   artwork_charge: selectedPrintType?.children
                     ? selectedPrintType?.children?.cost
                     : selectedPrintType?.parent?.cost,
+                  quantity: quantity,
+                  increment: data?.data?.productQuantityRule?.increment,
+                  per_quantity_price:
+                    data?.data?.productQuantityRule?.per_increament_price,
+                  calculationType:
+                    data?.data?.productQuantityRule?.calculation_type,
                 })
               )
             : formatPrice(0)
@@ -342,6 +373,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   artwork_charge: selectedPrintType?.children
                     ? selectedPrintType?.children?.cost
                     : selectedPrintType?.parent?.cost,
+                  quantity: quantity,
+                  increment: data?.data?.productQuantityRule?.increment,
+                  per_quantity_price:
+                    data?.data?.productQuantityRule?.per_increament_price,
+                  calculationType:
+                    data?.data?.productQuantityRule?.calculation_type,
                 })
               )
             : formatPrice(0)
@@ -361,6 +398,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   artwork_charge: selectedPrintType?.children
                     ? selectedPrintType?.children?.cost
                     : selectedPrintType?.parent?.cost,
+                  quantity: quantity,
+                  increment: data?.data?.productQuantityRule?.increment,
+                  per_quantity_price:
+                    data?.data?.productQuantityRule?.per_increament_price,
+                  calculationType:
+                    data?.data?.productQuantityRule?.calculation_type,
                 })
               )
             : formatPrice(0)

@@ -11,8 +11,6 @@ const PrintInvoice = dynamic(() => import("./PrintInvoice"), {
 });
 
 const InvoiceRow = ({ item, idx }) => {
-  console.log(item);
-
   const invoiceGeneratedObj = useMemo(() => {
     return {
       outputType: "blob", // save, string, datauristring

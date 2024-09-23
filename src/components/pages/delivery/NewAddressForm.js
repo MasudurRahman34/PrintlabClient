@@ -96,8 +96,6 @@ const NewAddressForm = ({
     );
   };
 
-  console.log("errors", errors);
-
   const search = async (searchQuery) => {
     try {
       if (!validateLondonPostcode(searchQuery)) return;

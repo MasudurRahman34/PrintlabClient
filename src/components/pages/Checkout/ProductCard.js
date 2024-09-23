@@ -19,7 +19,6 @@ const ProductCard = ({ product, idx, refetch, total_refetch }) => {
       { cart_id: product.id },
       {
         onSuccess: (data) => {
-          console.log(refetch, total_refetch);
           refetch();
           total_refetch();
           toast.success("Product deleted successfully");

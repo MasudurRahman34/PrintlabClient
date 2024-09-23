@@ -11,7 +11,10 @@ export function calculateTotal({
   delivery_charge = 0,
   artwork_charge = 0,
   discount = 0,
+  increment = 1,
   quantity = 1,
+  per_quantity_price = 1,
+  calculationType = "multiply",
   calc = false,
 }) {
   // Function to check if the argument is a number
@@ -28,11 +31,32 @@ export function calculateTotal({
   checkIfNumber(artwork_charge, "artwork_charge");
   checkIfNumber(discount, "discount");
   checkIfNumber(quantity, "quantity");
+  checkIfNumber(per_quantity_price, "per_quantity_price");
+  checkIfNumber(increment, "increment");
 
   // Calculation: Here I'm assuming some logic, for example:
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
-  const total =
-    price * quantity + delivery_charge + artwork_charge + tax - discount;
+  const extraQuantityPrice =
+    Math.floor(quantity / increment) * per_quantity_price;
+  console.log(extraQuantityPrice, per_quantity_price);
+
+  let total;
+  if (calculationType === "multiply") {
+    total =
+      price * (extraQuantityPrice < 1 ? 1 : extraQuantityPrice) +
+      delivery_charge +
+      artwork_charge +
+      tax -
+      discount;
+  } else {
+    total =
+      price +
+      extraQuantityPrice +
+      delivery_charge +
+      artwork_charge +
+      tax -
+      discount;
+  }
 
   if (calc) {
     return total;

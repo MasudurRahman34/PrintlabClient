@@ -41,8 +41,6 @@ const DeliveryItems = ({
     });
   };
 
-  console.log("item", item);
-
   useEffect(() => {
     if (address_data && address_data.length > 0) {
       const defaultAddress = address_data.find(

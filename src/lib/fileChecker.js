@@ -43,8 +43,6 @@ export const checkPdfFile = async (file, checkType) => {
       const { width, height } = page.getSize();
       const aproxBleed = 5 * 15;
 
-      console.log("width", width, "height", height);
-
       const portraitCheck =
         Math.abs(width - size.width) <= aproxBleed &&
         Math.abs(height - size.height) <= aproxBleed;
