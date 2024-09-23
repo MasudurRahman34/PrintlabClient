@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrderItemsQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import OrderItemTable from "./OrderItemsTable";
+import Pagination from "@/components/Pagination";
 
 const OrderItems = () => {
   const { session } = useAuth();
+  const [current_page, setCurrentPage] = useState(1);
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["order-items", session?.token],
-    queryFn: () => getOrderItemsQuery({ token: session?.token }),
-    enabled: !!session?.token,
+    queryKey: ["order-items", session?.token, current_page],
+    queryFn: () =>
+      getOrderItemsQuery({ token: session?.token, page: current_page }),
+    enabled: !!session?.token && !!current_page,
   });
+
+  const paginationFn = ({ page }) => {
+    setCurrentPage(page);
+    refetch();
+  };
 
   return (
     <div>
@@ -99,7 +107,10 @@ const OrderItems = () => {
           ) : isError ? (
             <p>You do not have any orders Yet </p>
           ) : data?.data.length > 0 ? (
-            <OrderItemTable orderItems={data?.data} />
+            <>
+              <OrderItemTable orderItems={data?.data} />
+              <Pagination meta={data?.meta} paginationFn={paginationFn} />
+            </>
           ) : (
             <p>You do not have any orders Yet </p>
           )}

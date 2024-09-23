@@ -111,3 +111,12 @@ export const validateDiscountCodeMutation = async ({ variables, token }) =>
       },
     })
     .then((res) => res.data);
+
+export const submitRefundRequestMutation = async ({ variables, token }) =>
+  axios
+    .post(`${backendUrl}/refund`, variables, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);

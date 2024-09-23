@@ -17,6 +17,10 @@ const navLinks = [
     name: "Invoice",
     link: "/my-account/invoice",
   },
+  {
+    name: "Refund",
+    link: "/my-account/refund",
+  },
   /* {
     name: "Delivery Addresses",
     link: "/my-account/delivery-addresses",

@@ -5,15 +5,23 @@ import { getOrdersQuery } from "@/resolvers/query";
 import { useAuth } from "@/hooks/useAuth";
 import Loader from "@/components/Loader/Loader";
 import InvoiceRow from "./InvoiceRow";
+import Pagination from "@/components/Pagination";
 
 const InvoiceComponent = () => {
   const { session } = useAuth();
   const [startDate, setStartDate] = useState(new Date());
+  const [current_page, setCurrentPage] = useState(1);
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["orders", session?.token],
-    queryFn: () => getOrdersQuery({ token: session?.token }),
-    enabled: !!session?.token,
+    queryKey: ["orders", session?.token, current_page],
+    queryFn: () =>
+      getOrdersQuery({ token: session?.token, page: current_page }),
+    enabled: !!session?.token && !!current_page,
   });
+
+  const paginationFn = ({ page }) => {
+    setCurrentPage(page);
+    refetch();
+  };
 
   return (
     <div>
@@ -91,35 +99,39 @@ const InvoiceComponent = () => {
         ) : isError ? (
           <div>{error.message}</div>
         ) : data && data?.data.length > 0 ? (
-          <table className="w-full border border-collapse border-gray-200">
-            <thead>
-              <tr>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  SL
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Order NO.
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Total
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.data.map((item, idx) => (
-                <InvoiceRow key={item.id} item={item} idx={idx} />
-              ))}
-            </tbody>
-          </table>
+          <>
+            {" "}
+            <table className="w-full border border-collapse border-gray-200">
+              <thead>
+                <tr>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    SL
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Order NO.
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Date
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Total
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.data.map((item, idx) => (
+                  <InvoiceRow key={item.id} item={item} idx={idx} />
+                ))}
+              </tbody>
+            </table>
+            <Pagination meta={data.meta} paginationFn={paginationFn} />
+          </>
         ) : (
           <p>You do not have any Payment Yet </p>
         )}

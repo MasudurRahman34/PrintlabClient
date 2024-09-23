@@ -71,9 +71,9 @@ export const fileCheckCombinationQuery = async ({ combination, token }) =>
     })
     .then((res) => res.data);
 
-export const getOrdersQuery = async ({ token }) =>
+export const getOrdersQuery = async ({ token, page = 1 }) =>
   axios
-    .get(`${backendUrl}/orders`, {
+    .get(`${backendUrl}/orders?page=${page}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -101,9 +101,9 @@ export const getSingleOrderQuery = async ({ order_id, token }) =>
       },
     })
     .then((res) => res.data);
-export const getOrderItemsQuery = async ({ order_id, token }) =>
+export const getOrderItemsQuery = async ({ order_id, token, page = 1 }) =>
   axios
-    .get(`${backendUrl}/order-items`, {
+    .get(`${backendUrl}/order-items?page=${page}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -125,4 +125,13 @@ export const getHeroBannerQuery = async () =>
 export const getProductBySearchQuery = async ({ search }) =>
   await axios
     .get(`${backendUrl}/products?filter[slug]=${search}`)
+    .then((res) => res.data);
+
+export const getRefundQuery = async ({ token, page = 1 }) =>
+  axios
+    .get(`${backendUrl}/refund/client?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data);

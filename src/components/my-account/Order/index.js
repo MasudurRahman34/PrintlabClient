@@ -15,14 +15,21 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { getOrdersQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
+import Pagination from "@/components/Pagination";
 
 const OrderComponent = () => {
   const { session } = useAuth();
+  const [current_page, setCurrentPage] = React.useState(1);
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["orders", session?.token],
     queryFn: () => getOrdersQuery({ token: session?.token }),
     enabled: !!session?.token,
   });
+
+  const paginationFn = ({ page }) => {
+    setCurrentPage(page);
+    refetch();
+  };
 
   return (
     <div>
@@ -92,6 +99,7 @@ const OrderComponent = () => {
           </div>
         </div>
       </div> */}
+
       <div className="overflow-x-auto">
         {/* <div className="flex items-center justify-between py-3">
           <Link href="#" className="hover:underline">
@@ -110,7 +118,10 @@ const OrderComponent = () => {
           ) : isError ? (
             <p>You do not have any orders Yet </p>
           ) : data?.data.length > 0 ? (
-            <OrderTable orders={data?.data} />
+            <>
+              <OrderTable orders={data?.data} />
+              <Pagination meta={data?.meta} paginationFn={paginationFn} />
+            </>
           ) : (
             <p>You do not have any orders Yet </p>
           )}

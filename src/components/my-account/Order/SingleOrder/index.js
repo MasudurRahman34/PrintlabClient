@@ -16,6 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleOrderQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
+import ApplyForRefund from "../../../pages/refund/ApplyForRefund";
 
 const SingleOrderComponent = () => {
   const { isAuthenticated, session } = useAuth();
@@ -31,7 +32,7 @@ const SingleOrderComponent = () => {
   return (
     <div>
       <div className="overflow-x-auto">
-        <div>
+        <div className="mt-3">
           {isLoading ? (
             <Loader />
           ) : isSuccess && data ? (
