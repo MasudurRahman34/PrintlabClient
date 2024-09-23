@@ -3,14 +3,22 @@ import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import { validateDiscountCodeMutation } from "@/resolvers/mutation";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const DiscountCode = () => {
+  const router = useRouter();
   const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const [state, setState] = useState({
     discountCode: "",
+  });
+
+  const [discountCodeState, setErrorDiscountCodeState] = useState({
+    text: "",
+    error: false,
+    show: false,
   });
 
   const { mutate, isPending } = useMutation({
@@ -41,12 +49,31 @@ const DiscountCode = () => {
       { variables, token: session?.token },
       {
         onSuccess: (data) => {
-          if (data.message) {
-            toast.success(data.message);
+          if (data.error) {
+            setErrorDiscountCodeState({
+              text: data.message,
+              error: true,
+              show: true,
+            });
+          } else {
+            if (data.message) {
+              router.push(
+                `?discount_type=${data.data.type}&discount=${data.data.discount}&discount_code=${state.discountCode}`
+              );
+              setErrorDiscountCodeState({
+                text: "Discount code applied successfully",
+                error: false,
+                show: true,
+              });
+            }
           }
         },
         onError: (error) => {
-          showToastMessage(error.response.data.message);
+          setErrorDiscountCodeState({
+            text: error.response.data.message,
+            error: true,
+            show: true,
+          });
         },
       }
     );
@@ -71,6 +98,15 @@ const DiscountCode = () => {
           {isPending ? "Applying..." : "Apply"}
         </Button>
       </form>
+      {discountCodeState.show && (
+        <p
+          className={`text-sm mt-2 py-2 px-4 text-center rounded-md  ${
+            discountCodeState.error ? "bg-red-300" : "bg-green-300"
+          }`}
+        >
+          {discountCodeState.text}
+        </p>
+      )}
     </div>
   );
 };

@@ -13,6 +13,8 @@ const OrderSummary = ({
   total_vat,
   delivery_charge,
   artwork_charge,
+  discount_price,
+
   is_disable_button,
   handleCheckout,
   isCheckoutPending,
@@ -21,6 +23,13 @@ const OrderSummary = ({
 }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const { discount_type, discount, discount_code } = router.query;
+
+  const link =
+    discount_code && discount_type && discount
+      ? `?discount_type=${discount_type}&discount=${discount}&discount_code=${discount_code}`
+      : "";
+
   return (
     <Box boxTitle="Order Summary">
       <div className="px-5 mb-5 ">
@@ -30,6 +39,9 @@ const OrderSummary = ({
               Sub total
             </p>
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">VAT</p>
+            {discount_price ? (
+              <p className="py-1 text-sm font-bold text-[#2B2B2B] ">Discount</p>
+            ) : null}
 
             <p className="py-1 text-base font-bold text-[#2B2B2B]">Total:</p>
           </div>
@@ -40,6 +52,11 @@ const OrderSummary = ({
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
               {formatPrice(total_vat)}
             </p>
+            {discount_price ? (
+              <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+                -{formatPrice(discount_price)}
+              </p>
+            ) : null}
 
             <p className="py-1 text-base font-bold text-[#2B2B2B]">
               {formatPrice(total)}
@@ -51,7 +68,7 @@ const OrderSummary = ({
             className="w-full font-bold"
             onClick={() => {
               isAuthenticated
-                ? router.push("/artwork")
+                ? router.push("/artwork" + link)
                 : router.push("/login?redirect_url=/artwork");
             }}
           >
@@ -75,6 +92,7 @@ const MobileCheckoutSummary = ({
   artwork_charge,
   delivery_charge,
   sub_total,
+  discount_price,
   total,
   total_vat,
   isCheckoutPending,
@@ -83,6 +101,13 @@ const MobileCheckoutSummary = ({
   next,
 }) => {
   const router = useRouter();
+
+  const { discount_type, discount, discount_code } = router.query;
+
+  const link =
+    discount_code && discount_type && discount
+      ? `?discount_type=${discount_type}&discount=${discount}&discount_code=${discount_code}`
+      : "";
   return (
     <div className="fixed bottom-0 left-0 w-full px-2 bg-white border-t-2 shadow-sm lg:hidden order-info border-secondgraphy">
       <div className="px-5 mb-5 ">
@@ -92,6 +117,9 @@ const MobileCheckoutSummary = ({
               Sub total
             </p>
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">VAT</p>
+            {discount_price ? (
+              <p className="py-1 text-sm font-bold text-[#2B2B2B] ">Discount</p>
+            ) : null}
 
             <p className="py-1 text-base font-bold text-[#2B2B2B]">Total:</p>
           </div>
@@ -102,6 +130,11 @@ const MobileCheckoutSummary = ({
             <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
               {formatPrice(total_vat)}
             </p>
+            {discount_price ? (
+              <p className="py-1 text-sm font-bold text-[#2B2B2B] ">
+                -{formatPrice(discount_price)}
+              </p>
+            ) : null}
 
             <p className="py-1 text-base font-bold text-[#2B2B2B]">
               {formatPrice(total)}
@@ -112,7 +145,9 @@ const MobileCheckoutSummary = ({
           <Button
             className="w-full font-bold"
             onClick={() => {
-              router.push("/artwork");
+              isAuthenticated
+                ? router.push("/artwork" + link)
+                : router.push("/login?redirect_url=/artwork");
             }}
           >
             Proceed to Artwork
@@ -137,12 +172,16 @@ const CheckoutSummary = ({
   handleCheckout,
   isCheckoutPending,
 }) => {
+  const router = useRouter();
+  const { discount_type, discount } = router.query;
+
   const {
     sub_total,
     total_vat,
     delivery_charge,
     artwork_charge,
     total,
+    discount_price,
     is_disable_button,
   } = useMemo(() => {
     const sub_total = products
@@ -152,15 +191,23 @@ const CheckoutSummary = ({
       .map((product) => parseFloat(product.tax))
       .reduce((a, b) => a + b, 0);
 
-    const total = sub_total + total_vat;
+    const intDiscount = parseInt(discount);
+
+    const discount_price =
+      discount_type === "percentage"
+        ? (sub_total * intDiscount) / 100
+        : intDiscount;
+
+    const total = sub_total + total_vat - (discount_price ? discount_price : 0);
     const is_disable_button = products.length === 0;
     return {
       sub_total,
       total_vat,
       total,
       is_disable_button: is_disable_button,
+      discount_price,
     };
-  }, [products]);
+  }, [products, discount, discount_type]);
 
   return (
     <div className="w-full ">
@@ -174,6 +221,7 @@ const CheckoutSummary = ({
           total_vat={total_vat}
           handleCheckout={handleCheckout}
           isCheckoutPending={isCheckoutPending}
+          discount_price={discount_price}
           next={next}
         />
       </div>
@@ -192,6 +240,7 @@ const CheckoutSummary = ({
         sub_total={sub_total}
         is_disable_button={is_disable_button}
         total={total}
+        discount_price={discount_price}
         total_vat={total_vat}
         handleCheckout={handleCheckout}
         isCheckoutPending={isCheckoutPending}

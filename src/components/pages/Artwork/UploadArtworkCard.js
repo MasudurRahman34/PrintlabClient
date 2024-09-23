@@ -28,36 +28,25 @@ const UploadArtworkCard = ({
   const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const router = useRouter();
+
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
+  const { discount_type, discount, discount_code } = router.query;
+
   const [checkFile, setCheckFile] = useState({
     Bleed: {
       isLoading: false,
       result: null,
       instruction: "Every page should have minimum bleed",
     },
-    /* A4check: {
-      isLoading: false,
-      result: null,
-      instruction: "Every page should be A4 size",
-    },
-    A2check: {
-      isLoading: false,
-      result: null,
-      instruction: "Every page should be A2 size",
-    },
-    Lettercheck: {
-      isLoading: false,
-      result: null,
-      instruction: "Every page should be letter size",
-    },
-    A3check: {
-      isLoading: false,
-      result: null,
-      instruction: "Every page should be A3 size",
-    }, */
   });
+
+  // generating link for discount save
+  const link =
+    discount_code && discount_type && discount
+      ? `?discount_type=${discount_type}&discount=${discount}&discount_code=${discount_code}`
+      : "";
 
   const { mutate, isPending } = useMutation({
     mutationKey: "delete_uploaded_artwork",
@@ -383,7 +372,7 @@ const UploadArtworkCard = ({
         <button
           className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
           onClick={() => {
-            router.push("/checkout");
+            router.push("/checkout" + link);
           }}
         >
           <MdOutlineLock className="text-base md:text-xl mt-[2px] md:mt-0 lg:text-2xl mr-1 " />
@@ -394,7 +383,7 @@ const UploadArtworkCard = ({
         <button
           className="flex px-5 py-3 text-sm font-medium rounded-md md:text-lg lg:text-base md:font-semibold lg:font-bold md:px-10 lg:px-16 xl:px-20 bg-primary hover:bg-primary text-secondgraphy "
           onClick={() => {
-            router.push("/checkout");
+            router.push("/checkout" + link);
           }}
         >
           <MdOutlineLock className="text-base md:text-xl mt-[2px] md:mt-0 lg:text-2xl mr-1 " />

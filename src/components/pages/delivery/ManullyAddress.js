@@ -21,6 +21,8 @@ const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
 const ManullyAddress = () => {
+  const router = useRouter();
+  const { discount_code } = router.query;
   const showToastMessage = useToastMessage();
   const { session, isAuthenticated } = useAuth();
   const [checkout_state, set_checkout_state] = useState({
@@ -56,6 +58,8 @@ const ManullyAddress = () => {
     // validating all data is available or not null or undefined
 
     const variables = {};
+
+    if (discount_code) variables.coupon_code = discount_code;
 
     if (checkout_state.cart_id.length === 0)
       return showToastMessage("Cart is empty");
