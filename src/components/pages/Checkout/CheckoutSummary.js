@@ -6,6 +6,7 @@ import { calculateTotal, formatPrice } from "@/lib/utils";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
+import DiscountCode from "./DiscountCode";
 
 const OrderSummary = ({
   sub_total,
@@ -177,27 +178,14 @@ const CheckoutSummary = ({
         />
       </div>
 
-      {/*  <div className="mb-5 ">
+      <div className="mb-5 ">
         <div className="border rounded ">
           <LabAccordion title="Add  Discount Code">
-            <div className="mt-5 mb-5">
-              <form className="border rounded-md">
-                <input
-                  className=" border-none px-1 rounded-s-md w-[70%] py-1 "
-                  type="text"
-                  placeholder="Enter code"
-                />
-                <Button className="w-[30%] font-bold">Apply</Button>
-              </form>
-            </div>
+            <DiscountCode />
           </LabAccordion>
         </div>
       </div>
-      <div>
-        <button className="w-full py-1 text-base font-bold text-center text-white border rounded-md bg-secondgraphy ">
-          Countinus Shopping{" "}
-        </button>
-      </div> */}
+
       <MobileCheckoutSummary
         artwork_charge={artwork_charge}
         delivery_charge={delivery_charge}

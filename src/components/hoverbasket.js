@@ -25,8 +25,11 @@ const Summary = ({ products }) => {
       .map((product) => parseFloat(product.artwork_service_charge))
       .reduce((a, b) => a + b, 0);
 
-    const total = sub_total + total_vat + delivery_charge + artwork_charge;
-    return { total };
+    const total = products
+      ?.map((product) => parseFloat(product.total))
+      .reduce((a, b) => a + b, 0);
+
+    return { total, sub_total, total_vat, delivery_charge, artwork_charge };
   }, [products]);
 
   return (

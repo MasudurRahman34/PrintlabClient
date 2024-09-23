@@ -97,7 +97,7 @@ const Userlogin = () => {
                         type="email"
                         placeholder="Enter Email"
                         className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none"
-                        {...register("email", { required: true })}
+                        {...register("email")}
                       />
                       {errors.email && (
                         <p className="text-[12px] md:text-[14px] text-red-500">
@@ -113,10 +113,7 @@ const Userlogin = () => {
                         type="password"
                         placeholder="Enter Password"
                         className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none "
-                        {...register("password", {
-                          required: true,
-                          minLength: 8,
-                        })}
+                        {...register("password")}
                       />
                       {errors.password && (
                         <p className="text-[12px] md:text-[14px] text-red-500">
