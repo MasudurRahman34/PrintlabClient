@@ -37,7 +37,7 @@ const EmblaCarousel = (props) => {
                   <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
                     <div className="w-full h-[85%]">
                       <Image
-                        className="object-cover w-full h-full"
+                        className="object-cover w-full h-full card-img-top"
                         src={`${
                           bestSell?.media.find((item) => item.is_profile === 1)
                             ?.url
@@ -48,7 +48,6 @@ const EmblaCarousel = (props) => {
                             ? bestSell?.media[0].url
                             : "/assets/products/placehounder.png"
                         }`}
-                        class="card-img-top"
                         alt="img"
                         height={500}
                         width={500}

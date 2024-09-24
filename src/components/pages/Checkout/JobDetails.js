@@ -13,7 +13,7 @@ const JobDetails = ({ product }) => {
     <div className="flex-1 p-5 checkout-details">
       <SingleAccordion title={"Job Details"} isInitiallyExpanded={true}>
         <>
-          <div class=" flex flex-wrap gap-5 text-sm md:text-base">
+          <div className="flex flex-wrap gap-5 text-sm  md:text-base">
             <div className="w-[120px] lg:w-[150px]">
               <h1 className="font-bold text-secondgraphy">Qty:</h1>
               <p>{product.quantity}</p>

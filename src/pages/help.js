@@ -118,10 +118,10 @@ const help = () => {
           <p className="text-lg ">What can we help you with?</p>
         </div>
         <div className="w-full max-w-2xl mx-auto my-5">
-          <label for="hs-trailing-button-add-on" class="sr-only">
+          <label for="hs-trailing-button-add-on" className="sr-only">
             Label
           </label>
-          <div class="flex rounded-sm">
+          <div className="flex rounded-sm">
             <input
               type="text"
               id="hs-trailing-button-add-on"
@@ -131,7 +131,7 @@ const help = () => {
             />
             <button
               type="button"
-              class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold text-secondgraphy transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
+              className="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold transition-all border border-transparent text-secondgraphy rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
             >
               SEARCH
             </button>

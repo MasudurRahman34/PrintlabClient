@@ -25,10 +25,10 @@ const ContactUs = () => {
         <div className="p-3 mt-5 text-center text-white rounded-md bg-secondgraphy">
           <p className="py-3 text-3xl">What can we help you with?</p>
           <div className="max-w-2xl mx-auto my-5">
-            <label for="hs-trailing-button-add-on" class="sr-only">
+            <label for="hs-trailing-button-add-on" className="sr-only">
               Label
             </label>
-            <div class="flex rounded-sm w-full">
+            <div className="flex w-full rounded-sm">
               <input
                 type="text"
                 id="hs-trailing-button-add-on"

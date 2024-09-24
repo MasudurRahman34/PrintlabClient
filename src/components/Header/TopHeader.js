@@ -41,7 +41,7 @@ const links = [
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6 group-hover:text-primary hassan"
+          className="w-6 h-6 group-hover:text-primary hassan"
         >
           <path
             stroke-linecap="round"
@@ -181,7 +181,7 @@ const TopHeader = ({ showcards, hideBasket, refetch, total }) => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6 group-hover:text-primary"
+                className="w-6 h-6 group-hover:text-primary"
               >
                 <path
                   strokeLinecap="round"

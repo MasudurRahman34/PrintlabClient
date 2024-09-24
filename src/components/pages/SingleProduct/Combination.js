@@ -233,14 +233,15 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                 );
               }
             })}
-            {data?.data?.productQuantityRule && (
-              <Increament
-                title="Quantity"
-                quantity={quantity}
-                setQuantity={setQuantity}
-                productQuantityRule={data?.data?.productQuantityRule}
-              />
-            )}
+            {data?.data?.productQuantityRule &&
+              data?.data?.productQuantityRule?.status && (
+                <Increament
+                  title="Quantity"
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  productQuantityRule={data?.data?.productQuantityRule}
+                />
+              )}
             <div className="mt-3">
               <p className="text-secondgraphy">
                 <strong>SKU:</strong> {matched?.sku}

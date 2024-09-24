@@ -100,68 +100,66 @@ const BottomHeader = ({ showcards, hideBasket, refetch, total }) => {
                     <ul className="menu-main">
                       {data?.data.map((manuCategory, idx) => {
                         return (
-                          <>
-                            <li
-                              className={`${
-                                manuCategory.children.length > 0
-                                  ? "menu-item-has-children"
+                          <li
+                            className={`${
+                              manuCategory.children.length > 0
+                                ? "menu-item-has-children"
+                                : ""
+                            }`}
+                            key={idx}
+                          >
+                            <div
+                              className="flex items-center justify-between w-full px-4 py-3 text-sm border-b border-gray-300 title md:text-base"
+                              onClick={() => {
+                                showSubMenu({ manuCategory });
+                              }}
+                            >
+                              <span>{manuCategory.title}</span>{" "}
+                              {manuCategory.children.length > 0 && (
+                                <FaChevronRight className="cursor-pointer" />
+                              )}
+                            </div>
+                            <div
+                              className={`sub-menu mega-menu mega-menu-column-4 ${
+                                activeMenu.id &&
+                                activeMenu.id === manuCategory.id
+                                  ? "active"
                                   : ""
                               }`}
-                              key={idx}
                             >
-                              <div
-                                className="flex items-center justify-between w-full px-4 py-3 text-sm border-b border-gray-300 title md:text-base"
-                                onClick={() => {
-                                  showSubMenu({ manuCategory });
-                                }}
-                              >
-                                <span>{manuCategory.title}</span>{" "}
-                                {manuCategory.children.length > 0 && (
-                                  <FaChevronRight className="cursor-pointer" />
-                                )}
-                              </div>
-                              <div
-                                className={`sub-menu mega-menu mega-menu-column-4 ${
-                                  activeMenu.id &&
-                                  activeMenu.id === manuCategory.id
-                                    ? "active"
-                                    : ""
-                                }`}
-                              >
-                                {manuCategory.children.length > 0 &&
-                                  manuCategory.children.map((child, index) => {
-                                    return (
-                                      <div className="list-item" key={index}>
-                                        <h4 className="text-sm title md:text-base ">
-                                          <Link href={`/product/${child.slug}`}>
-                                            {child.title}
-                                          </Link>
-                                        </h4>
-                                        <ul>
-                                          {child.products.length > 0 &&
-                                            child.products.map(
-                                              (product, index) => {
-                                                return (
-                                                  <li
-                                                    key={index}
-                                                    className="text-red-500"
+                              {manuCategory.children.length > 0 &&
+                                manuCategory.children.map((child, index) => {
+                                  return (
+                                    <div className="list-item" key={index}>
+                                      <h4 className="text-sm title md:text-base ">
+                                        <Link href={`/product/${child.slug}`}>
+                                          {child.title}
+                                        </Link>
+                                      </h4>
+                                      <ul>
+                                        {child.products.length > 0 &&
+                                          child.products.map(
+                                            (product, index) => {
+                                              return (
+                                                <li
+                                                  key={index}
+                                                  className="text-red-500"
+                                                >
+                                                  <Link
+                                                    href={`/product/${child.slug}/${product.slug}`}
                                                   >
-                                                    <Link
-                                                      href={`/product/${child.slug}/${product.slug}`}
-                                                    >
-                                                      {product.title}
-                                                    </Link>
-                                                  </li>
-                                                );
-                                              }
-                                            )}
-                                        </ul>
-                                      </div>
-                                    );
-                                  })}
-                              </div>
-                            </li>
-                          </>
+                                                    {product.title}
+                                                  </Link>
+                                                </li>
+                                              );
+                                            }
+                                          )}
+                                      </ul>
+                                    </div>
+                                  );
+                                })}
+                            </div>
+                          </li>
                         );
                       })}
                     </ul>

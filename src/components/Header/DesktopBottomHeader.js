@@ -8,10 +8,10 @@ const DesktopBottomHeader = ({ categories = [] }) => {
     <section className="items-center justify-center hidden w-full h-full bg-primary lg:flex">
       <nav className="flex items-center justify-center w-full h-full">
         <ul className="flex max-w-[calc(100vw-2rem)] items-center  justify-center w-full h-full gap-3 ">
-          {categories.map((category) => {
+          {categories.map((category, idx) => {
             return (
               <li
-                key={category.id}
+                key={idx}
                 className="flex items-center justify-center h-16 group"
               >
                 <div className="flex items-center justify-start max-w-44">
@@ -27,9 +27,9 @@ const DesktopBottomHeader = ({ categories = [] }) => {
                 {category.children.length > 0 && (
                   <div className="absolute left-0 z-50 hidden w-full mx-auto group-hover:block top-full ">
                     <ul className="p-4 h-full max-w-[calc(100vw-2rem)] min-h-52 gap-8 flex items-stretch justify-start  shadow-lg bg-white rounded-b-lg flex-wrap   text-secondgraphy mx-auto">
-                      {category.children.map((child) => {
+                      {category.children.map((child, idx) => {
                         return (
-                          <li key={child.id} className="text-sm group">
+                          <li key={idx} className="text-sm group">
                             <Link
                               href={`/product/${child.slug}`}
                               className="text-sm font-semibold "
@@ -38,11 +38,11 @@ const DesktopBottomHeader = ({ categories = [] }) => {
                             </Link>
                             <ul className="flex flex-col gap-1 mt-4">
                               {child.products.length > 0 &&
-                                child.products.map((product) => {
+                                child.products.map((product, idx) => {
                                   return (
                                     <Link
                                       href={`/product/${child.slug}/${product.slug}`}
-                                      key={product.id}
+                                      key={idx}
                                       className="text-secondgraphy hover:text-secondgraphy"
                                     >
                                       {product.title}

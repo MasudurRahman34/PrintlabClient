@@ -31,7 +31,10 @@ export function calculateTotal({
   checkIfNumber(artwork_charge, "artwork_charge");
   checkIfNumber(discount, "discount");
   checkIfNumber(quantity, "quantity");
-  checkIfNumber(per_quantity_price, "per_quantity_price");
+  checkIfNumber(
+    per_quantity_price ? per_quantity_price : 0,
+    "per_quantity_price"
+  );
   checkIfNumber(increment, "increment");
 
   // Calculation: Here I'm assuming some logic, for example:

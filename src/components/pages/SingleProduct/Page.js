@@ -111,7 +111,7 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
             </div>
             <div>
               <div className="mt-10">
-                <div class="box-body"></div>
+                <div className="box-body"></div>
                 {data?.data?.specification && (
                   <Tabs defaultValue="Product Details" className="w-full">
                     <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  bg-primary !text-base !font-bold ">

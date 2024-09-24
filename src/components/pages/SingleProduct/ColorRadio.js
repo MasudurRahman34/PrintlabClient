@@ -10,7 +10,7 @@ const ColorRadio = ({ handleSelect, title, options, userSelectedOptions }) => {
     <div className="flex items-center justify-between gap-3 py-2 mb-3">
       <div className="w-1/3">
         <p>
-          <strong>{title}</strong>
+          <strong>{title} </strong>
         </p>
       </div>
       <div className="flex items-center w-2/3 gap-2">
