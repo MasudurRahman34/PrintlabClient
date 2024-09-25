@@ -22,7 +22,7 @@ const ContactUs = () => {
             contact and get in touch directly with our team.
           </p>
         </div>
-        <div className="p-3 mt-5 text-center text-white rounded-md bg-secondgraphy">
+        {/*  <div className="p-3 mt-5 text-center text-white rounded-md bg-secondgraphy">
           <p className="py-3 text-3xl">What can we help you with?</p>
           <div className="max-w-2xl mx-auto my-5">
             <label for="hs-trailing-button-add-on" className="sr-only">
@@ -98,9 +98,15 @@ const ContactUs = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="p-3 mt-5 text-center text-white rounded-md bg-secondgraphy">
-          <p className="py-3 text-xl">Call us on 0330 024 0020.</p>
+          <p className="pt-3 text-xl">Call us on 020 7377 9400</p>
+          <div className="mb-3">
+            Email us at{" "}
+            <a href="mailto:weareprintlab@gmail.com" className="font-bold">
+              weareprintlab@gmail.com
+            </a>
+          </div>
           <p className="pb-5">
             Our UK care team is available Monday to Friday, 8am to 6pm.
           </p>

@@ -8,6 +8,8 @@ const TotalCounter = ({
   addToCard,
   isPending,
   selectedDelivery,
+  max_quantity,
+  quantity,
   matched,
 }) => {
   const { formattedDate } = useCountDownTimer({
@@ -37,7 +39,8 @@ const TotalCounter = ({
                 isPending ||
                 !matched ||
                 matched?.price <= 0 ||
-                !selectedDelivery
+                !selectedDelivery ||
+                max_quantity < quantity
               }
             >
               {isPending ? (

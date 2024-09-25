@@ -135,3 +135,8 @@ export const getRefundQuery = async ({ token, page = 1 }) =>
       },
     })
     .then((res) => res.data);
+
+export const getQuantityOptionsQuery = async ({ product_id }) =>
+  axios
+    .get(`${backendUrl}/quantity-options/product/${product_id}`)
+    .then((res) => res.data);

@@ -41,7 +41,6 @@ export function calculateTotal({
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
   const extraQuantityPrice =
     Math.floor(quantity / increment) * per_quantity_price;
-  console.log(extraQuantityPrice, per_quantity_price);
 
   let total;
   if (calculationType === "multiply") {
@@ -130,3 +129,7 @@ export function getDateAfterDays(days) {
 
   return `${year}-${month}-${day}`;
 }
+
+export const isEmptyObject = (obj) => {
+  return Object.keys(obj).length === 0;
+};

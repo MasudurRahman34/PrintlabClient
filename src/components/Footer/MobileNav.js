@@ -4,7 +4,16 @@ import { BsFillBasketFill } from "react-icons/bs";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const MobileNav = ({ addToCard, isPending, matched, price, cart_items }) => {
+const MobileNav = ({
+  addToCard,
+  isPending,
+  matched,
+  price,
+  cart_items,
+  max_quantity,
+  quantity,
+  selectedDelivery,
+}) => {
   return (
     <div
       className="fixed bottom-0 left-0 flex w-full py-1 bg-white border-t-2 shadow-inner h-14 md:hidden "
@@ -15,9 +24,15 @@ const MobileNav = ({ addToCard, isPending, matched, price, cart_items }) => {
       </div>
       <div className="flex-1 rounded-md bg-primary">
         <button
-          className="w-full h-full font-bold cursor-pointer"
+          className="w-full h-full font-bold cursor-pointer disabled:opacity-50"
           onClick={addToCard}
-          disabled={isPending}
+          disabled={
+            isPending ||
+            !matched ||
+            matched?.price <= 0 ||
+            !selectedDelivery ||
+            max_quantity < quantity
+          }
         >
           {isPending ? (
             <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />

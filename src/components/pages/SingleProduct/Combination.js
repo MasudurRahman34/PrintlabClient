@@ -11,17 +11,19 @@ import DeliveryChoose from "./DeliveryChoose";
 import TotalCounter from "./TotalCounter";
 import Loader from "@/components/Loader/Loader";
 import { addToCartMutation } from "@/resolvers/mutation";
-import { calculateTotal, formatPrice } from "@/lib/utils";
+import { calculateTotal, formatPrice, isEmptyObject } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
 import MobileNav from "@/components/Footer/MobileNav";
 import useToastMessage from "@/hooks/useToastMessage";
 import Increament from "./Increament";
+import CustomQuantity from "./CustomQuantity";
 
 const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   const showToastMessage = useToastMessage();
   const [quantity, setQuantity] = useState(1);
+  const [quantityVariation, setQuantityVariation] = useState({});
   const [userSelectedOptions, setUserSelectedOptions] = useState({});
   const [selectedDelivery, setSelectedDelivery] = useState(null);
   const [selectedPrintType, setSelectedPrintType] = useState({
@@ -142,6 +144,9 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       quantity: quantity,
       discount: 0,
       tax: 0,
+      quantity_variation: isEmptyObject(quantityVariation)
+        ? null
+        : JSON.stringify(quantityVariation),
       total: calculateTotal({
         price: matched.price,
         delivery_charge: selectedDelivery?.cost,
@@ -233,15 +238,28 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                 );
               }
             })}
+
+            {/* Checking if quantity variation contain or not if yes then show customisable quantity or show just incremental quantity */}
             {data?.data?.productQuantityRule &&
-              data?.data?.productQuantityRule?.status && (
-                <Increament
-                  title="Quantity"
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                  productQuantityRule={data?.data?.productQuantityRule}
-                />
-              )}
+            data?.data?.productQuantityRule?.status &&
+            data?.data?.productQuantityRule?.quantity_option_status ? (
+              <CustomQuantity
+                title="Quantity"
+                quantity={quantity}
+                setQuantity={setQuantity}
+                productQuantityRule={data?.data?.productQuantityRule}
+                product_id={data?.data.id}
+                quantityVariation={quantityVariation}
+                setQuantityVariation={setQuantityVariation}
+              />
+            ) : (
+              <Increament
+                title="Quantity"
+                quantity={quantity}
+                setQuantity={setQuantity}
+                productQuantityRule={data?.data?.productQuantityRule}
+              />
+            )}
             <div className="mt-3">
               <p className="text-secondgraphy">
                 <strong>SKU:</strong> {matched?.sku}
@@ -330,7 +348,11 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
             className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 disabled:bg-secondary disabled:opacity-40  flex items-center justify-center "
             onClick={addToCart}
             disabled={
-              isPending || !matched || matched?.price <= 0 || !selectedDelivery
+              isPending ||
+              !matched ||
+              matched?.price <= 0 ||
+              !selectedDelivery ||
+              data?.data?.productQuantityRule?.max_quantity < quantity
             }
           >
             {isPending ? (
@@ -345,7 +367,9 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         isPending={isPending}
         addToCard={addToCart}
         matched={matched}
+        max_quantity={data?.data?.productQuantityRule?.max_quantity}
         selectedDelivery={selectedDelivery}
+        quantity={quantity}
         excVatPrice={
           matched
             ? formatPrice(
@@ -390,6 +414,9 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         isPending={isPending}
         cart_items={cart_items}
         matched={matched}
+        quantity={quantity}
+        max_quantity={data?.data?.productQuantityRule?.max_quantity}
+        selectedDelivery={selectedDelivery}
         price={
           matched
             ? formatPrice(

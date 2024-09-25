@@ -195,14 +195,14 @@ export default function TermsContent() {
         <li>
           Email:{" "}
           <a
-            href="mailto:info@weareprintlab.co.uk"
+            href="mailto:weareprintlab@gmail.com"
             className="text-blue-600 underline"
           >
-            info@weareprintlab.co.uk
+            weareprintlab@gmail.com
           </a>
         </li>
-        <li>Phone: [Your Phone Number]</li>
-        <li>Address: [Your Company Address]</li>
+        <li>Phone: 020 7377 9400</li>
+        <li>Address: 172 Commercial Road, London, United Kingdom</li>
       </ul>
     </div>
   );
