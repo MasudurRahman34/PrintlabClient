@@ -144,9 +144,6 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       quantity: quantity,
       discount: 0,
       tax: 0,
-      quantity_variation: isEmptyObject(quantityVariation)
-        ? null
-        : JSON.stringify(quantityVariation),
       total: calculateTotal({
         price: matched.price,
         delivery_charge: selectedDelivery?.cost,
@@ -163,6 +160,9 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         calc: true,
       }),
     };
+
+    if (!isEmptyObject(quantityVariation))
+      variables.quantity_variation = JSON.stringify(quantityVariation);
 
     mutate(
       {
