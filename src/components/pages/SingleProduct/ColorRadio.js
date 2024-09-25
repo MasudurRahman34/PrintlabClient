@@ -19,8 +19,8 @@ const ColorRadio = ({ handleSelect, title, options, userSelectedOptions }) => {
             className={` cursor-pointer  h-10 w-10  ${
               userSelectedOptions[item.attribute_id] ===
               item.attribute_option_id
-                ? "border-4 border-primary"
-                : "border-4"
+                ? "border-4 border-secondgraphy"
+                : ""
             } rounded-md `}
             style={{ backgroundColor: item.attributeOption.title }}
             key={index}

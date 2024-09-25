@@ -31,7 +31,8 @@ const MobileNav = ({
             !matched ||
             matched?.price <= 0 ||
             !selectedDelivery ||
-            max_quantity < quantity
+            max_quantity < quantity ||
+            quantity < 1
           }
         >
           {isPending ? (

@@ -155,6 +155,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           : selectedPrintType?.parent?.cost,
         quantity: quantity,
         increment: data?.data?.productQuantityRule?.increment,
+        reduction_percentage:
+          data?.data?.productQuantityRule?.reduction_percentage,
         per_quantity_price:
           data?.data?.productQuantityRule?.per_increament_price,
         calculationType: data?.data?.productQuantityRule?.calculation_type,
@@ -241,25 +243,26 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
 
             {/* Checking if quantity variation contain or not if yes then show customisable quantity or show just incremental quantity */}
             {data?.data?.productQuantityRule &&
-            data?.data?.productQuantityRule?.status &&
-            data?.data?.productQuantityRule?.quantity_option_status ? (
-              <CustomQuantity
-                title="Quantity"
-                quantity={quantity}
-                setQuantity={setQuantity}
-                productQuantityRule={data?.data?.productQuantityRule}
-                product_id={data?.data.id}
-                quantityVariation={quantityVariation}
-                setQuantityVariation={setQuantityVariation}
-              />
-            ) : (
-              <Increament
-                title="Quantity"
-                quantity={quantity}
-                setQuantity={setQuantity}
-                productQuantityRule={data?.data?.productQuantityRule}
-              />
-            )}
+            data?.data?.productQuantityRule?.status ? (
+              data?.data?.productQuantityRule?.quantity_option_status ? (
+                <CustomQuantity
+                  title="Quantity"
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  productQuantityRule={data?.data?.productQuantityRule}
+                  product_id={data?.data.id}
+                  quantityVariation={quantityVariation}
+                  setQuantityVariation={setQuantityVariation}
+                />
+              ) : (
+                <Increament
+                  title="Quantity"
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  productQuantityRule={data?.data?.productQuantityRule}
+                />
+              )
+            ) : null}
             <div className="mt-3">
               <p className="text-secondgraphy">
                 <strong>SKU:</strong> {matched?.sku}
@@ -311,6 +314,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                           data?.data?.productQuantityRule?.per_increament_price,
                         calculationType:
                           data?.data?.productQuantityRule?.calculation_type,
+                        reduction_percentage:
+                          data?.data?.productQuantityRule?.reduction_percentage,
                       })
                     )
                   : formatPrice(0)}
@@ -332,6 +337,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                         per_quantity_price:
                           data?.data?.productQuantityRule?.per_increament_price,
                         calculationType: data?.data?.productQuantityRule,
+                        reduction_percentage:
+                          data?.data?.productQuantityRule?.reduction_percentage,
                       })
                     )
                   : formatPrice(0)}
@@ -352,7 +359,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
               !matched ||
               matched?.price <= 0 ||
               !selectedDelivery ||
-              data?.data?.productQuantityRule?.max_quantity < quantity
+              data?.data?.productQuantityRule?.max_quantity < quantity ||
+              quantity < 1
             }
           >
             {isPending ? (
@@ -385,6 +393,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                     data?.data?.productQuantityRule?.per_increament_price,
                   calculationType:
                     data?.data?.productQuantityRule?.calculation_type,
+                  reduction_percentage:
+                    data?.data?.productQuantityRule?.reduction_percentage,
                 })
               )
             : formatPrice(0)
@@ -404,6 +414,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                     data?.data?.productQuantityRule?.per_increament_price,
                   calculationType:
                     data?.data?.productQuantityRule?.calculation_type,
+                  reduction_percentage:
+                    data?.data?.productQuantityRule?.reduction_percentage,
                 })
               )
             : formatPrice(0)
@@ -432,6 +444,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                     data?.data?.productQuantityRule?.per_increament_price,
                   calculationType:
                     data?.data?.productQuantityRule?.calculation_type,
+                  reduction_percentage:
+                    data?.data?.productQuantityRule?.reduction_percentage,
                 })
               )
             : formatPrice(0)
