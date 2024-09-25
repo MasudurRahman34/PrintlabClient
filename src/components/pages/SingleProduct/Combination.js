@@ -94,6 +94,34 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
+  // Calculate total price of the product with selected options and quantity
+  const { total } = useMemo(() => {
+    const total = calculateTotal({
+      price: matched?.price,
+      delivery_charge: selectedDelivery?.cost,
+      artwork_charge: selectedPrintType?.children
+        ? selectedPrintType?.children?.cost
+        : selectedPrintType?.parent?.cost,
+      quantity: quantity,
+      increment: data?.data?.productQuantityRule?.increment,
+      per_quantity_price: data?.data?.productQuantityRule?.per_increament_price,
+      calculationType: data?.data?.productQuantityRule?.calculation_type,
+      reduction_percentage:
+        data?.data?.productQuantityRule &&
+        data?.data?.productQuantityRule?.status
+          ? data?.data?.productQuantityRule?.reduction_percentage
+          : 0,
+    });
+
+    return { total };
+  }, [
+    matched,
+    selectedDelivery,
+    selectedPrintType,
+    quantity,
+    data?.data?.productQuantityRule,
+  ]);
+
   // Add to card will be handled here with the selected options
   const addToCart = () => {
     if (!selectedDelivery || !selectedPrintType) {
@@ -144,21 +172,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       quantity: quantity,
       discount: 0,
       tax: 0,
-      total: calculateTotal({
-        price: matched.price,
-        delivery_charge: selectedDelivery?.cost,
-        artwork_charge: selectedPrintType?.children
-          ? selectedPrintType?.children?.cost
-          : selectedPrintType?.parent?.cost,
-        quantity: quantity,
-        increment: data?.data?.productQuantityRule?.increment,
-        reduction_percentage:
-          data?.data?.productQuantityRule?.reduction_percentage,
-        per_quantity_price:
-          data?.data?.productQuantityRule?.per_increament_price,
-        calculationType: data?.data?.productQuantityRule?.calculation_type,
-        calc: true,
-      }),
+      total,
     };
 
     if (!isEmptyObject(quantityVariation))
@@ -300,49 +314,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           <div className="text-right">
             <p className="text-sm">
               <strong className="text-xl font-bold">
-                {matched
-                  ? formatPrice(
-                      calculateTotal({
-                        price: matched?.price,
-                        delivery_charge: selectedDelivery?.cost,
-                        artwork_charge: selectedPrintType?.children
-                          ? selectedPrintType?.children?.cost
-                          : selectedPrintType?.parent?.cost,
-                        quantity: quantity,
-                        increment: data?.data?.productQuantityRule?.increment,
-                        per_quantity_price:
-                          data?.data?.productQuantityRule?.per_increament_price,
-                        calculationType:
-                          data?.data?.productQuantityRule?.calculation_type,
-                        reduction_percentage:
-                          data?.data?.productQuantityRule?.reduction_percentage,
-                      })
-                    )
-                  : formatPrice(0)}
+                {matched ? formatPrice(total) : formatPrice(0)}
               </strong>{" "}
               Ex VAT
             </p>
             <p className="text-xs">
-              <strong>
-                {matched
-                  ? formatPrice(
-                      calculateTotal({
-                        price: matched?.price,
-                        delivery_charge: selectedDelivery?.cost,
-                        artwork_charge: selectedPrintType?.children
-                          ? selectedPrintType?.children?.cost
-                          : selectedPrintType?.parent?.cost,
-                        quantity: quantity,
-                        increment: data?.data?.productQuantityRule?.increment,
-                        per_quantity_price:
-                          data?.data?.productQuantityRule?.per_increament_price,
-                        calculationType: data?.data?.productQuantityRule,
-                        reduction_percentage:
-                          data?.data?.productQuantityRule?.reduction_percentage,
-                      })
-                    )
-                  : formatPrice(0)}
-              </strong>{" "}
+              <strong>{matched ? formatPrice(total) : formatPrice(0)}</strong>{" "}
               Inc VAT
             </p>
             <p className="text-xs">
@@ -378,48 +355,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         max_quantity={data?.data?.productQuantityRule?.max_quantity}
         selectedDelivery={selectedDelivery}
         quantity={quantity}
-        excVatPrice={
-          matched
-            ? formatPrice(
-                calculateTotal({
-                  price: matched.price,
-                  delivery_charge: selectedDelivery?.cost,
-                  artwork_charge: selectedPrintType?.children
-                    ? selectedPrintType?.children?.cost
-                    : selectedPrintType?.parent?.cost,
-                  quantity: quantity,
-                  increment: data?.data?.productQuantityRule?.increment,
-                  per_quantity_price:
-                    data?.data?.productQuantityRule?.per_increament_price,
-                  calculationType:
-                    data?.data?.productQuantityRule?.calculation_type,
-                  reduction_percentage:
-                    data?.data?.productQuantityRule?.reduction_percentage,
-                })
-              )
-            : formatPrice(0)
-        }
-        incVatPrice={
-          matched
-            ? formatPrice(
-                calculateTotal({
-                  price: matched.price,
-                  delivery_charge: selectedDelivery?.cost,
-                  artwork_charge: selectedPrintType?.children
-                    ? selectedPrintType?.children?.cost
-                    : selectedPrintType?.parent?.cost,
-                  quantity: quantity,
-                  increment: data?.data?.productQuantityRule?.increment,
-                  per_quantity_price:
-                    data?.data?.productQuantityRule?.per_increament_price,
-                  calculationType:
-                    data?.data?.productQuantityRule?.calculation_type,
-                  reduction_percentage:
-                    data?.data?.productQuantityRule?.reduction_percentage,
-                })
-              )
-            : formatPrice(0)
-        }
+        excVatPrice={matched ? formatPrice(total) : formatPrice(0)}
+        incVatPrice={matched ? formatPrice(total) : formatPrice(0)}
       />
       <MobileNav
         addToCard={addToCart}
@@ -429,27 +366,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         quantity={quantity}
         max_quantity={data?.data?.productQuantityRule?.max_quantity}
         selectedDelivery={selectedDelivery}
-        price={
-          matched
-            ? formatPrice(
-                calculateTotal({
-                  price: matched.price,
-                  delivery_charge: selectedDelivery?.cost,
-                  artwork_charge: selectedPrintType?.children
-                    ? selectedPrintType?.children?.cost
-                    : selectedPrintType?.parent?.cost,
-                  quantity: quantity,
-                  increment: data?.data?.productQuantityRule?.increment,
-                  per_quantity_price:
-                    data?.data?.productQuantityRule?.per_increament_price,
-                  calculationType:
-                    data?.data?.productQuantityRule?.calculation_type,
-                  reduction_percentage:
-                    data?.data?.productQuantityRule?.reduction_percentage,
-                })
-              )
-            : formatPrice(0)
-        }
+        price={matched ? formatPrice(total) : formatPrice(0)}
       />
     </div>
   );
