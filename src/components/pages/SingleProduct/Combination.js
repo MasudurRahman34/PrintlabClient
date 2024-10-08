@@ -94,24 +94,33 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
+  console.log("matched", matched);
+
   // Calculate total price of the product with selected options and quantity
   const { total } = useMemo(() => {
-    const total = calculateTotal({
-      price: matched?.price,
-      delivery_charge: selectedDelivery?.cost,
-      artwork_charge: selectedPrintType?.children
-        ? selectedPrintType?.children?.cost
-        : selectedPrintType?.parent?.cost,
-      quantity: quantity,
-      increment: data?.data?.productQuantityRule?.increment,
-      per_quantity_price: data?.data?.productQuantityRule?.per_increament_price,
-      calculationType: data?.data?.productQuantityRule?.calculation_type,
-      reduction_percentage:
-        data?.data?.productQuantityRule &&
-        data?.data?.productQuantityRule?.status
-          ? data?.data?.productQuantityRule?.reduction_percentage
-          : 0,
-    });
+    let total = 0;
+    if (matched) {
+      const calculateVariables = {
+        price: matched?.price,
+        delivery_charge: selectedDelivery?.cost,
+        artwork_charge: selectedPrintType?.children
+          ? selectedPrintType?.children?.cost
+          : selectedPrintType?.parent?.cost,
+        quantity: quantity,
+      };
+
+      if (matched?.quantity_rule) {
+        calculateVariables.increment = matched?.increment;
+        calculateVariables.per_quantity_price = matched?.per_increment_price;
+        calculateVariables.calculationType = matched?.calculation_type;
+        calculateVariables.reduction_percentage =
+          matched?.reduction_percentage > 0 ? matched?.reduction_percentage : 0;
+      }
+
+      console.log("calculateVariables", calculateVariables);
+
+      total = calculateTotal(calculateVariables);
+    }
 
     return { total };
   }, [
@@ -121,6 +130,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     quantity,
     data?.data?.productQuantityRule,
   ]);
+
+  useEffect(() => {
+    if (matched) {
+      setQuantity(matched?.min_quantity);
+    }
+  }, [matched]);
 
   // Add to card will be handled here with the selected options
   const addToCart = () => {
@@ -267,6 +282,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   product_id={data?.data.id}
                   quantityVariation={quantityVariation}
                   setQuantityVariation={setQuantityVariation}
+                  matched={matched}
                 />
               ) : (
                 <Increament
@@ -274,6 +290,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   quantity={quantity}
                   setQuantity={setQuantity}
                   productQuantityRule={data?.data?.productQuantityRule}
+                  matched={matched}
                 />
               )
             ) : null}
@@ -336,7 +353,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
               !matched ||
               matched?.price <= 0 ||
               !selectedDelivery ||
-              data?.data?.productQuantityRule?.max_quantity < quantity ||
+              matched?.max_quantity < quantity ||
               quantity < 1
             }
           >
@@ -352,7 +369,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         isPending={isPending}
         addToCard={addToCart}
         matched={matched}
-        max_quantity={data?.data?.productQuantityRule?.max_quantity}
+        max_quantity={matched?.max_quantity}
         selectedDelivery={selectedDelivery}
         quantity={quantity}
         excVatPrice={matched ? formatPrice(total) : formatPrice(0)}
@@ -364,7 +381,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         cart_items={cart_items}
         matched={matched}
         quantity={quantity}
-        max_quantity={data?.data?.productQuantityRule?.max_quantity}
+        max_quantity={matched?.max_quantity}
         selectedDelivery={selectedDelivery}
         price={matched ? formatPrice(total) : formatPrice(0)}
       />

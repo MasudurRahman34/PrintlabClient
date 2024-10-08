@@ -11,6 +11,7 @@ const CustomQuantity = ({
   product_id,
   quantityVariation,
   setQuantityVariation,
+  matched,
 }) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["quantity_options", product_id],
@@ -49,17 +50,33 @@ const CustomQuantity = ({
           Object.keys(
             tempQuantityVariation[Object.keys(tempQuantityVariation)[0]]
           )[1]
-        ] = 1;
+        ] = matched?.min_quantity;
       }
 
       setQuantityVariation(tempQuantityVariation);
     }
-  }, [data]);
+  }, [data, matched]);
+
+  if (!matched?.quantity_rule) {
+    return null;
+  }
 
   return (
     <section className="mt-4">
-      <div>
+      <div className="flex items-center justify-between">
         <h3 className="font-bold">{title}</h3>
+        <p>
+          {matched?.min_quantity && (
+            <span className="mr-4 text-xs text-gray-500">
+              Min: {matched?.min_quantity}
+            </span>
+          )}
+          {matched?.max_quantity && (
+            <span className="text-xs text-gray-500">
+              Max: {matched?.max_quantity}
+            </span>
+          )}
+        </p>
       </div>
       <div>
         <div>
@@ -131,10 +148,9 @@ const CustomQuantity = ({
                   </p>
                 </div>
               </div>
-              {totalQuantity > productQuantityRule?.max_quantity && (
+              {totalQuantity > matched?.max_quantity && (
                 <p className="text-sm font-bold text-center text-red-500">
-                  Total quantity cannot be over{" "}
-                  {productQuantityRule?.max_quantity}
+                  Total quantity cannot be over {matched?.max_quantity}
                 </p>
               )}
             </div>

@@ -1,20 +1,13 @@
 import React from "react";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
-const Increament = ({
-  title = "",
-  productQuantityRule,
-  quantity,
-  setQuantity,
-}) => {
+const Increament = ({ title = "", quantity, setQuantity, matched }) => {
   const handleIncreament = (type) => {
     if (type === "increment") {
       // check if max quantity is set and if the quantity is greater than the max quantity
 
-      if (
-        productQuantityRule?.max_quantity &&
-        quantity > productQuantityRule?.max_quantity - 1
-      ) {
+      if (matched?.max_quantity && quantity > matched?.max_quantity - 1) {
         return;
       } else {
         setQuantity(quantity + 1);
@@ -25,6 +18,11 @@ const Increament = ({
       }
     }
   };
+
+  if (!matched?.quantity_rule) {
+    return null;
+  }
+
   return (
     <div className="flex items-center justify-between gap-3 py-2">
       <div className="w-1/3">
@@ -37,32 +35,34 @@ const Increament = ({
             onClick={() => {
               handleIncreament("decrement");
             }}
-            disabled={quantity <= productQuantityRule?.min_quantity}
+            disabled={quantity <= matched?.min_quantity}
           >
             -
           </button>
           <input
             value={quantity}
             type="number"
+            min={matched?.min_quantity}
+            max={matched?.max_quantity}
             onChange={(e) => {
               // check if max quantity is set and if the quantity is greater than the max quantity
               const value = e.target.value ? parseInt(e.target.value) : 1;
               if (
-                productQuantityRule?.max_quantity &&
-                parseInt(value) > productQuantityRule?.max_quantity
+                matched?.max_quantity &&
+                parseInt(value) > matched?.max_quantity
               ) {
                 toast.error(
                   "Quantity can't be greater than max quantity " +
-                    productQuantityRule?.max_quantity
+                    matched?.max_quantity
                 );
                 return;
               } else if (
-                productQuantityRule?.min_quantity &&
-                parseInt(value) < productQuantityRule?.min_quantity
+                matched?.min_quantity &&
+                parseInt(value) < matched?.min_quantity
               ) {
                 toast.error(
                   "Quantity can't be less than min quantity" +
-                    productQuantityRule?.min_quantity
+                    matched?.min_quantity
                 );
                 return;
               }
@@ -77,8 +77,7 @@ const Increament = ({
               handleIncreament("increment");
             }}
             disabled={
-              productQuantityRule?.max_quantity &&
-              quantity >= productQuantityRule?.max_quantity
+              matched?.max_quantity && quantity >= matched?.max_quantity
             }
           >
             +
@@ -86,16 +85,21 @@ const Increament = ({
         </div>
         <div>
           <p>
-            {productQuantityRule?.min_quantity && (
+            {matched?.min_quantity && (
+              <span className="mr-4 text-xs text-gray-500">
+                Min: {matched?.min_quantity}
+              </span>
+            )}
+            {matched?.max_quantity && (
               <span className="text-xs text-gray-500">
-                Min: {productQuantityRule?.min_quantity}
+                Max: {matched?.max_quantity}
               </span>
             )}
           </p>
           <p>
-            {productQuantityRule?.max_quantity && (
+            {matched?.increment && (
               <span className="text-xs text-gray-500">
-                Max: {productQuantityRule?.max_quantity}
+                Increments of: {matched?.increment}
               </span>
             )}
           </p>
