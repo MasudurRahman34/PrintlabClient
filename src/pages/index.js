@@ -6,6 +6,7 @@ import Packs_banner from "@/components/pages/Home/packs_banner";
 
 import HeroSliderComponent from "@/components/pages/Home/HeroSlider";
 import MetaData from "@/components/ui/MetaData";
+import TopCategories from "@/components/pages/TopCategories";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSliderComponent />
       <Achievement />
       <Bestsell />
+      <TopCategories />
       {/* <Tradeprint /> */}
       <Business />
       <Packs_banner />

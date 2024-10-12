@@ -142,3 +142,17 @@ export function getDateAfterDays(days) {
 export const isEmptyObject = (obj) => {
   return Object.keys(obj).length === 0;
 };
+
+export const getMediaThumbURL = (media = []) => {
+  if (media.length === 0) {
+    return "https://printlabapi.devtaijul.com/storage/TVhC27KVyxQINe4XoYZOCVQrUT6znprnh03hWQeH.png";
+  }
+
+  const mediaFound = media.find((m) => m.is_profile === 1);
+
+  if (mediaFound) {
+    return mediaFound.url;
+  } else {
+    return media[0].url;
+  }
+};

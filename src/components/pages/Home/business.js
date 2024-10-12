@@ -18,7 +18,7 @@ const business = () => {
           <div className="w-full h-[430px] hover:shadow-md rounded-md transition-all duration-500 ease-in-out ">
             <div className="w-full h-[311px] text-center flex justify-center mx-auto ">
               <Image
-                className="mt-2 w-full"
+                className="w-full mt-2"
                 src={busness1}
                 height={311}
                 width={311}
@@ -37,7 +37,7 @@ const business = () => {
           <div className="w-full h-[430px] hover:shadow-md rounded-md transition-all duration-500 ease-in-out ">
             <div className="w-full h-[311px] text-center flex justify-center mx-auto ">
               <Image
-                className="mt-2 w-full"
+                className="w-full mt-2"
                 src={busness2}
                 height={3113}
                 width={311}
@@ -56,7 +56,7 @@ const business = () => {
           <div className="w-full h-[430px] hover:shadow-md rounded-md transition-all duration-500 ease-in-out ">
             <div className="w-full h-[311px] text-center flex justify-center mx-auto ">
               <Image
-                className="mt-2 w-full"
+                className="w-full mt-2"
                 src={busness2}
                 height={3113}
                 width={311}
@@ -75,7 +75,7 @@ const business = () => {
           <div className="w-full h-[430px] hover:shadow-md rounded-md transition-all duration-500 ease-in-out ">
             <div className="w-full h-[311px] text-center flex justify-center mx-auto ">
               <Image
-                className="mt-2 w-full"
+                className="w-full mt-2"
                 src={busness2}
                 height={3113}
                 width={311}
