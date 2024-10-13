@@ -21,10 +21,10 @@ const navLinks = [
     name: "Refund",
     link: "/my-account/refund",
   },
-  /* {
-    name: "Delivery Addresses",
-    link: "/my-account/delivery-addresses",
-  }, */
+  {
+    name: "Addresses",
+    link: "/my-account/addresses",
+  },
   /* {
     name: "Favourites",
     link: "/my-account/favourites",

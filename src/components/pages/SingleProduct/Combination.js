@@ -313,6 +313,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           product_id={data?.data.id}
           selectedDelivery={selectedDelivery}
           setSelectedDelivery={setSelectedDelivery}
+          total={total}
         />
 
         <PrintType

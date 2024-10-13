@@ -5,11 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductDeliveryServicesQuery } from "@/resolvers/query";
 
 import Loader from "@/components/Loader/Loader";
+import { formatPrice } from "@/lib/utils";
 
 const DeliveryChoose = ({
   product_id,
   selectedDelivery,
   setSelectedDelivery,
+  total,
 }) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["product-delivery-services", product_id],
@@ -41,7 +43,7 @@ const DeliveryChoose = ({
 
   if (data?.data.length <= 0) {
     return (
-      <div className="w-full px-3 py-3 text-sm text-center border-2  bg-primary-light border-primary">
+      <div className="w-full px-3 py-3 text-sm text-center border-2 bg-primary-light border-primary">
         <p className="font-bold">
           No delivery services available for this product.
         </p>
@@ -58,20 +60,28 @@ const DeliveryChoose = ({
         <>
           <div className="flex items-stretch justify-between gap-3 pb-8">
             {selectedDelivery &&
-              data?.data.map((option) => (
-                <div
-                  key={option.id}
-                  className={`flex flex-col items-center w-full max-w-sm p-2 transition-colors duration-200 border-2 rounded-sm cursor-pointer hover:bg-primary-light hover:border-primary ${
-                    selectedDelivery.service_id === option.service_id
-                      ? " square_after_effect"
-                      : ""
-                  }`}
-                  onClick={() => handleSelectDelivery(option)}
-                >
-                  <strong>{option.service.title}</strong>
-                  <strong>£{option.cost}</strong>
-                </div>
-              ))}
+              data?.data.map((option) => {
+                const priceDifference = option.cost - selectedDelivery.cost;
+
+                return (
+                  <div
+                    key={option.id}
+                    className={`flex flex-col items-center w-full max-w-sm p-2 transition-colors duration-200 border-2 rounded-sm cursor-pointer hover:bg-primary-light hover:border-primary ${
+                      selectedDelivery.service_id === option.service_id
+                        ? " square_after_effect"
+                        : ""
+                    }`}
+                    onClick={() => handleSelectDelivery(option)}
+                  >
+                    <strong>{option.service.title}</strong>
+                    <strong>
+                      {option.service_id === selectedDelivery.service_id
+                        ? formatPrice(total)
+                        : priceDifference}
+                    </strong>
+                  </div>
+                );
+              })}
           </div>
           <DurationTimer days={selectedDelivery?.duration} />{" "}
         </>
