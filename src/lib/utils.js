@@ -14,6 +14,7 @@ export function calculateTotal({
   increment = 1,
   quantity = 1,
   per_quantity_price = 1,
+  min_quantity = 1,
   reduction_percentage = 0,
   calculationType = "multiply",
   calc = false,
@@ -38,16 +39,18 @@ export function calculateTotal({
   );
   checkIfNumber(increment, "increment");
   checkIfNumber(reduction_percentage, "reduction_percentage");
+  checkIfNumber(min_quantity, "min_quantity");
 
   // Calculation: Here I'm assuming some logic, for example:
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
   // need to implement reduction rate and increment logic here
+
+  const newQuantity = quantity - min_quantity < 1 ? 1 : quantity - min_quantity;
+
   const extraQuantityPrice =
     calculationType === "multiply"
-      ? quantity < 1
-        ? 1
-        : quantity
-      : Math.floor(quantity / increment) * per_quantity_price;
+      ? newQuantity
+      : Math.floor(newQuantity / increment) * per_quantity_price;
 
   let total;
   if (calculationType === "multiply") {

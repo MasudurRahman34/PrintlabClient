@@ -19,6 +19,7 @@ import "react-medium-image-zoom/dist/styles.css";
 
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
+import DiscountPopup from "@/components/DiscountPopup";
 
 export default function App({ Component, pageProps }) {
   const { isAuthenticated, user, token } = useAuth();
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps }) {
       />
       {/*  <ReactQueryDevtools initialIsOpen={false} position="right" /> */}
       <Toaster />
+      <DiscountPopup />
     </QueryClientProvider>
   );
 }

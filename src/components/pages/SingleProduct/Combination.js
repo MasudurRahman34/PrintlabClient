@@ -94,8 +94,6 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
-  console.log("matched", matched);
-
   // Calculate total price of the product with selected options and quantity
   const { total } = useMemo(() => {
     let total = 0;
@@ -115,9 +113,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         calculateVariables.calculationType = matched?.calculation_type;
         calculateVariables.reduction_percentage =
           matched?.reduction_percentage > 0 ? matched?.reduction_percentage : 0;
+        calculateVariables.min_quantity = matched?.min_quantity;
       }
-
-      console.log("calculateVariables", calculateVariables);
 
       total = calculateTotal(calculateVariables);
     }
@@ -355,7 +352,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
               matched?.price <= 0 ||
               !selectedDelivery ||
               matched?.max_quantity < quantity ||
-              quantity < 1
+              quantity < matched?.min_quantity
             }
           >
             {isPending ? (
@@ -375,6 +372,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         quantity={quantity}
         excVatPrice={matched ? formatPrice(total) : formatPrice(0)}
         incVatPrice={matched ? formatPrice(total) : formatPrice(0)}
+        min_quantity={matched?.min_quantity}
       />
       <MobileNav
         addToCard={addToCart}
@@ -385,6 +383,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         max_quantity={matched?.max_quantity}
         selectedDelivery={selectedDelivery}
         price={matched ? formatPrice(total) : formatPrice(0)}
+        min_quantity={matched?.min_quantity}
       />
     </div>
   );

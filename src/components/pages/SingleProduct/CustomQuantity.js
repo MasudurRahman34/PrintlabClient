@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader/Loader";
 import { Button } from "@/components/ui/button";
 import { getQuantityOptionsQuery } from "@/resolvers/query";
 import { useQuery } from "@tanstack/react-query";
@@ -80,7 +81,7 @@ const CustomQuantity = ({
       </div>
       <div>
         <div>
-          {isLoading && <p>Loading...</p>}
+          {isLoading && <Loader />}
           {isError && <p>Error</p>}
           {data?.data && data?.data?.quantity_options && (
             <div>
@@ -151,6 +152,11 @@ const CustomQuantity = ({
               {totalQuantity > matched?.max_quantity && (
                 <p className="text-sm font-bold text-center text-red-500">
                   Total quantity cannot be over {matched?.max_quantity}
+                </p>
+              )}
+              {totalQuantity < matched?.min_quantity && (
+                <p className="text-sm font-bold text-center text-red-500">
+                  Total quantity cannot be below {matched?.min_quantity}
                 </p>
               )}
             </div>

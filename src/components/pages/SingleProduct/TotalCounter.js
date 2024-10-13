@@ -11,6 +11,7 @@ const TotalCounter = ({
   max_quantity,
   quantity,
   matched,
+  min_quantity,
 }) => {
   const { formattedDate } = useCountDownTimer({
     days: selectedDelivery?.duration,
@@ -41,7 +42,7 @@ const TotalCounter = ({
                 matched?.price <= 0 ||
                 !selectedDelivery ||
                 max_quantity < quantity ||
-                quantity < 1
+                quantity < min_quantity
               }
             >
               {isPending ? (

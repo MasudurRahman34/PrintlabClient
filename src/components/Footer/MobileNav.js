@@ -13,6 +13,7 @@ const MobileNav = ({
   max_quantity,
   quantity,
   selectedDelivery,
+  min_quantity,
 }) => {
   return (
     <div
@@ -32,7 +33,7 @@ const MobileNav = ({
             matched?.price <= 0 ||
             !selectedDelivery ||
             max_quantity < quantity ||
-            quantity < 1
+            quantity < min_quantity
           }
         >
           {isPending ? (
