@@ -10,9 +10,16 @@ import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import MetaData from "@/components/ui/MetaData";
 import { useRouter } from "next/router";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { useState } from "react";
+
 const Signup = () => {
   const showToastMessage = useToastMessage();
   const router = useRouter();
+  const [showPass, setShowPass] = useState({
+    password: false,
+    confirm_password: false,
+  });
   const { redirect_url } = router.query;
   const { register: authRegister } = useAuth();
   const { mutate, isPending } = useMutation({
@@ -162,13 +169,32 @@ const Signup = () => {
                     <label className=" text-[12px] md:text-base text-typography font-medium">
                       Password
                     </label>
-                    <input
-                      type="password"
-                      placeholder="Enter Password"
-                      className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none"
-                      name="password"
-                      {...register("password")}
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPass.password ? "text" : "password"}
+                        placeholder="Enter Password"
+                        className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none"
+                        name="password"
+                        {...register("password")}
+                      />
+                      <button
+                        className="absolute top-0 right-0 flex items-center justify-center w-10 h-full bg-gray-200 text-secondgraphy"
+                        type="button"
+                        onClick={() => {
+                          setShowPass({
+                            ...showPass,
+                            password: !showPass.password,
+                          });
+                        }}
+                      >
+                        {showPass.password ? (
+                          <IoIosEyeOff className="w-6 h-6" />
+                        ) : (
+                          <IoIosEye className="w-6 h-6" />
+                        )}
+                      </button>
+                    </div>
+
                     {errors.password && (
                       <p className="text-red-500 text-[12px] md:text-[14px]">
                         {errors.password?.message}
@@ -179,13 +205,31 @@ const Signup = () => {
                     <label className=" text-[12px] md:text-base text-typography font-medium">
                       Confirm Password
                     </label>
-                    <input
-                      type="password"
-                      placeholder="Re-enter Password"
-                      className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none"
-                      name="confirm_password"
-                      {...register("confirm_password")}
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPass.confirm_password ? "text" : "password"}
+                        placeholder="Re-enter Password"
+                        className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none"
+                        name="confirm_password"
+                        {...register("confirm_password")}
+                      />
+                      <button
+                        className="absolute top-0 right-0 flex items-center justify-center w-10 h-full bg-gray-200 text-secondgraphy"
+                        type="button"
+                        onClick={() => {
+                          setShowPass({
+                            ...showPass,
+                            confirm_password: !showPass.confirm_password,
+                          });
+                        }}
+                      >
+                        {showPass.confirm_password ? (
+                          <IoIosEyeOff className="w-6 h-6" />
+                        ) : (
+                          <IoIosEye className="w-6 h-6" />
+                        )}
+                      </button>
+                    </div>
                     {errors.confirm_password && (
                       <p className="text-red-500 text-[12px] md:text-[14px]">
                         {errors.confirm_password?.message}

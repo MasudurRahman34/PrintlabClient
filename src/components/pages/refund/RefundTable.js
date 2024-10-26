@@ -16,6 +16,9 @@ const RefundTable = ({ refunds }) => {
             Date
           </th>
           <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+            Order Item Number
+          </th>
+          <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
             Reason
           </th>
           <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">

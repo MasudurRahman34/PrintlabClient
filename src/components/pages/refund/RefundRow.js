@@ -11,12 +11,20 @@ const RefundRow = ({ idx, item }) => {
       <td className="px-6 py-4 whitespace-nowrap">
         {humanReadableDate(item.created_at)}
       </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <Link
+          href={`/my-account/order-items/${item.order_item.id}`}
+          className="hover:underline"
+        >
+          {item.order_item.order_item_number}
+        </Link>
+      </td>
       <td className="px-6 py-4 whitespace-nowrap">{item.refund_reason}</td>
       <td className="px-6 py-4 whitespace-nowrap">
         <p className="text-sm text-gray-900">
-          {item.status && item.status === "pending" ? (
+          {item.status && item.status === 0 ? (
             <span className="text-yellow-500">Pending</span>
-          ) : item.status === "approved" ? (
+          ) : item.status === 1 ? (
             <span className="text-green-500">Approved</span>
           ) : (
             <span className="text-red-500">Rejected</span>

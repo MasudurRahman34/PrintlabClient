@@ -39,9 +39,10 @@ const VerifyEmailAlert = () => {
             <h1 className="mb-4 text-2xl font-bold text-center">
               Your email is not verified
             </h1>
-            <p className="text-center">
-              Printlab has sent you an email with a verification link. Please
-              check your email and click on the link to verify your email.
+            <p className="text-sm text-center">
+              Please verify your email address to continue using our services if
+              you haven&apos;t received the verification email, check your spam
+              or junk folder.
             </p>
             <div className="text-center ">
               <button

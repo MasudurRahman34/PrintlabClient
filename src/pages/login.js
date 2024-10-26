@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { login_schema } from "@/lib/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
@@ -12,12 +12,14 @@ import { loginMutation } from "@/resolvers/mutation";
 import useToastMessage from "@/hooks/useToastMessage";
 import toast from "react-hot-toast";
 import MetaData from "@/components/ui/MetaData";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const Userlogin = () => {
   const showToastMessage = useToastMessage();
   const router = useRouter();
   const { redirect_url } = router.query;
   const { login, isAuthenticated } = useAuth();
+  const [showPass, setShowPass] = useState(false);
 
   const { mutate, isPending } = useMutation({
     mutationKey: "login",
@@ -109,12 +111,28 @@ const Userlogin = () => {
                       <label className=" text-[12px] md:text-base text-typography font-medium">
                         Password
                       </label>
-                      <input
-                        type="password"
-                        placeholder="Enter Password"
-                        className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none "
-                        {...register("password")}
-                      />
+
+                      <div className="relative">
+                        <input
+                          type={showPass ? "text" : "password"}
+                          placeholder="Enter Password"
+                          className="border text-typography text-[12px] md:text-[14px] px-2 py-2 w-full outline-none "
+                          {...register("password")}
+                        />
+                        <button
+                          className="absolute top-0 right-0 flex items-center justify-center w-10 h-full bg-gray-200 text-secondgraphy"
+                          type="button"
+                          onClick={() => {
+                            setShowPass((prev) => !prev);
+                          }}
+                        >
+                          {showPass ? (
+                            <IoIosEyeOff className="w-6 h-6" />
+                          ) : (
+                            <IoIosEye className="w-6 h-6" />
+                          )}
+                        </button>
+                      </div>
                       {errors.password && (
                         <p className="text-[12px] md:text-[14px] text-red-500">
                           {errors.password.message}

@@ -13,7 +13,7 @@ const withAuth = (WrappedComponent) => {
       if (!isLoading && !isAuthenticated) {
         router.replace("/login");
       } else if (isAuthenticated && user) {
-        if (user.email_verified_at === null) {
+        if (user.email_verified_at === null && pathname !== "/email-verify") {
           router.replace("/verify-email-alert");
         }
       }
@@ -45,7 +45,8 @@ const withAuth = (WrappedComponent) => {
     } else if (isAuthenticated && user) {
       if (
         user.email_verified_at === null &&
-        pathname !== "/verify-email-alert"
+        pathname !== "/verify-email-alert" &&
+        pathname !== "/email-verify"
       ) {
         return null; // or <Redirect to="/verify-email-alert" />
       }
