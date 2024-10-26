@@ -17,7 +17,7 @@ export default function Home() {
       <Bestsell />
       <TopCategories />
       {/* <Tradeprint /> */}
-      <Business />
+      {/*  <Business /> */}
       <Packs_banner />
     </ClientLayout>
   );

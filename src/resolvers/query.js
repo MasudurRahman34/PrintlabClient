@@ -143,3 +143,6 @@ export const getQuantityOptionsQuery = async ({ product_id }) =>
 
 export const getTopCategoriesQuery = async () =>
   await axios.get(`${backendUrl}/categories`).then((res) => res.data);
+
+export const getTopListingProductQuery = async () =>
+  axios.get(`${backendUrl}/top-listing?type=product`).then((res) => res.data);

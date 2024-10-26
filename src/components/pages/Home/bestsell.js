@@ -1,46 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
 import { useQuery } from "@tanstack/react-query";
-import { getAllProductsQuery } from "@/resolvers/query";
+import {
+  getAllProductsQuery,
+  getTopListingProductQuery,
+} from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 
 const BestSell = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const filterBy = [
-    {
-      id: 1,
-      name: "Populer Products",
-    },
-    {
-      id: 2,
-      name: "Larger Format",
-    },
-    {
-      id: 3,
-      name: "Business Cards",
-    },
-    {
-      id: 4,
-      name: "Booklet/Brochres",
-    },
-    {
-      id: 5,
-      name: "Packaging",
-    },
-    {
-      id: 6,
-      name: "Design online",
-    },
-  ];
-
   const OPTIONS = { align: "start" };
 
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ["best-sell"],
-    queryFn: getAllProductsQuery,
+    queryFn: getTopListingProductQuery,
   });
+
+  const tabList = data?.data?.map((item) => ({
+    id: item.id,
+    label: item.heading,
+  }));
+
+  useEffect(() => {
+    if (data?.data) {
+      if (tabList?.length > 0) {
+        setActiveTab(tabList[0].id);
+      }
+    }
+  }, [data?.data]);
 
   return (
     <>
@@ -54,30 +43,30 @@ const BestSell = () => {
                 </h5>
               </div>
               <div className="box-body mt-[15px]">
-                {/* <div className="border-b dark:border-white/10">
+                <div className="border-b dark:border-white/10">
                   <nav
                     className="-mb-0.5 flex justify-center space-x-6 rtl:space-x-reverse overflow-x-auto"
                     aria-label="Tabs"
                   >
-                    {filterBy.map((filter, index) => (
+                    {tabList?.map((tab, index) => (
                       <button
-                        onClick={() => setActiveTab(filter.id)}
+                        onClick={() => setActiveTab(tab.id)}
                         type="button"
                         key={index}
                         className={`  border-b-2   pb-1 pt-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
-                          activeTab === filter.id
-                            ? "text-primary border-primary"
+                          activeTab === tab.id
+                            ? "text-secondgraphy border-secondgraphy font-semibold"
                             : " "
                         }`}
                         id="horizontal-alignment-item-1"
                         data-hs-tab="#horizontal-alignment-1"
                         aria-controls="horizontal-alignment-1"
                       >
-                        {filter.name}
+                        {tab.label}
                       </button>
                     ))}
                   </nav>
-                </div> */}
+                </div>
 
                 <div className="mt-3">
                   {isLoading ? (
@@ -86,8 +75,17 @@ const BestSell = () => {
                     </div>
                   ) : isError ? (
                     <div>Something went wrong!</div>
-                  ) : data?.data?.length > 0 ? (
-                    <EmblaCarousel slides={data?.data} options={OPTIONS} />
+                  ) : data?.data?.find(
+                      (topListing) => topListing.id === activeTab
+                    )?.top_listing_items?.length > 0 ? (
+                    <EmblaCarousel
+                      slides={
+                        data?.data?.find(
+                          (topListing) => topListing.id === activeTab
+                        )?.top_listing_items
+                      }
+                      options={OPTIONS}
+                    />
                   ) : (
                     <div className="text-center text-defaulttextcolor">
                       <p>No product found</p>
