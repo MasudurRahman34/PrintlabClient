@@ -114,15 +114,16 @@ const ApplyForRefund = ({ refetch_refund }) => {
                     className="w-full p-2 text-xs border border-gray-300 rounded-md"
                   >
                     <option value="">Select an order item</option>
-                    {data?.data?.map((item) => (
-                      <option
-                        value={item.id}
-                        key={item.id}
-                        className="text-xs text-wrap"
-                      >
-                        {`Item Number #${item.order_item_number} - ${item.product.title}`}
-                      </option>
-                    ))}
+                    {data?.data &&
+                      data?.data?.map((item) => (
+                        <option
+                          value={item.id}
+                          key={item.id}
+                          className="text-xs text-wrap"
+                        >
+                          {`Item Number #${item?.order_item_number} - ${item?.product?.title}`}
+                        </option>
+                      ))}
                   </select>
                 </div>
                 <div>

@@ -30,6 +30,8 @@ const EmailVerify = () => {
     enabled: !!verify_url && !!session && !!signature,
   });
 
+  console.log("error", error);
+
   const { mutate, isPending } = useMutation({
     mutationKey: "resend-verification-email",
     mutationFn: resendVerificationEmailMutation,
@@ -61,7 +63,7 @@ const EmailVerify = () => {
       email_verified_at: new Date().toISOString(),
     };
 
-    await localStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem("user", JSON.stringify(updatedUser));
   };
 
   useEffect(() => {
@@ -117,8 +119,9 @@ const EmailVerify = () => {
             ) : (
               <div>
                 <h1 className="mb-4 text-2xl font-bold text-center">
-                  {data?.message ||
-                    "There was an error verifying your email. Please try again."}
+                  {(isError && error?.response?.data?.message) ||
+                    "Email verification failed"}
+                  {isSuccess && "Email verified successfully"}
                 </h1>
                 <p className="text-center">
                   If you are having trouble verifying your email, please click
@@ -128,8 +131,9 @@ const EmailVerify = () => {
                   <button
                     className="px-4 py-2 mt-4 text-white rounded-md bg-secondgraphy"
                     onClick={handleResendVerificationEmail}
+                    disabled={isPending}
                   >
-                    Resend Verification Email
+                    {isPending ? "Sending verification email" : "Resend Email"}
                   </button>
                 </div>
               </div>

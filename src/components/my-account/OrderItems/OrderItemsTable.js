@@ -30,17 +30,17 @@ const OrderItemTable = ({ orderItems }) => {
           <tr key={orderItem.id}>
             <td className="px-2 text-left border border-gray-200">{idx + 1}</td>
             <td className="px-2 text-left border border-gray-200">
-              {orderItem.order_item_number}
+              {orderItem?.order_item_number}
             </td>
             <td className="px-2 text-left border border-gray-200">
-              {orderItem.product.title}
+              {orderItem?.product?.title}
             </td>
 
             <td className="px-2 overflow-y-auto border border-gray-200 text-start min-w-52">
-              {orderItem.combination_string}
+              {orderItem?.combination_string}
             </td>
             <td className="px-2 text-left border border-gray-200">
-              {formatDate(new Date(orderItem.created_at), "dd/MM/yyyy")}
+              {formatDate(new Date(orderItem?.created_at), "dd/MM/yyyy")}
             </td>
             <td className="text-center border border-gray-200">
               {orderItem.status}

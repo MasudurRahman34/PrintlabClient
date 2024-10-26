@@ -146,3 +146,9 @@ export const getTopCategoriesQuery = async () =>
 
 export const getTopListingProductQuery = async () =>
   axios.get(`${backendUrl}/top-listing?type=product`).then((res) => res.data);
+
+export const getTopListingCategoryQuery = async () =>
+  axios.get(`${backendUrl}/top-listing?type=category`).then((res) => res.data);
+
+export const getDiscountCouponQuery = async () =>
+  axios.get(`${backendUrl}/coupons`).then((res) => res.data);

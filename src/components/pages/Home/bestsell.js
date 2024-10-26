@@ -7,9 +7,10 @@ import {
   getTopListingProductQuery,
 } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
+import Tab from "./Tab";
 
 const BestSell = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(null);
 
   const OPTIONS = { align: "start" };
 
@@ -43,30 +44,11 @@ const BestSell = () => {
                 </h5>
               </div>
               <div className="box-body mt-[15px]">
-                <div className="border-b dark:border-white/10">
-                  <nav
-                    className="-mb-0.5 flex justify-center space-x-6 rtl:space-x-reverse overflow-x-auto"
-                    aria-label="Tabs"
-                  >
-                    {tabList?.map((tab, index) => (
-                      <button
-                        onClick={() => setActiveTab(tab.id)}
-                        type="button"
-                        key={index}
-                        className={`  border-b-2   pb-1 pt-4 px-1 inline-flex items-center gap-2    whitespace-nowrap text-defaulttextcolor   active ${
-                          activeTab === tab.id
-                            ? "text-secondgraphy border-secondgraphy font-semibold"
-                            : " "
-                        }`}
-                        id="horizontal-alignment-item-1"
-                        data-hs-tab="#horizontal-alignment-1"
-                        aria-controls="horizontal-alignment-1"
-                      >
-                        {tab.label}
-                      </button>
-                    ))}
-                  </nav>
-                </div>
+                <Tab
+                  tabList={tabList}
+                  setActiveTab={setActiveTab}
+                  activeTab={activeTab}
+                />
 
                 <div className="mt-3">
                   {isLoading ? (
@@ -87,7 +69,7 @@ const BestSell = () => {
                       options={OPTIONS}
                     />
                   ) : (
-                    <div className="text-center text-defaulttextcolor">
+                    <div className="text-center text-secondary">
                       <p>No product found</p>
                     </div>
                   )}

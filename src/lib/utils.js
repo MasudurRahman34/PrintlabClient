@@ -148,14 +148,15 @@ export const isEmptyObject = (obj) => {
 
 export const getMediaThumbURL = (media = []) => {
   if (media.length === 0) {
-    return "https://printlabapi.devtaijul.com/storage/TVhC27KVyxQINe4XoYZOCVQrUT6znprnh03hWQeH.png";
+    //TODO: NEED TO FIX THIS URL
+    return `${process.env.NEXT_PUBLIC_IMAGE_URL}/storage/TVhC27KVyxQINe4XoYZOCVQrUT6znprnh03hWQeH.png`;
   }
 
   const mediaFound = media.find((m) => m.is_profile === 1);
 
   if (mediaFound) {
-    return mediaFound.url;
+    return `${process.env.NEXT_PUBLIC_IMAGE_URL}${mediaFound.url}`;
   } else {
-    return media[0].url;
+    return `${process.env.NEXT_PUBLIC_IMAGE_URL}${media[0].url}`;
   }
 };

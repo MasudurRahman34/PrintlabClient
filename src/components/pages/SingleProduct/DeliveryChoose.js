@@ -61,7 +61,10 @@ const DeliveryChoose = ({
           <div className="flex items-stretch justify-between gap-3 pb-8">
             {selectedDelivery &&
               data?.data.map((option) => {
-                const priceDifference = option.cost - selectedDelivery.cost;
+                const priceDifference =
+                  option.cost - selectedDelivery.cost > 0
+                    ? `+${formatPrice(option.cost - selectedDelivery.cost)}`
+                    : `-${formatPrice(selectedDelivery.cost - option.cost)}`;
 
                 return (
                   <div

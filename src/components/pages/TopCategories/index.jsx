@@ -1,8 +1,32 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TopCaegoryList from "./TopCaegoryList";
+import { getTopListingCategoryQuery } from "@/resolvers/query";
+import { useQuery } from "@tanstack/react-query";
+import Tab from "../Home/Tab";
+import Loader from "@/components/Loader/Loader";
 
 const TopCategories = () => {
+  const [activeTab, setActiveTab] = useState(null);
+
+  const { isLoading, data, isError, error } = useQuery({
+    queryKey: ["best-categories"],
+    queryFn: getTopListingCategoryQuery,
+  });
+
+  const tabList = data?.data?.map((item) => ({
+    id: item.id,
+    label: item.heading,
+  }));
+
+  useEffect(() => {
+    if (data?.data) {
+      if (tabList?.length > 0) {
+        setActiveTab(tabList[0].id);
+      }
+    }
+  }, [data?.data]);
+
   return (
     <div className="py-10 bg-white">
       <div className="mx-auto customep">
@@ -14,7 +38,27 @@ const TopCategories = () => {
             Print stories, inspiration and materials
           </p>
         </div>
-        <TopCaegoryList />
+        <Tab
+          tabList={tabList}
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+        />
+        <div className="mt-3">
+          {isLoading ? (
+            <div>
+              <Loader />
+            </div>
+          ) : isError ? (
+            <div>Something went wrong!</div>
+          ) : (
+            <TopCaegoryList
+              itemList={
+                data?.data?.find((topListing) => topListing.id === activeTab)
+                  ?.top_listing_items
+              }
+            />
+          )}
+        </div>
       </div>
     </div>
   );
