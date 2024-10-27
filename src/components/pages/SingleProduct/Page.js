@@ -10,6 +10,7 @@ import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MetaData from "@/components/ui/MetaData";
 import Loader from "@/components/Loader/Loader";
+import Image from "next/image";
 // import detaisimg  from "./assete/products/placehounder.png";
 
 const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
@@ -142,11 +143,14 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
                             <div className="md:flex">
                               <div className="hidden md:block md:w-3/12">
                                 <div className="w-full h-full p-5">
-                                  <img
+                                  <Image
                                     src={
                                       data?.data?.specification
                                         ?.details_imageUrl
                                     }
+                                    alt="details"
+                                    width={200}
+                                    height={200}
                                   />
                                 </div>
                               </div>
@@ -173,11 +177,14 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
                             <div className="md:flex">
                               <div className="hidden md:block md:w-3/12">
                                 <div className="w-full h-full p-5">
-                                  <img
+                                  <Image
                                     src={
                                       data?.data?.specification
                                         ?.technical_specification_imageUrl
                                     }
+                                    alt="details"
+                                    width={200}
+                                    height={200}
                                   />
                                 </div>
                               </div>

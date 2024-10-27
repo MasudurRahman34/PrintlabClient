@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-
+import { MdOutlineMessage } from "react-icons/md";
 import PrintType from "./PrintType";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
@@ -19,6 +19,7 @@ import MobileNav from "@/components/Footer/MobileNav";
 import useToastMessage from "@/hooks/useToastMessage";
 import Increament from "./Increament";
 import CustomQuantity from "./CustomQuantity";
+import Link from "next/link";
 
 const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   const showToastMessage = useToastMessage();
@@ -306,6 +307,19 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         )}
       </div>
       <div className="py-5">
+        <div className="z-10 flex items-center justify-between w-full gap-4 px-3 py-3 mb-4 text-sm text-center border-2 bg-primary-light border-primary">
+          <p className="flex items-center gap-2 text-sm font-medium">
+            {" "}
+            <MdOutlineMessage className="w-6 h-5" />
+            Looking for something else?
+          </p>
+          <Link
+            href={`/my-account/quote-request?newQuote=true`}
+            className="px-10 py-2 text-white transition-all duration-150 rounded-md bg-secondgraphy hover:bg-secondary hover:text-secondgraphy"
+          >
+            Raise a new quote
+          </Link>
+        </div>
         <DeliveryChoose
           product_id={data?.data.id}
           selectedDelivery={selectedDelivery}

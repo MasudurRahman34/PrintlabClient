@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
-import { formatPrice, humanReadableDate } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import axios from "axios";
 import React from "react";
 import UploadArtwork from "./UploadArtwork";
@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteUploadedArtworkMutation } from "@/resolvers/mutation";
 import toast from "react-hot-toast";
 import UploadDesignFile from "./UploadDesignFile";
+import DateFormatter from "@/components/ui/DateFormatter";
 
 const OrderCard = ({ fullWidth, item, refetch }) => {
   const { session } = useAuth();
@@ -73,7 +74,7 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
           <p className="text-sm">
             Order placed{" "}
             <span className="font-semibold">
-              {humanReadableDate(item.created_at)}
+              <DateFormatter dateInput={item.created_at} />
             </span>
           </p>
           <p className="text-sm">
@@ -149,7 +150,7 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
               <div className="">
                 <h1 className="text-lg font-semibold">Delivery By</h1>
                 <p className="text-sm">
-                  {humanReadableDate(item.delivery_date)}
+                  <DateFormatter dateInput={item.delivery_date} />
                 </p>
               </div>
               {item.tracking_number && (

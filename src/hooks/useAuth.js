@@ -1,13 +1,11 @@
 // hooks/useAuth.js
 
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import useToastMessage from "./useToastMessage";
 
 export const useAuth = () => {
-  const showToastMessage = useToastMessage();
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -73,8 +71,8 @@ export const useAuth = () => {
 
       // Save user and token to localStorage
       if (typeof window !== "undefined") {
-        await localStorage.setItem("user", JSON.stringify(user));
-        await localStorage.setItem("session", JSON.stringify(session));
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("session", JSON.stringify(session));
       }
 
       setUser(user);

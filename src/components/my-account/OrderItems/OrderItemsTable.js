@@ -1,5 +1,5 @@
+import DateFormatter from "@/components/ui/DateFormatter";
 import { formatPrice } from "@/lib/utils";
-import { formatDate } from "date-fns";
 import Link from "next/link";
 import React from "react";
 
@@ -40,7 +40,7 @@ const OrderItemTable = ({ orderItems }) => {
               {orderItem?.combination_string}
             </td>
             <td className="px-2 text-left border border-gray-200">
-              {formatDate(new Date(orderItem?.created_at), "dd/MM/yyyy")}
+              <DateFormatter dateInput={orderItem?.created_at} />
             </td>
             <td className="text-center border border-gray-200">
               {orderItem.status}

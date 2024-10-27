@@ -8,7 +8,7 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import Link from "next/link";
 import Image from "next/image";
-import { getMediaThumbURL } from "@/lib/utils";
+import { getCategorySlug, getMediaThumbURL } from "@/lib/utils";
 
 const EmblaCarousel = (props) => {
   const { slides, options } = props;
@@ -31,10 +31,15 @@ const EmblaCarousel = (props) => {
         <div className="embla__container">
           {slides?.map((bestSell, index) => {
             const product = bestSell?.itemable;
+            console.log(product);
 
             return (
               <div className="embla__slide" key={index}>
-                <Link href={`/product/category/${product?.slug}`}>
+                <Link
+                  href={`/product/${getCategorySlug(product.categories)}/${
+                    product?.slug
+                  }`}
+                >
                   <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
                     <div className="w-full h-[85%]">
                       <Image

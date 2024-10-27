@@ -1,4 +1,5 @@
-import { humanReadableDate } from "@/lib/utils";
+import DateFormatter from "@/components/ui/DateFormatter";
+
 import Link from "next/link";
 import React from "react";
 
@@ -9,7 +10,7 @@ const RefundRow = ({ idx, item }) => {
         <p className="text-sm text-gray-900">{idx + 1}</p>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        {humanReadableDate(item.created_at)}
+        <DateFormatter dateInput={item.created_at} className="text-sm" />
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <Link

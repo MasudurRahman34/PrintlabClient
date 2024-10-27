@@ -160,3 +160,11 @@ export const getMediaThumbURL = (media = []) => {
     return `${process.env.NEXT_PUBLIC_IMAGE_URL}${media[0].url}`;
   }
 };
+
+export const getCategorySlug = (categories) => {
+  if (categories.length) {
+    return categories[0].slug;
+  } else {
+    return "unknown_category";
+  }
+};

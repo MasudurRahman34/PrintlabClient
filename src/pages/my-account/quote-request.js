@@ -13,14 +13,10 @@ const QuoteRequest = () => {
         <section>
           <div className="p-5 mt-3 text-center bg-secondary text-wrap">
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit
-              quaerat quam velit magnam sequi ratione soluta non officiis
-              deleniti nam, eum accusantium saepe facilis quae temporibus magni
-              sapiente necessitatibus odit. Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Fugit officiis blanditiis harum
-              quia, autem debitis aut eius tempore accusantium repellendus
-              ratione ipsa quod veniam? Eveniet nam hic tempore. Maiores,
-              tenetur!
+              Can&apos;t find exactly what you&apos;re looking for on our
+              website? Fill in our “bespoke quotes” form with the exact details
+              you&apos;re looking for and our team will create you a custom
+              quote for that bespoke request.
             </p>
             <div className="py-4 text-center">
               <Button>Raise A Bespoke Quote</Button>

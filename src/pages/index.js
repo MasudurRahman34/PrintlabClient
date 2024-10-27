@@ -18,7 +18,7 @@ export default function Home() {
       <TopCategories />
       {/* <Tradeprint /> */}
       {/*  <Business /> */}
-      <Packs_banner />
+      {/*  <Packs_banner /> */}
     </ClientLayout>
   );
 }

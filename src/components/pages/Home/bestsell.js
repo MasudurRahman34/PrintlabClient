@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import EmblaCarousel from "@/components/carousel/product/EmblaCarousel";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getAllProductsQuery,
-  getTopListingProductQuery,
-} from "@/resolvers/query";
+import { getTopListingProductQuery } from "@/resolvers/query";
 import Loader from "@/components/Loader/Loader";
 import Tab from "./Tab";
 

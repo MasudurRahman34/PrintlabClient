@@ -37,10 +37,10 @@ const navLinks = [
     name: "Concerns",
     link: "/my-account/concerns",
   }, */
-  /* {
+  {
     name: "Quotes",
     link: " /my-account/quote-request",
-  }, */
+  },
   /* {
     name: "Communication Preferences",
     link: "/my-account/communication-preferences",

@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import NewAddressForm from "./NewAddressForm";
 
 import Loader from "@/components/Loader/Loader";
-import { getDateAfterDays, humanReadableDate } from "@/lib/utils";
+import { getDateAfterDays } from "@/lib/utils";
+import DateFormatter from "@/components/ui/DateFormatter";
 
 const DeliveryItems = ({
   item,
@@ -69,9 +70,10 @@ const DeliveryItems = ({
           <p className="text-sm md:text-base">
             delivery by{" "}
             <span className="font-semibold text-secondgraphy">
-              {humanReadableDate(
-                getDateAfterDays(item.delivery_service.duration)
-              )}
+              <DateFormatter
+                dateInput={getDateAfterDays(item.delivery_service.duration)}
+                className="text-sm"
+              />
             </span>{" "}
             <br />
             <span>Product Name:</span>{" "}
