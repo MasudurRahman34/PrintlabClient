@@ -45,7 +45,7 @@ export function calculateTotal({
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
   // need to implement reduction rate and increment logic here
 
-  const newQuantity = quantity - min_quantity < 1 ? 1 : quantity - min_quantity;
+  const newQuantity = quantity - min_quantity < 1 ? 1  : (quantity - min_quantity) + 1;
 
   const extraQuantityPrice =
     calculationType === "multiply"
