@@ -52,6 +52,10 @@ input[type="number"] {
   }
 }
 
+html {
+  zoom: 90%;
+}
+
 /* End customize tailwind css */
 
 body {

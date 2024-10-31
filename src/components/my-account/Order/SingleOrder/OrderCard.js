@@ -126,6 +126,32 @@ const OrderCard = ({ fullWidth, item, refetch }) => {
                   Qty: {item.quantity}, Cobination: {item.combination_string},
                 </p>
               </div>
+              {item?.quantity_variation && (
+                <div>
+                  <h1 className="text-lg font-semibold">Quantity</h1>
+                  <div>
+                    {Object.keys(item.quantity_variation).map((key) => (
+                      <div key={key} className="text-sm ">
+                        <strong>{key}</strong> :{" "}
+                        <div className="inline">
+                          {Object.keys(item.quantity_variation[key]).map(
+                            (key2) => (
+                              <span key={key2}>
+                                {item.quantity_variation[key][key2] > 0 && (
+                                  <>
+                                    <strong>{key2}</strong> (
+                                    {item.quantity_variation[key][key2]}){", "}
+                                  </>
+                                )}
+                              </span>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div>
                 <h1 className="text-lg font-semibold">
                   {item.artwork_service.title}

@@ -91,6 +91,7 @@ const OrderSummary = ({
 const MobileCheckoutSummary = ({
   artwork_charge,
   delivery_charge,
+  isAuthenticated,
   sub_total,
   discount_price,
   total,
@@ -172,6 +173,7 @@ const CheckoutSummary = ({
   handleCheckout,
   isCheckoutPending,
 }) => {
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const { discount_type, discount } = router.query;
 
@@ -181,6 +183,7 @@ const CheckoutSummary = ({
     delivery_charge,
     artwork_charge,
     total,
+
     discount_price,
     is_disable_button,
   } = useMemo(() => {
@@ -243,6 +246,7 @@ const CheckoutSummary = ({
         discount_price={discount_price}
         total_vat={total_vat}
         handleCheckout={handleCheckout}
+        isAuthenticated={isAuthenticated}
         isCheckoutPending={isCheckoutPending}
         next={next}
       />
