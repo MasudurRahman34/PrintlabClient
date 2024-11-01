@@ -26,13 +26,16 @@ export function calculateTotal({
     }
   }
 
+  // If quantity is not provided, default to 1
+  const modifiedQuantity = quantity ? quantity : 1;
+
   // Validate all inputs
   checkIfNumber(tax, "tax");
   checkIfNumber(price, "price");
   checkIfNumber(delivery_charge, "delivery_charge");
   checkIfNumber(artwork_charge, "artwork_charge");
   checkIfNumber(discount, "discount");
-  checkIfNumber(quantity, "quantity");
+  checkIfNumber(modifiedQuantity, "quantity");
   checkIfNumber(
     per_quantity_price ? per_quantity_price : 0,
     "per_quantity_price"
@@ -45,7 +48,24 @@ export function calculateTotal({
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
   // need to implement reduction rate and increment logic here
 
-  const newQuantity = quantity - min_quantity < 1 ? 1  : (quantity - min_quantity) + 1;
+  const newQuantity =
+    quantity - min_quantity < 1 ? 1 : quantity - min_quantity + 1;
+
+  // TODO: NEW LOGIC
+
+  let quantityIncrement = 1;
+  let abc = 0;
+
+  const checkQuantityDivisor = quantity % increment;
+
+  if (checkQuantityDivisor === 0) {
+    let newQuantityIncrement = quantity / increment;
+    abc = newQuantityIncrement - min_quantity;
+  } else {
+    console.log("Not divisible by increment");
+  }
+
+  console.log("abc", abc);
 
   const extraQuantityPrice =
     calculationType === "multiply"

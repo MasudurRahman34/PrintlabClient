@@ -2,19 +2,32 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
-const Increament = ({ title = "", quantity, setQuantity, matched }) => {
+const Increament = ({
+  title = "",
+  quantity,
+  setQuantity,
+  matched,
+  increment,
+}) => {
   const handleIncreament = (type) => {
+    const numberQuantity = Number(quantity);
+
     if (type === "increment") {
       // check if max quantity is set and if the quantity is greater than the max quantity
 
-      if (matched?.max_quantity && quantity > matched?.max_quantity - 1) {
+      if (
+        matched?.max_quantity &&
+        numberQuantity > matched?.max_quantity - increment
+      ) {
         return;
       } else {
-        setQuantity(quantity + 1);
+        setQuantity(numberQuantity + increment);
       }
     } else {
-      if (quantity > 1) {
-        setQuantity(quantity - 1);
+      if (numberQuantity <= matched?.min_quantity) {
+        return;
+      } else {
+        setQuantity(numberQuantity - increment);
       }
     }
   };
@@ -37,7 +50,9 @@ const Increament = ({ title = "", quantity, setQuantity, matched }) => {
               onClick={() => {
                 handleIncreament("decrement");
               }}
-              disabled={quantity <= matched?.min_quantity}
+              disabled={
+                quantity <= matched?.min_quantity || quantity % increment
+              }
             >
               -
             </button>
@@ -49,9 +64,7 @@ const Increament = ({ title = "", quantity, setQuantity, matched }) => {
               max={matched?.max_quantity}
               onChange={(e) => {
                 // check if max quantity is set and if the quantity is greater than the max quantity
-                const value = e.target.value ? parseInt(e.target.value) : 1;
-
-                setQuantity(parseInt(value));
+                setQuantity(Number(e.target.value));
               }}
               className="w-auto py-2 ml-2 text-center bg-white border max-w-14"
             />
@@ -61,7 +74,7 @@ const Increament = ({ title = "", quantity, setQuantity, matched }) => {
                 handleIncreament("increment");
               }}
               disabled={
-                matched?.max_quantity && quantity >= matched?.max_quantity
+                quantity >= matched?.max_quantity || quantity % increment
               }
             >
               +
@@ -94,6 +107,11 @@ const Increament = ({ title = "", quantity, setQuantity, matched }) => {
           <div className="text-xs text-red-600">
             Quantity Must be between {matched.min_quantity} and{" "}
             {matched.max_quantity}
+          </div>
+        )}
+        {quantity % increment !== 0 && (
+          <div className="text-xs text-red-600">
+            Quantity must be divisible by {increment}
           </div>
         )}
       </div>

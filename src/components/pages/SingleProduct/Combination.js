@@ -96,7 +96,6 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
   }, [userSelectedOptions, allCombination?.data]);
 
   console.log(matched);
-  
 
   // Calculate total price of the product with selected options and quantity
   const { total } = useMemo(() => {
@@ -214,11 +213,6 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     );
   };
 
-  console.log("combination data", combination_data);
-  
-
-
-  
   useEffect(() => {
     if (combination_data?.data && combination_data?.data.length > 0) {
       const temp = {};
@@ -277,8 +271,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
             })}
 
             {/* Checking if quantity variation contain or not if yes then show customisable quantity or show just incremental quantity */}
-            {matched &&
-            matched.quantity_rule ? (
+            {matched && matched.quantity_rule ? (
               data?.data?.quantity_option_status ? (
                 <CustomQuantity
                   title="Quantity"
@@ -295,8 +288,8 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   title="Quantity"
                   quantity={quantity}
                   setQuantity={setQuantity}
-               
                   matched={matched}
+                  increment={matched?.increment}
                 />
               )
             ) : null}
