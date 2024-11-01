@@ -69,6 +69,7 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
       <MetaData
         title={data?.data?.meta_title}
         description={data?.data?.meta_description}
+        key={data?.data?.meta_keywords}
       />
       <section className="w-full py-10 custom_container ">
         {isSuccess && (

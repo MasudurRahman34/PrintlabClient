@@ -181,8 +181,10 @@ const UploadArtwork = () => {
                       {product.product.title}
                     </h4>
                     <h4 className="text-sm font-normal md:font-medium text-secondgraphy">
-                      <span className="text-sm md:text-base ">ITEM REF:</span>{" "}
-                      {product.id}
+                      <span className="text-sm md:text-base ">
+                        Combination:
+                      </span>{" "}
+                      {product.combination_string}
                     </h4>
                     <h4 className="flex text-sm font-normal md:text-base text-secondgraphy md:font-medium -ms-2 ">
                       <GoDotFill className="mr-1 text-3xl text-primary" />

@@ -197,7 +197,7 @@ const CheckoutSummary = ({
     const intDiscount = parseInt(discount);
 
     const discount_price =
-      discount_type === "percentage"
+      discount_type === "percent"
         ? (sub_total * intDiscount) / 100
         : intDiscount;
 
