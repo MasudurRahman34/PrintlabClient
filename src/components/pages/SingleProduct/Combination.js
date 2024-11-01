@@ -290,6 +290,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
                   setQuantity={setQuantity}
                   matched={matched}
                   increment={matched?.increment}
+                  min_quantity={matched?.min_quantity}
                 />
               )
             ) : null}

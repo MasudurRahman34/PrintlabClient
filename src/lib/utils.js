@@ -67,6 +67,8 @@ export function calculateTotal({
 
   console.log("abc", abc);
 
+  //TODO : END
+
   const extraQuantityPrice =
     calculationType === "multiply"
       ? newQuantity

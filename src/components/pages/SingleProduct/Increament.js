@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
@@ -8,7 +8,10 @@ const Increament = ({
   setQuantity,
   matched,
   increment,
+  min_quantity,
 }) => {
+  const [isDivisible, setIsDivisible] = React.useState(true);
+
   const handleIncreament = (type) => {
     const numberQuantity = Number(quantity);
 
@@ -22,19 +25,28 @@ const Increament = ({
         return;
       } else {
         setQuantity(numberQuantity + increment);
+        setIsDivisible((quantity + increment) % increment === 1 ? true : false);
       }
     } else {
       if (numberQuantity <= matched?.min_quantity) {
         return;
       } else {
         setQuantity(numberQuantity - increment);
+        setIsDivisible((quantity - increment) % increment === 1 ? true : false);
       }
     }
+  };
+
+  const handleChange = (e) => {
+    setQuantity(Number(e.target.value));
+    setIsDivisible(Number(e.target.value) % increment === 1 ? true : false);
   };
 
   if (!matched?.quantity_rule) {
     return null;
   }
+
+  console.log("isDivisible", isDivisible);
 
   return (
     <div className="flex items-center justify-between gap-3 py-2">
@@ -50,9 +62,7 @@ const Increament = ({
               onClick={() => {
                 handleIncreament("decrement");
               }}
-              disabled={
-                quantity <= matched?.min_quantity || quantity % increment
-              }
+              disabled={quantity <= matched?.min_quantity || !isDivisible}
             >
               -
             </button>
@@ -62,10 +72,7 @@ const Increament = ({
               type="number"
               min={matched?.min_quantity}
               max={matched?.max_quantity}
-              onChange={(e) => {
-                // check if max quantity is set and if the quantity is greater than the max quantity
-                setQuantity(Number(e.target.value));
-              }}
+              onChange={handleChange}
               className="w-auto py-2 ml-2 text-center bg-white border max-w-14"
             />
             <button
@@ -73,9 +80,7 @@ const Increament = ({
               onClick={() => {
                 handleIncreament("increment");
               }}
-              disabled={
-                quantity >= matched?.max_quantity || quantity % increment
-              }
+              disabled={quantity >= matched?.max_quantity || !isDivisible}
             >
               +
             </button>
@@ -109,9 +114,9 @@ const Increament = ({
             {matched.max_quantity}
           </div>
         )}
-        {quantity % increment !== 0 && (
+        {!isDivisible && (
           <div className="text-xs text-red-600">
-            Quantity must be divisible by {increment}
+            Quantity must be increment of {increment}
           </div>
         )}
       </div>
