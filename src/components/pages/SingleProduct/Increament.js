@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { checkQuantity } from "@/lib/utils";
 
 const Increament = ({
   title = "",
@@ -25,28 +26,32 @@ const Increament = ({
         return;
       } else {
         setQuantity(numberQuantity + increment);
-        setIsDivisible((quantity + increment) % increment === 1 ? true : false);
+        setIsDivisible(checkQuantity(quantity, min_quantity, increment));
       }
     } else {
       if (numberQuantity <= matched?.min_quantity) {
         return;
       } else {
         setQuantity(numberQuantity - increment);
-        setIsDivisible((quantity - increment) % increment === 1 ? true : false);
+        setIsDivisible(checkQuantity(quantity, min_quantity, increment));
       }
     }
   };
 
   const handleChange = (e) => {
-    setQuantity(Number(e.target.value));
-    setIsDivisible(Number(e.target.value) % increment === 1 ? true : false);
+    setQuantity(e.target.value);
+    setIsDivisible(
+      checkQuantity(Number(e.target.value), min_quantity, increment)
+    );
   };
+
+  useEffect(() => {
+    setIsDivisible(checkQuantity(quantity, min_quantity, increment));
+  }, [quantity]);
 
   if (!matched?.quantity_rule) {
     return null;
   }
-
-  console.log("isDivisible", isDivisible);
 
   return (
     <div className="flex items-center justify-between gap-3 py-2">

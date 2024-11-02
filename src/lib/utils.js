@@ -27,7 +27,7 @@ export function calculateTotal({
   }
 
   // If quantity is not provided, default to 1
-  const modifiedQuantity = quantity ? quantity : 1;
+  const modifiedQuantity = quantity ? Number(quantity) : 1;
 
   // Validate all inputs
   checkIfNumber(tax, "tax");
@@ -53,19 +53,13 @@ export function calculateTotal({
 
   // TODO: NEW LOGIC
 
-  let quantityIncrement = 1;
-  let abc = 0;
+  const incrementQuantity = (quantity - min_quantity) / increment;
 
-  const checkQuantityDivisor = quantity % increment;
+  console.log("incrementQuantity", incrementQuantity);
 
-  if (checkQuantityDivisor === 0) {
-    let newQuantityIncrement = quantity / increment;
-    abc = newQuantityIncrement - min_quantity;
-  } else {
-    console.log("Not divisible by increment");
-  }
+  const newIcrementalPrice = incrementQuantity * per_quantity_price + price;
 
-  console.log("abc", abc);
+  console.log("newIcrementalPrice included price", newIcrementalPrice);
 
   //TODO : END
 
@@ -190,3 +184,16 @@ export const getCategorySlug = (categories) => {
     return "unknown_category";
   }
 };
+
+export function checkQuantity(quantity, min_quantity, increment_of) {
+  if (quantity < min_quantity) {
+    return false;
+  }
+
+  // Check if the quantity aligns with the expected line
+  if ((quantity - min_quantity) % increment_of === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
