@@ -1,42 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import mug from "../../public/assets/mug1.webp";
+import { useRouter } from "next/router";
+import { truncateHTML } from "@/lib/utils";
+import Image from "next/image";
 
-const showcaseData = [
-  {
-    id: 1,
-    title: "Ceramic Printed Mugs",
-    img: "https://i.ibb.co/7yZzQ1v/mug1.png",
-    desc: "Our ceramic printed mugs are perfect for your morning coffee or tea. ",
-    linkText: "View Range",
-    link: "/products/ceramic-printed-mugs",
-  },
-  {
-    id: 2,
-    title: "Travel Mugs",
-    img: "https://i.ibb.co/7yZzQ1v/mug1.png",
-    desc: "Our travel mugs are perfect for those on the go. ",
-    linkText: "View Range",
-    link: "/products/travel-mugs",
-  },
-  {
-    id: 3,
-    title: "Bone China Mugs",
-    img: "https://i.ibb.co/7yZzQ1v/mug1.png",
-    desc: "Our bone china mugs are perfect for those who like a more delicate mug. ",
-    linkText: "View Range",
-    link: "/products/bone-china-mugs",
-  },
-  {
-    id: 4,
-    title: "Glass Mugs",
-    img: "https://i.ibb.co/7yZzQ1v/mug1.png",
-    desc: "Our glass mugs are perfect for those who like a more delicate mug. ",
-    linkText: "View Range",
-    link: "/products/glass-mugs",
-  },
-];
+const ShowCase = ({ title, subTitle, data, bg }) => {
+  const router = useRouter();
+  const { product_category } = router.query;
 
-const ShowCase = ({ title, subTitle, list, bg }) => {
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>
       <div className="custom_container text-secondgraphy">
@@ -44,28 +16,40 @@ const ShowCase = ({ title, subTitle, list, bg }) => {
           <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl">
             {title}
           </h1>
-          <p className="mt-2 text-sm md:text-base font-normal text-typography mb-2 md:mb-5">{subTitle}</p>
+          <div
+            className="mt-2 mb-2 text-sm font-normal md:text-base text-typography md:mb-5"
+            dangerouslySetInnerHTML={{ __html: subTitle }}
+          ></div>
         </div>
         <div className="grid grid-cols-1 gap-4 py-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {showcaseData.map((item) => (
-            <Link
-              href={item.link}
-              key={item.id}
-              className="flex flex-col transition-all duration-300 bg-white hover:shadow-primary hover:shadow-md"
-            >
-              <div className="w-full h-full">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="object-cover w-full h-70"
-                />
-              </div>
-              <div className="w-full p-3 text-center rounded-md">
-                <h2 className="text-xl font-semibold text-secondgraphy">{item.title}</h2>
-                <p className="mt-2 text-[14px] md:text-base font-normal text-typography ">{item.desc}</p>
-              </div>
-            </Link>
-          ))}
+          {data?.products.map((item) => {
+            return (
+              <Link
+                href={`/product/${product_category}/${item?.slug}`}
+                key={item.id}
+              >
+                <div className="h-full transition-all duration-150 border shadow-primary full hover:shadow-md">
+                  <div className="w-full h-[85%]">
+                    <Image
+                      className="object-cover w-full h-full card-img-top"
+                      src={`${
+                        item?.media?.filter((item) => item.is_profile === 1)[0]
+                          ?.url || "/assets/products/placehounder.png"
+                      }`}
+                      alt="img"
+                      height={500}
+                      width={500}
+                    />
+                  </div>
+                  <div className="flex h-[15%] items-center justify-center">
+                    <p className="text-base font-medium text-center text-secondgraphy hover:underline hover:text-primary">
+                      {item.title}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

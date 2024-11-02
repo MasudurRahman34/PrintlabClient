@@ -1,11 +1,13 @@
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import { Button } from "@/components/ui/button";
+import MetaData from "@/components/ui/MetaData";
 import React from "react";
 
 const CreditApplication = () => {
   return (
     <ClientLayout>
+      <MetaData title="Credit Application" />
       <AccountLayout breadcrumb="Credit Application">
         <section>
           <h1 className="text-xl font-bold text-center uppercase text-secondgraphy">

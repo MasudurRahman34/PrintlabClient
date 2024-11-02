@@ -1,22 +1,18 @@
+import usePreventForwardNavigation from "@/components/hooks/usePreventForwardNavigation";
 import ClientLayout from "@/components/Layout/ClientLayout";
 
-import dynamic from "next/dynamic";
-
-import ManullyAddress from "@/components/dashboard/ManullyAddress";
-
-const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
-  ssr: false,
-});
+import ManullyAddress from "@/components/pages/delivery/ManullyAddress";
+import MetaData from "@/components/ui/MetaData";
+import withAuth from "@/hoc/withAuth";
 
 const Checkout = () => {
+  usePreventForwardNavigation();
   return (
     <ClientLayout>
-      <div className=" custom_container">
-        <Stepper activeStep={2} />
-      </div>
+      <MetaData title="Checkout" />
       <ManullyAddress />
     </ClientLayout>
   );
 };
 
-export default Checkout;
+export default withAuth(Checkout);

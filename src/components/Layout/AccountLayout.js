@@ -1,4 +1,5 @@
-"use client";
+import withAuth from "@/hoc/withAuth";
+import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -9,48 +10,57 @@ const navLinks = [
     link: "/my-account/orders",
   },
   {
+    name: "Order Items",
+    link: "/my-account/order-items",
+  },
+  {
     name: "Invoice",
     link: "/my-account/invoice",
   },
   {
-    name: "Delivery Addresses",
-    link: "/my-account/delivery-addresses",
+    name: "Refund",
+    link: "/my-account/refund",
   },
   {
+    name: "Addresses",
+    link: "/my-account/addresses",
+  },
+  /* {
     name: "Favourites",
     link: "/my-account/favourites",
-  },
-  {
+  }, */
+  /*  {
     name: "Credit Application",
     link: "/my-account/credit-application",
-  },
-  {
+  }, */
+  /* {
     name: "Concerns",
     link: "/my-account/concerns",
-  },
+  }, */
   {
     name: "Quotes",
     link: " /my-account/quote-request",
   },
-  {
+  /* {
     name: "Communication Preferences",
     link: "/my-account/communication-preferences",
-  },
-  {
+  }, */
+  /*  {
     name: "Payment Settings",
     link: "/my-account/payment-settings",
-  },
-  {
+  }, */
+  /* {
     name: "Account Settings",
     link: "/my-account/account-settings",
-  },
-  {
+  }, */
+  /* {
     name: "API Configuration",
     link: "/my-account/api-configuration",
-  },
+  }, */
 ];
 
 const AccountLayout = ({ children, breadcrumb }) => {
+  const { logout } = useAuth();
   const [opernav, setopernav] = useState(false);
   const navitem = (
     <>
@@ -65,12 +75,12 @@ const AccountLayout = ({ children, breadcrumb }) => {
     </>
   );
   return (
-    <div>
-      <div className="container relative z-10 ">
-        <div className="mt-5 md:mt-[50px]  md:flex position-relative  z-10 ">
+    <div className="custom_container">
+      <div className="relative ">
+        <div className=" md:mt-[50px]  md:flex position-relative  ">
           <div>
             <button onClick={() => setopernav(!opernav)}>
-              <FaBars className="mt-5 text-2xl md:hidden " />
+              <FaBars className="text-2xl md:hidden" />
             </button>
             <div
               className={` ${
@@ -80,11 +90,9 @@ const AccountLayout = ({ children, breadcrumb }) => {
               } absolute z-30 bg-primary p-5 rounded-lg  `}
             >
               <ul>{navitem}</ul>
-              <div className="border border-[#b7b7b7] mt-5 mb-5 w-[30%] "></div>
-              <button className="mt-2 mb-2">Log Out</button>
             </div>
           </div>
-          <div className="hidden md:block md:w-3/12">
+          <div className="hidden md:block md:w-2/12">
             <div>
               <h2 className="text-base font-medium leading-6 md:text-lg text-typography">
                 Our Account
@@ -95,10 +103,17 @@ const AccountLayout = ({ children, breadcrumb }) => {
             </div>
             <div className="border border-[#b7b7b7] mt-5 mb-5 w-[70%] "></div>
             <ul className="">{navitem}</ul>
-            <div className="border border-[#b7b7b7] mt-5 mb-5 w-[70%] "></div>
-            <button className="mt-5 mb-5">Log Out</button>
+            <div className="border border-[#b7b7b7]  mb-5 w-[70%] mt-[100px] "></div>
+            <button
+              className="mt-5 mb-5"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Log Out
+            </button>
           </div>
-          <div className="z-10 w-full md:w-9/12 pos">
+          <div className="w-full md:w-10/12 ">
             <div>
               <h2 className="text-base font-bold md:text-lg text-secondgraphy ">
                 {breadcrumb}
@@ -114,4 +129,4 @@ const AccountLayout = ({ children, breadcrumb }) => {
   );
 };
 
-export default AccountLayout;
+export default withAuth(AccountLayout);

@@ -1,21 +1,55 @@
+import useCountDownTimer from "@/components/hooks/useCountdownTimer";
 import React from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const TotalCounter = () => {
+const TotalCounter = ({
+  excVatPrice = 0,
+  incVatPrice = 0,
+  addToCard,
+  isPending,
+  selectedDelivery,
+  max_quantity,
+  quantity,
+  matched,
+  min_quantity,
+}) => {
+  const { formattedDate } = useCountDownTimer({
+    days: selectedDelivery?.duration,
+  });
+
   return (
-    <section className="fixed bottom-0 left-0 hidden w-full border-2 bg-secondgraphy border-primary md:block">
+    <section className="fixed bottom-0 left-0 z-50 hidden w-full border-2 bg-secondgraphy border-primary md:block">
       <div className="container py-3">
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row">
           <div className="flex-1 text-white text-end ">
             <p>
-              <strong className="text-2xl">Fri. 12th Apr £10.89</strong> Ex Vat
+              <strong className="text-2xl">
+                {selectedDelivery && formattedDate} {excVatPrice}
+              </strong>{" "}
+              Ex Vat
             </p>
             <p>
-              <strong>£13.07</strong> Inc Vat
+              <strong>{incVatPrice}</strong> Inc Vat
             </p>
           </div>
           <div className="flex-1 w-full">
-            <button className="w-full py-2 font-bold text-white border rounded-md bg-primary border-primary-light hover:bg-primary-light">
-              Add to Busket
+            <button
+              className="flex items-center justify-center w-full py-2 font-bold transition-colors duration-150 border rounded-md text-secondgraphy bg-primary border-primary-light hover:bg-primary-light disabled:bg-secondary disabled:opacity-40 "
+              onClick={addToCard}
+              disabled={
+                isPending ||
+                !matched ||
+                matched?.price <= 0 ||
+                !selectedDelivery ||
+                max_quantity < quantity ||
+                quantity < min_quantity
+              }
+            >
+              {isPending ? (
+                <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />
+              ) : (
+                "Add to Basket"
+              )}
             </button>
           </div>
         </div>

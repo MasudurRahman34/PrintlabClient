@@ -1,4 +1,5 @@
 import ClientLayout from "@/components/Layout/ClientLayout";
+import MetaData from "@/components/ui/MetaData";
 import Link from "next/link";
 import React from "react";
 
@@ -110,26 +111,27 @@ const popularArticles = [
 const help = () => {
   return (
     <ClientLayout>
-      <div className="p-3 text-center rounded-md bg-red-50">
+      <MetaData title="Help" />
+      <div className="p-3 text-center text-white rounded-md bg-secondgraphy">
         <div className="py-3">
           <h1 className="text-4xl font-medium">Need help?</h1>
           <p className="text-lg ">What can we help you with?</p>
         </div>
         <div className="w-full max-w-2xl mx-auto my-5">
-          <label for="hs-trailing-button-add-on" class="sr-only">
+          <label for="hs-trailing-button-add-on" className="sr-only">
             Label
           </label>
-          <div class="flex rounded-sm">
+          <div className="flex rounded-sm">
             <input
               type="text"
               id="hs-trailing-button-add-on"
               name="hs-trailing-button-add-on"
-              className="w-full px-3 rounded-none ti-form-input rounded-s-sm focus:z-10"
+              className="w-full px-3 rounded-none text-secondgraphy ti-form-input rounded-s-sm focus:z-10"
               placeholder="Ask a question"
             />
             <button
               type="button"
-              class="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold text-white transition-all border border-transparent rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
+              className="inline-flex items-center justify-center flex-shrink-0 gap-2 px-3 py-2 text-sm font-semibold transition-all border border-transparent text-secondgraphy rounded-e-sm bg-primary hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary"
             >
               SEARCH
             </button>

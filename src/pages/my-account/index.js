@@ -1,3 +1,4 @@
+"use Client";
 import AccountLayout from "@/components/Layout/AccountLayout";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import React from "react";
@@ -5,10 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import MetaData from "@/components/ui/MetaData";
 
-const index = () => {
+const Index = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <ClientLayout>
+      <MetaData title="My Account" />
       <AccountLayout breadcrumb="PrintLab Pro">
         <div className="flex items-center justify-start w-full py-5">
           <div className="max-w-lg ">
@@ -20,7 +27,7 @@ const index = () => {
               </p>
             </div>
             <div>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-5">
                   <label
                     htmlFor="name"
@@ -28,8 +35,13 @@ const index = () => {
                   >
                     Name
                   </label>
-
-                  <Input placeHolder="Enter your name" name="name" id="name" />
+                  <Input
+                    type="text"
+                    {...register("name", { required: true })}
+                    placeHolder="Enter your name"
+                    name="name"
+                    id="name"
+                  />
                 </div>
                 <div className="mt-5">
                   <label
@@ -39,7 +51,8 @@ const index = () => {
                     Company
                   </label>
                   <Input
-                    placeHolder="Enter your company name"
+                    {...register("company", { required: true })}
+                    placeHolder="Enter your name"
                     name="company"
                     id="company"
                   />
@@ -54,26 +67,29 @@ const index = () => {
 
                   <Input
                     placeHolder="Enter your email address"
+                    {...register("email", { required: true })}
                     name="email"
                     id="email"
                   />
                 </div>
                 <div className="mt-5">
                   <label
-                    htmlFor="phone"
+                    htmlFor="phon"
                     className="block text-sm font-medium text-secondgraphy"
                   >
                     Phone
                   </label>
 
                   <Input
+                    type="text"
                     placeHolder="Enter your phone number"
-                    name="phone"
-                    id="phone"
+                    {...register("phon", { required: true })}
+                    name="phon"
+                    id="phon"
                   />
                 </div>
                 <div className="flex items-center my-3 space-x-2">
-                  <Checkbox id="terms" />
+                  <Checkbox id="terms" required />
                   <Label htmlFor="terms">Accept terms and conditions</Label>
                 </div>
 
@@ -89,4 +105,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

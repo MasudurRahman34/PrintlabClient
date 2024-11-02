@@ -4,11 +4,13 @@ import ArtworkService from "@/components/my-account/accountSetting/ArtworkServic
 import Password from "@/components/my-account/accountSetting/Password";
 import PriceVatPreference from "@/components/my-account/accountSetting/PriceVatPreference";
 import UserInformation from "@/components/my-account/accountSetting/UserInformation";
+import MetaData from "@/components/ui/MetaData";
 import React from "react";
 
 const AccountSettings = () => {
   return (
     <ClientLayout>
+      <MetaData title="Account Settings" />
       <AccountLayout breadcrumb="Account Settings">
         <UserInformation />
         <Password />
