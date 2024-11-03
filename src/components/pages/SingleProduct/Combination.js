@@ -11,7 +11,12 @@ import DeliveryChoose from "./DeliveryChoose";
 import TotalCounter from "./TotalCounter";
 import Loader from "@/components/Loader/Loader";
 import { addToCartMutation } from "@/resolvers/mutation";
-import { calculateTotal, formatPrice, isEmptyObject } from "@/lib/utils";
+import {
+  calculateTotal,
+  checkQuantity,
+  formatPrice,
+  isEmptyObject,
+} from "@/lib/utils";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColorRadio from "./ColorRadio";
@@ -368,7 +373,12 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
               matched?.price <= 0 ||
               !selectedDelivery ||
               matched?.max_quantity < quantity ||
-              quantity < matched?.min_quantity
+              quantity < matched?.min_quantity ||
+              !checkQuantity(
+                quantity,
+                matched?.min_quantity,
+                matched?.increment
+              )
             }
           >
             {isPending ? (
@@ -389,6 +399,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         excVatPrice={matched ? formatPrice(total) : formatPrice(0)}
         incVatPrice={matched ? formatPrice(total) : formatPrice(0)}
         min_quantity={matched?.min_quantity}
+        increment={matched?.increment}
       />
       <MobileNav
         addToCard={addToCart}
@@ -400,6 +411,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         selectedDelivery={selectedDelivery}
         price={matched ? formatPrice(total) : formatPrice(0)}
         min_quantity={matched?.min_quantity}
+        increment={matched?.increment}
       />
     </div>
   );

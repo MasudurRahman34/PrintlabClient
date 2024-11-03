@@ -1,4 +1,5 @@
 import useCountDownTimer from "@/components/hooks/useCountdownTimer";
+import { checkQuantity } from "@/lib/utils";
 import React from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -12,6 +13,7 @@ const TotalCounter = ({
   quantity,
   matched,
   min_quantity,
+  increment,
 }) => {
   const { formattedDate } = useCountDownTimer({
     days: selectedDelivery?.duration,
@@ -42,7 +44,8 @@ const TotalCounter = ({
                 matched?.price <= 0 ||
                 !selectedDelivery ||
                 max_quantity < quantity ||
-                quantity < min_quantity
+                quantity < min_quantity ||
+                !checkQuantity(quantity, min_quantity, increment)
               }
             >
               {isPending ? (

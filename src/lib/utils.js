@@ -48,45 +48,18 @@ export function calculateTotal({
   // calculation {(price*quantity)+delivery_charge+artwork_charge+tax}-discount
   // need to implement reduction rate and increment logic here
 
-  const newQuantity =
-    quantity - min_quantity < 1 ? 1 : quantity - min_quantity + 1;
-
   // TODO: NEW LOGIC
 
   const incrementQuantity = (quantity - min_quantity) / increment;
 
-  console.log("incrementQuantity", incrementQuantity);
-
   const newIcrementalPrice = incrementQuantity * per_quantity_price + price;
 
-  console.log("newIcrementalPrice included price", newIcrementalPrice);
+  const reductedPrice =
+    newIcrementalPrice - newIcrementalPrice * (reduction_percentage / 100);
 
+  const total =
+    reductedPrice + delivery_charge + artwork_charge + tax - discount;
   //TODO : END
-
-  const extraQuantityPrice =
-    calculationType === "multiply"
-      ? newQuantity
-      : Math.floor(newQuantity / increment) * per_quantity_price;
-
-  let total;
-  if (calculationType === "multiply") {
-    total =
-      price * extraQuantityPrice -
-      price * extraQuantityPrice * (reduction_percentage / 100) +
-      delivery_charge +
-      artwork_charge +
-      tax -
-      discount;
-  } else {
-    total =
-      price +
-      extraQuantityPrice -
-      (price + extraQuantityPrice) * (reduction_percentage / 100) +
-      delivery_charge +
-      artwork_charge +
-      tax -
-      discount;
-  }
 
   if (calc) {
     return total;

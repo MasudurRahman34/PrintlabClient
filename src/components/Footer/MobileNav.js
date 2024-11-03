@@ -3,6 +3,7 @@ import { IoChatboxEllipses } from "react-icons/io5";
 import { BsFillBasketFill } from "react-icons/bs";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { checkQuantity } from "@/lib/utils";
 
 const MobileNav = ({
   addToCard,
@@ -14,6 +15,7 @@ const MobileNav = ({
   quantity,
   selectedDelivery,
   min_quantity,
+  increment,
 }) => {
   return (
     <div
@@ -33,7 +35,8 @@ const MobileNav = ({
             matched?.price <= 0 ||
             !selectedDelivery ||
             max_quantity < quantity ||
-            quantity < min_quantity
+            quantity < min_quantity ||
+            !checkQuantity(quantity, min_quantity, increment)
           }
         >
           {isPending ? (

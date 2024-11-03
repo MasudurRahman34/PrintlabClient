@@ -35,8 +35,8 @@ export const useAuth = () => {
       };
 
       // Set user and session cookies with an expiration time
-      setCookie("user", user, { path: "/", maxAge: 3600 }); // 1-hour expiration
-      setCookie("session", session, { path: "/", maxAge: 3600 });
+      setCookie("user", user, { path: "/", maxAge: 3600 * 24 }); // 1-hour expiration
+      setCookie("session", session, { path: "/", maxAge: 3600 * 24 });
 
       setUser(user);
       setSession(session);
