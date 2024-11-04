@@ -100,13 +100,14 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     }
   }, [userSelectedOptions, allCombination?.data]);
 
-  console.log(matched);
-
   // Calculate total price of the product with selected options and quantity
-  const { total } = useMemo(() => {
+  const { total, calculateVariables } = useMemo(() => {
     let total = 0;
+
+    let calculateVariables;
+
     if (matched) {
-      const calculateVariables = {
+      calculateVariables = {
         price: matched?.price,
         delivery_charge: selectedDelivery?.cost,
         artwork_charge: selectedPrintType?.children
@@ -127,7 +128,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
       total = calculateTotal(calculateVariables);
     }
 
-    return { total };
+    return { total, calculateVariables };
   }, [
     matched,
     selectedDelivery,
@@ -332,6 +333,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           selectedDelivery={selectedDelivery}
           setSelectedDelivery={setSelectedDelivery}
           total={total}
+          calculateVariables={calculateVariables}
         />
 
         <PrintType

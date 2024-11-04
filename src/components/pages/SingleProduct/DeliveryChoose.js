@@ -5,12 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductDeliveryServicesQuery } from "@/resolvers/query";
 
 import Loader from "@/components/Loader/Loader";
-import { formatPrice } from "@/lib/utils";
+import { calculateTotal, formatPrice } from "@/lib/utils";
 
 const DeliveryChoose = ({
   product_id,
   selectedDelivery,
   setSelectedDelivery,
+  calculateVariables,
   total,
 }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -61,10 +62,15 @@ const DeliveryChoose = ({
           <div className="flex items-stretch justify-between gap-3 pb-8">
             {selectedDelivery &&
               data?.data.map((option) => {
+                const variationTotal = calculateTotal({
+                  ...calculateVariables,
+                  delivery_charge: option.cost,
+                });
+
                 const priceDifference =
-                  option.cost - selectedDelivery.cost > 0
-                    ? `+${formatPrice(option.cost - selectedDelivery.cost)}`
-                    : `-${formatPrice(selectedDelivery.cost - option.cost)}`;
+                  variationTotal - total > 0
+                    ? `+${formatPrice(variationTotal - total)}`
+                    : `-${formatPrice(total - variationTotal)}`;
 
                 return (
                   <div

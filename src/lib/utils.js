@@ -5,6 +5,81 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+function calculateReduction(min, max, quantity, reductionRate) {
+  if (quantity < min) quantity = min;
+  if (quantity > max) quantity = max;
+
+  // Calculate the percentage position of quantity between min and max
+  const percentagePosition = (quantity - min) / (max - min);
+
+  // Scale the reduction based on the reduction rate and percentage position
+  const reduction = percentagePosition * reductionRate;
+
+  return reduction;
+}
+
+/* function calculateReduction(minQuantity, maxQuantity, quantity, reductionRate) {
+  // Ensure quantity is within the bounds
+  if (quantity < minQuantity) quantity = minQuantity;
+  if (quantity > maxQuantity) quantity = maxQuantity;
+
+  // Calculate the percentage position of quantity
+  const quantityPercentPosition =
+    ((quantity - minQuantity) / (maxQuantity - minQuantity)) * 100;
+
+  // Define the partitions for Quantity Percent Position
+  const quantityPartitions = [
+    { min: 0, max: 19, reductionRange: { min: 0, max: 39 } },
+    { min: 20, max: 39, reductionRange: { min: 40, max: 59 } },
+    { min: 40, max: 59, reductionRange: { min: 60, max: 74 } },
+    { min: 60, max: 79, reductionRange: { min: 75, max: 89 } },
+    { min: 80, max: 100, reductionRange: { min: 90, max: 100 } },
+  ];
+
+  // Determine the corresponding reduction percentage range based on the quantity percent position
+  let reductionPercentageRange = { min: 0, max: 0 };
+  for (const partition of quantityPartitions) {
+    if (
+      quantityPercentPosition >= partition.min &&
+      quantityPercentPosition <= partition.max
+    ) {
+      reductionPercentageRange = partition.reductionRange;
+      break;
+    }
+  }
+
+  // Calculate the scaled reduction based on reduction rate and percentage range
+  const scaledReduction =
+    (reductionRate *
+      (reductionPercentageRange.max - reductionPercentageRange.min)) /
+    100;
+
+  console.log("scaledReduction", scaledReduction);
+
+  return scaledReduction;
+} */
+
+/* function calculateReduction(min, max, quantity, reductionRate) {
+  if (quantity < min) quantity = min;
+  if (quantity > max) quantity = max;
+
+  // Calculate the percentage position of quantity between min and max
+  const percentagePosition = (quantity - min) / (max - min);
+
+  // Dynamically calculate a multiplier using a smooth transition
+  // Example: A cubic function that gives higher values for smaller percentages
+  const multiplier = 1 + 3.5 * Math.pow(1 - percentagePosition, 3);
+
+  console.log("multiplier", multiplier);
+
+  // Apply the multiplier to the reduction rate for a scaled reduction
+  const scaledReduction = reductionRate * multiplier;
+
+  console.log("scaledReduction", scaledReduction);
+
+  return scaledReduction;
+} */
+
 export function calculateTotal({
   tax = 0,
   price = 0,
@@ -15,6 +90,7 @@ export function calculateTotal({
   quantity = 1,
   per_quantity_price = 1,
   min_quantity = 1,
+  max_quantity = 100,
   reduction_percentage = 0,
   calculationType = "multiply",
   calc = false,
@@ -55,10 +131,18 @@ export function calculateTotal({
   const newIcrementalPrice = incrementQuantity * per_quantity_price + price;
 
   const reductedPrice =
-    newIcrementalPrice - newIcrementalPrice * (reduction_percentage / 100);
+    newIcrementalPrice -
+    newIcrementalPrice *
+      (calculateReduction(
+        min_quantity,
+        max_quantity,
+        quantity,
+        reduction_percentage
+      ) /
+        100);
 
   const total =
-    reductedPrice + delivery_charge + artwork_charge + tax - discount;
+    reductedPrice * (delivery_charge / 100) + artwork_charge + tax - discount;
   //TODO : END
 
   if (calc) {
