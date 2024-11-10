@@ -21,8 +21,6 @@ const AddressPageComponent = () => {
     enabled: !!session?.token,
   });
 
-  console.log(address_data);
-
   return (
     <section>
       {address_loading ? (

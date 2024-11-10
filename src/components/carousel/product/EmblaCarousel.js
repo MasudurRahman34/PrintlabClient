@@ -31,7 +31,6 @@ const EmblaCarousel = (props) => {
         <div className="embla__container">
           {slides?.map((bestSell, index) => {
             const product = bestSell?.itemable;
-            console.log(product);
 
             return (
               <div className="embla__slide" key={index}>

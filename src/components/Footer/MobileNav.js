@@ -1,21 +1,17 @@
-import React, { useState } from "react";
-import { IoChatboxEllipses } from "react-icons/io5";
+import React from "react";
+
 import { BsFillBasketFill } from "react-icons/bs";
 import Link from "next/link";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { checkQuantity } from "@/lib/utils";
 
 const MobileNav = ({
   addToCard,
   isPending,
-  matched,
+
   price,
   cart_items,
-  max_quantity,
-  quantity,
-  selectedDelivery,
-  min_quantity,
-  increment,
+
+  isDisabled,
 }) => {
   return (
     <div
@@ -29,15 +25,7 @@ const MobileNav = ({
         <button
           className="w-full h-full font-bold cursor-pointer disabled:opacity-50"
           onClick={addToCard}
-          disabled={
-            isPending ||
-            !matched ||
-            matched?.price <= 0 ||
-            !selectedDelivery ||
-            max_quantity < quantity ||
-            quantity < min_quantity ||
-            !checkQuantity(quantity, min_quantity, increment)
-          }
+          disabled={isDisabled}
         >
           {isPending ? (
             <AiOutlineLoading3Quarters className="text-2xl w-full text-[#AAAAAA] animate-spin flex items-center" />

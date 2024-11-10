@@ -242,7 +242,16 @@ export const getCategorySlug = (categories) => {
   }
 };
 
-export function checkQuantity(quantity, min_quantity, increment_of) {
+export function checkQuantity(
+  quantity,
+  min_quantity,
+  increment_of,
+  quantityRule
+) {
+  if (!quantityRule) {
+    return true;
+  }
+
   if (quantity < min_quantity) {
     return false;
   }

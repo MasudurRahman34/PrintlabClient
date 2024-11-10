@@ -2,8 +2,6 @@ import React from "react";
 import RefundRow from "./RefundRow";
 
 const RefundTable = ({ refunds }) => {
-  console.log(refunds);
-
   return (
     <table className="w-full border border-collapse border-gray-200">
       <thead>

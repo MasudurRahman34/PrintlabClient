@@ -30,8 +30,6 @@ const EmailVerify = () => {
     enabled: !!verify_url && !!session && !!signature,
   });
 
-  console.log("error", error);
-
   const { mutate, isPending } = useMutation({
     mutationKey: "resend-verification-email",
     mutationFn: resendVerificationEmailMutation,

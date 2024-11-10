@@ -137,6 +137,20 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
     data?.data?.productQuantityRule,
   ]);
 
+  const isDisabled =
+    isPending ||
+    !matched ||
+    matched?.price <= 0 ||
+    !selectedDelivery ||
+    matched?.max_quantity < quantity ||
+    quantity < matched?.min_quantity ||
+    !checkQuantity(
+      quantity,
+      matched?.min_quantity,
+      matched?.increment,
+      matched?.quantity_rule
+    );
+
   useEffect(() => {
     if (matched) {
       setQuantity(matched?.min_quantity);
@@ -369,19 +383,7 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
           <button
             className="w-full py-2.5 text-lg font-bold  border-2 bg-primary-light border-primary hover:bg-primary transition-colors duration-150 disabled:bg-secondary disabled:opacity-40  flex items-center justify-center "
             onClick={addToCart}
-            disabled={
-              isPending ||
-              !matched ||
-              matched?.price <= 0 ||
-              !selectedDelivery ||
-              matched?.max_quantity < quantity ||
-              quantity < matched?.min_quantity ||
-              !checkQuantity(
-                quantity,
-                matched?.min_quantity,
-                matched?.increment
-              )
-            }
+            disabled={isDisabled}
           >
             {isPending ? (
               <AiOutlineLoading3Quarters className="text-2xl text-[#AAAAAA] animate-spin flex items-center justify-center" />
@@ -392,28 +394,20 @@ const Combination = ({ data, isProductLoading, total_refetch, cart_items }) => {
         </div>
       </div>
       <TotalCounter
-        isPending={isPending}
         addToCard={addToCart}
-        matched={matched}
-        max_quantity={matched?.max_quantity}
         selectedDelivery={selectedDelivery}
-        quantity={quantity}
         excVatPrice={matched ? formatPrice(total) : formatPrice(0)}
         incVatPrice={matched ? formatPrice(total) : formatPrice(0)}
-        min_quantity={matched?.min_quantity}
-        increment={matched?.increment}
+        isDisabled={isDisabled}
+        isPending={isPending}
       />
       <MobileNav
         addToCard={addToCart}
-        isPending={isPending}
         cart_items={cart_items}
-        matched={matched}
-        quantity={quantity}
-        max_quantity={matched?.max_quantity}
         selectedDelivery={selectedDelivery}
+        isDisabled={isDisabled}
+        isPending={isPending}
         price={matched ? formatPrice(total) : formatPrice(0)}
-        min_quantity={matched?.min_quantity}
-        increment={matched?.increment}
       />
     </div>
   );
