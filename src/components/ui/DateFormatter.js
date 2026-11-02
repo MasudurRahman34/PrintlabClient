@@ -1,10 +1,10 @@
 import React from "react";
-import Moment from "react-moment";
+import moment from "moment";
 
 const DateFormatter = ({ dateInput, className }) => {
   return (
     <div className={className}>
-      <Moment format="YYYY-MM-DD">{dateInput}</Moment>
+      {dateInput ? moment(dateInput).format("YYYY-MM-DD") : null}
     </div>
   );
 };

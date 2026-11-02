@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "@/styles/embla_product_carousel.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-medium-image-zoom/dist/styles.css";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 export const metadata = {
   title: "weareprintlab",
