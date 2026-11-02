@@ -15,14 +15,14 @@ import { memo, useEffect, useState } from "react";
 import { checkoutMutation } from "@/resolvers/mutation";
 import useToastMessage from "@/hooks/useToastMessage";
 import { getDateAfterDays } from "@/lib/utils";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,
 });
 const ManullyAddress = () => {
-  const router = useRouter();
-  const { discount_code } = router.query;
+  const searchParams = useSearchParams();
+  const discount_code = searchParams?.get("discount_code");
   const showToastMessage = useToastMessage();
   const { session, isAuthenticated } = useAuth();
   const [checkout_state, set_checkout_state] = useState({

@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import mug from "../../public/assets/mug1.webp";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { truncateHTML } from "@/lib/utils";
 import Image from "next/image";
 
 const ShowCase = ({ title, subTitle, data, bg }) => {
-  const router = useRouter();
-  const { product_category } = router.query;
+  const params = useParams();
+  const product_category = params?.product_category;
 
   return (
     <section className={`${bg ? "bg-secondary" : ""}`}>

@@ -21,7 +21,7 @@ import { fileCheckCombinationQuery } from "@/resolvers/query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { IoCloudUploadOutline } from "react-icons/io5";

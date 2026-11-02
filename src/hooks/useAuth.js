@@ -1,6 +1,8 @@
+"use client";
+
 // hooks/useAuth.js
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
@@ -48,19 +50,6 @@ export const useAuth = () => {
   };
 
   const logout = async () => {
-    /* const response = await axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${session.token}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-    console.log(response); */
-
     // Remove user and session cookies
     removeCookie("user", { path: "/" });
     removeCookie("session", { path: "/" });

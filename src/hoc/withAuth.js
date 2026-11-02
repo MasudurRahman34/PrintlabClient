@@ -1,11 +1,13 @@
+"use client";
+
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, memo } from "react";
 
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
     const router = useRouter();
-    const pathname = router.pathname;
+    const pathname = usePathname();
 
     const { isAuthenticated, isLoading, user } = useAuth();
 
@@ -17,7 +19,7 @@ const withAuth = (WrappedComponent) => {
           router.replace("/verify-email-alert");
         }
       }
-    }, [isAuthenticated, isLoading, user]);
+    }, [isAuthenticated, isLoading, user, router, pathname]);
 
     if (isLoading) {
       return (
@@ -35,33 +37,29 @@ const withAuth = (WrappedComponent) => {
             />
           </svg>
         </div>
-      ); // or a loading spinner
+      );
     }
 
-    // If not loading, this component is responsible for rendering the wrapped component
-
     if (!isAuthenticated) {
-      return null; // or <Redirect to="/login" />
+      return null;
     } else if (isAuthenticated && user) {
       if (
         user.email_verified_at === null &&
         pathname !== "/verify-email-alert" &&
         pathname !== "/email-verify"
       ) {
-        return null; // or <Redirect to="/verify-email-alert" />
+        return null;
       }
     }
 
     return <WrappedComponent {...props} />;
   };
 
-  // Set a display name for easier debugging
   WithAuth.displayName = `WithAuth(${getDisplayName(WrappedComponent)})`;
 
   return memo(WithAuth);
 };
 
-// Helper function to get the display name of the wrapped component
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }

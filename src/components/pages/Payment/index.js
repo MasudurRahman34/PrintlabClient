@@ -7,7 +7,7 @@ import { createCheckoutSessionMutation } from "@/resolvers/mutation";
 import { useAuth } from "@/hooks/useAuth";
 import useToastMessage from "@/hooks/useToastMessage";
 import Loader from "@/components/Loader/Loader";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Stepper = dynamic(() => import("@/components/pages/Checkout/Stepper"), {
   ssr: false,

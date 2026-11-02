@@ -3,7 +3,7 @@ import LabAccordion from "@/components/ui/LabAccordion";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { calculateTotal, formatPrice } from "@/lib/utils";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useMemo } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 import DiscountCode from "./DiscountCode";
@@ -23,7 +23,10 @@ const OrderSummary = ({
 }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const { discount_type, discount, discount_code } = router.query;
+  const searchParams = useSearchParams();
+  const discount_type = searchParams?.get("discount_type");
+  const discount = searchParams?.get("discount");
+  const discount_code = searchParams?.get("discount_code");
 
   const link =
     discount_code && discount_type && discount
@@ -102,8 +105,11 @@ const MobileCheckoutSummary = ({
   next,
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const { discount_type, discount, discount_code } = router.query;
+  const discount_type = searchParams?.get("discount_type");
+  const discount = searchParams?.get("discount");
+  const discount_code = searchParams?.get("discount_code");
 
   const link =
     discount_code && discount_type && discount
@@ -175,7 +181,9 @@ const CheckoutSummary = ({
 }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const { discount_type, discount } = router.query;
+  const searchParams = useSearchParams();
+  const discount_type = searchParams?.get("discount_type");
+  const discount = searchParams?.get("discount");
 
   const {
     sub_total,

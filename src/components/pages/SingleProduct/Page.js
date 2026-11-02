@@ -4,7 +4,7 @@ import SinglePageAccordion from "@/components/pages/SingleProduct/Accordion";
 import Commitment from "@/components/Commitment";
 import ImageGallery from "react-image-gallery";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { getSingleProductQuery } from "@/resolvers/query";
 import Combination from "./Combination";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,8 +14,9 @@ import Image from "next/image";
 // import detaisimg  from "./assete/products/placehounder.png";
 
 const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
-  const router = useRouter();
-  const { single_product, product_category } = router.query;
+  const params = useParams();
+  const single_product = params?.single_product;
+  const product_category = params?.product_category;
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: [`product-${single_product}`, single_product],
@@ -44,7 +45,7 @@ const SingleProductPageComponent = ({ total_refetch, cart_items }) => {
         },
       ];
     }
-  }, [data?.data]);
+  }, [data?.data?.media]);
 
   if (isLoading) {
     return (

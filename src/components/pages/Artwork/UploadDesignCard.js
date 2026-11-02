@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdDelete, MdOutlineLock } from "react-icons/md";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/hooks/useAuth";
 import LabAccordion from "@/components/ui/LabAccordion";

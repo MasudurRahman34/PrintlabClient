@@ -11,7 +11,7 @@ import Link from "next/link";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import OrderCard from "./OrderCard";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleOrderQuery } from "@/resolvers/query";
@@ -20,8 +20,8 @@ import ApplyForRefund from "../../../pages/refund/ApplyForRefund";
 
 const SingleOrderComponent = () => {
   const { isAuthenticated, session } = useAuth();
-  const router = useRouter();
-  const { order_id } = router.query;
+  const params = useParams();
+  const order_id = params?.order_id;
 
   const { data, isLoading, isError, refetch, isSuccess, error } = useQuery({
     queryKey: ["single_order", session?.token, order_id],

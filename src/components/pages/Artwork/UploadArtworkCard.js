@@ -10,7 +10,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdDelete, MdOutlineLock } from "react-icons/md";
 
 import CheckStatus from "./CheckStatus";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { checkPdfFile } from "@/lib/fileChecker";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,11 +28,14 @@ const UploadArtworkCard = ({
   const showToastMessage = useToastMessage();
   const { session } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
-  const { discount_type, discount, discount_code } = router.query;
+  const discount_type = searchParams?.get("discount_type");
+  const discount = searchParams?.get("discount");
+  const discount_code = searchParams?.get("discount_code");
 
   const [checkFile, setCheckFile] = useState({
     Bleed: {

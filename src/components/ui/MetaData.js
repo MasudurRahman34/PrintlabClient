@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React from "react";
 
 const MetaData = ({
@@ -7,11 +6,11 @@ const MetaData = ({
   keywords = "print lab, custom printing, printing services",
 }) => {
   return (
-    <Head>
-      <title>weareprintlab {title && `- ${title}`}</title>
+    <>
+      <title>{`weareprintlab ${title ? `- ${title}` : ""}`}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-    </Head>
+    </>
   );
 };
 
